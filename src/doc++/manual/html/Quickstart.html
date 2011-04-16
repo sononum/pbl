@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE> Quickstart</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2> <A HREF="#DOC.DOCU">Quickstart</A></H2></H2><A NAME="DOC.DOCU"></A>
+<BLOCKQUOTE>
+If you want to jump straight into using DOC++, add a line like<BR>
+<TT></TT><BR>
+<TT>&nbsp;&nbsp;///&nbsp;</TT> ...<BR>
+<TT></TT><BR>
+<EM>before</EM> each function, variable, class, define, etc. you wish to
+document. For ``...'' you may choose to add a short documentation string
+for the entry. You will typically want to do so for your header files
+only. If you intend to write more than one line of documentation,
+succeed this line with a comment like<BR>
+<TT></TT><BR>
+<TT>&nbsp;&nbsp;/**</TT><BR>
+<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>...<BR>
+<TT>&nbsp;&nbsp;&nbsp;*</TT><TT>/</TT><BR>
+<TT></TT><BR>
+and put the long documentation text in place of ``...''. A source file
+containing such comments is said to be <EM>docified</EM>. You may call<BR>
+<TT></TT><BR>
+<TT>&gt;&nbsp;docify&nbsp;&lt;</TT>original<TT>&gt;&nbsp;&lt;</TT>docfile<TT>&gt;</TT><BR>
+<TT></TT><BR>
+from your shell to create a docified copy <TT>&lt;</TT>docfile<TT>&gt;</TT> form your
+<TT>&lt;</TT>original<TT>&gt;</TT> file. The ``<TT>&gt;</TT>'' indicates the shell prompt and must not to
+be typed.
+
+<P>Now run DOC++ by typing:<BR>
+<TT></TT><BR>
+<TT>&gt;&nbsp;doc++&nbsp;--dir&nbsp;html&nbsp;&lt;files&gt;</TT><BR>
+<TT></TT><BR>
+for HTML output or<BR>
+<TT></TT><BR>
+<TT>&gt;&nbsp;doc++&nbsp;--tex&nbsp;--output&nbsp;doc.tex&nbsp;&lt;files&gt;</TT><BR>
+<TT></TT><BR>
+for TeX output in you shell, where <TT>&lt;</TT>files<TT>&gt;</TT> is the list of docified
+files.
+
+<P>Each `<TT>///</TT>' -comment yields one manual entry.
+If you need to group manual entries, you may do so with the construction:<BR>
+<TT></TT><BR>
+<TT>&nbsp;&nbsp;/**@name</TT> <TT>&lt;</TT>name for the group<TT>&gt;</TT><BR>
+<TT>&nbsp;&nbsp;&nbsp;*&nbsp;</TT> <TT>&lt;</TT>documentation for the group<TT>&gt;</TT><BR>
+<TT>&nbsp;&nbsp;&nbsp;*</TT><TT>/</TT><BR>
+<TT>&nbsp;&nbsp;//@{</TT><BR>
+<TT>&nbsp;&nbsp;&nbsp;&nbsp;&lt;</TT>other manual entries<TT>&gt;</TT><BR>
+<TT>&nbsp;&nbsp;//@}</TT><BR>
+<TT></TT> <BR>
+This will create an entry with the specified name, that contains all
+<TT>&lt;</TT>other manual entries<TT>&gt;</TT> as subentries. Note, however, that class members
+are automatically set as subentries of the class's manual entry. You also
+may include other files using the comment:<BR>
+<TT></TT> <BR>
+<TT>&nbsp;&nbsp;//@Include:&nbsp;&lt;</TT>file(s)<TT>&gt;</TT><BR> 
+<TT></TT> <BR></BLOCKQUOTE>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">Hierarchy of classes</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

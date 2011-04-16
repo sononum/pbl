@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE> Usage</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2> <A HREF="#DOC.DOCU">Usage</A></H2></H2>
+<HR>
+<DL>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="Command Line Options"></A>
+<A HREF=CommandLineOptions.html><B>Command Line Options</B></A><DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="Configuration File"></A>
+<A HREF=ConfigurationFile.html><B>Configuration File</B></A></DL>
+<A NAME="DOC.DOCU"></A>
+<BLOCKQUOTE>
+In addition to command line / configuration file options, the TeX output
+can be customized by editing the style file ``<TT>docxx.sty</TT>'' (sorry,
+there is no documentation on how to do this).
+
+<P>In addition to command line / configuration file options, the HTML
+output can be customized by means of the following 6 files:
+
+<P><DL>
+<DT><B>indexHeader.inc</B><DD>		Header for index HTML pages
+<DT><B>indexFooter.inc</B><DD>		Footer for index HTML pages
+<DT><B>hierHeader.inc</B><DD>		Header for class hierarchy HTML pages
+<DT><B>hierFooter.inc</B><DD>		Footer for class hierarchy HTML pages
+<DT><B>classHeader.inc</B><DD>		Header for all other HTML pages
+<DT><B>classFooter.inc</B><DD>		Footer for all other HTML pages
+</DL>
+
+<P>If one or more of these files are found in the current directory, the
+corresponding part of a HTML page is substituted by the contents of the
+file. The `<TT>indexHeader.inc</TT>' and `<TT>hierHeader.inc</TT>' files should start
+with ``<TT>&lt;HTML&gt;&lt;TITLE&gt;&nbsp;...</TT>''. File `<TT>classHeader.inc</TT>' should start with
+``<TT>&lt;BODY&gt;&nbsp;...</TT>'', since for such pages DOC++ sets up the title.
+
+<P>The HTML page header and footer may contain one or more template
+strings, which will be substituted by DOC++ at documentation generating
+time:
+
+<P><DL>
+<DT><B>%file</B><DD>
+entry's file name
+<DT><B>%fullname</B><DD>
+entry's full name (includes the inheritance)
+<DT><B>%name</B><DD>
+entry's name
+<DT><B>%type</B><DD>
+entry's return type
+</DL>
+
+<P>As an example, the TeX version of this document has been generated
+with
+
+<P><PRE>
+	&nbsp;&nbsp;&nbsp;&nbsp;doc++&nbsp;--tex&nbsp;--output&nbsp;doc.tex&nbsp;--package&nbsp;a4wide&nbsp;doc.dxx
+	</PRE>
+
+<P>while the HTML version has been created using
+
+<P><PRE>
+	&nbsp;&nbsp;&nbsp;&nbsp;doc++&nbsp;--dir&nbsp;html&nbsp;doc.dxx
+	</PRE>
+
+<P>As you can see, this documentation itself is written using DOC++ in
+order to gain the benefits of having just one documentation source and
+two different output possibilities.</BLOCKQUOTE>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">Hierarchy of classes</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

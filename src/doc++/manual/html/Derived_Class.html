@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>class  Derived_Class</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2>class  <A HREF="#DOC.DOCU">Derived_Class</A></H2></H2><BLOCKQUOTE>A derived class.</BLOCKQUOTE>
+<HR>
+
+<H2>Inheritance:</H2>
+<APPLET CODE="ClassGraph.class" WIDTH=600 HEIGHT=155>
+<param name=classes value="MNotDocified,M,CCommonBase,MCommonBase.html,CIntermediate,MIntermediate.html,CCommonBase,MCommonBase.html,CDerived_Class,MDerived_Class.html">
+<param name=before value="M,M,M,M,M">
+<param name=after value="Ml_SP,MD_SP,Ml-,MD_,M">
+<param name=indent value="0,0,1,1,2">
+<param name=arrowdir value="down">
+</APPLET>
+<HR>
+
+<DL>
+<P><DL>
+<DT><H3>Public Fields</H3><DD><DT>
+<IMG ALT="[more]" BORDER=0 SRC=icon1.gif> <B><A HREF="#DOC.1.4.3.1">parameters </A></B>
+</DL></P>
+
+<P><DL>
+<DT><H3>Public Methods</H3><DD><DT>
+<IMG ALT="[more]" BORDER=0 SRC=icon1.gif> <B><A HREF="#DOC.1.4.3.2">methods </A></B>
+</DL></P>
+
+</DL>
+<HR><H3>Inherited from <A HREF="CommonBase.html">CommonBase</A>:</H3>
+<DL>
+<P><DL>
+<DT><H3>Public Methods</H3><DD><DT>
+<IMG ALT="o" SRC=icon2.gif>const <!1><A HREF="Derived_Class.html">Derived_Class</A>&amp; <B>getB</B>(constIntermediate&amp; c) const 
+</DL></P>
+
+<P><DL>
+<DT><H3>Protected Fields</H3><DD><DT>
+<IMG ALT="o" SRC=icon2.gif>double <B>variable</B>
+</DL></P>
+
+</DL>
+<HR><H3>Inherited from <A HREF="Intermediate.html">Intermediate</A>:</H3>
+<DL>
+</DL>
+<HR><H3>Inherited from <A HREF="CommonBase.html">CommonBase</A>:</H3>
+<DL>
+<P><DL>
+<DT><H3>Public Methods</H3><DD><DT>
+<IMG ALT="o" SRC=icon2.gif>const <!1><A HREF="Derived_Class.html">Derived_Class</A>&amp; <B>getB</B>(constIntermediate&amp; c) const 
+</DL></P>
+
+<P><DL>
+<DT><H3>Protected Fields</H3><DD><DT>
+<IMG ALT="o" SRC=icon2.gif>double <B>variable</B>
+</DL></P>
+
+</DL>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>A derived class.
+Here we show multiple inheritance from two docified classes.
+This example shows how to structure the members of a class, if desired.
+
+<P>This is how this documentation has been generated:
+<PRE>
+&nbsp;&nbsp;&nbsp;&nbsp;/**&nbsp;A&nbsp;derived&nbsp;class.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here&nbsp;we&nbsp;show&nbsp;multiple&nbsp;inheritance&nbsp;from&nbsp;two&nbsp;docified&nbsp;classes.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;example&nbsp;shows&nbsp;how&nbsp;to&nbsp;structure&nbsp;the&nbsp;members&nbsp;of&nbsp;a&nbsp;class,&nbsp;if&nbsp;desired.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;how&nbsp;this&nbsp;documentation&nbsp;has&nbsp;been&nbsp;generated:
+&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;/
+
+&nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;Derived_Class&nbsp;:&nbsp;public&nbsp;CommonBase,&nbsp;protected&nbsp;Intermediate&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/**@name&nbsp;parameters&nbsp;*&nbsp;/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//@{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;the&nbsp;first&nbsp;parameter
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double&nbsp;a;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;a&nbsp;second&nbsp;parameter
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;b;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//@}
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/**@name&nbsp;methods&nbsp;*&nbsp;/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//@{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;constructor
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/**&nbsp;This&nbsp;constructor&nbsp;takes&nbsp;two&nbsp;arguments,&nbsp;just&nbsp;for&nbsp;the&nbsp;sake&nbsp;of
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;demonstrating&nbsp;how&nbsp;documented&nbsp;members&nbsp;are&nbsp;displayed&nbsp;by&nbsp;DOC++.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;a&nbsp;this&nbsp;is&nbsp;good&nbsp;for&nbsp;many&nbsp;things
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@param&nbsp;b&nbsp;this&nbsp;is&nbsp;good&nbsp;for&nbsp;nothing
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DerivedClass(double&nbsp;a,&nbsp;int&nbsp;b);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;destructor
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~DerivedClass();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//@}
+&nbsp;&nbsp;&nbsp;&nbsp;};
+&nbsp;&nbsp;&nbsp;&nbsp;</PRE></BLOCKQUOTE>
+<DL>
+
+<A NAME="parameters "></A>
+<A NAME="DOC.1.4.3.1"></A>
+<DT><IMG ALT="o" BORDER=0 SRC=icon2.gif><TT><B> parameters </B></TT>
+<DL><DT><DD></DL><P><DL>
+
+<A NAME="a"></A>
+<A NAME="DOC.1.4.3.1.1"></A>
+<DT><IMG ALT="o" BORDER=0 SRC=icon2.gif><TT><B>double a</B></TT>
+<DD>the first parameter
+<DL><DT><DD></DL><P>
+<A NAME="b"></A>
+<A NAME="DOC.1.4.3.1.2"></A>
+<DT><IMG ALT="o" BORDER=0 SRC=icon2.gif><TT><B>int b</B></TT>
+<DD>a second parameter
+<DL><DT><DD></DL><P></DL>
+
+<A NAME="methods "></A>
+<A NAME="DOC.1.4.3.2"></A>
+<DT><IMG ALT="o" BORDER=0 SRC=icon2.gif><TT><B> methods </B></TT>
+<DL><DT><DD></DL><P><DL>
+
+<A NAME="Derived_Class"></A>
+<A NAME="DOC.1.4.3.2.1"></A>
+<DT><IMG ALT="o" BORDER=0 SRC=icon2.gif><TT><B> Derived_Class(double <!1><A HREF="Derived_Class.html#DOC.1.4.3.1.1">a</A>, int <!1><A HREF="Derived_Class.html#DOC.1.4.3.1.2">b</A>)</B></TT>
+<DD>Constructor.
+This constructor takes two arguments, just for the sake of
+demonstrating how documented members are displayed by DOC++.
+
+<DL><DT><DT><B>Parameters:</B><DD><B></B> - <!1><A HREF="Derived_Class.html#DOC.1.4.3.1.1">a</A> this is good for many things
+<BR><B></B> - <!1><A HREF="Derived_Class.html#DOC.1.4.3.1.2">b</A> this is good for nothing<BR><DD></DL><P>
+<A NAME="~Derived_Class"></A>
+<A NAME="DOC.1.4.3.2.2"></A>
+<DT><IMG ALT="o" BORDER=0 SRC=icon2.gif><TT><B> ~Derived_Class()</B></TT>
+<DD>destructor
+<DL><DT><DD></DL><P></DL>
+</DL>
+
+<HR><DL><DT><B>This class has no child classes.</B></DL>
+
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">HTML hierarchy of classes</A> or <A HREF="HIERjava.html">Java</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+/** @name Quickstart
+
+    If you want to jump straight into using DOC++, add a line like\\
+    ##\\
+    #  /// # ...\\
+    ##\\
+    {\em before} each function, variable, class, define, etc. you wish to
+    document. For ``...'' you may choose to add a short documentation string
+    for the entry. You will typically want to do so for your header files
+    only. If you intend to write more than one line of documentation,
+    succeed this line with a comment like\\
+    ##\\
+    #  /**#\\
+    #     #...\\
+    #   *##/#\\
+    ##\\
+    and put the long documentation text in place of ``...''. A source file
+    containing such comments is said to be {\em docified}. You may call\\
+    ##\\
+    #> docify <#original#> <#docfile#>#\\
+    ##\\
+    from your shell to create a docified copy #<#docfile#># form your
+    #<#original#># file. The ``#>#'' indicates the shell prompt and must not to
+    be typed.
+
+    Now run DOC++ by typing:\\
+    ##\\
+    #> doc++ --dir html <files>#\\
+    ##\\
+    for HTML output or\\
+    ##\\
+    #> doc++ --tex --output doc.tex <files>#\\
+    ##\\
+    for TeX output in you shell, where #<#files#># is the list of docified
+    files.
+
+    Each `#///#' -comment yields one manual entry.
+    If you need to group manual entries, you may do so with the construction:\\
+    ##\\
+    #  /**@name# #<#name for the group#>#\\
+    #   * # #<#documentation for the group#>#\\
+    #   *##/#\\
+    #  //@{#\\
+    #    <#other manual entries#>#\\
+    #  //@}#\\
+    ## \\
+    This will create an entry with the specified name, that contains all
+    #<#other manual entries#># as subentries. Note, however, that class members
+    are automatically set as subentries of the class's manual entry. You also
+    may include other files using the comment:\\
+    ## \\
+    #  //@Include: <#file(s)#>#\\ 
+    ## \\
+*/

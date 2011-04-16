@@ -1,0 +1,339 @@
+ <TABLE width=100% border=0>
+<TR>
+<TD align=left>
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a>
+
+<TD align=left>
+<h2></H2>
+</TR>
+</TABLE>
+<center>
+<H1>Documentation for PBL</H1>
+The Program Base Library
+</center>
+
+<H1>Table of Contents</H1>
+<H2>General stuff</H2>
+<UL>
+<LI><A HREF="AIntroduction.html">A: Introduction</A>
+<LI><A HREF="BFiles.html">B: Files</A>
+<LI><A HREF="CErrorcodes.html">C: Error codes</A>
+<LI><A HREF="DDefinitionsforKeyFileParameters.html">D: Definitions for Key File Parameters</A>
+<LI><A HREF="EDefinitionsforISAMParameters.html">E: Definitions for ISAM Parameters</A>
+</UL>
+<H2>Functions</H2>
+<UL>
+<LI><A HREF="pblCollectionAggregate.html">pblCollectionAggregate</A> <I> Aggregates a collection by calling the aggregation function on every element of the collection while running through the collection with an iterator.</I>
+<LI><A HREF="pblCollectionContains.html">pblCollectionContains</A> <I> Returns true if this collection contains the specified element.</I>
+<LI><A HREF="pblCollectionConvertToArrayList.html">pblCollectionConvertToArrayList</A> <I> Returns a pblArrayList with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToHashSet.html">pblCollectionConvertToHashSet</A> <I> Returns a pblHashSet with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToLinkedList.html">pblCollectionConvertToLinkedList</A> <I> Returns a pblLinkedList with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToTreeSet.html">pblCollectionConvertToTreeSet</A> <I> Returns a pblTreeSet with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionElementCompare.html">pblCollectionElementCompare</A> <I> Compare two elements of a collection.</I>
+<LI><A HREF="pblCollectionIsCollection.html">pblCollectionIsCollection</A> <I> Tests if the object is a collection.</I>
+<LI><A HREF="pblCollectionSetCompareFunction.html">pblCollectionSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the collection.</I>
+<LI><A HREF="pblCollectionStringCompareFunction.html">pblCollectionStringCompareFunction</A> <I> Compares two '\0' terminated strings.</I>
+<LI><A HREF="pblHeapAddLast.html">pblHeapAddLast</A> <I> Adds the element to the end of the heap without ensuring the heap condition.</I>
+<LI><A HREF="pblHeapClear.html">pblHeapClear</A> <I> Removes all of the elements from the heap.</I>
+<LI><A HREF="pblHeapConstruct.html">pblHeapConstruct</A> <I> Constructs a heap using 'bottom-up heap construction'.</I>
+<LI><A HREF="pblHeapEnsureCapacity.html">pblHeapEnsureCapacity</A> <I> Increases the capacity of the heap, if necessary.</I>
+<LI><A HREF="pblHeapEnsureCondition.html">pblHeapEnsureCondition</A> <I> Ensures the heap condition of the heap for the element with the given index.</I>
+<LI><A HREF="pblHeapEnsureConditionFirst.html">pblHeapEnsureConditionFirst</A> <I> Ensures the heap condition for the first element.</I>
+<LI><A HREF="pblHeapFree.html">pblHeapFree</A> <I> Frees the heap's memory from heap.</I>
+<LI><A HREF="pblHeapGet.html">pblHeapGet</A> <I> Returns the element at the specified position in the heap.</I>
+<LI><A HREF="pblHeapGetCapacity.html">pblHeapGetCapacity</A> <I> Returns the capacity of the heap.</I>
+<LI><A HREF="pblHeapGetFirst.html">pblHeapGetFirst</A> <I> Returns but does not remove the element at the top of the heap.</I>
+<LI><A HREF="pblHeapInsert.html">pblHeapInsert</A> <I> Inserts the element into the heap and maintains the heap condition of the heap.</I>
+<LI><A HREF="pblHeapIsEmpty.html">pblHeapIsEmpty</A> <I> Tests if the heap has no elements.</I>
+<LI><A HREF="pblHeapIterator.html">pblHeapIterator</A> <I> Returns an iterator over the elements in the heap.</I>
+<LI><A HREF="pblHeapJoin.html">pblHeapJoin</A> <I> Joins the two heaps by moving all elements of the 'other' heap.</I>
+<LI><A HREF="pblHeapNew.html">pblHeapNew</A> <I> Creates a new heap.</I>
+<LI><A HREF="pblHeapRemoveAt.html">pblHeapRemoveAt</A> <I> Removes the element at the specified position from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapRemoveFirst.html">pblHeapRemoveFirst</A> <I> Removes the biggest element from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapRemoveLast.html">pblHeapRemoveLast</A> <I> Removes the last element from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapSetCompareFunction.html">pblHeapSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the heap.</I>
+<LI><A HREF="pblHeapSize.html">pblHeapSize</A> <I> Returns the number of elements in the heap.</I>
+<LI><A HREF="pblHeapTrimToSize.html">pblHeapTrimToSize</A> <I> Trims the capacity of the heap to the heap's current size.</I>
+<LI><A HREF="pblHtCreate.html">pblHtCreate</A> <I> Create a new hash table.</I>
+<LI><A HREF="pblHtCurrent.html">pblHtCurrent</A> <I> Get data of current key in hash table.</I>
+<LI><A HREF="pblHtCurrentKey.html">pblHtCurrentKey</A> <I> Get key of current item in hash table.</I>
+<LI><A HREF="pblHtDelete.html">pblHtDelete</A> <I> Delete a hash table.</I>
+<LI><A HREF="pblHtFirst.html">pblHtFirst</A> <I> Get data of first key in hash table.</I>
+<LI><A HREF="pblHtInsert.html">pblHtInsert</A> <I> Insert a key / data pair into a hash table.</I>
+<LI><A HREF="pblHtLookup.html">pblHtLookup</A> <I> Search for a key in a hash table.</I>
+<LI><A HREF="pblHtNext.html">pblHtNext</A> <I> Get data of next key in hash table.</I>
+<LI><A HREF="pblHtRemove.html">pblHtRemove</A> <I> Remove an item from the hash table.</I>
+<LI><A HREF="pblISAMFILE_TestFrame.html">pblISAMFILE_TestFrame</A> <I> test frame for the ISAM file library</I>
+<LI><A HREF="pblIsamClose.html">pblIsamClose</A> <I> close an ISAM file</I>
+<LI><A HREF="pblIsamCommit.html">pblIsamCommit</A> <I> commit or rollback changes done during a transaction</I>
+<LI><A HREF="pblIsamDelete.html">pblIsamDelete</A> <I> delete the current record of the ISAM file.</I>
+<LI><A HREF="pblIsamFind.html">pblIsamFind</A> <I> find a record in an ISAM file, set the current record</I>
+<LI><A HREF="pblIsamFlush.html">pblIsamFlush</A> <I> flush an ISAM file</I>
+<LI><A HREF="pblIsamGet.html">pblIsamGet</A> <I> get the key and keylen of a record</I>
+<LI><A HREF="pblIsamInsert.html">pblIsamInsert</A> <I> insert a new record with the given keys and data into the isam file,</I>
+<LI><A HREF="pblIsamOpen.html">pblIsamOpen</A> <I> open an ISAM file, creates the file if necessary</I>
+<LI><A HREF="pblIsamReadData.html">pblIsamReadData</A> <I> read the data of the current record</I>
+<LI><A HREF="pblIsamReadDatalen.html">pblIsamReadDatalen</A> <I> read the datalen of the current record</I>
+<LI><A HREF="pblIsamReadKey.html">pblIsamReadKey</A> <I> read the key and keylen of the current record</I>
+<LI><A HREF="pblIsamSetCompareFunction.html">pblIsamSetCompareFunction</A> <I> set an application specific compare function for a key of an ISAM file</I>
+<LI><A HREF="pblIsamStartTransaction.html">pblIsamStartTransaction</A> <I> start a transaction on a set of ISAM files</I>
+<LI><A HREF="pblIsamUpdateData.html">pblIsamUpdateData</A> <I> update the data of the current record</I>
+<LI><A HREF="pblIsamUpdateKey.html">pblIsamUpdateKey</A> <I> update a key of the current record of the ISAM file</I>
+<LI><A HREF="pblIteratorAdd.html">pblIteratorAdd</A> <I> Inserts the specified element into the underlying collection.</I>
+<LI><A HREF="pblIteratorFree.html">pblIteratorFree</A> <I> Frees the memory used by the iterator.</I>
+<LI><A HREF="pblIteratorHasNext.html">pblIteratorHasNext</A> <I> Returns true if this iterator has more elements.</I>
+<LI><A HREF="pblIteratorHasPrevious.html">pblIteratorHasPrevious</A> <I> Returns true if this iterator has more elements when traversing the collection in the reverse direction.</I>
+<LI><A HREF="pblIteratorNew.html">pblIteratorNew</A> <I> Returns an iterator over the elements in this collection in proper sequence.</I>
+<LI><A HREF="pblIteratorNext.html">pblIteratorNext</A> <I> Returns the next element in the iteration.</I>
+<LI><A HREF="pblIteratorNextIndex.html">pblIteratorNextIndex</A> <I> Returns the index of the element that would be returned by a subsequent call to next.</I>
+<LI><A HREF="pblIteratorPrevious.html">pblIteratorPrevious</A> <I> Returns the previous element in the iteration.</I>
+<LI><A HREF="pblIteratorPreviousIndex.html">pblIteratorPreviousIndex</A> <I> Returns the index of the element that would be returned by a subsequent call to previous.</I>
+<LI><A HREF="pblIteratorRemove.html">pblIteratorRemove</A> <I> Removes from the underlying list or tree set the last element returned by the iterator.</I>
+<LI><A HREF="pblIteratorReverseNew.html">pblIteratorReverseNew</A> <I> Returns a reverse iterator over the elements in this collection in proper sequence.</I>
+<LI><A HREF="pblIteratorSet.html">pblIteratorSet</A> <I> Replaces in the underlying list the last element returned by next or previous with the specified element.</I>
+<LI><A HREF="pblIteratorSize.html">pblIteratorSize</A> <I> Returns the number of elements in the underlying collection of the iterator.</I>
+<LI><A HREF="pblKEYFILE_TestFrame.html">pblKEYFILE_TestFrame</A> <I> test frame for the key file library</I>
+<LI><A HREF="pblKfClose.html">pblKfClose</A> <I> close a key file</I>
+<LI><A HREF="pblKfCommit.html">pblKfCommit</A> <I> commit or rollback changes done during a transaction.</I>
+<LI><A HREF="pblKfCreate.html">pblKfCreate</A> <I> create a key file with the name specified by path.</I>
+<LI><A HREF="pblKfDelete.html">pblKfDelete</A> <I> delete the current record of the key file.</I>
+<LI><A HREF="pblKfFind.html">pblKfFind</A> <I> find a record in a key file, set the current record</I>
+<LI><A HREF="pblKfFlush.html">pblKfFlush</A> <I> flush a key file</I>
+<LI><A HREF="pblKfGetAbs.html">pblKfGetAbs</A> <I> set current record to a record with an absolute position index</I>
+<LI><A HREF="pblKfGetRel.html">pblKfGetRel</A> <I> set current record to a record with a relative position index</I>
+<LI><A HREF="pblKfInit.html">pblKfInit</A> <I> change the number of cache blocks used per open key file</I>
+<LI><A HREF="pblKfInsert.html">pblKfInsert</A> <I> insert a new record with the given key and data into a key file,</I>
+<LI><A HREF="pblKfOpen.html">pblKfOpen</A> <I> open an existing key file</I>
+<LI><A HREF="pblKfRead.html">pblKfRead</A> <I> read the data of the current record of the file</I>
+<LI><A HREF="pblKfRestorePosition.html">pblKfRestorePosition</A> <I> restore the position of the current record saved by the last previous call to <!1><A HREF="pblKfSavePosition.html">pblKfSavePosition</A>().</I>
+<LI><A HREF="pblKfSavePosition.html">pblKfSavePosition</A> <I> save the position of the current record for later restore</I>
+<LI><A HREF="pblKfSetCompareFunction.html">pblKfSetCompareFunction</A> <I> set an application specific compare function for the keys of a key file</I>
+<LI><A HREF="pblKfStartTransaction.html">pblKfStartTransaction</A> <I> start a transaction on a key file</I>
+<LI><A HREF="pblKfUpdate.html">pblKfUpdate</A> <I> update the data of the current record</I>
+<LI><A HREF="pblListAdd.html">pblListAdd</A> <I> Appends the specified element to the end of this list.</I>
+<LI><A HREF="pblListAddAll.html">pblListAddAll</A> <I> Appends all of the elements in the specified Collection to the end of this list, in the order that they are returned by the specified Collection's Iterator.</I>
+<LI><A HREF="pblListAddAllAt.html">pblListAddAllAt</A> <I> Inserts all of the elements in the specified collection into this list at the specified position.</I>
+<LI><A HREF="pblListAddAt.html">pblListAddAt</A> <I> Inserts the specified element at the specified position in this list.</I>
+<LI><A HREF="pblListAddFirst.html">pblListAddFirst</A> <I> Inserts the given element at the beginning of this list.</I>
+<LI><A HREF="pblListAddLast.html">pblListAddLast</A> <I> Appends the given element to the end of this list.</I>
+<LI><A HREF="pblListClear.html">pblListClear</A> <I> Removes all of the elements from this list.</I>
+<LI><A HREF="pblListClone.html">pblListClone</A> <I> Returns a shallow copy of this list instance.</I>
+<LI><A HREF="pblListCloneRange.html">pblListCloneRange</A> <I> Returns a shallow copy from this list of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListContains.html">pblListContains</A> <I> Returns true if this list contains the specified element.</I>
+<LI><A HREF="pblListContainsAll.html">pblListContainsAll</A> <I> Returns a value > 0 if this list contains all of the elements in the specified collection.</I>
+<LI><A HREF="pblListElement.html">pblListElement</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListEnsureCapacity.html">pblListEnsureCapacity</A> <I> Increases the capacity of this list instance, if necessary.</I>
+<LI><A HREF="pblListEquals.html">pblListEquals</A> <I> Compares the specified collection with this list for equality.</I>
+<LI><A HREF="pblListFree.html">pblListFree</A> <I> Free the list's memory from heap.</I>
+<LI><A HREF="pblListGet.html">pblListGet</A> <I> Returns the element at the specified position in this list.</I>
+<LI><A HREF="pblListGetCapacity.html">pblListGetCapacity</A> <I> Returns the capacity of this list instance.</I>
+<LI><A HREF="pblListGetCompareFunction.html">pblListGetCompareFunction</A> <I> Gets the application specific compare function for the elements of the list.</I>
+<LI><A HREF="pblListGetFirst.html">pblListGetFirst</A> <I> Returns the first element in this list.</I>
+<LI><A HREF="pblListGetLast.html">pblListGetLast</A> <I> Returns the last element in this list.</I>
+<LI><A HREF="pblListHead.html">pblListHead</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListIndexOf.html">pblListIndexOf</A> <I> Searches for the first occurence of the given argument.</I>
+<LI><A HREF="pblListIsArrayList.html">pblListIsArrayList</A> <I> Tests if the object is an array list.</I>
+<LI><A HREF="pblListIsEmpty.html">pblListIsEmpty</A> <I> Tests if this list has no elements.</I>
+<LI><A HREF="pblListIsLinkedList.html">pblListIsLinkedList</A> <I> Tests if the object is a linked list.</I>
+<LI><A HREF="pblListIsList.html">pblListIsList</A> <I> Tests if the object is a list.</I>
+<LI><A HREF="pblListIterator.html">pblListIterator</A> <I> Returns an iterator over the elements in this list in proper sequence.</I>
+<LI><A HREF="pblListLastIndexOf.html">pblListLastIndexOf</A> <I> Searches for the last occurence of the given argument.</I>
+<LI><A HREF="pblListNewArrayList.html">pblListNewArrayList</A> <I> Creates a new array list.</I>
+<LI><A HREF="pblListNewLinkedList.html">pblListNewLinkedList</A> <I> Creates a new linked list.</I>
+<LI><A HREF="pblListOffer.html">pblListOffer</A> <I> Adds the specified element as the tail (last element) of this list.</I>
+<LI><A HREF="pblListPeek.html">pblListPeek</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListPoll.html">pblListPoll</A> <I> Retrieves and removes the head (first element) of this list.</I>
+<LI><A HREF="pblListPop.html">pblListPop</A> <I> Retrieves and removes the tail (last element) of this list.</I>
+<LI><A HREF="pblListPush.html">pblListPush</A> <I> Pushes the specified element to the end (last element) of this list.</I>
+<LI><A HREF="pblListRemove.html">pblListRemove</A> <I> Retrieves and removes the head (first element) of this list.</I>
+<LI><A HREF="pblListRemoveAll.html">pblListRemoveAll</A> <I> Removes from this list all of its elements that are contained in the specified collection.</I>
+<LI><A HREF="pblListRemoveAt.html">pblListRemoveAt</A> <I> Removes the element at the specified position in this list.</I>
+<LI><A HREF="pblListRemoveElement.html">pblListRemoveElement</A> <I> Removes a single instance of the specified element from this list, if it is present.</I>
+<LI><A HREF="pblListRemoveFirst.html">pblListRemoveFirst</A> <I> Removes and returns the first element in this list.</I>
+<LI><A HREF="pblListRemoveLast.html">pblListRemoveLast</A> <I> Removes and returns the last element in this list.</I>
+<LI><A HREF="pblListRemoveRange.html">pblListRemoveRange</A> <I> Removes from this list all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListRetainAll.html">pblListRetainAll</A> <I> Retains only the elements in this list that are contained in the specified collection.</I>
+<LI><A HREF="pblListReverse.html">pblListReverse</A> <I> Reverses the order of the elements of this list.</I>
+<LI><A HREF="pblListReverseIterator.html">pblListReverseIterator</A> <I> Returns a reverse iterator over the elements in this list in proper sequence.</I>
+<LI><A HREF="pblListSet.html">pblListSet</A> <I> Replaces the element at the specified position in this list with the specified element.</I>
+<LI><A HREF="pblListSetCompareFunction.html">pblListSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the list.</I>
+<LI><A HREF="pblListSetFirst.html">pblListSetFirst</A> <I> Replaces the head (first element) of this list.</I>
+<LI><A HREF="pblListSetLast.html">pblListSetLast</A> <I> Replaces the tail (last element) of this list.</I>
+<LI><A HREF="pblListSetSize.html">pblListSetSize</A> <I> Sets the size of a list.</I>
+<LI><A HREF="pblListSize.html">pblListSize</A> <I> Returns the number of elements in this list.</I>
+<LI><A HREF="pblListSort.html">pblListSort</A> <I> Sorts the elements of the list.</I>
+<LI><A HREF="pblListTail.html">pblListTail</A> <I> Retrieves, but does not remove, the tail (last element) of this list.</I>
+<LI><A HREF="pblListToArray.html">pblListToArray</A> <I> Returns an array containing all of the elements in this list in the correct order.</I>
+<LI><A HREF="pblListTop.html">pblListTop</A> <I> Retrieves, but does not remove, the tail (last element) of this list.</I>
+<LI><A HREF="pblListTrimToSize.html">pblListTrimToSize</A> <I> Trims the capacity of this list instance to be the list's current size.</I>
+<LI><A HREF="pblMapAdd.html">pblMapAdd</A> <I> Associates the specified value with the specified key in this map.</I>
+<LI><A HREF="pblMapAddStrStr.html">pblMapAddStrStr</A> <I> Associates the specified string value with the specified string key in this map.</I>
+<LI><A HREF="pblMapClear.html">pblMapClear</A> <I> Removes all of the mappings from this map.</I>
+<LI><A HREF="pblMapContainsKey.html">pblMapContainsKey</A> <I> Returns true if this map contains a mapping for the specified key.</I>
+<LI><A HREF="pblMapContainsKeyStr.html">pblMapContainsKeyStr</A> <I> Returns true if this map contains a mapping for the specified string key.</I>
+<LI><A HREF="pblMapContainsValue.html">pblMapContainsValue</A> <I> Returns true if this map contains a mapping for the specified value.</I>
+<LI><A HREF="pblMapContainsValueStr.html">pblMapContainsValueStr</A> <I> Returns true if this map contains a mapping for the specified string value.</I>
+<LI><A HREF="pblMapEntryKey.html">pblMapEntryKey</A> <I> Returns a pointer to the key of the map entry passed.</I>
+<LI><A HREF="pblMapEntryKeyLength.html">pblMapEntryKeyLength</A> <I> Returns the key length of the map entry passed.</I>
+<LI><A HREF="pblMapEntryValue.html">pblMapEntryValue</A> <I> Returns a pointer to the value of the map entry passed.</I>
+<LI><A HREF="pblMapEntryValueLength.html">pblMapEntryValueLength</A> <I> Returns the value length of the map entry passed.</I>
+<LI><A HREF="pblMapFree.html">pblMapFree</A> <I> Removes all of the mappings from this map and frees the map's memory from heap.</I>
+<LI><A HREF="pblMapGet.html">pblMapGet</A> <I> Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.</I>
+<LI><A HREF="pblMapGetStr.html">pblMapGetStr</A> <I> Returns the value to which the specified string key is mapped, or null if this map contains no mapping for the key.</I>
+<LI><A HREF="pblMapIsEmpty.html">pblMapIsEmpty</A> <I> Tests if this map has no elements.</I>
+<LI><A HREF="pblMapIteratorNew.html">pblMapIteratorNew</A> <I> Returns an iterator over the map entries in this map in proper sequence.</I>
+<LI><A HREF="pblMapIteratorReverseNew.html">pblMapIteratorReverseNew</A> <I> Returns a reverse iterator over the elements in this map in proper sequence.</I>
+<LI><A HREF="pblMapNewHashMap.html">pblMapNewHashMap</A> <I> Creates a new hash map.</I>
+<LI><A HREF="pblMapNewTreeMap.html">pblMapNewTreeMap</A> <I> Creates a new tree map.</I>
+<LI><A HREF="pblMapPut.html">pblMapPut</A> <I> Associates the specified value with the specified key in this map.</I>
+<LI><A HREF="pblMapPutAll.html">pblMapPutAll</A> <I> Copies all of the mappings from the specified source map to this map.</I>
+<LI><A HREF="pblMapPutStrStr.html">pblMapPutStrStr</A> <I> Associates the specified string value with the specified string key in this map.</I>
+<LI><A HREF="pblMapRemove.html">pblMapRemove</A> <I> Removes the mapping for this key from this map if it is present.</I>
+<LI><A HREF="pblMapRemoveStr.html">pblMapRemoveStr</A> <I> Removes the mapping for this string key from this map if it is present.</I>
+<LI><A HREF="pblMapSize.html">pblMapSize</A> <I> Returns the number of entries in this map.</I>
+<LI><A HREF="pblPriorityQueueAddLast.html">pblPriorityQueueAddLast</A> <I> Adds the element with the specified priority to the end of the priority queue without ensuring the heap condition.</I>
+<LI><A HREF="pblPriorityQueueChangePriorityAt.html">pblPriorityQueueChangePriorityAt</A> <I> Changes the priority of the element at the specified position of the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueChangePriorityFirst.html">pblPriorityQueueChangePriorityFirst</A> <I> Changes the priority of the first element of the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueClear.html">pblPriorityQueueClear</A> <I> Removes all of the elements from the priority queue.</I>
+<LI><A HREF="pblPriorityQueueConstruct.html">pblPriorityQueueConstruct</A> <I> Constructs a priority queue using 'bottom-up heap construction'.</I>
+<LI><A HREF="pblPriorityQueueEnsureCapacity.html">pblPriorityQueueEnsureCapacity</A> <I> Increases the capacity of the priority queue, if necessary.</I>
+<LI><A HREF="pblPriorityQueueFree.html">pblPriorityQueueFree</A> <I> Frees the priority queue's memory from heap.</I>
+<LI><A HREF="pblPriorityQueueGet.html">pblPriorityQueueGet</A> <I> Returns the element at the specified position in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueGetCapacity.html">pblPriorityQueueGetCapacity</A> <I> Returns the capacity of the priority queue.</I>
+<LI><A HREF="pblPriorityQueueGetFirst.html">pblPriorityQueueGetFirst</A> <I> Returns but does not remove the element with the highest priority in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueInsert.html">pblPriorityQueueInsert</A> <I> Inserts the element with the specified priority into the priority queue and maintains the heap condition of the priority queue.</I>
+<LI><A HREF="pblPriorityQueueIsEmpty.html">pblPriorityQueueIsEmpty</A> <I> Tests if the priority queue has no elements.</I>
+<LI><A HREF="pblPriorityQueueIterator.html">pblPriorityQueueIterator</A> <I> Returns an iterator over the elements in the queue.</I>
+<LI><A HREF="pblPriorityQueueJoin.html">pblPriorityQueueJoin</A> <I> Joins the two priority queues by moving all elements of the 'other' queue.</I>
+<LI><A HREF="pblPriorityQueueNew.html">pblPriorityQueueNew</A> <I> Creates a new priority queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveAt.html">pblPriorityQueueRemoveAt</A> <I> Removes the element at the specified position from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveFirst.html">pblPriorityQueueRemoveFirst</A> <I> Removes the element with the highest priority from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveLast.html">pblPriorityQueueRemoveLast</A> <I> Removes the last element from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueSize.html">pblPriorityQueueSize</A> <I> Returns the number of elements in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueTrimToSize.html">pblPriorityQueueTrimToSize</A> <I> Trims the capacity of the queue to the priority queue's current size.</I>
+<LI><A HREF="pblSetAdd.html">pblSetAdd</A> <I> Adds the specified element to this set.</I>
+<LI><A HREF="pblSetAddAll.html">pblSetAddAll</A> <I> Adds all of the elements in the specified Collection to this set.</I>
+<LI><A HREF="pblSetByteBufferHashValue.html">pblSetByteBufferHashValue</A> <I> Creates a hash value of byte buffer and its length.</I>
+<LI><A HREF="pblSetClear.html">pblSetClear</A> <I> Removes all of the elements from this set.</I>
+<LI><A HREF="pblSetClone.html">pblSetClone</A> <I> Returns a shallow copy of this set instance.</I>
+<LI><A HREF="pblSetCloneRange.html">pblSetCloneRange</A> <I> Returns a shallow copy from this set of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblSetContains.html">pblSetContains</A> <I> Returns true if this set contains the specified element.</I>
+<LI><A HREF="pblSetContainsAll.html">pblSetContainsAll</A> <I> Returns a value > 0 if this set contains all of the elements in the specified collection.</I>
+<LI><A HREF="pblSetDefaultHashValue.html">pblSetDefaultHashValue</A> <I> Default hash value function used if no application specific function is specified by the user.</I>
+<LI><A HREF="pblSetDifference.html">pblSetDifference</A> <I> Creates a new set containing the difference of the elements of the two sets passed as parameters.</I>
+<LI><A HREF="pblSetElement.html">pblSetElement</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetEnsureCapacity.html">pblSetEnsureCapacity</A> <I> Increases the capacity of this set instance, if necessary.</I>
+<LI><A HREF="pblSetEquals.html">pblSetEquals</A> <I> Compares the specified collection with this set for equality.</I>
+<LI><A HREF="pblSetFree.html">pblSetFree</A> <I> Free the set's memory from heap.</I>
+<LI><A HREF="pblSetGet.html">pblSetGet</A> <I> Returns the element at the specified position in this set.</I>
+<LI><A HREF="pblSetGetCapacity.html">pblSetGetCapacity</A> <I> Returns the capacity of this set instance.</I>
+<LI><A HREF="pblSetGetCompareFunction.html">pblSetGetCompareFunction</A> <I> Gets the application specific compare function for the elements of the set.</I>
+<LI><A HREF="pblSetGetElement.html">pblSetGetElement</A> <I> Returns the element of this set that matches the given element.</I>
+<LI><A HREF="pblSetGetFirst.html">pblSetGetFirst</A> <I> Returns the first element in this set.</I>
+<LI><A HREF="pblSetGetHashValueFunction.html">pblSetGetHashValueFunction</A> <I> Gets the application specific hash value function for the elements of the set.</I>
+<LI><A HREF="pblSetGetLast.html">pblSetGetLast</A> <I> Returns the last element in this set.</I>
+<LI><A HREF="pblSetHead.html">pblSetHead</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetIndexOf.html">pblSetIndexOf</A> <I> Returns the index of the given argument in the set.</I>
+<LI><A HREF="pblSetIntersection.html">pblSetIntersection</A> <I> Creates a new set containing the intersection of the elements of the two sets passed as parameters.</I>
+<LI><A HREF="pblSetIsEmpty.html">pblSetIsEmpty</A> <I> Tests if this set has no elements.</I>
+<LI><A HREF="pblSetIsHashSet.html">pblSetIsHashSet</A> <I> Tests if the object is a hash set.</I>
+<LI><A HREF="pblSetIsSet.html">pblSetIsSet</A> <I> Tests if the object is a set.</I>
+<LI><A HREF="pblSetIsSubset.html">pblSetIsSubset</A> <I> Returns a value > 0 if the set passed as second parameter is a subset of the set passed as first parameter, ie.</I>
+<LI><A HREF="pblSetIsTreeSet.html">pblSetIsTreeSet</A> <I> Tests if the object is a tree set.</I>
+<LI><A HREF="pblSetIterator.html">pblSetIterator</A> <I> Returns an iterator over the elements in this set.</I>
+<LI><A HREF="pblSetLastIndexOf.html">pblSetLastIndexOf</A> <I> Returns the index of the given argument in the set.</I>
+<LI><A HREF="pblSetNewHashSet.html">pblSetNewHashSet</A> <I> Creates a new hash set.</I>
+<LI><A HREF="pblSetNewTreeSet.html">pblSetNewTreeSet</A> <I> Creates a new tree set.</I>
+<LI><A HREF="pblSetPeek.html">pblSetPeek</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetPoll.html">pblSetPoll</A> <I> Retrieves and removes the head (first element) of this set.</I>
+<LI><A HREF="pblSetPop.html">pblSetPop</A> <I> Retrieves and removes the tail (last element) of this set.</I>
+<LI><A HREF="pblSetRemove.html">pblSetRemove</A> <I> Retrieves and removes the head (first element) of this set.</I>
+<LI><A HREF="pblSetRemoveAll.html">pblSetRemoveAll</A> <I> Removes from this set all of its elements that are contained in the specified collection.</I>
+<LI><A HREF="pblSetRemoveAt.html">pblSetRemoveAt</A> <I> Removes the element at the specified position in this set.</I>
+<LI><A HREF="pblSetRemoveElement.html">pblSetRemoveElement</A> <I> Removes the specified element from this set if it is present.</I>
+<LI><A HREF="pblSetRemoveFirst.html">pblSetRemoveFirst</A> <I> Removes and returns the first element in this set.</I>
+<LI><A HREF="pblSetRemoveLast.html">pblSetRemoveLast</A> <I> Removes and returns the last element of this set.</I>
+<LI><A HREF="pblSetReplaceElement.html">pblSetReplaceElement</A> <I> Replaces the element of the set that matches the given element with the given element.</I>
+<LI><A HREF="pblSetRetainAll.html">pblSetRetainAll</A> <I> Retains only the elements in this set that are contained in the specified collection.</I>
+<LI><A HREF="pblSetReverseIterator.html">pblSetReverseIterator</A> <I> Returns a reverse iterator over the elements in this set.</I>
+<LI><A HREF="pblSetSetCompareFunction.html">pblSetSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the set.</I>
+<LI><A HREF="pblSetSetHashValueFunction.html">pblSetSetHashValueFunction</A> <I> Sets an application specific hash value function for the elements of the hash set.</I>
+<LI><A HREF="pblSetSetLoadFactor.html">pblSetSetLoadFactor</A> <I> Sets an application specific load factor for a hash set.</I>
+<LI><A HREF="pblSetSize.html">pblSetSize</A> <I> Returns the number of elements in this set.</I>
+<LI><A HREF="pblSetStringHashValue.html">pblSetStringHashValue</A> <I> Creates a hash value of a '\0' terminated string.</I>
+<LI><A HREF="pblSetSymmectricDifference.html">pblSetSymmectricDifference</A> <I> Creates a new set containing all elements of the two sets passed as parameters that are contained in either of the sets but not in both of them.</I>
+<LI><A HREF="pblSetTail.html">pblSetTail</A> <I> Retrieves, but does not remove, the tail (last element) of this set.</I>
+<LI><A HREF="pblSetToArray.html">pblSetToArray</A> <I> Returns an array containing all of the elements in this set.</I>
+<LI><A HREF="pblSetTop.html">pblSetTop</A> <I> Retrieves, but does not remove, the tail (last element) of this set.</I>
+<LI><A HREF="pblSetTrimToSize.html">pblSetTrimToSize</A> <I> Trims the capacity of this set instance to the set's current size divided by the load factor of the set.</I>
+<LI><A HREF="pblSetUnion.html">pblSetUnion</A> <I> Creates a new set containing the union of the elements of both sets passed as parameters.</I>
+<LI><A HREF="pbl_BufToLong.html">pbl_BufToLong</A> <I> read a four byte long from a four byte buffer</I>
+<LI><A HREF="pbl_BufToShort.html">pbl_BufToShort</A> <I> read a two byte short from a two byte buffer</I>
+<LI><A HREF="pbl_LongSize.html">pbl_LongSize</A> <I> find out how many bytes a four byte long would use in a buffer</I>
+<LI><A HREF="pbl_LongToBuf.html">pbl_LongToBuf</A> <I> copy a four byte long to a four byte buffer </I>
+<LI><A HREF="pbl_LongToVarBuf.html">pbl_LongToVarBuf</A> <I> copy a four byte long to a variable length buffer</I>
+<LI><A HREF="pbl_ShortToBuf.html">pbl_ShortToBuf</A> <I> copy a two byte short to a two byte buffer </I>
+<LI><A HREF="pbl_VarBufSize.html">pbl_VarBufSize</A> <I> find out how many bytes a four byte long uses in a buffer</I>
+<LI><A HREF="pbl_VarBufToLong.html">pbl_VarBufToLong</A> <I> read a four byte long from a variable length buffer</I>
+<LI><A HREF="pbl_malloc.html">pbl_malloc</A> <I> replacement for malloc</I>
+<LI><A HREF="pbl_malloc0.html">pbl_malloc0</A> <I> replacement for malloc, initializes the memory to 0</I>
+<LI><A HREF="pbl_mem2dup.html">pbl_mem2dup</A> <I> duplicate and concatenate two memory buffers</I>
+<LI><A HREF="pbl_memcmp.html">pbl_memcmp</A> <I> compare two memory buffers, similar to memcmp</I>
+<LI><A HREF="pbl_memcmplen.html">pbl_memcmplen</A> <I> find out how many starting bytes of two buffers are equal</I>
+<LI><A HREF="pbl_memdup.html">pbl_memdup</A> <I> duplicate a buffer, similar to strdup</I>
+<LI><A HREF="pbl_memlcpy.html">pbl_memlcpy</A> <I> memcpy with target length check</I>
+<LI><A HREF="pbl_strdup.html">pbl_strdup</A> <I> duplicate a string, similar to strdup</I>
+</UL>
+<H2>Variables</H2>
+<UL>
+<LI><A HREF="pbl_errno.html">pbl_errno</A> <I> Integer value used for returning error codes</I>
+<LI><A HREF="pbl_errstr.html">pbl_errstr</A> <I> Character buffer used for returning error strings</I>
+</UL>
+<H2>Macros</H2>
+<UL>
+<LI><A HREF="PBLDATALENGTH.html">PBLDATALENGTH</A> <I> maximum data length of data being stored on index blocks of key files, </I>
+<LI><A HREF="PBLKEYLENGTH.html">PBLKEYLENGTH</A> <I> the maximum length of a key of the key file component, </I>
+<LI><A HREF="PBL_FREE.html">PBL_FREE</A> <I> make free save against NULL pointers, </I>
+<LI><A HREF="PBL_LIST_.html">PBL_LIST_</A> <I> macros for linear list handling,</I>
+<LI><A HREF="PBL_LIST_APPEND.html">PBL_LIST_APPEND</A> <I> append an item to the end of a linear list</I>
+<LI><A HREF="PBL_LIST_INSERT.html">PBL_LIST_INSERT</A> <I> add an item before another item of a linear list</I>
+<LI><A HREF="PBL_LIST_INSERT_AFTER.html">PBL_LIST_INSERT_AFTER</A> <I> add an item after another item of a linear list</I>
+<LI><A HREF="PBL_LIST_PUSH.html">PBL_LIST_PUSH</A> <I> push an item to the beginning of a linear list</I>
+<LI><A HREF="PBL_LIST_UNLINK.html">PBL_LIST_UNLINK</A> <I> remove an item from a linear list</I>
+<LI><A HREF="pblKfFirst.html">pblKfFirst</A> <I> set the current record to the first record of the file</I>
+<LI><A HREF="pblKfLast.html">pblKfLast</A> <I> set the current record to the last record of the file</I>
+<LI><A HREF="pblKfNext.html">pblKfNext</A> <I> set the current record to the next record of the file</I>
+<LI><A HREF="pblKfPrev.html">pblKfPrev</A> <I> set the current record to the previous record of the file</I>
+<LI><A HREF="pblKfThis.html">pblKfThis</A> <I> return the datalen of the current record</I>
+</UL>
+<H2>Enums, Unions, Structs</H2>
+<UL>
+<LI><A HREF="PblPriorityQueueEntry_s.html">PblPriorityQueueEntry_s</A> <I> The priority queue entry struct.</I>
+</UL>
+<H2>Typedefs</H2>
+<UL>
+<LI><A HREF="PblCollection.html">PblCollection</A> <I> The generic collection type</I>
+<LI><A HREF="PblHeap.html">PblHeap</A> <I> The heap</I>
+<LI><A HREF="PblIterator.html">PblIterator</A> <I> The iterator type</I>
+<LI><A HREF="PblList.html">PblList</A> <I> The generic list type</I>
+<LI><A HREF="PblMap.html">PblMap</A> <I> The map type</I>
+<LI><A HREF="PblMapEntry.html">PblMapEntry</A> <I> The map entry type</I>
+<LI><A HREF="PblMapKey.html">PblMapKey</A> <I> The map key type</I>
+<LI><A HREF="PblPriorityQueue.html">PblPriorityQueue</A> <I> The priority queue</I>
+<LI><A HREF="PblPriorityQueueEntry.html">PblPriorityQueueEntry</A> <I> The priority queue entry</I>
+<LI><A HREF="PblSet.html">PblSet</A> <I> The generic set type</I>
+<LI><A HREF="pblHashTable_t.html">pblHashTable_t</A> <I> The hash table type the pblHt* functions are dealing with.</I>
+<LI><A HREF="pblIsamFile_t.html">pblIsamFile_t</A> <I> The ISAM file type the pblIsam* functions are dealing with.</I>
+<LI><A HREF="pblKeyFile_t.html">pblKeyFile_t</A> <I> The key file type the pblKf* functions are dealing with.</I>
+</UL>
+ <hr>
+Copyright(C) 2003 - 2010 <a href="http://www.mission-base.com/peter/">Peter Graf</a>, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+
+<HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

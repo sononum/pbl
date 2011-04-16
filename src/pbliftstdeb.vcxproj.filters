@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d1439309-2f79-45df-99fa-03d5ae28da94}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{161527ab-3300-4ab5-9e11-80ad2c7f7860}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;fi;fd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{117b867c-118e-49a4-99ba-b881827335cc}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pbl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblCollection.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblhash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblisam.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblIterator.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblkf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblList.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblListTest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pblSet.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pbl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

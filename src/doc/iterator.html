@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>pbliterator Implementation</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pbliterator Implementation</H2>
+
+<HR>
+<H2>Documentation</H2>
+Open source C Iterator implementation equivalent to the 
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ListIterator.html">Java ListIterator</a>
+interface.
+<P>
+A pbIterator for <A href="list.html">pblLists</A>
+that allows the programmer to traverse the list in either direction,
+modify the list during iteration, and obtain the iterator's current position in the list.
+A ListIterator has no current element; its cursor position always lies between the element
+that would be returned by a call to previous() and the element
+that would be returned by a call to next().
+In a list of length n, there are n+1 valid index values, from 0 to n, inclusive.
+<P>
+Note that the remove() and set(Object) methods are not defined in terms of the cursor position;
+they are defined to operate on the last element returned by a call to next() or previous(). 
+<P>
+The pblIterators are fail-fast: if the list is structurally modified at any time after
+the iterator is created, in any way except through the Iterator's own remove or add methods,
+the iterator will return a PBL_ERROR_CONCURRENT_MODIFICATION error.
+<P>
+Thus, in the face of concurrent modification, the iterator fails quickly and cleanly,
+rather than risking arbitrary, non-deterministic behavior at an undetermined time in the future. 
+<HR>
+<H2>Constructors and Destructors</H2>
+<LI><A HREF="pblIteratorNew.html">pblIteratorNew</A> <I> Returns an iterator over the elements in this collection in proper sequence.</I>
+
+<LI><A HREF="pblIteratorReverseNew.html">pblIteratorReverseNew</A> <I> Returns a reverse iterator over the elements in this collection in proper sequence.</I>
+
+<LI><A HREF="pblIteratorFree.html">pblIteratorFree</A> <I> Frees the memory used by the iterator.</I>
+
+<HR>
+<H2>Functions</H2>
+
+<LI><A HREF="pblIteratorAdd.html">pblIteratorAdd</A> <I> Inserts the specified element into the underlying collection.</I>
+<LI><A HREF="pblIteratorHasNext.html">pblIteratorHasNext</A> <I> Returns true if this iterator has more elements.</I>
+<LI><A HREF="pblIteratorHasPrevious.html">pblIteratorHasPrevious</A> <I> Returns true if this iterator has more elements when traversing the collection in the reverse direction.</I>
+<LI><A HREF="pblIteratorNext.html">pblIteratorNext</A> <I> Returns the next element in the iteration.</I>
+<LI><A HREF="pblIteratorNextIndex.html">pblIteratorNextIndex</A> <I> Returns the index of the element that would be returned by a subsequent call to next.</I>
+<LI><A HREF="pblIteratorPrevious.html">pblIteratorPrevious</A> <I> Returns the previous element in the iteration.</I>
+<LI><A HREF="pblIteratorPreviousIndex.html">pblIteratorPreviousIndex</A> <I> Returns the index of the element that would be returned by a subsequent call to previous.</I>
+<LI><A HREF="pblIteratorRemove.html">pblIteratorRemove</A> <I> Removes from the underlying list or tree set the last element returned by the iterator.</I>
+<LI><A HREF="pblIteratorSet.html">pblIteratorSet</A> <I> Replaces in the underlying list the last element returned by next or previous with the specified element.</I>
+<LI><A HREF="pblIteratorSize.html">pblIteratorSize</A> <I> Returns the number of elements in the underlying collection of the iterator.</I>
+
+<hr>
+Copyright(C) 2003 - 2009 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

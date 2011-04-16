@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblIsamUpdateKey</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblIsamUpdateKey</A></H2><H2>( <!1><A HREF="pblIsamFile_t.html">pblIsamFile_t</A>*  isamfile,   int index,<BR>&nbsp;  void*  ukey,   size_t ukeylen )</H2><BLOCKQUOTE> update a key of the current record of the ISAM file</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+update a key of the current record of the ISAM file
+
+<P>parameter index specifies which of the keys to update
+
+<P>the file must be open for update
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>isamfile</B> -   ISAM file to update key for                
+<BR><B>index</B> -   index of key to update                     
+<BR><B>ukey</B> -   new value for the key to update            
+<BR><B>ukeylen</B> -   length of that value                       <BR><DT><B>Returns:</B><DD>  int rc == 0: call went ok
+<BR>  int rc != 0: some error occured, see pbl_errno
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

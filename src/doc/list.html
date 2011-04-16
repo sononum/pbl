@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+   <TITLE>pblList - List Implementation</TITLE>
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblList - List Implementation</H2>
+<SMALL>List in C, C array list, C-ArrayList, array list in C, ArrayList in C</SMALL>
+<SMALL>C linked list, C-LinkedList, linked list in C, LinkedList in C.</SMALL>
+<P>
+<HR>
+<H2>Documentation</H2>
+Open source C implementation of an ordered collection (also known as a sequence)
+similar to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/List.html">Java List</a>
+interface.
+The user of this module has precise control over where in the list each element is inserted.
+The user can access elements by their integer index (position in the list),
+and search for elements in the list.
+<P>
+The List module provides two implementations of lists,
+an open source C resizable-array implementation equivalent to the 
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ArrayList.html">Java ArrayList</a> class
+and
+an open source C linked list implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/LinkedList.html">Java LinkedList</a>
+class. 
+<P>
+Lists allow duplicate elements and they allow multiple NULL elements.
+<P>
+The List module provides four methods for positional (indexed) access to list elements.
+Lists (like C arrays) are zero based.
+Note that these operations execute in time proportional to the index value for 
+LinkedList implementation).
+Thus, iterating over the elements in a list is
+typically preferable to indexing through it if the caller does not know the implementation.
+<P>
+The List module provides an iterator, called a
+<A href="iterator.html">pblIterator</A>,
+that allows element insertion and replacement,
+and bidirectional access in addition to the normal operations iterators provide.
+<P>
+The List module provides two methods to search for a specified object.
+From a performance standpoint, these methods should be used with caution.
+They will perform costly linear searches.
+<P>
+The List module provides two methods to efficiently insert
+and remove multiple elements at an arbitrary point in the list.
+<P>
+All list functions described below work on array lists as well as on linked lists,
+they of course will show different runtime and memory complexities depending on the type of
+list used.
+<HR>
+<H2>Constructors and Destructors</H2>
+<LI><A HREF="pblListNewArrayList.html">pblListNewArrayList</A> <I> Creates a new array list.</I>
+<LI><A HREF="pblListNewLinkedList.html">pblListNewLinkedList</A> <I> Creates a new linked list.</I>
+<LI><A HREF="pblListClone.html">pblListClone</A> <I> Returns a shallow copy of this list instance.</I>
+<LI><A HREF="pblListCloneRange.html">pblListCloneRange</A> <I> Returns a shallow copy from this list of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListFree.html">pblListFree</A> <I> Free the list's memory from heap.</I>
+<HR>
+<H2>Adding to a List</H2>
+<LI><A HREF="pblListAdd.html">pblListAdd</A> <I> Appends the specified element to the end of this list.</I>
+<LI><A HREF="pblListAddAll.html">pblListAddAll</A> <I> Appends all of the elements in the specified Collection to the end of this list, in the order that they are returned by the specified Collection's Iterator.</I>
+<LI><A HREF="pblListAddAllAt.html">pblListAddAllAt</A> <I> Inserts all of the elements in the specified collection into this list at the specified position.</I>
+<LI><A HREF="pblListAddAt.html">pblListAddAt</A> <I> Inserts the specified element at the specified position in this list.</I>
+<LI><A HREF="pblListAddFirst.html">pblListAddFirst</A> <I> Inserts the given element at the beginning of this list.</I>
+<LI><A HREF="pblListAddLast.html">pblListAddLast</A> <I> Appends the given element to the end of this list.</I>
+<LI><A HREF="pblListOffer.html">pblListOffer</A> <I> Adds the specified element as the tail (last element) of this list.</I>
+<LI><A HREF="pblListPush.html">pblListPush</A> <I> Pushes the specified element to the end (last element) of this list.</I>
+<HR>
+<H2>Accessing List Elements</H2>
+<LI><A HREF="pblListContains.html">pblListContains</A> <I> Returns true if this list contains the specified element.</I>
+<LI><A HREF="pblListContainsAll.html">pblListContainsAll</A> <I> Returns a value > 0 if this list contains all of the elements in the specified collection.</I>
+<LI><A HREF="pblListElement.html">pblListElement</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListGet.html">pblListGet</A> <I> Returns the element at the specified position in this list.</I>
+<LI><A HREF="pblListGetFirst.html">pblListGetFirst</A> <I> Returns the first element in this list.</I>
+<LI><A HREF="pblListGetLast.html">pblListGetLast</A> <I> Returns the last element in this list.</I>
+<LI><A HREF="pblListHead.html">pblListHead</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListIndexOf.html">pblListIndexOf</A> <I> Searches for the first occurence of the given argument.</I>
+<LI><A HREF="pblListLastIndexOf.html">pblListLastIndexOf</A> <I> Searches for the last occurence of the given argument.</I>
+<LI><A HREF="pblListPeek.html">pblListPeek</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListTail.html">pblListTail</A> <I> Retrieves, but does not remove, the tail (last element) of this list.</I>
+<LI><A HREF="pblListTop.html">pblListTop</A> <I> Retrieves, but does not remove, the tail (last element) of this list.</I>
+<HR>
+<H2>Changing Element Data</H2>
+<LI><A HREF="pblListSet.html">pblListSet</A> <I> Replaces the element at the specified position in this list with the specified element.</I>
+<LI><A HREF="pblListSetFirst.html">pblListSetFirst</A> <I> Replaces the head (first element) of this list.</I>
+<LI><A HREF="pblListSetLast.html">pblListSetLast</A> <I> Replaces the tail (last element) of this list.</I>
+<HR>
+<H2>Removing from a List</H2>
+<LI><A HREF="pblListPoll.html">pblListPoll</A> <I> Retrieves and removes the head (first element) of this list.</I>
+<LI><A HREF="pblListPop.html">pblListPop</A> <I> Retrieves and removes the tail (last element) of this list.</I>
+<LI><A HREF="pblListRemove.html">pblListRemove</A> <I> Retrieves and removes the head (first element) of this list.</I>
+<LI><A HREF="pblListRemoveAll.html">pblListRemoveAll</A> <I> Removes from this list all of its elements that are contained in the specified collection.</I>
+<LI><A HREF="pblListRemoveAt.html">pblListRemoveAt</A> <I> Removes the element at the specified position in this list.</I>
+<LI><A HREF="pblListRemoveElement.html">pblListRemoveElement</A> <I> Removes a single instance of the specified element from this list, if it is present.</I>
+<LI><A HREF="pblListRemoveFirst.html">pblListRemoveFirst</A> <I> Removes and returns the first element in this list.</I>
+<LI><A HREF="pblListRemoveLast.html">pblListRemoveLast</A> <I> Removes and returns the last element in this list.</I>
+<LI><A HREF="pblListRemoveRange.html">pblListRemoveRange</A> <I> Removes from this list all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListRetainAll.html">pblListRetainAll</A> <I> Retains only the elements in this list that are contained in the specified collection.</I>
+<HR>
+<H2>Functions on Lists</H2>
+<LI><A HREF="pblListClear.html">pblListClear</A> <I> Removes all of the elements from this list.</I>
+<LI><A HREF="pblListClone.html">pblListClone</A> <I> Returns a shallow copy of this list instance.</I>
+<LI><A HREF="pblListCloneRange.html">pblListCloneRange</A> <I> Returns a shallow copy from this list of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListDefaultCompare.html">pblListDefaultCompare</A> <I> Default compare function used if no application specific compare function is specified by the user.</I>
+<LI><A HREF="pblListEnsureCapacity.html">pblListEnsureCapacity</A> <I> Increases the capacity of this list instance, if necessary.</I>
+<LI><A HREF="pblListEquals.html">pblListEquals</A> <I> Compares the specified collection with this list for equality.</I>
+<LI><A HREF="pblListFree.html">pblListFree</A> <I> Free the list's memory from heap.</I>
+<LI><A HREF="pblListGetCapacity.html">pblListGetCapacity</A> <I> Returns the capacity of this list instance.</I>
+<LI><A HREF="pblListGetCompareFunction.html">pblListGetCompareFunction</A> <I> Gets the application specific compare function for the elements of the list.</I>
+<LI><A HREF="pblListIsArrayList.html">pblListIsArrayList</A> <I> Tests if the object is an array list.</I>
+<LI><A HREF="pblListIsEmpty.html">pblListIsEmpty</A> <I> Tests if this list has no elements.</I>
+<LI><A HREF="pblListIsLinkedList.html">pblListIsLinkedList</A> <I> Tests if the object is a linked list.</I>
+<LI><A HREF="pblListIsList.html">pblListIsList</A> <I> Tests if the object is a list.</I>
+<LI><A HREF="pblListIterator.html">pblListIterator</A> <I> Returns an iterator over the elements in this list in proper sequence.</I>
+<LI><A HREF="pblListReverse.html">pblListReverse</A> <I> Reverses the order of the elements of this list.</I>
+<LI><A HREF="pblListReverseIterator.html">pblListReverseIterator</A> <I> Returns a reverse iterator over the elements in this list in proper sequence.</I>
+<LI><A HREF="pblListSetCompareFunction.html">pblListSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the list.</I>
+<LI><A HREF="pblListSetSize.html">pblListSetSize</A> <I> Sets the size of a list.</I>
+<LI><A HREF="pblListSize.html">pblListSize</A> <I> Returns the number of elements in this list.</I>
+<LI><A HREF="pblListSort.html">pblListSort</A> <I> Sorts the elements of the list.</I>
+<LI><A HREF="pblListToArray.html">pblListToArray</A> <I> Returns an array containing all of the elements in this list in the correct order.</I>
+<LI><A HREF="pblListTrimToSize.html">pblListTrimToSize</A> <I> Trims the capacity of this list instance to be the list's current size.</I>
+
+<HR>
+<H2>Collection Functions</H2>
+Each pblList is also a pblCollection, therefore all collection functions can be used on lists.
+<P>
+<LI><A HREF="pblCollectionAggregate.html">pblCollectionAggregate</A> <I> Aggregates a collection by calling the aggregation function on every element of the collection while running through the collection with an iterator.</I>
+<LI><A HREF="pblCollectionContains.html">pblCollectionContains</A> <I> Returns true if this collection contains the specified element.</I>
+<LI><A HREF="pblCollectionConvertToArrayList.html">pblCollectionConvertToArrayList</A> <I> Returns a pblArrayList with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToHashSet.html">pblCollectionConvertToHashSet</A> <I> Returns a pblHashSet with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToLinkedList.html">pblCollectionConvertToLinkedList</A> <I> Returns a pblLinkedList with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToTreeSet.html">pblCollectionConvertToTreeSet</A> <I> Returns a pblTreeSet with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionElementCompare.html">pblCollectionElementCompare</A> <I> Compare two elements of a collection.</I>
+<LI><A HREF="pblCollectionIsCollection.html">pblCollectionIsCollection</A> <I> Tests if the object is a collection.</I>
+<LI><A HREF="pblCollectionSetCompareFunction.html">pblCollectionSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the collection.</I>
+<LI><A HREF="pblCollectionStringCompareFunction.html">pblCollectionStringCompareFunction</A> <I> Compares two '\0' terminated strings.</I>
+
+<HR>
+<H2>Alphabetic List of List Functions</H2>
+<HR>
+
+<LI><A HREF="pblListAdd.html">pblListAdd</A> <I> Appends the specified element to the end of this list.</I>
+<LI><A HREF="pblListAddAll.html">pblListAddAll</A> <I> Appends all of the elements in the specified Collection to the end of this list, in the order that they are returned by the specified Collection's Iterator.</I>
+<LI><A HREF="pblListAddAllAt.html">pblListAddAllAt</A> <I> Inserts all of the elements in the specified collection into this list at the specified position.</I>
+<LI><A HREF="pblListAddAt.html">pblListAddAt</A> <I> Inserts the specified element at the specified position in this list.</I>
+<LI><A HREF="pblListAddFirst.html">pblListAddFirst</A> <I> Inserts the given element at the beginning of this list.</I>
+<LI><A HREF="pblListAddLast.html">pblListAddLast</A> <I> Appends the given element to the end of this list.</I>
+<LI><A HREF="pblListClear.html">pblListClear</A> <I> Removes all of the elements from this list.</I>
+<LI><A HREF="pblListClone.html">pblListClone</A> <I> Returns a shallow copy of this list instance.</I>
+<LI><A HREF="pblListCloneRange.html">pblListCloneRange</A> <I> Returns a shallow copy from this list of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListContains.html">pblListContains</A> <I> Returns true if this list contains the specified element.</I>
+<LI><A HREF="pblListContainsAll.html">pblListContainsAll</A> <I> Returns a value > 0 if this list contains all of the elements in the specified collection.</I>
+<LI><A HREF="pblListElement.html">pblListElement</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListEnsureCapacity.html">pblListEnsureCapacity</A> <I> Increases the capacity of this list instance, if necessary.</I>
+<LI><A HREF="pblListEquals.html">pblListEquals</A> <I> Compares the specified collection with this list for equality.</I>
+<LI><A HREF="pblListFree.html">pblListFree</A> <I> Free the list's memory from heap.</I>
+<LI><A HREF="pblListGet.html">pblListGet</A> <I> Returns the element at the specified position in this list.</I>
+<LI><A HREF="pblListGetCapacity.html">pblListGetCapacity</A> <I> Returns the capacity of this list instance.</I>
+<LI><A HREF="pblListGetCompareFunction.html">pblListGetCompareFunction</A> <I> Gets the application specific compare function for the elements of the list.</I>
+<LI><A HREF="pblListGetFirst.html">pblListGetFirst</A> <I> Returns the first element in this list.</I>
+<LI><A HREF="pblListGetLast.html">pblListGetLast</A> <I> Returns the last element in this list.</I>
+<LI><A HREF="pblListHead.html">pblListHead</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListIndexOf.html">pblListIndexOf</A> <I> Searches for the first occurence of the given argument.</I>
+<LI><A HREF="pblListIsArrayList.html">pblListIsArrayList</A> <I> Tests if the object is an array list.</I>
+<LI><A HREF="pblListIsEmpty.html">pblListIsEmpty</A> <I> Tests if this list has no elements.</I>
+<LI><A HREF="pblListIsLinkedList.html">pblListIsLinkedList</A> <I> Tests if the object is a linked list.</I>
+<LI><A HREF="pblListIsList.html">pblListIsList</A> <I> Tests if the object is a list.</I>
+<LI><A HREF="pblListIterator.html">pblListIterator</A> <I> Returns an iterator over the elements in this list in proper sequence.</I>
+<LI><A HREF="pblListLastIndexOf.html">pblListLastIndexOf</A> <I> Searches for the last occurence of the given argument.</I>
+<LI><A HREF="pblListNewArrayList.html">pblListNewArrayList</A> <I> Creates a new array list.</I>
+<LI><A HREF="pblListNewLinkedList.html">pblListNewLinkedList</A> <I> Creates a new linked list.</I>
+<LI><A HREF="pblListOffer.html">pblListOffer</A> <I> Adds the specified element as the tail (last element) of this list.</I>
+<LI><A HREF="pblListPeek.html">pblListPeek</A> <I> Retrieves, but does not remove, the head (first element) of this list.</I>
+<LI><A HREF="pblListPoll.html">pblListPoll</A> <I> Retrieves and removes the head (first element) of this list.</I>
+<LI><A HREF="pblListPop.html">pblListPop</A> <I> Retrieves and removes the tail (last element) of this list.</I>
+<LI><A HREF="pblListPush.html">pblListPush</A> <I> Pushes the specified element to the end (last element) of this list.</I>
+<LI><A HREF="pblListRemove.html">pblListRemove</A> <I> Retrieves and removes the head (first element) of this list.</I>
+<LI><A HREF="pblListRemoveAll.html">pblListRemoveAll</A> <I> Removes from this list all of its elements that are contained in the specified collection.</I>
+<LI><A HREF="pblListRemoveAt.html">pblListRemoveAt</A> <I> Removes the element at the specified position in this list.</I>
+<LI><A HREF="pblListRemoveElement.html">pblListRemoveElement</A> <I> Removes a single instance of the specified element from this list, if it is present.</I>
+<LI><A HREF="pblListRemoveFirst.html">pblListRemoveFirst</A> <I> Removes and returns the first element in this list.</I>
+<LI><A HREF="pblListRemoveLast.html">pblListRemoveLast</A> <I> Removes and returns the last element in this list.</I>
+<LI><A HREF="pblListRemoveRange.html">pblListRemoveRange</A> <I> Removes from this list all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblListRetainAll.html">pblListRetainAll</A> <I> Retains only the elements in this list that are contained in the specified collection.</I>
+<LI><A HREF="pblListReverse.html">pblListReverse</A> <I> Reverses the order of the elements of this list.</I>
+<LI><A HREF="pblListReverseIterator.html">pblListReverseIterator</A> <I> Returns a reverse iterator over the elements in this list in proper sequence.</I>
+<LI><A HREF="pblListSet.html">pblListSet</A> <I> Replaces the element at the specified position in this list with the specified element.</I>
+<LI><A HREF="pblListSetCompareFunction.html">pblListSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the list.</I>
+<LI><A HREF="pblListSetFirst.html">pblListSetFirst</A> <I> Replaces the head (first element) of this list.</I>
+<LI><A HREF="pblListSetLast.html">pblListSetLast</A> <I> Replaces the tail (last element) of this list.</I>
+<LI><A HREF="pblListSetSize.html">pblListSetSize</A> <I> Sets the size of a list.</I>
+<LI><A HREF="pblListSize.html">pblListSize</A> <I> Returns the number of elements in this list.</I>
+<LI><A HREF="pblListSort.html">pblListSort</A> <I> Sorts the elements of the list.</I>
+<LI><A HREF="pblListTail.html">pblListTail</A> <I> Retrieves, but does not remove, the tail (last element) of this list.</I>
+<LI><A HREF="pblListToArray.html">pblListToArray</A> <I> Returns an array containing all of the elements in this list in the correct order.</I>
+<LI><A HREF="pblListTop.html">pblListTop</A> <I> Retrieves, but does not remove, the tail (last element) of this list.</I>
+<LI><A HREF="pblListTrimToSize.html">pblListTrimToSize</A> <I> Trims the capacity of this list instance to be the list's current size.</I>
+<hr>
+Copyright(C) 2003 - 2009 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

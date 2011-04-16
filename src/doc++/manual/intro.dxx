@@ -1,0 +1,56 @@
+/** @name Introduction
+
+    The idea of DOC++ is to provide a tool that supports the {\em programmer}
+    for writing {\em high quality} documentation while keeping concentration on
+    the program development. In order to do so, it is important that the
+    programmer can add the documentation right into the source code he/she
+    developes. Only with such an approach, a programmer would really write some
+    documentation to his/her classes, methods etc. and keep them up to date with
+    upcoming changes of code. At the same time it must be possible to directly
+    compile the code without need to a previous filter phase as needed when
+    using e.g. `cweb'. Hence, the only place where to put documentation are
+    comments.
+
+    This is exactly what DOC++ uses for generating documentation. However,
+    there are two types of comments the programmer wants to distinguish. One
+    are comments he/she does for remembering some implementational issues, while
+    the others are comments for documenting classes, functions etc. such that
+    he/she or someone else would be able to use the code later on. In DOC++
+    this distinction is done via different types of comments. Similar to
+    `JavaDoc', documentation comments are of the following format
+
+	\begin{itemize}
+	\item	#/** ... *##/#\\
+	\item	#/// ...#
+	\end{itemize}
+
+    where the documentation is given in ``#...#''. Such comments are referred to
+    as {\em DOC++ comments}. Each DOC++ comment generates a manual entry for
+    the {\em next} declaration in the source code. Trailing comments can be
+    used to generate manual entries too while being in Quantel mode.
+
+    Now, let's consider what ``high quality'' documentation means. Many
+    programmers like to view the documentation online simply by klicking their
+    mouse buttons. A standard for such documents is HTML for which good viewers
+    are available on almost every machine. Hence, DOC++ has been designed to
+    produce HTML output in a structured way.
+
+    But have you ever printed a HTML page?  Doesn't it look ugly, compared to
+    what one is used to? This is not a problem for DOC++ since it also provides
+    TeX output for generating high quality hardcopies.
+
+    For both ouput formats, it is important that the documentation is well
+    structured. DOC++ provides hierarchies, that are reflected as
+    sections/subsections etc., or HTML page hierarchies, respectively. Also an
+    index is generated that allows the user to easily find what he/she looks
+    for.
+
+    As C++ and Java are (somewhat) object-oriented languages, another type of
+    hierarchy is introduced, namely class hierarchies. The best way to read
+    such a hierarchy is by looking at a picture of it. Indeed, DOC++
+    automatically draws a picture for each class derivation hierarchy or shows
+    it with a Java applet in the HTML output.
+
+    An additional goody of DOC++ is its ability to generate a TeX typeset
+    source code listing for C and C++ code.
+*/

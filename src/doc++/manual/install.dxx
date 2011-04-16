@@ -1,0 +1,43 @@
+/** @name Installation Instructions
+
+    The steps in order to compile this package are:
+
+    {\bf 1.} `cd' to the directory containing the package's source code and type
+    `./configure' to configure the package for your system. If you're
+    using `csh' on an old version of System V, you might need to type
+    `sh ./configure' instead to prevent `csh' from trying to execute
+    `configure' itself.
+
+     Running `configure' takes awhile. While running, it prints some messages
+     telling which features it is checking for.
+
+     The `configure' script is generated from `configure.in' by GNU's autoconf
+     and it attempts to guess correct values for various system-dependent
+     variables used during compilation. It also creates the Makefiles needed to
+     compile the package and a `.h' file containing system-dependent
+     definitions;
+
+    {\bf 2.} Type `make' to compile the package;
+
+    {\bf 3.} Type `make install' to install the package. This operation should be
+    done logged on as root;
+
+    {\bf 4.} You can remove the object files from the source directory by typing
+    `make clean'. To also remove the files that `configure' created
+    (so you can compile the package for a different kind of system), type
+    `make distclean';
+
+    {\bf 5.} Type `make uninstall' to remove the package from the destination
+    directories.
+
+    {\bf Installation directories}
+
+    By default, `make install' will install the package's binaries in
+    `/usr/bin'. You can specify an installation prefix other than `/usr'
+    by giving `configure' the option `--prefix=PATH'.
+
+    {\bf Other features and options}
+
+    --enable-debug to enable generation of debugging informations; for other
+    options, type `./configure --help'.
+*/

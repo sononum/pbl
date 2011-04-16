@@ -1,0 +1,40 @@
+/** @name Tags
+
+    \begin{description}
+    \item[\##foo#\#]
+	Corresponds to the TeX ``#\verb!foo!#'', i.e. outputs ``#foo#''
+	verbatim.
+    \item[#@filename foo#]
+	Force the manual entry to go to the specified file.
+    \item[#{@link foo name}#]
+	Make a reference to a manual entry with name ``foo''. The link name is
+	``name''. The second parameter is optional.
+    \item[#\Date#]
+	Insert the current date and time (according to the current locale
+	settings) into the documentation.
+    \item[#\IMG{filename}#]
+	Insert an image into the documentation.
+    \item[#\IMG[HTML parameters]{filename}#]
+	Insert an image into the documentation.
+    \item[#\IMG[HTML parameters][TeX parameters]{filename}#]
+	Insert an image into the documentation. Note that if you are using TeX
+	output you'll have to tell DOC++ to include the `graphicx' TeX package.
+    \item[#\Label{foo}#]
+	Make a label with the name ``name''.
+    \item[#\Ref{foo}#]
+	Make a reference to a manual entry with name ``foo''.
+    \item[#\URL{foo}#]
+	Make a link to the WWW page ``foo''.
+    \item[#\URL[name]{foo}#]
+	Make a link to the WWW page ``foo'', with the name ``name''.
+    \item[#\TEX{foo}#]
+	Include the ``foo'' TeX code into your document. For HTML output DOC++
+	will run TeX to process it, produce GIFs out of it and includes them
+	into the HTML document. NOTE: this requires `latex', `dvips',
+	`ghostscript' and `ppmtools' to be correctly installed on your system!
+    \item[#\includegraphics#]
+	Same as `#\IMG#'.
+    \item[#\today#]
+	Same as `#\Date#'.
+    \end{description}
+*/

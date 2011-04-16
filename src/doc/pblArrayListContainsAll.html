@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblArrayListContainsAll</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblArrayListContainsAll</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,<BR>&nbsp;  void*  collection )</H2><BLOCKQUOTE> Returns a value > 0 if this collection contains all of the elements in the specified collection.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns a value > 0 if this collection contains all of the elements
+in the specified collection.
+
+<P>This implementation iterates over the specified collection,
+checking each element returned by the iterator in turn to see if it's contained in this collection.
+If all elements are so contained a value > 0 is returned, otherwise 0.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                                
+<BR><B>collection</B> -   The collection to be checked for containment in this list. <BR><DT><B>Returns:</B><DD>  int rc >  0: arrayList contains all of the elements in the specified collection.
+<BR>  int rc == 0: arrayList does not contain all of the elements
+<BR>  int rc <  0: An error, see pbl_errno
+PBL_ERROR_OUT_OF_MEMORY         - out of memory
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

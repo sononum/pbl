@@ -1,0 +1,49 @@
+/** @name DOC++
+
+    \begin{center}
+	{\Large{\bf Welcome to the wonderful world of DOC++}}
+    \end{center}
+
+    DOC++ is a documentation system for C, C++, IDL and Java generating both,
+    TeX output for high quality hardcopies and HTML output for sophisticated
+    online browsing of your documentation. The documentation is extracted
+    directly from the C/C++/IDL header/source files or Java class files.
+
+    Here is a list of highlights:
+    \begin{itemize}
+	\item hierarchically structured documentation
+	\item automatic class graph generation (as Java applets for HTML)
+        \item cross references
+	\item high end formatting support including typesetting of equations
+        \end{itemize}
+
+    For an introduction to the philosophy of DOC++ go on reading the
+    \Ref{Introduction}. If you want to jump right into using DOC++ on your
+    sources go to section \Ref{Quickstart}. Section \Ref{Reference Manual}
+    provides you a complete manual on the features provided DOC++. If you have
+    problems using DOC++ you should consult our \Ref{Frequently Asked Questions}.
+    If you first want to look at some output of DOC++, don't do anything at all,
+    you are just reading an example. An example for some dummy C++ classes can
+    be found in \Ref{Example}.
+
+    \begin{center}
+	{\Large{\bf Enjoy!}}
+    \end{center}
+
+    @memo A Documentation System for C, C++, IDL and Java
+*/
+//@{
+    //@Include: intro.dxx
+    //@Include: short.dxx
+    //@Include: reference.dxx
+
+    /** @name Example
+    */
+    //@{
+	//@Include: *.h
+    //@}
+
+    //@Include: general.dxx
+    //@Include: install.dxx
+    //@Include: FAQ.dxx
+//@}

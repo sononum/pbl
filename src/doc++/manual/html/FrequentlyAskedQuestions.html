@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE> Frequently Asked Questions</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2> <A HREF="#DOC.DOCU">Frequently Asked Questions</A></H2></H2><A NAME="DOC.DOCU"></A>
+<BLOCKQUOTE><DL>
+<DT><B>Q:</B><DD>   How can I group a number of entries?
+<DT><B>A:</B><DD>   Right as in this example:
+<PRE>
+	&nbsp;&nbsp;&nbsp;&nbsp;/**@name&nbsp;comparison&nbsp;operators&nbsp;*&nbsp;/
+	&nbsp;&nbsp;&nbsp;&nbsp;//@{
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;equal
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;operator==(const&nbsp;Date&amp;&nbsp;cmpDate);
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;operator!=(const&nbsp;Date&amp;&nbsp;cmpDate);
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;less
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;operator&lt;(const&nbsp;Date&amp;&nbsp;cmpDate);
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;greater
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool&nbsp;operator&gt;(const&nbsp;Date&amp;&nbsp;cmpDate);
+	&nbsp;&nbsp;&nbsp;&nbsp;//@}
+	&nbsp;&nbsp;&nbsp;&nbsp;</PRE>
+
+<P><DT><B>Q:</B><DD>   How can I influence the order of the entries?
+<DT><B>A:</B><DD>   The order of class members is the same as in the
+class declaration. The order of the entries in the table
+of contents is the order in which DOC++ reads the classes.
+Hence, typing ``doc++ *'' yields an alphabetically ordered list.
+You may also use ``<TT>//@Include:</TT>'' to read your files in the desired
+order.
+
+<P><DT><B>Q:</B><DD>   How can I change fonts/borders/whatever in TeX output?
+<DT><B>A:</B><DD>   Edit the file `docxx.sty'
+(there is no documentation about how to do this, sorry :-( ).
+
+<P><DT><B>Q:</B><DD>   What do the blue and grey balls in the HTML-output mean?
+<DT><B>A:</B><DD>   Entries that have a doc-string (not only memo) have a blue ball.
+Clicking on this ball gets you to the documentation.
+
+<P><DT><B>Q:</B><DD>   How can I avoid scrolling all the way down to the class' documentation?
+<DT><B>A:</B><DD>   Click on the class name to jump there.
+
+<P><DT><B>Q:</B><DD>   How can I get other paper formats for the TeX output?
+<DT><B>A:</B><DD>   Try the `-e' options. E.g.: with ``-eo a4paper'', the `a4paper'
+option will be set for the documentstyle; with ``-ep a4wide'' a
+``<TT>\usepackage{a4wide}</TT>'' will be inserted before
+``<TT>\begin{document}</TT>''. Finally, one can provide a completely own
+TeX environment setup using the `-ef' option.
+
+<P><DT><B>Q:</B><DD>   I have the following:
+<PRE>
+		///&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;A&nbsp;{&nbsp;...&nbsp;}&nbsp;a;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;</PRE>
+Why do I get scrambled results ?
+<DT><B>A:</B><DD>   DOC++ does not know what you intend to document, the class A or
+the variable a. Solution: Split up class and variable declarations
+like this:
+<PRE>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;A&nbsp;{&nbsp;...&nbsp;};
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;///&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;a;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;</PRE>
+
+<P><DT><B>Q:</B><DD>   I have the following old C typedef:	<BR>
+<TT>/**</TT> ... <TT>*</TT><TT>/</TT><BR>
+<TT>typedef&nbsp;struct&nbsp;a&nbsp;{&nbsp;...&nbsp;}&nbsp;a_t&nbsp;;</TT><BR>
+Why do I get scrambled results?
+<DT><B>A:</B><DD>   This is the same problem as above. The solution is also
+equivalent:<BR>
+<TT>/**</TT> ... <TT>*</TT><TT>/</TT><BR>
+<TT>struct&nbsp;a&nbsp;{&nbsp;...&nbsp;};</TT><BR>
+<TT>/**</TT> ... <TT>*</TT><TT>/</TT><BR>
+<TT>typedef&nbsp;struct&nbsp;a&nbsp;a_t&nbsp;;&nbsp;</TT>
+
+<P><DT><B>Q:</B><DD>   Is there a way to make the equation font larger in the HTML output?
+<DT><B>A:</B><DD>   Sure, more than one. You may use ``<TT>\large</TT>'' or so within the
+equations. Or you may use the `-eo 12pt' option to render all GIFs
+in 12pt instead of 10pt. Or you may use you own TeX environment with
+`-ef' option to setup all fonts as desired.
+
+<P><DT><B>Q:</B><DD>   Why does DOC++ fail to build GIFs for my formulae?
+<DT><B>A:</B><DD>   There are two typical kinds of failure. One is, that you don't have
+setup your path to find the `ppmtools', `gs' or `latex'. The other
+is that `latex' fails to process your formulae. Check the file
+`dxxgifs.tex' in your html directory to see what LaTeX tries to
+process.
+
+<P><DT><B>Q:</B><DD>   Why does HTML code in my DOC++ comments not get incorporated into
+my HTML documentation? Why does <TT>&lt;pre&gt;</TT> get converted to <TT>&amp;lt;pre&amp;gt;</TT>?
+<DT><B>A:</B><DD>   By default, the DOC++ comments are expected to use the TeX macros.
+To tell DOC++ to use the HTML macros/tags, use the <TT>-H</TT> or <TT>--html</TT>
+option.
+
+<P>Alternatively, switch to using the more powerful TeX macros - they will
+give the same HTML results as you're aiming for, but with better
+printed (TeX) output. The TeX equivalent of the HTML <TT>&lt;pre&gt;</TT> is
+<TT>\begin{verbatim}</TT> ... <TT>\end{verbatim}</TT>. If you take this approach,
+then the <TT>-H</TT> or <TT>--html</TT> command line options should not be used.
+
+<P></DL></BLOCKQUOTE>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">Hierarchy of classes</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

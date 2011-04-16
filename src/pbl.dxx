@@ -1,0 +1,251 @@
+/** @name A: Introduction
+
+PBL is an GPL open source C library of functions that can be used in a C or C++ project.
+PBL is highly portable and compiles warning free on Linux gcc,
+MAC OS X and Windows Microsoft Visual C++ 2010 Express Edition.
+
+<P>
+<H2>VERSIONS:</H2>
+<UL>
+<B>Version 1.00, Thu Sep 5 2002</B> - Initial version
+<P>
+<B>Version 1.01, Fri Nov 1 2002</B> - Improved memory management, see pblkf.c Revision 1.2, 1.3
+<P>
+<B>Version 1.02, Mit Feb 19 2003</B> - Fixed a bug reported by Csaba Pálos, see pblisam.c Revision 1.2
+<P>
+<B>Version 1.03, Sun Apr 4 2004</B> - Fixed a bug reported by Jari Aalto, see pbl.h Revision 1.3
+<P>
+<B>Version 1.04, Sun Mar 1 2009</B> - Optimizations during MAC OS X port. Exposed the array list, linked list, tree set and hash set functions.
+<P>
+<B>Version 1.04.02, Sun May 30 2010</B> - Exposed the map interface functions.
+<P>
+<B>Version 1.04.03, Sun Aug 8 2010</B> - Exposed the priority queue functions.
+<P>
+<B>Version 1.04.04, Sun Sep 5 2010</B> - Exposed the heap functions.
+</UL>
+
+<P>
+<H2>CODE:</H2>
+<UL>
+The code of the PBL library includes the following modules:
+
+<P>
+<A href="base.html"><B>PBL BASE</B></A> - Some base functions,
+see <B>pbl_*</B> functions.
+
+<P>
+<A href="collection.html"><B>PBL COLLECTION</B></A> - 
+An open source C implementation of a collection used by the
+list and set implementations.
+
+<P>
+<A href="list.html"><B>PBL LIST</B></A> - An open source C implementation of array lists and linked lists
+similar to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/List.html">Java List</a>
+interface,
+see <B>pblList*</B> functions,
+<UL>
+<A href="list.html"><LI><B>pblArrayList</B></A> --  C array list, C-ArrayList,
+array list in C, ArrayList in C, List in C
+<BR>
+Open source C resizable-array implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ArrayList.html">Java ArrayList</a>
+class.
+Implements most optional list operations, and permits all elements, including NULL.
+In addition to implementing the List operations,
+this module provides methods to manipulate
+the size of the array that is used internally to store the list.
+<P>
+The size, isEmpty, get, set, iterator, and listIterator operations run in constant time. The add operation runs in amortized constant time, that is, adding n elements requires O(n) time. All of the other operations run in linear time (roughly speaking). The constant factor is low compared to that for the LinkedList implementation.
+<P>
+Each pblArrayList instance has a capacity. The capacity is the size of the array used to store the elements in the list. It is always at least as large as the list size. As elements are added to an ArrayList, its capacity grows automatically. The details of the growth policy are not specified beyond the fact that adding an element has constant amortized time cost.
+<P>
+An application can increase the capacity of an ArrayList instance before adding a large number of elements using the ensureCapacity operation. This may reduce the amount of incremental reallocation.
+<LI><A href="list.html"><B>pblLinkedList</B></A> --  C linked list, C-LinkedList, linked list in C, LinkedList in C, List in C
+<BR>
+Open source C linked list implementation equivalent to the 
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/LinkedList.html">Java LinkedList</a>
+class.
+Implements most optional list operations, and permits all elements (including null).
+In addition to implementing the List operations,
+this module provides uniformly named methods to get, remove and insert an element at the beginning and end of the list. These operations allow linked lists to be used as a stack, queue, or double-ended queue (deque).
+<P>
+The module implements the Queue operations, providing first-in-first-out queue operations for add, poll, etc. Other stack and deque operations could be easily recast in terms of the standard list operations.
+<P>
+All of the operations perform as could be expected for a doubly-linked list. Operations that index into the list will traverse the list from the beginning or the end, whichever is closer to the specified index.
+<LI><A href="iterator.html"><B>pblIterator</B></A> --  C list iterator, C-ListIterator, list iterator in C, ListIterator in C
+<BR>
+Open source C Iterator implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ListIterator.html">Java ListIterator</a>
+interface.
+<P>
+An iterator for lists that allows the programmer to traverse the list in either direction,
+modify the list during iteration, and obtain the iterator's current position in the list.
+A ListIterator has no current element; its cursor position always lies between the element
+that would be returned by a call to previous() and the element
+that would be returned by a call to next().
+In a list of length n, there are n+1 valid index values, from 0 to n, inclusive.
+<P>
+Note that the remove() and set(Object) methods are not defined in terms of the cursor position; they are defined to operate on the last element returned by a call to next() or previous().
+</UL>
+<P>
+<A href="set.html"><B>PBL Set</B></A> - An open source C implementation of hash sets and tree sets similar to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Set.html">Java Set</a>
+interface,
+see <B>pblSet*</B> functions,
+<UL>
+<A href="set.html"><LI><B>pblHashSet</B></A>: --  C hash set, C-HashSet, hash set in C, HashSet in C, Set in C
+<BR>
+Open source C resizable hash set implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/HashSet.html">Java HashSet</a>
+class.
+<BR>
+Hash sets make no guarantees as to the iteration order of the set;
+in particular, it does not guarantee that the order will remain constant over time.
+This module does not permit the NULL  element.
+<BR>
+Hash sets offer constant time performance for the basic operations
+(add, remove, contains and size),
+assuming the hash function disperses the elements properly among the buckets.
+Iterating over this set requires time proportional to the sum of the HashSet
+instance's size (the number of elements) plus the "capacity" of the instance
+(the number of buckets).
+Thus, it's very important not to set the initial capacity too high
+(or the load factor too low) if iteration performance is important.
+<P>
+<A href="set.html"><LI><B>pblTreeSet</B></A>: --  C tree set, C-TreeSet, tree set in C, TreeSet in C, Set in C
+<BR>
+Open source C avl-tree-based balanced tree set implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/TreeSet.html">Java TreeSet</a>
+class.
+<BR>
+Tree sets guarantees that the sorted set will be in ascending element order,
+sorted according to the natural order  of the elements,
+or by the comparator provided.
+<BR>
+This implementation provides guaranteed log(n) time cost for the basic operations
+(add, remove and contains).
+</UL>
+<P>
+<A href="map.html"><B>PBL Map</B></A> - An open source C implementation of hash maps and tree maps similar to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Map.html">Java Map</a>
+interface,
+see <B>pblMap*</B> functions,
+<UL>
+<A href="map.html"><LI><B>pblHashMap</B></A>: --  C hash map, C-HashMap, hash map in C, HashMap in C, Map in C
+<BR>
+Open source C resizable hash map implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/HashMap.html">Java HashMap</a>
+class.
+<BR>
+Hash maps make no guarantees as to the iteration order of the set;
+in particular, it does not guarantee that the order will remain constant over time.
+<BR>
+Hash maps offer constant time performance for the basic operations
+(add, remove, contains and size),
+assuming the hash function disperses the elements properly among the buckets.
+Iterating over this map requires time proportional to the sum of the HashMap
+instance's size (the number of elements) plus the "capacity" of the instance
+(the number of buckets).
+Thus, it's very important not to set the initial capacity too high
+(or the load factor too low) if iteration performance is important.
+<P>
+<A href="set.html"><LI><B>pblTreeMap</B></A>: --  C tree map, C-TreeMap, tree map in C, TreeMap in C, Map in C
+<BR>
+Open source C avl-tree-based balanced tree map implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/TreeMap.html">Java TreeMap</a>
+class.
+<BR>
+Tree maps guarantee that the sorted map will be in ascending element order,
+sorted according to the natural order of the elements,
+or by the comparator provided.
+<BR>
+This implementation provides guaranteed log(n) time cost for the basic operations
+(add, remove and contains).
+</UL>
+
+<P><P>
+<A href="heap.html"><B>PBL HEAP</B></A> -- Heap in C, C heap, heap in C, C-Heap, binary heap in C, binary min-max heap in C 
+<UL>
+Open source C implementation of a <A href="http://en.wikipedia.org/wiki/Binary_heap">binary heap</a>.
+<P>
+This heap orders elements according to a compare function specified. A heap does not permit null elements.
+</UL>
+
+<P>
+<A href="priorityQueue.html"><B>PBL PRIORITY QUEUE</B></A> -- PriorityQueue in C, C priority queue, priority queue in C, Heap in C, C-Heap, binary heap in C, binary max heap in C
+<UL>
+Open source C implementation of a <A href="http://en.wikipedia.org/wiki/Priority_queue">priority queue</a>
+based on a <A href="http://en.wikipedia.org/wiki/Binary_heap">binary max-heap</a>.
+This C implementation is
+similar to the
+<A href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/PriorityQueue.html">Java PriorityQueue</a>
+interface.
+</UL>
+
+<P>
+<A href="hash.html"><B>PBL HASH</B></A> - An open source C memory hash table implementation,
+see <B>pblHt*</B> functions,
+<UL>
+<B>Features</B>
+<UL>
+<LI>random access lookups
+<LI>sequential access
+<LI>regression test frame
+</UL>
+</UL>
+
+<A href="keyfile.html"><B>PBL KEYFILE</B></A> - An open source C key file implementation,
+see <B>pblKf*</B> functions,
+<UL>
+<B>Features</B>
+<UL>
+<LI>ultra fast B* tree implementation for random lookups
+<LI>transaction handling
+<LI>sequential access methods
+<LI>embedable small footprint, < 35 Kb
+<LI>arbitrary size files, up to 4 terrabytes
+<LI>arbitrary number of records per file, up to 2 ^^ 48 records
+<LI>duplicate keys
+<LI>advanced key compression for minimal size B trees
+<LI>keylength up to 255 bytes
+<LI>regression test frame
+</UL>
+</UL>
+<A href="isamfile.html"><B>PBL ISAM</B></A> - An open source C ISAM file implementation,
+see <B>pblIsam*</B> functions
+<UL>
+<B>Features</B>
+<UL>
+<LI>ultra fast B* tree implementation for random lookups
+<LI>transaction handling
+<LI>sequential access methods
+<LI>embedable small footprint, < 75 Kb
+<LI>arbitrary size files, up to 4 terrabytes
+<LI>arbitrary number of records per file, up to 2 ^^ 48 records
+<LI>duplicate keys and unique keys
+<LI>advanced key compression for minimal size index files
+<LI>keylength up to 255 bytes per index
+<LI>keylength up to 1024 per record
+<LI>regression test frame
+</UL>
+</UL>
+</UL>
+    
+*/
+//@Include: pbl.h
+//@Include: pbl.c
+//@Include: pblCollection.c
+//@Include: pblIterator.c
+//@Include: pblList.c
+//@Include: pblSet.c
+//@Include: pblMap.c
+//@Include: pblHeap.c
+//@Include: pblPriorityQueue.c
+//@Include: pblhash.c
+//@Include: pblhttst.c
+//@Include: pblkf.c
+//@Include: pblkftst.c
+//@Include: pblisam.c
+//@Include: pbliftst.c
+

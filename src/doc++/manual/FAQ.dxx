@@ -1,0 +1,98 @@
+/** @name Frequently Asked Questions
+\begin{description}
+\item[Q:]   How can I group a number of entries?
+\item[A:]   Right as in this example:
+	    \begin{verbatim}
+	    /**@name comparison operators * /
+	    //@{
+	      /// equal
+	      bool operator==(const Date& cmpDate);
+	      ///
+	      bool operator!=(const Date& cmpDate);
+	      /// less
+	      bool operator<(const Date& cmpDate);
+	      /// greater
+	      bool operator>(const Date& cmpDate);
+	    //@}
+	    \end{verbatim}
+
+\item[Q:]   How can I influence the order of the entries?
+\item[A:]   The order of class members is the same as in the
+	    class declaration. The order of the entries in the table
+	    of contents is the order in which DOC++ reads the classes.
+	    Hence, typing ``doc++ *'' yields an alphabetically ordered list.
+	    You may also use ``#//@Include:#'' to read your files in the desired
+	    order.
+
+\item[Q:]   How can I change fonts/borders/whatever in TeX output?
+\item[A:]   Edit the file `docxx.sty'
+	    (there is no documentation about how to do this, sorry :-( ).
+
+\item[Q:]   What do the blue and grey balls in the HTML-output mean?
+\item[A:]   Entries that have a doc-string (not only memo) have a blue ball.
+	    Clicking on this ball gets you to the documentation.
+
+\item[Q:]   How can I avoid scrolling all the way down to the class' documentation?
+\item[A:]   Click on the class name to jump there.
+
+\item[Q:]   How can I get other paper formats for the TeX output?
+\item[A:]   Try the `-e' options. E.g.: with ``-eo a4paper'', the `a4paper'
+	    option will be set for the documentstyle; with ``-ep a4wide'' a
+	    ``#\usepackage{a4wide}#'' will be inserted before
+	    ``#\begin{document}#''. Finally, one can provide a completely own
+	    TeX environment setup using the `-ef' option.
+
+\item[Q:]   I have the following:
+	    \begin{verbatim}
+		/// 
+	    class A { ... } a; 
+	    \end{verbatim}
+	    Why do I get scrambled results ?
+\item[A:]   DOC++ does not know what you intend to document, the class A or
+	    the variable a. Solution: Split up class and variable declarations
+	    like this:
+	    \begin{verbatim}
+	        /// 
+	    class A { ... };
+	        /// 
+	    A a; 
+	    \end{verbatim}
+
+\item[Q:]   I have the following old C typedef:	\\
+		#/**# ... #*##/#\\
+	    #typedef struct a { ... } a_t ;#\\
+	    Why do I get scrambled results?
+\item[A:]   This is the same problem as above. The solution is also
+	    equivalent:\\
+	        #/**# ... #*##/#\\
+	    #struct a { ... };#\\
+	        #/**# ... #*##/#\\
+	    #typedef struct a a_t ; #
+
+\item[Q:]   Is there a way to make the equation font larger in the HTML output?
+\item[A:]   Sure, more than one. You may use ``#\large#'' or so within the
+	    equations. Or you may use the `-eo 12pt' option to render all GIFs
+	    in 12pt instead of 10pt. Or you may use you own TeX environment with
+	    `-ef' option to setup all fonts as desired.
+
+\item[Q:]   Why does DOC++ fail to build GIFs for my formulae?
+\item[A:]   There are two typical kinds of failure. One is, that you don't have
+	    setup your path to find the `ppmtools', `gs' or `latex'. The other
+	    is that `latex' fails to process your formulae. Check the file
+	    `dxxgifs.tex' in your html directory to see what LaTeX tries to
+	    process.
+
+\item[Q:]   Why does HTML code in my DOC++ comments not get incorporated into
+        my HTML documentation? Why does #<pre># get converted to #&lt;pre&gt;#?
+\item[A:]   By default, the DOC++ comments are expected to use the TeX macros.
+        To tell DOC++ to use the HTML macros/tags, use the #-H# or #--html#
+        option.
+
+        Alternatively, switch to using the more powerful TeX macros - they will
+        give the same HTML results as you're aiming for, but with better
+        printed (TeX) output. The TeX equivalent of the HTML #<pre># is
+          #\begin{verbatim}# ... #\end{verbatim}#. If you take this approach,
+        then the #-H# or #--html# command line options should not be used.
+
+\end{description}
+*/

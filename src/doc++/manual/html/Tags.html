@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE> Tags</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2> <A HREF="#DOC.DOCU">Tags</A></H2></H2><A NAME="DOC.DOCU"></A>
+<BLOCKQUOTE>
+<DL>
+<DT><B>#<TT>foo</TT>#</B><DD>
+Corresponds to the TeX ``<TT>\verb!foo!</TT>'', i.e. outputs ``<TT>foo</TT>''
+verbatim.
+<DT><B><TT>@filename&nbsp;foo</TT></B><DD>
+Force the manual entry to go to the specified file.
+<DT><B><TT>{@link&nbsp;foo&nbsp;name}</TT></B><DD>
+Make a reference to a manual entry with name ``foo''. The link name is
+``name''. The second parameter is optional.
+<DT><B><TT>\Date</TT></B><DD>
+Insert the current date and time (according to the current locale
+settings) into the documentation.
+<DT><B><TT>\IMG{filename}</TT></B><DD>
+Insert an image into the documentation.
+<DT><B><TT>\IMG[HTML&nbsp;parameters]{filename}</TT></B><DD>
+Insert an image into the documentation.
+<DT><B><TT>\IMG[HTML&nbsp;parameters][TeX&nbsp;parameters]{filename}</TT></B><DD>
+Insert an image into the documentation. Note that if you are using TeX
+output you'll have to tell DOC++ to include the `graphicx' TeX package.
+<DT><B><TT>\Label{foo}</TT></B><DD>
+Make a label with the name ``name''.
+<DT><B><TT>\Ref{foo}</TT></B><DD>
+Make a reference to a manual entry with name ``foo''.
+<DT><B><TT>\URL{foo}</TT></B><DD>
+Make a link to the WWW page ``foo''.
+<DT><B><TT>\URL[name]{foo}</TT></B><DD>
+Make a link to the WWW page ``foo'', with the name ``name''.
+<DT><B><TT>\TEX{foo}</TT></B><DD>
+Include the ``foo'' TeX code into your document. For HTML output DOC++
+will run TeX to process it, produce GIFs out of it and includes them
+into the HTML document. NOTE: this requires `latex', `dvips',
+`ghostscript' and `ppmtools' to be correctly installed on your system!
+<DT><B><TT>\includegraphics</TT></B><DD>
+Same as `<TT>\IMG</TT>'.
+<DT><B><TT>\today</TT></B><DD>
+Same as `<TT>\Date</TT>'.
+</DL></BLOCKQUOTE>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">Hierarchy of classes</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

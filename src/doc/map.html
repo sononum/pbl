@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+   <TITLE>pblMap - Map Implementation</TITLE>
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblMap - Map Implementation</H2>
+<SMALL>Map in C, C hash map, C-HashMap, hash map in C, HashMap in C,</SMALL>
+<SMALL>C tree map, C-TreeMap, tree map in C, TreeMap in C.</SMALL>
+<P>
+<HR>
+<H2>Documentation</H2>
+Open source C implementation of a map.
+A map maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value.
+This C implementation is
+similar to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Map.html">Java Map</a>
+interface.
+<P>
+The Map module provides two implementations of maps,
+an open source C hash map implementation equivalent to the 
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/HashMap.html">Java HashMap</a> class
+and
+a sorted open source C avl-tree-based balanced tree map implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/TreeMap.html">Java TreeMap</a>
+class.
+<P>
+Hash maps make no guarantees as to the iteration order of the map;
+in particular, they do not guarantee that the order will remain constant over time.
+Hash maps offer constant time performance for the basic operations (add, remove, contains and size),
+assuming the hash function disperses the elements properly among the buckets.
+Iterating over hash maps requires time proportional to the sum of the hash map
+instance's size (the number of elements) plus the "capacity" of the map (the number of buckets).
+Thus, it's very important not to set the initial capacity too
+high (or the load factor too low) if iteration performance is important.
+<P>
+Tree maps being sorted guarantee that the map can be iterated in ascending element order, according to the 
+compare function specified for the map.
+The implementation provides guaranteed log(n) time cost for the basic operations (add, remove and contains).
+Iterating over tree maps requires time proportional to the tree map
+instance's size.
+<P>
+The Map module provides an iterator, called a
+<A href="iterator.html">pblIterator</A>,
+that allows bidirectional access in addition to the normal operations iterators provide.
+<P>
+All map functions described below work on hash maps as well as on tree maps,
+they of course will show different runtime and memory complexities depending on the type of
+map used.
+
+<HR>
+<H2>Constructors and Destructors</H2>
+<LI><A HREF="pblMapNewHashMap.html">pblMapNewHashMap</A> <I> Creates a new hash map.</I>
+<LI><A HREF="pblMapNewTreeMap.html">pblMapNewTreeMap</A> <I> Creates a new tree map.</I>
+<LI><A HREF="pblMapFree.html">pblMapFree</A> <I> Removes all of the mappings from this map and frees the map's memory from heap.</I>
+<LI><A HREF="pblMapClear.html">pblMapClear</A> <I> Removes all of the mappings from this map.</I>
+
+<HR>
+<H2>Adding to a Map</H2>
+<LI><A HREF="pblMapAdd.html">pblMapAdd</A> <I> Associates the specified value with the specified key in this map.</I>
+<LI><A HREF="pblMapAddStrStr.html">pblMapAddStrStr</A> <I> Associates the specified string value with the specified string key in this map.</I>
+<LI><A HREF="pblMapPut.html">pblMapPut</A> <I> Associates the specified value with the specified key in this map.</I>
+<LI><A HREF="pblMapPutAll.html">pblMapPutAll</A> <I> Copies all of the mappings from the specified source map to this map.</I>
+<LI><A HREF="pblMapPutStrStr.html">pblMapPutStrStr</A> <I> Associates the specified string value with the specified string key in this map.</I>
+
+
+<HR>
+<H2>Accessing Map Elements</H2>
+<LI><A HREF="pblMapContainsKey.html">pblMapContainsKey</A> <I> Returns true if this map contains a mapping for the specified key.</I>
+<LI><A HREF="pblMapContainsKeyStr.html">pblMapContainsKeyStr</A> <I> Returns true if this map contains a mapping for the specified string key.</I>
+<LI><A HREF="pblMapContainsValue.html">pblMapContainsValue</A> <I> Returns true if this map contains a mapping for the specified value.</I>
+<LI><A HREF="pblMapContainsValueStr.html">pblMapContainsValueStr</A> <I> Returns true if this map contains a mapping for the specified string value.</I>
+<LI><A HREF="pblMapGet.html">pblMapGet</A> <I> Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.</I>
+<LI><A HREF="pblMapGetStr.html">pblMapGetStr</A> <I> Returns the value to which the specified string key is mapped, or null if this map contains no mapping for the key.</I>
+
+<HR>
+<H2>Removing from a Map</H2>
+<LI><A HREF="pblMapClear.html">pblMapClear</A> <I> Removes all of the mappings from this map.</I>
+<LI><A HREF="pblMapFree.html">pblMapFree</A> <I> Removes all of the mappings from this map and frees the map's memory from heap.</I>
+<LI><A HREF="pblMapRemove.html">pblMapRemove</A> <I> Removes the mapping for this key from this map if it is present.</I>
+<LI><A HREF="pblMapRemoveStr.html">pblMapRemoveStr</A> <I> Removes the mapping for this string key from this map if it is present.</I>
+
+<HR>
+<H2>Functions on Map Entries</H2>
+<LI><A HREF="pblMapEntryKey.html">pblMapEntryKey</A> <I> Returns a pointer to the key of the map entry passed.</I>
+<LI><A HREF="pblMapEntryKeyLength.html">pblMapEntryKeyLength</A> <I> Returns the key length of the map entry passed.</I>
+<LI><A HREF="pblMapEntryValue.html">pblMapEntryValue</A> <I> Returns a pointer to the value of the map entry passed.</I>
+<LI><A HREF="pblMapEntryValueLength.html">pblMapEntryValueLength</A> <I> Returns the value length of the map entry passed.</I>
+
+<HR>
+<H2>Functions on Maps</H2>
+<LI><A HREF="pblMapIsEmpty.html">pblMapIsEmpty</A> <I> Tests if this map has no elements.</I>
+<LI><A HREF="pblMapIteratorNew.html">pblMapIteratorNew</A> <I> Returns an iterator over the map entries in this map in proper sequence.</I>
+<LI><A HREF="pblMapIteratorReverseNew.html">pblMapIteratorReverseNew</A> <I> Returns a reverse iterator over the elements in this map in proper sequence.</I>
+<LI><A HREF="pblMapSize.html">pblMapSize</A> <I> Returns the number of entries in this map.</I>
+
+<HR>
+<H2>Alphabetic List of Map Functions</H2>
+<LI><A HREF="pblMapAdd.html">pblMapAdd</A> <I> Associates the specified value with the specified key in this map.</I>
+<LI><A HREF="pblMapAddStrStr.html">pblMapAddStrStr</A> <I> Associates the specified string value with the specified string key in this map.</I>
+<LI><A HREF="pblMapClear.html">pblMapClear</A> <I> Removes all of the mappings from this map.</I>
+<LI><A HREF="pblMapContainsKey.html">pblMapContainsKey</A> <I> Returns true if this map contains a mapping for the specified key.</I>
+<LI><A HREF="pblMapContainsKeyStr.html">pblMapContainsKeyStr</A> <I> Returns true if this map contains a mapping for the specified string key.</I>
+<LI><A HREF="pblMapContainsValue.html">pblMapContainsValue</A> <I> Returns true if this map contains a mapping for the specified value.</I>
+<LI><A HREF="pblMapContainsValueStr.html">pblMapContainsValueStr</A> <I> Returns true if this map contains a mapping for the specified string value.</I>
+<LI><A HREF="pblMapEntryKey.html">pblMapEntryKey</A> <I> Returns a pointer to the key of the map entry passed.</I>
+<LI><A HREF="pblMapEntryKeyLength.html">pblMapEntryKeyLength</A> <I> Returns the key length of the map entry passed.</I>
+<LI><A HREF="pblMapEntryValue.html">pblMapEntryValue</A> <I> Returns a pointer to the value of the map entry passed.</I>
+<LI><A HREF="pblMapEntryValueLength.html">pblMapEntryValueLength</A> <I> Returns the value length of the map entry passed.</I>
+<LI><A HREF="pblMapFree.html">pblMapFree</A> <I> Removes all of the mappings from this map and frees the map's memory from heap.</I>
+<LI><A HREF="pblMapGet.html">pblMapGet</A> <I> Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.</I>
+<LI><A HREF="pblMapGetStr.html">pblMapGetStr</A> <I> Returns the value to which the specified string key is mapped, or null if this map contains no mapping for the key.</I>
+<LI><A HREF="pblMapIsEmpty.html">pblMapIsEmpty</A> <I> Tests if this map has no elements.</I>
+<LI><A HREF="pblMapIteratorNew.html">pblMapIteratorNew</A> <I> Returns an iterator over the map entries in this map in proper sequence.</I>
+<LI><A HREF="pblMapIteratorReverseNew.html">pblMapIteratorReverseNew</A> <I> Returns a reverse iterator over the elements in this map in proper sequence.</I>
+<LI><A HREF="pblMapNewHashMap.html">pblMapNewHashMap</A> <I> Creates a new hash map.</I>
+<LI><A HREF="pblMapNewTreeMap.html">pblMapNewTreeMap</A> <I> Creates a new tree map.</I>
+<LI><A HREF="pblMapPut.html">pblMapPut</A> <I> Associates the specified value with the specified key in this map.</I>
+<LI><A HREF="pblMapPutAll.html">pblMapPutAll</A> <I> Copies all of the mappings from the specified source map to this map.</I>
+<LI><A HREF="pblMapPutStrStr.html">pblMapPutStrStr</A> <I> Associates the specified string value with the specified string key in this map.</I>
+<LI><A HREF="pblMapRemove.html">pblMapRemove</A> <I> Removes the mapping for this key from this map if it is present.</I>
+<LI><A HREF="pblMapRemoveStr.html">pblMapRemoveStr</A> <I> Removes the mapping for this string key from this map if it is present.</I>
+<LI><A HREF="pblMapSize.html">pblMapSize</A> <I> Returns the number of entries in this map.</I>
+<hr>
+Copyright(C) 2003 - 2010 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,35 @@
+/** @name Manual Entry Fields
+
+    All fields names start with a at-sign (#@#) or with a backslash (#\#).
+
+    \begin{description}
+    \item[author]
+	Author
+    \item[deprecated]
+	Warning for deprecated functions
+    \item[doc]
+	Entry's documentation
+    \item[exception]
+	Documentation for exception thrown by a function
+    \item[invariant]
+	Documentation for invariants
+    \item[memo]
+	Short description of the entry
+    \item[param]
+	Documentation of parameter of a function. Multiple #param# fields are
+	allowed.
+    \item[postcondition]
+	Documentation for postconditions
+    \item[precondition]
+	Documentation for preconditions
+    \item[return]
+	Documentation of return value of a function. Multiple #return# fields
+	are allowed.
+    \item[see]
+	"See also" references. Multiple #see# fields are allowed.
+    \item[since]
+	Version since the function exists
+    \item[version]
+	Version
+    \end{description}
+*/

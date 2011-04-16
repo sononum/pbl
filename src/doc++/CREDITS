@@ -1,0 +1,79 @@
+DOC++ v3.4.x
+December 22, 2002
+CREDITS: People that contributed on this project
+
+Dragos Acostachioaie <dragos@biosfarm.ro>
+	Made source cleanups and fixed many bugs. He is the current maintainer
+	of the project.
+
+Dan Fandrich <danf@npsnet.com>
+	Win32 enhancements and fixes.
+
+Michael Meeks <michael@imaginator.com>
+	He continued DOC++ development from the 3.2 release, fixed bugs,
+	introduced Quantel extensions, etc.
+
+Frank Muzzulini <muzzulini@comsoft.de>
+	Various fixes and ideas.
+
+Thomas Wicklund <wicklund@intellistor.com>
+	Various patches and ideas.
+
+Roland Wunderling, Malte Zoeckler
+	The big thanks: they started this project and wrote the main part of
+	it.
+
+	Many other people contributed with bug reports, suggestions, ideas:
+
+Nakhoon Baek <nhbaek@palgong.kyungpook.ac.kr> (`/*@Include' patch)
+Charl Botha <cpbotha@bigfoot.com> (various patches)
+Leon Bottou <leonb@research.att.com> (various fixes)
+Till Bubeck <tbubeck@yahoo.com> (doc++-comments inside C comments patch)
+Daniel Bullok <woodhead@uiuc.edu> (various fixes)
+Joerg Burmeister <joerg.burmeister@tek.com> (HP/UX tests)
+Vince Chen <vince@rti.com> (many patches and suggestions)
+Daniel Cioata <danielc@netappi.com> (a Java patch)
+Mischa Courtin <Mischa.Courtin@ehv.ce.philips.com> (lot of bug reports)
+Miguel Gonzalez Cuadrado <mgonzalez@sfe.indra.es> (various fixes)
+Dmitry Derevyanko <dmitryd@robotics.eecs.berkeley.edu> (bug reports and fixes)
+Michael DiCuccio <mdicuccio@ht.com> (`-I FILE' option)
+Gerhard Esterhuizen <goof@dsp.sun.ac.za> (template handling fix)
+Solomon Foster <colomon@ralf.org> (some patches)
+Philipp Frauenfelder <pfrauenf@debian.org> (some TeX patches)
+Gottfried Ganssauge <ganssauge@mpwsoftware.de> (TeX output fixes/enhancements)
+Steven Gould <steven.gould@stevengould.org> (documentation updates, various ideas)
+Sergio Henrique Guerra de Sousa <shgs@dep.fem.unicamp.br> (brazilian translation)
+Thomas Hampp <thomas@hampp-bahnmueller.de> (various patches)
+Guenter Hellstern <hellstern@comsoft.de> (Unixware tests)
+Asger Henriksen <asger@ns.enterprisead.dk> (PHP support)
+Gordon Hunt <gordon@rti.com> (many patches and suggestions)
+Lyle Johnson <jlj@cfd1.cfdrc.com> (small fixes)
+Curtis L. Janssen <cljanss@aros.ca.sandia.gov> (various patches)
+Robert Jongbloed <robertj@equival.com.au> (parameters' doc enhancement)
+Paul C. Kunysch <illume@gmx.net> (`--suffix' option, various bug fixes)
+Bo Lorentsen <bl@belle.dk> (a core dump fix, various suggestions)
+Arpad Makay <makay@cc.u-szeged.hu> (small cpp.ll typo corrected)
+Uwe Matthaeus <uwe.matthaeus@guehring.de> (various enhancements)
+Chris Mennie <camennie@undergrad.math.uwaterloo.ca> (pure virtual methods)
+Peter Moulder <pmoulder@bowman.csse.monash.edu.au> (build enhancements, etc.)
+Jeremie Petit <jeremie.petit@digital.com> (OSF tests)
+Erik Pischel <pischel@informatik.hu-berlin.de> (a Java parsing patch)
+Ernest Poletaev <ernest@setcorp.ru> (russian translation)
+Robert Radtke <Robert.Radtke@plk.af.mil> (forward class parsing fix)
+Johan Redestig <pt95jre@student.hk-r.se> (Cygwin32 tests)
+Edward Jason Riedy <ejr@u0.cs.berkeley.edu> (small EGCS hacks)
+Randy Roesler <rroesler@mdsi.bc.ca> (IDL patches)
+Gordon Russell <gor@dcs.napier.ac.uk> (Debian DOC++ package maintainer)
+Salmaso Raffaele <r.salmaso@inwind.it> (`--hide-index' option)
+Vincent Sanders <vince@trinity.fluff.org> (XML DocBook support)
+Kumaran Santhanam <kumaran@alumni.stanford.org> (various fixes)
+Paul Schulz <pauls@caemrad.com.au> (TeX math mode patch)
+Bill Seligman <seligman@nevis1.nevis.columbia.edu> (SGI tests)
+Ruslan Shevchenko <Ruslan@Shevchenko.Kiev.UA> (FreeBSD tests)
+Knut Stolze <stolze@informatik.uni-jena.de> (some patches)
+Stefan Tandecki <s.tandecki@tu-bs.de> (`-ei', `-nd' options, various TeX fixes)
+Jean-Francois Tilman <jean-francois.tilman@axlog.fr> (french translation)
+Tange Toshio <t-tange@ats.nis.nec.co.jp> (various patches, intl. support)
+Mark Trumpler <mark@sst.teradyne.com> (various fixes and ideas)
+Istvan Varadi <ivaradi@freemail.c3.hu> (reference problems with namespaces)
+Geoff Wilson <geoff@sharinga.com> (scope operator parsing patch)

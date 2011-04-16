@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>void* pblSetSetHashValueFunction</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>void* <A HREF="#DOC.DOCU">pblSetSetHashValueFunction</A></H2><H2>( <!1><A HREF="PblSet.html">PblSet</A>*  set,<BR>&nbsp;  int (* hashValue ) ( const void* element ) )</H2><BLOCKQUOTE> Sets an application specific hash value function for the elements of the hash set.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Sets an application specific hash value function for the elements
+of the hash set. For tree sets this function does nothing.
+
+<P>An application specific hash value function can be set to the set
+only if the set is empty.
+
+<P>The hash function specified should be based on the hash functions
+supplied by the library:
+<!1><A HREF="pblSetByteBufferHashValue.html">pblSetByteBufferHashValue</A> and <!1><A HREF="pblSetStringHashValue.html">pblSetStringHashValue</A>.
+
+<P>If no specific hash value function is specified by the user,
+the default hash value function <!1><A HREF="pblSetDefaultHashValue.html">pblSetDefaultHashValue</A> is used.
+
+<P>This method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>set</B> -   The set to set hash value function for 
+<BR><B>hashValue</B> -   The hash value function to set         
+<BR><B>element</B> -   The element to get the hash value for  <BR><DT><B>Returns:</B><DD>  * retptr != (void*)-1: The hash value function used before.
+<BR>  * retptr == (void*)-1: An error, see pbl_errno:
+<BR>PBL_ERROR_PARAM_SET - The set is not empty.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

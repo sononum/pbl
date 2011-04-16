@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+   <TITLE>pblPriorityQueue - Priority Queue Implementation</TITLE>
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE> 
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblPriorityQueue - Priority Queue Implementation</H2>
+<SMALL>PriorityQueue in C, C priority queue, priority queue in C,</SMALL>
+<SMALL>Heap in C, C-Heap, binary heap in C, binary max heap in C.</SMALL>
+<P>
+<HR>
+<H2>Documentation</H2>
+Open source C implementation of a <A href="http://en.wikipedia.org/wiki/Priority_queue">priority queue</a>
+based on a <A href="http://en.wikipedia.org/wiki/Binary_heap">binary max-heap</a>.
+This C implementation is
+similar to the
+<A href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/PriorityQueue.html">Java PriorityQueue</a>
+interface.
+<P>
+An unbounded priority queue based on a priority heap. The implementation is based on a <A href="heap.html"><B>pblHeap</B></A>. 
+<br>
+This queue orders elements according to an integer priority specified with each element.  
+A priority queue does permit null elements. 
+<P>
+The head of this queue is the element with the highest priority value. If multiple elements are tied for highest priority, 
+the head is one of those elements -- ties are broken arbitrarily. 
+The queue retrieval operations pblPriorityQueueGet and pblPriorityQueueRemoveFirst access the element at the head of the queue.
+<P>
+A priority queue is unbounded, but has an internal capacity governing the size of an array used to store the elements on the queue. 
+It is always at least as large as the queue size. 
+As elements are added to a priority queue, its capacity grows automatically. 
+The details of the growth policy are not specified.
+<P>
+The Iterator provided in method pblPriorityQueueIterator() is not guaranteed to traverse the elements of the PriorityQueue in any particular order. 
+<P>
+Implementation note: this implementation provides O(log(n)) time for the insertion methods; 
+O(log(n)) time for the removal methods; and constant time for the retrieval methods.
+
+<HR>
+<H2>Constructors and Destructors</H2>
+<LI><A HREF="pblPriorityQueueNew.html">pblPriorityQueueNew</A> <I> Creates a new priority queue.</I>
+<LI><A HREF="pblPriorityQueueFree.html">pblPriorityQueueFree</A> <I> Frees the priority queue's memory from heap.</I>
+<LI><A HREF="pblPriorityQueueClear.html">pblPriorityQueueClear</A> <I> Removes all of the elements from the priority queue.</I>
+
+<HR>
+<H2>Adding to a PriorityQueue</H2>
+<LI><A HREF="pblPriorityQueueInsert.html">pblPriorityQueueInsert</A> <I> Inserts the element with the specified priority into the priority queue and maintains the heap condition of the priority queue.</I>
+<LI><A HREF="pblPriorityQueueAddLast.html">pblPriorityQueueAddLast</A> <I> Adds the element with the specified priority to the end of the priority queue without ensuring the heap condition.</I>
+<LI><A HREF="pblPriorityQueueConstruct.html">pblPriorityQueueConstruct</A> <I> Constructs a priority queue using 'bottom-up heap construction'.</I>
+
+<HR>
+<H2>Accessing PriorityQueue Elements</H2>
+<LI><A HREF="pblPriorityQueueGetFirst.html">pblPriorityQueueGetFirst</A> <I> Returns but does not remove the element with the highest priority in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueGet.html">pblPriorityQueueGet</A> <I> Returns the element at the specified position in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueChangePriorityAt.html">pblPriorityQueueChangePriorityAt</A> <I> Changes the priority of the element at the specified position of the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueChangePriorityFirst.html">pblPriorityQueueChangePriorityFirst</A> <I> Changes the priority of the first element of the priority queue, maintaining the heap condition of the queue.</I>
+
+<HR>
+<H2>Removing from a PriorityQueue</H2>
+<LI><A HREF="pblPriorityQueueRemoveAt.html">pblPriorityQueueRemoveAt</A> <I> Removes the element at the specified position from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveFirst.html">pblPriorityQueueRemoveFirst</A> <I> Removes the element with the highest priority from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveLast.html">pblPriorityQueueRemoveLast</A> <I> Removes the last element from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueClear.html">pblPriorityQueueClear</A> <I> Removes all of the elements from the priority queue.</I>
+
+<HR>
+<H2>Functions on PriorityQueues</H2>
+<LI><A HREF="pblPriorityQueueEnsureCapacity.html">pblPriorityQueueEnsureCapacity</A> <I> Increases the capacity of the priority queue, if necessary.</I>
+<LI><A HREF="pblPriorityQueueIsEmpty.html">pblPriorityQueueIsEmpty</A> <I> Tests if the priority queue has no elements.</I>
+<LI><A HREF="pblPriorityQueueIterator.html">pblPriorityQueueIterator</A> <I> Returns an iterator over the elements in the queue.</I>
+<LI><A HREF="pblPriorityQueueSize.html">pblPriorityQueueSize</A> <I> Returns the number of elements in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueTrimToSize.html">pblPriorityQueueTrimToSize</A> <I> Trims the capacity of the queue to the priority queue's current size.</I>
+
+<HR>
+<H2>Alphabetic List of PriorityQueue Functions</H2>
+<LI><A HREF="pblPriorityQueueAddLast.html">pblPriorityQueueAddLast</A> <I> Adds the element with the specified priority to the end of the priority queue without ensuring the heap condition.</I>
+<LI><A HREF="pblPriorityQueueChangePriorityAt.html">pblPriorityQueueChangePriorityAt</A> <I> Changes the priority of the element at the specified position of the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueChangePriorityFirst.html">pblPriorityQueueChangePriorityFirst</A> <I> Changes the priority of the first element of the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueClear.html">pblPriorityQueueClear</A> <I> Removes all of the elements from the priority queue.</I>
+<LI><A HREF="pblPriorityQueueConstruct.html">pblPriorityQueueConstruct</A> <I> Constructs a priority queue using 'bottom-up heap construction'.</I>
+<LI><A HREF="pblPriorityQueueEnsureCapacity.html">pblPriorityQueueEnsureCapacity</A> <I> Increases the capacity of the priority queue, if necessary.</I>
+<LI><A HREF="pblPriorityQueueFree.html">pblPriorityQueueFree</A> <I> Frees the priority queue's memory from heap.</I>
+<LI><A HREF="pblPriorityQueueGet.html">pblPriorityQueueGet</A> <I> Returns the element at the specified position in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueGetCapacity.html">pblPriorityQueueGetCapacity</A> <I> Returns the capacity of the priority queue.</I>
+<LI><A HREF="pblPriorityQueueGetFirst.html">pblPriorityQueueGetFirst</A> <I> Returns but does not remove the element with the highest priority in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueInsert.html">pblPriorityQueueInsert</A> <I> Inserts the element with the specified priority into the priority queue and maintains the heap condition of the priority queue.</I>
+<LI><A HREF="pblPriorityQueueIsEmpty.html">pblPriorityQueueIsEmpty</A> <I> Tests if the priority queue has no elements.</I>
+<LI><A HREF="pblPriorityQueueIterator.html">pblPriorityQueueIterator</A> <I> Returns an iterator over the elements in the queue.</I>
+<LI><A HREF="pblPriorityQueueJoin.html">pblPriorityQueueJoin</A> <I> Joins the two priority queues by moving all elements of the 'other' queue.</I>
+<LI><A HREF="pblPriorityQueueNew.html">pblPriorityQueueNew</A> <I> Creates a new priority queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveAt.html">pblPriorityQueueRemoveAt</A> <I> Removes the element at the specified position from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveFirst.html">pblPriorityQueueRemoveFirst</A> <I> Removes the element with the highest priority from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueRemoveLast.html">pblPriorityQueueRemoveLast</A> <I> Removes the last element from the priority queue, maintaining the heap condition of the queue.</I>
+<LI><A HREF="pblPriorityQueueSize.html">pblPriorityQueueSize</A> <I> Returns the number of elements in the priority queue.</I>
+<LI><A HREF="pblPriorityQueueTrimToSize.html">pblPriorityQueueTrimToSize</A> <I> Trims the capacity of the queue to the priority queue's current size.</I>
+<hr>
+Copyright(C) 2003 - 2010 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

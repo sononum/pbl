@@ -1,0 +1,20 @@
+/** @name General Informations
+
+    DOC++ is originally written by Roland Wunderling and Malte Zoeckler, further
+improved by Michael Meeks, currently maintained by Dragos Acostachioaie
+<\URL[dragos@biosfarm.ro]{mailto:dragos@biosfarm.ro}>.
+
+    DOC++ is free software, but is protected by the GNU General Public License.
+Please see \URL[http://www.gnu.org/licences/gpl.html]{http://www.gnu.org/licenses/gpl.html}
+for details. The files output by DOC++ are not covered by this license.
+
+    You may want to consult the DOC++'s web site: \URL[http://docpp.sourceforge.net]{http://docpp.sourceforge.net}.
+The DOC++ source tarball and pre-compiled binaries can be downloaded from
+\URL[http://docpp.sourceforge.net/download.html]{http://docpp.sourceforge.net/download.html}.
+
+    If you are using DOC++, you may want to subscribe to the DOC++ mailing list.
+To subscribe, send a mail with subject "subscribe" to
+\URL[docpp-users-request@lists.sourceforge.net]{mailto:docpp-users-request@lists.sourceforge.net}.
+    Please send bug reports, suggestions, feedback, patches, or anything else
+that you think, to \URL[docpp-users@lists.sourceforge.net]{mailto:docpp-users@lists.sourceforge.net}.
+*/

@@ -1,0 +1,162 @@
+=====================================================================
+rm isamtest/*; time ./Debug/pbl_mac_test ISAM0002TR.TST
+
+Sa 22 Nov 2008 00:07:01 CET
+real	5m45.121s
+user	4m8.075s
+sys	1m29.502s
+
+Mo  8 Dez 2008 16:48:25 CET
+real	5m47.160s
+user	4m53.339s
+sys	0m44.363s
+
+Thu 5 Mar 2009 00:58:37 CET - pbl_jenkins_one_at_a_time_hash used as hash function
+real	3m10.038s
+user	2m39.360s
+sys	0m26.404s
+
+=====================================================================
+rm isamtest/*; time ./Debug/pbl_mac_test ISAM0002.TST
+
+Sa 22 Nov 2008 00:09:02 CET
+real	5m22.477s
+user	3m46.019s
+sys	1m29.417s
+
+Mo  8 Dez 2008 16:48:25 CET
+real	5m31.322s
+user	4m38.967s
+sys	0m43.395s
+
+Mo  8 Dez 2008 19:08:07 CET - using previous cached item
+real	4m32.361s
+user	3m43.615s
+sys	0m43.021s
+
+Mo  8 Dez 2008 20:03:42 CET - using maxItemCacheIndex
+real	4m9.559s
+user	3m18.061s
+sys	0m43.055s
+
+Mo  8 Dez 2008 21:20:12 CET - custom long to hex string function
+real	3m34.927s
+user	2m48.144s
+sys	0m42.656s
+
+Mo  8 Dez 2008 22:44:37 CET - using itemGetKey
+real	3m32.164s
+user	2m42.891s
+sys	0m43.269s
+
+Mo  8 Dez 2008 21:32:59 CET - -O3 version
+real	2m54.947s
+user	2m9.493s
+sys	0m41.272s
+
+Di  9 Dez 2008 00:14:03 CET - -O3 version with 2048 blocks per file
+real	2m21.565s
+user	1m50.010s
+sys	0m25.528s
+
+Thu 5 Mar 2009 00:58:37 CET - pbl_jenkins_one_at_a_time_hash used as hash function
+real	2m51.480s
+user	2m21.892s
+sys	0m25.816s
+
+Fr  6 Mar 2009 00:32:52 CET - -O3 version, pblHt_J_Zobel_Hash
+real	2m14.716s
+user	1m46.636s
+sys	0m25.057s
+
+=====================================================================
+rm isamtest/*; time ./Debug/pbl_mac_test ISAM0002.TST_Write 
+
+Sa 22 Nov 2008 19:19:03 CET
+real	2m27.708s
+user	1m28.243s
+sys	0m50.550s
+
+Mo  8 Dez 2008 16:48:25 CET
+real	0m59.249s
+user	0m54.231s
+sys	0m1.139s
+
+Mo  8 Dez 2008 18:50:18 CET - using previous cached item
+real	0m42.117s
+user	0m38.102s
+sys	0m0.967s
+
+Mo  8 Dez 2008 19:32:03 CET - using memmove in pblItemInsert
+real	0m36.960s
+user	0m33.070s
+sys	0m0.953s
+
+Mo  8 Dez 2008 20:03:42 CET - using maxItemCacheIndex
+real	0m32.171s
+user	0m27.999s
+sys	0m0.946s
+
+Mo  8 Dez 2008 21:20:12 CET - custom long to hex string function
+real	0m27.098s
+user	0m22.844s
+sys	0m0.928s
+
+Thu 5 Mar 2009 00:58:37 CET - pbl_jenkins_one_at_a_time_hash used as hash function
+real	0m25.672s
+user	0m22.113s
+sys	0m0.977s
+
+=====================================================================
+rm isamtest/*; time ./Debug/pbl_mac_test ISAM0002TR.TST_Write 
+
+Sa 22 Nov 2008 19:19:03 CET
+real	2m45.150s
+user	1m50.884s
+sys	0m50.235s
+
+So 23 Nov 2008 02:06:22 CET
+real	5m56.798s
+user	5m49.522s
+sys	0m2.438s
+
+Mo  8 Dez 2008 16:48:25 CET
+real	1m13.183s
+user	1m9.441s
+sys	0m1.633s
+
+Thu 5 Mar 2009 00:58:37 CET - pbl_jenkins_one_at_a_time_hash used as hash function
+real	0m42.489s
+user	0m40.249s
+sys	0m1.458s
+
+==================== non debug version ==
+rm isamtest/*; time ./pbliftst ISAM0002TR.TST_Write
+
+Sa  6 Dez 2008 22:35:54 CET
+real	0m49.379s
+user	0m46.852s
+sys	0m1.464s
+
+Mo  8 Dez 2008 16:48:25 CET
+real	0m50.851s
+user	0m48.017s
+sys	0m1.508s
+
+Thu 5 Mar 2009 00:58:37 CET - pbl_jenkins_one_at_a_time_hash used as hash function
+real	0m35.934s
+user	0m33.593s
+sys	0m1.419s
+
+=====================================================================
+time ./Debug/pbl_mac_test ISAM0002.TST_Read
+
+Sa 22 Nov 2008 19:19:03 CET
+real	0m4.486s
+user	0m4.143s
+sys	0m0.015s
+
+Sa  6 Dez 2008 22:28:55 CET
+real	0m4.099s
+user	0m4.017s
+sys	0m0.018s

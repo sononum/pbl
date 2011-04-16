@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pblPQTest", "pblpqtstdeb.vcxproj", "{1A81F089-BE97-4DF0-8417-730E4BE9E676}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug mt static|Win32 = Debug mt static|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A81F089-BE97-4DF0-8417-730E4BE9E676}.Debug mt static|Win32.ActiveCfg = Debug mt static|Win32
+		{1A81F089-BE97-4DF0-8417-730E4BE9E676}.Debug mt static|Win32.Build.0 = Debug mt static|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

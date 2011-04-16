@@ -1,0 +1,323 @@
+/** @name Reference Manual
+
+    DOC++ follows the approach of maintaining one source code that contains
+    both, the C/C++ or Java program itself along with the documentation in order
+    to avoid incompatibilities between the program and its documentation.
+    Unlike other approaches such as `WEB', sources documented with DOC++ are
+    ready to be compiled without need of any preprocessing (like `tangle'). We
+    feel that this is of great advantage for intensive programming and debugging
+    activities.
+
+    This documentation is organized as follows. Section \Ref{Usage} describes
+    how to generate your documentation for readily docified sources, hence
+    explains the comand line options of DOC++. Section \Ref{Manual Entries}
+    discusses, how the manual entries generated for DOC++ comments are built up
+    and section \Ref{Structure} how to structure your documentation
+    hierarchically. Finally section \Ref{Text Formatting} describes all the
+    features provided by DOC++ to format the documentation text (such as bold
+    face typesetting etc.).
+*/
+//@{
+    /** @name Usage
+
+	In addition to command line / configuration file options, the TeX output
+	can be customized by editing the style file ``#docxx.sty#'' (sorry,
+	there is no documentation on how to do this).
+
+	In addition to command line / configuration file options, the HTML
+	output can be customized by means of the following 6 files:
+
+	\begin{description}
+	\item[indexHeader.inc]		Header for index HTML pages
+	\item[indexFooter.inc]		Footer for index HTML pages
+	\item[hierHeader.inc]		Header for class hierarchy HTML pages
+	\item[hierFooter.inc]		Footer for class hierarchy HTML pages
+	\item[classHeader.inc]		Header for all other HTML pages
+	\item[classFooter.inc]		Footer for all other HTML pages
+	\end{description}
+
+	If one or more of these files are found in the current directory, the
+	corresponding part of a HTML page is substituted by the contents of the
+	file. The `#indexHeader.inc#' and `#hierHeader.inc#' files should start
+	with ``#<HTML><TITLE> ...#''. File `#classHeader.inc#' should start with
+	``#<BODY> ...#'', since for such pages DOC++ sets up the title.
+
+	The HTML page header and footer may contain one or more template
+	strings, which will be substituted by DOC++ at documentation generating
+	time:
+
+	\begin{description}
+	\item[%file]
+	    entry's file name
+	\item[%fullname]
+	    entry's full name (includes the inheritance)
+	\item[%name]
+	    entry's name
+	\item[%type]
+	    entry's return type
+	\end{description}
+
+	As an example, the TeX version of this document has been generated
+	with
+
+	\begin{verbatim}
+	    doc++ --tex --output doc.tex --package a4wide doc.dxx
+	\end{verbatim}
+
+	while the HTML version has been created using
+
+	\begin{verbatim}
+	    doc++ --dir html doc.dxx
+	\end{verbatim}
+
+	As you can see, this documentation itself is written using DOC++ in
+	order to gain the benefits of having just one documentation source and
+	two different output possibilities.
+    */
+    //@{
+
+	//@Include: commandline.dxx
+	//@Include: config.dxx
+
+    //@}
+
+    /** @name Manual Entries
+
+	Just like in JavaDoc, the documentation for DOC++ is contained in
+	special versions of Java, C or C++ comments. These are comments with the
+	format:
+
+	\begin{itemize}
+	\item	#/** ... *##/#\\
+	\item	#/// ...#
+	\end{itemize}
+
+	Note that DOC++ comments are only those with a double asterisk `#/**#'
+	or `#//#' respectively. We shall refer to such a comment as a
+	{\em DOC++ comment}. Each DOC++ comment is used to specify the
+	documentation for the {\em subsequent} declaration (of a variable,
+	class, etc.).
+
+	Every DOC++ comment defines a {\em manual entry}. A manual entry
+	consists in documentation provided in the DOC++ comment and some
+	information from the subsequent declaration, if available.
+
+	Trailing comments can be used to define manual entries too by turning on
+	the Quantel extensions. This is done by using the `#--quantel#' (or
+	`#-Q#') command line option.
+
+	Manual entries are structured into various {\em fields}. Some of them
+	are automatically filled in by DOC++ while the others may be specified
+	by the documentation writer. Here is the list of the fields of manual
+	entries:
+
+	\begin{center}
+	\begin{tabular}{lll}
+	    Field name		& provider	& description				\\
+	\hline
+	    #args#		& DOC++	& depends on source code			\\
+	    #author#		& user	& author					\\
+	    #deprecated#	& user	& doc for deprecated functions			\\
+	    #doc#		& user	& long documentation				\\
+	    #exception#		& user	& doc for exceptions thrown by a function	\\
+	    #field#		& user	& doc for fields documentation			\\
+	    #friends#		& DOC++	& doc for entry's friends			\\
+	    #invariant#		& user  & doc for invariants				\\
+	    #memo#		& user	& short documentation				\\
+	    #name#		& both	& depends on source code			\\
+	    #param#		& user	& doc of parameters of a function		\\
+	    #postcondition#	& user  & doc for postconditions			\\
+	    #precondition#	& user  & doc for preconditions				\\
+	    #return#		& user	& doc of return value of a function		\\
+	    #see#		& user	& cross reference				\\
+	    #since#		& user	& version since the function exists		\\
+	    #type#		& DOC++	& depends on source code			\\
+	    #version#		& user	& version					\\
+	\hline
+	\end{tabular}
+	\end{center}
+
+	Except for explicit manual entries, the first three fields will
+	generally be filled automatically by DOC++. How they are filled depends
+	on the {\em category} of a manual entry, which is determined by the
+	source code following a DOC++ comment. Generally they contain the
+	entire signature of the subsequent declaration. The following table
+	lists all categories of manual entries and how the fields are filled:
+
+	\begin{center}
+	\begin{tabular}{llll}
+	    Category	& #@type#	& #@name#	& #@args#	\\
+	\hline
+	    macro	& \#define	& name		& [argument list]	\\
+	    variable	& Type		& name		& -	\\
+	function/method	& Return type	& name		& arguments list [exceptions]	\\
+	union/enum	& union/enum	& name		& -	\\
+	class/struct	& class/struct	& name		& [derived classes] \\
+	interface	& interface	& name		& [extended interfaces] \\
+	\hline
+	\end{tabular}
+	\end{center}
+
+	In any case `#@name#' contains the name of the declaration to be documented.
+	It will be included in the table of contents.
+
+	The remaining fields are filled from the text in the DOC++ comment.
+	Except for the `#@doc#' and `#@memo#' field, the text for a field must be
+	preceeded by the field name in the beginning of a line of the DOC++
+	comment. The subsequent text up to the next occurrence of a field name
+	is used for the field. Field `#@name#' is an exception in that only the
+	remaining text in the same line is used to fill the field. As an
+	example:
+
+	\begin{verbatim}
+	    @author Snoopy
+	\end{verbatim}
+
+	is used to fill the `#@author#' field with the text ``Snoopy''.
+
+	Text that is not preceeded by a field name is used for the `#@doc#' field.
+	The very first text in a DOC++ comment up to the first occurrence of
+	character `.' is also copied to the `#@memo#' field. This may be
+	overridden by explicitly specifying a `#@memo#' field. In this case also
+	characters `.' are allowed.
+
+	The `#@type#', `#@args#' and `#@doc#' fields may not be filled
+	explicitly.
+    */
+
+    //@{
+
+    //@Include: fields.dxx
+
+    //@}
+
+    /** @name Structure
+
+	DOC++ automatically imposes a hierarchical stucture to the manual
+	entries for classes, structs, unions, enums and interfaces, in that it
+	organizes members of such as sub-entries.
+
+	Additionally DOC++ provides means for manually creating subentries to a
+	manual entry. This is done via {\em documentation scopes}. A
+	documentation scope is defined using a pair of brackets:
+
+	\begin{verbatim}
+	    //@{
+	        ...
+	    //@}
+	\end{verbatim}
+
+	just like variable scopes in C, C++ or Java. Instead of ``#//@{#'' and
+	``#//@}#'' one can also use ``#/*@{*##/#'' and ``#/*@}*##/#''. All the
+	manual entries within a documentation scope are organized as subentries
+	of the manual entry preceeding the opening bracket of the scope, but
+	only if this is an explicit manual entry. Otherwise a dummy explicit
+	manual entry is created.
+
+	In addition to this, Java allows the programmer to organize classes
+	hierarchically by means of ``#package#s''. Packages are directly
+	represented in the manual entry hierarchy generated by DOC++. When a
+	DOC++ comment is found before a `#package#' statement, the documentation
+	is added to the package's manual entry. This functionality as well as
+	documentation scopes are extensions to the features of JavaDoc.
+
+	Similar to Java's packages, C++ comes with the ``#namespace#'' concept.
+	The idea is to group various class, functions, etc. declarations into
+	different universes. DOC++ deals with namespaces in the same way it does
+	with packages.
+    */
+
+    /** @name File Inclusion
+
+	There is one more special type of comments for DOC++, namely
+        ``#//@Include: <files>#'' and ``#/*@Include: <files>*##/#''. When any
+        of such comments is parsed, DOC++ will read the specified files in the
+	order they are given. Also wildcards using ``#*#'' are allowed. It is
+	good practice to use one input file only and include all documented
+	files using such comments, especially when explicit manual entries are
+	used for structuring the documentation. This text is a good example for
+	such a documentation.
+     */
+
+    //@Include: tags.dxx
+
+    /** @name Text Formatting
+
+	DOC++ provides both HTML and TeX output. Both languages have
+	formatting macros which are more or less powerful. The idea of DOC++ is
+	to be able to generate both ouput formats from a single source. Hence,
+	it is not possible to rely on the full functionality of either
+	formatting macros. Instead, DOC++ supports a subset of each set of
+	macros, that has proved to suffice for most applications. However, in
+	one run of DOC++ the user must decide for the formating macros to use.
+	The subset of each macro packet is listed in the following subsections.
+	If one uses only one of the subsets, good looking output can be expected
+	for both formats.
+    */
+    //@{
+	/** @name supported TeX macros
+
+	    This is the subset of TeX formatting instructions provided by
+	    DOC++:
+	    \begin{description}
+	    \item[#$#...#$#]	math mode for inline equations
+	    \item[#\##[#...#\##]#]	display math mode
+	    \item[#\#\#]	to output character ``\#''
+	    \item[#\#\_]	to output character ``#_#''
+	    \item[#\#\ ]	to output character ``# #''
+	    \item[#\#em]	only to be used as ``#{\em ...}#'' or ``#\emph{...}#''
+	    \item[#\#bf]	only to be used as ``#{\bf ...}#'' or ``#\textbf{...}#''
+	    \item[#\#it]	only to be used as ``#{\it ...}#'' or ``#\textit{...}#''
+	    \item[#\#tt]	only to be used as ``#{\tt ...}#'' or ``#\texttt{...}#''
+	    \item[#\#tiny]	only to be used as ``#{\tiny ...}#''
+	    \item[#\#scriptsize]	only to be used as ``#{\scriptsize ...}#''
+	    \item[#\#footnotesize]	only to be used as ``#{\footnotesize ...}#''
+	    \item[#\#small]	only to be used as ``#{\small ...}#''
+	    \item[#\#large]	only to be used as ``#{\large ...}#''
+	    \item[#\#Large]	only to be used as ``#{\Large ...}#''
+	    \item[#\#LARGE]	only to be used as ``#{\LARGE ...}#''
+	    \item[#\#huge]	only to be used as ``#{\huge ...}#''
+	    \item[#\#Huge]	only to be used as ``#{\Huge ...}#''
+	    \item[#\#HUGE]	only to be used as ``#{\HUGE ...}#''
+	    \item[#\#hline]	only to be used as ``#\hline#''
+	    \item[center]	i.e. ``#\begin{center} ... \end{center}#''
+	    \item[flushleft]	i.e. ``#\begin{flushleft} ... \end{flushleft}#''
+	    \item[flushright]	i.e. ``#\begin{flushright} ... \end{flushright}#''
+	    \item[verbatim]	i.e. ``#\begin{verbatim} ... \end{verbatim}#''
+	    \item[tabular]	i.e. ``#\begin{tabular}{lll} ...&...\\ ... \end{tabular}#''
+	    \item[array]	i.e. ``#\begin{array}{lll} ...&...\\ ... \end{array}#''
+	    \item[itemize]	i.e. ``#\begin{itemize} \item ... ... \end{itemize}#''
+	    \item[enumerate]	i.e. ``#\begin{enumerate} \item ... ... \end{enumerate}#''
+	    \item[description]	i.e. ``#\begin{description} \item[...] ... ... \end{description}#''
+	    \item[equation]	i.e. ``#\begin{equation} ... \end{equation}#''
+	    \item[equation array] i.e. ``#\begin{eqnarray} ... \end{eqnarray}#''
+	    \end{description}
+	    When writing your documentation using only this, you can be sure to
+	    get reasonable TeX {\bf and} HTML documentation for your code.
+	*/
+
+	/** @name supported HTML macros
+
+	    This is the subset of HTML formatting instructions provided by
+	    DOC++:
+	    \begin{description}
+	    \item[<BR>]				new line
+	    \item[<P>]				paragraph
+	    \item[<EM> ... </EM>]		emphasize
+	    \item[<I> ... </I>]			italic
+	    \item[<B> ... </B>]			bold face
+	    \item[<STRONG> ... </STRONG>]	bold face
+	    \item[<TT> ... </TT>]
+	    \item[<PRE> ... </PRE>]		verbatim
+	    \item[<CODE> ... </CODE>]		verbatim
+	    \item[<OL> ... </OL>]		enumerations
+	    \item[<DL> ... </DL>]		description
+	    \item[<DT>]
+	    \item[<DD>]
+	    \item[<UL> ... </UL>]		itemize
+	    \item[<LL> ... </LL>]		enumerations
+	    \item[<LI>]
+	    \end{description}
+	*/
+    //@}
+//@}

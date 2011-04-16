@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblMapContainsKey</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblMapContainsKey</A></H2><H2>(  <!1><A HREF="PblMap.html">PblMap</A>*  map,   void*  key,<BR>&nbsp;  size_t keyLength )</H2><BLOCKQUOTE> Returns true if this map contains a mapping for the specified key.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns true if this map contains a mapping for the specified key.
+
+<P>More formally, returns true if and only if this map contains a mapping for a key k such that
+(key==null ? k==null : memcmp( key, k, keyLength ) == 0. (There can be at most one such mapping.)
+
+<P>For hash maps his method has a time complexity of O(1).
+For tree maps this method has a time complexity of O(Log N).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>map</B> -               The map to check                               
+<BR><B>key</B> -                 Key whose presence in this map is to be tested 
+<BR><B>keyLength</B> -            Length of the key                              <BR><DT><B>Returns:</B><DD>  int rc >  0: The map contains a mapping for the specified key.
+<BR>  int rc == 0: The map did not contain a mapping for the key.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

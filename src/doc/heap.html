@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+   <TITLE>pblHeap - Heap Implementation</TITLE>
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE> 
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblHeap - Binary Min Max Heap Implementation</H2>
+<SMALL>Heap in C, C heap, heap in C,</SMALL>
+<SMALL>Heap in C, C-Heap, binary heap in C, binary min-max heap in C.</SMALL>
+<P>
+<HR>
+<H2>Documentation</H2>
+Open source C implementation of a <A href="http://en.wikipedia.org/wiki/Binary_heap">binary heap</a>.
+<P>
+This heap orders elements according to a compare function specified. A heap does not permit null elements. 
+<P>
+The head of this heap is the biggest element according to the compare function specified.
+If multiple elements are tied for highest priority, 
+the head is one of those elements -- ties are broken arbitrarily. 
+The heap retrieval operations pblHeapGet and pblHeapRemoveFirst access the element at the head of the heap.
+<P>
+A heap is unbounded, but has an internal capacity governing the size of an array used to store the elements on the heap. 
+It is always at least as large as the heap size. 
+As elements are added to a heap, its capacity grows automatically. 
+The details of the growth policy are not specified.
+<P>
+The Iterator provided in method pblHeapIterator() is not guaranteed to traverse the elements of the
+Heap in any particular order. 
+<P>
+Implementation note: this implementation provides O(log(n)) time for the insertion methods; 
+O(log(n)) time for the removal methods; and constant time for the retrieval methods.
+
+<HR>
+<H2>Constructors and Destructors</H2>
+<LI><A HREF="pblHeapNew.html">pblHeapNew</A> <I> Creates a new heap.</I>
+<LI><A HREF="pblHeapFree.html">pblHeapFree</A> <I> Frees the heap's memory from heap.</I>
+<LI><A HREF="pblHeapClear.html">pblHeapClear</A> <I> Removes all of the elements from the heap.</I>
+
+<HR>
+<H2>Adding to a Heap</H2>
+<LI><A HREF="pblHeapInsert.html">pblHeapInsert</A> <I> Inserts the element into the heap and maintains the heap condition of the heap.</I>
+<LI><A HREF="pblHeapAddLast.html">pblHeapAddLast</A> <I> Adds the element to the end of the heap without ensuring the heap condition.</I>
+<LI><A HREF="pblHeapConstruct.html">pblHeapConstruct</A> <I> Constructs a heap using 'bottom-up heap construction'.</I>
+
+<HR>
+<H2>Accessing Heap Elements</H2>
+<LI><A HREF="pblHeapGetFirst.html">pblHeapGetFirst</A> <I> Returns but does not remove the element at the top of the heap.</I>
+<LI><A HREF="pblHeapGet.html">pblHeapGet</A> <I> Returns the element at the specified position in the heap.</I>
+
+HR>
+<H2>Removing from a Heap</H2>
+<LI><A HREF="pblHeapRemoveAt.html">pblHeapRemoveAt</A> <I> Removes the element at the specified position from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapRemoveFirst.html">pblHeapRemoveFirst</A> <I> Removes the biggest element from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapRemoveLast.html">pblHeapRemoveLast</A> <I> Removes the last element from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapClear.html">pblHeapClear</A> <I> Removes all of the elements from the heap.</I>
+
+<HR>
+<H2>Functions on Heaps</H2>
+<LI><A HREF="pblHeapEnsureCapacity.html">pblHeapEnsureCapacity</A> <I> Increases the capacity of the heap, if necessary.</I>
+<LI><A HREF="pblHeapEnsureCondition.html">pblHeapEnsureCondition</A> <I> Ensures the heap condition of the heap for the element with the given index.</I>
+<LI><A HREF="pblHeapEnsureConditionFirst.html">pblHeapEnsureConditionFirst</A> <I> Ensures the heap condition for the first element.</I>
+<LI><A HREF="pblHeapGetCapacity.html">pblHeapGetCapacity</A> <I> Returns the capacity of the heap.</I>
+<LI><A HREF="pblHeapIsEmpty.html">pblHeapIsEmpty</A> <I> Tests if the heap has no elements.</I>
+<LI><A HREF="pblHeapIterator.html">pblHeapIterator</A> <I> Returns an iterator over the elements in the heap.</I>
+<LI><A HREF="pblHeapJoin.html">pblHeapJoin</A> <I> Joins the two heaps by moving all elements of the 'other' heap.</I>
+<LI><A HREF="pblHeapSetCompareFunction.html">pblHeapSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the heap.</I>
+<LI><A HREF="pblHeapSize.html">pblHeapSize</A> <I> Returns the number of elements in the heap.</I>
+<LI><A HREF="pblHeapTrimToSize.html">pblHeapTrimToSize</A> <I> Trims the capacity of the heap to the heap's current size.</I>
+
+<HR>
+<H2>Alphabetic List of Heap Functions</H2>
+<LI><A HREF="pblHeapAddLast.html">pblHeapAddLast</A> <I> Adds the element to the end of the heap without ensuring the heap condition.</I>
+<LI><A HREF="pblHeapClear.html">pblHeapClear</A> <I> Removes all of the elements from the heap.</I>
+<LI><A HREF="pblHeapConstruct.html">pblHeapConstruct</A> <I> Constructs a heap using 'bottom-up heap construction'.</I>
+<LI><A HREF="pblHeapEnsureCapacity.html">pblHeapEnsureCapacity</A> <I> Increases the capacity of the heap, if necessary.</I>
+<LI><A HREF="pblHeapEnsureCondition.html">pblHeapEnsureCondition</A> <I> Ensures the heap condition of the heap for the element with the given index.</I>
+<LI><A HREF="pblHeapEnsureConditionFirst.html">pblHeapEnsureConditionFirst</A> <I> Ensures the heap condition for the first element.</I>
+<LI><A HREF="pblHeapFree.html">pblHeapFree</A> <I> Frees the heap's memory from heap.</I>
+<LI><A HREF="pblHeapGet.html">pblHeapGet</A> <I> Returns the element at the specified position in the heap.</I>
+<LI><A HREF="pblHeapGetCapacity.html">pblHeapGetCapacity</A> <I> Returns the capacity of the heap.</I>
+<LI><A HREF="pblHeapGetFirst.html">pblHeapGetFirst</A> <I> Returns but does not remove the element at the top of the heap.</I>
+<LI><A HREF="pblHeapInsert.html">pblHeapInsert</A> <I> Inserts the element into the heap and maintains the heap condition of the heap.</I>
+<LI><A HREF="pblHeapIsEmpty.html">pblHeapIsEmpty</A> <I> Tests if the heap has no elements.</I>
+<LI><A HREF="pblHeapIterator.html">pblHeapIterator</A> <I> Returns an iterator over the elements in the heap.</I>
+<LI><A HREF="pblHeapJoin.html">pblHeapJoin</A> <I> Joins the two heaps by moving all elements of the 'other' heap.</I>
+<LI><A HREF="pblHeapNew.html">pblHeapNew</A> <I> Creates a new heap.</I>
+<LI><A HREF="pblHeapRemoveAt.html">pblHeapRemoveAt</A> <I> Removes the element at the specified position from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapRemoveFirst.html">pblHeapRemoveFirst</A> <I> Removes the biggest element from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapRemoveLast.html">pblHeapRemoveLast</A> <I> Removes the last element from the heap, maintaining the heap condition of the heap.</I>
+<LI><A HREF="pblHeapSetCompareFunction.html">pblHeapSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the heap.</I>
+<LI><A HREF="pblHeapSize.html">pblHeapSize</A> <I> Returns the number of elements in the heap.</I>
+<LI><A HREF="pblHeapTrimToSize.html">pblHeapTrimToSize</A> <I> Trims the capacity of the heap to the heap's current size.</I>
+
+<hr>
+Copyright(C) 2003 - 2010 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

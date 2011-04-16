@@ -1,0 +1,9 @@
+DOC++ 3.4.10
+December 22, 2002
+NEWS: Summary of changes since 3.4.9
+
+FEATURES:
+- added crufty XML DocBook support
+
+PORTABILITY FIXES:
+- fixed a g++ 3.0 compilation problem

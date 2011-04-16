@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>PblIterator* pblIteratorReverseNew</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2><!1><A HREF="PblIterator.html">PblIterator</A>* <A HREF="#DOC.DOCU">pblIteratorReverseNew</A></H2><H2>( <!1><A HREF="PblCollection.html">PblCollection</A>*  collection )</H2><BLOCKQUOTE> Returns a reverse iterator over the elements in this collection in proper sequence.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns a reverse iterator over the elements in this collection in proper sequence.
+
+<P>The reverse iterator starts the iteration at the end of the collection.
+
+<P><B>Note:</B> The memory allocated by this method for the iterator returned needs to be released
+by calling pblIteratorFree() once the iterator is no longer needed.
+
+<P>The iterators returned by the this method are fail-fast:
+if the collection is structurally modified at any time after the iterator is created,
+in any way except through the Iterator's own remove or add methods,
+the iterator will return a PBL_ERROR_CONCURRENT_MODIFICATION error.
+
+<P>Thus, in the face of concurrent modification,
+the iterator fails quickly and cleanly,
+rather than risking arbitrary, non-deterministic
+behavior at an undetermined time in the future.
+
+<P>This method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>collection</B> -   The collection to create the iterator for <BR><DT><B>Returns:</B><DD>  void * retptr != NULL: The iterator.
+<BR>  void * retptr == NULL: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY      - Out of memory.
+<BR>PBL_COLLECTION_IS_COLLECTION - The collection cannot be iterated.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

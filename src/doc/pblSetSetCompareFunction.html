@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>void* pblSetSetCompareFunction</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>void* <A HREF="#DOC.DOCU">pblSetSetCompareFunction</A></H2><H2>( <!1><A HREF="PblSet.html">PblSet</A>*  set,<BR>&nbsp;  int (* compare ) ( const void* prev,<BR>&nbsp;  const void* next ) )</H2><BLOCKQUOTE> Sets an application specific compare function for the elements of the set.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Sets an application specific compare function for the elements
+of the set.
+
+<P>An application specific compare function can be set to the set
+only if the set is empty.
+
+<P>If no specific hash value function is specified by the user,
+the default hash value function <!1><A HREF="pblSetDefaultHashValue.html">pblSetDefaultHashValue</A> is used.
+If no specific compare function is specified by the user,
+the default compare function is used.
+The default compare function compares the two pointers directly,
+i.e. it tests for object identity.
+
+<P>The compare function specified should behave like the one that
+can be specified for the C-library function 'qsort'.
+
+<P>The arguments actually passed to the compare function when it is called
+are addresses of the element pointers added to the set.
+E.g.: If you add char * pointers to the set, the compare function
+will be called with char ** pointers as arguments. See the documentation
+for the C-library function 'qsort' for further information.
+
+<P>This method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>set</B> -   The set to set compare function for   
+<BR><B>compare</B> -   compare function to set               
+<BR><B>prev</B> -   "left" element for compare            
+<BR><B>next</B> -   "right" element for compare           <BR><DT><B>Returns:</B><DD>  * retptr != (void*)-1: The compare function used before, may be NULL.
+<BR>  * retptr == (void*)-1: An error, see pbl_errno:
+<BR>PBL_ERROR_PARAM_SET - The set is not empty.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblArrayListRemoveRange</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblArrayListRemoveRange</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,<BR>&nbsp;  int fromIndex,   int toIndex )</H2><BLOCKQUOTE> Removes from this List all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Removes from this List all of the elements whose index is between
+fromIndex, inclusive and toIndex, exclusive. Shifts any succeeding
+elements to the left (reduces their index).
+This call shortens the list by (toIndex - fromIndex) elements.
+(If toIndex==fromIndex, this operation has no effect.)
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                              
+<BR><B>fromIndex</B> -   The index of first element to be removed.    
+<BR><B>toIndex</B> -   The index after last element to be removed.  <BR><DT><B>Returns:</B><DD>  int rc >= 0: The size of the list
+<BR>  int rc <  0: An error, see pbl_errno
+PBL_ERROR_OUT_OF_BOUNDS         - fromIndex is out of range
+(fromIndex < 0 || fromIndex >= size())
+or
+toIndex is out of range
+( toIndex < 0 || toIndex > size())
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

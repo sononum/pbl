@@ -1,0 +1,120 @@
+pblPriorityQueueNew() priorityQueue = retptr
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 1
+pblPriorityQueueInsert( priorityQueue, 1, 1 ) rc = 1
+pblPriorityQueueInsert( priorityQueue, 2, 2 ) rc = 2
+pblPriorityQueueInsert( priorityQueue, 3, 3 ) rc = 3
+pblPriorityQueueInsert( priorityQueue, 4, 4 ) rc = 4
+pblPriorityQueueInsert( priorityQueue, 5, 5 ) rc = 5
+pblPriorityQueueSize( priorityQueue ) rc = 5
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 0
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 5, data = 5
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 5, data = 5
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 4, data = 4
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 4, data = 4
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 3, data = 3
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 3, data = 3
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 2
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 2, data = 2
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 1, data = 1
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 1, data = 1
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 1
+pblPriorityQueueInsert( priorityQueue, 1, 1 ) rc = 1
+pblPriorityQueueInsert( priorityQueue, 2, 21 ) rc = 2
+pblPriorityQueueInsert( priorityQueue, 2, 22 ) rc = 3
+pblPriorityQueueInsert( priorityQueue, 2, 23 ) rc = 4
+pblPriorityQueueInsert( priorityQueue, 2, 24 ) rc = 5
+pblPriorityQueueInsert( priorityQueue, 2, 25 ) rc = 6
+pblPriorityQueueInsert( priorityQueue, 3, 3 ) rc = 7
+pblPriorityQueueGetCapacity( priorityQueue ) rc = 10
+pblPriorityQueueTrimToSize( priorityQueue ) rc = 7
+pblPriorityQueueGetCapacity( priorityQueue ) rc = 7
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 3, data = 3
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 3, data = 3
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 22
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 2, data = 22
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 25
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 2, data = 25
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 24
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 2, data = 24
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 23
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 2, data = 23
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 21
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 0
+pblPriorityQueueClear( priorityQueue ) 
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 1
+pblPriorityQueueEnsureCapacity( priorityQueue, 9 ) rc = 9
+pblPriorityQueueAddLast( priorityQueue, 1, 1 ) rc = 1
+pblPriorityQueueAddLast( priorityQueue, 2, 2 ) rc = 2
+pblPriorityQueueAddLast( priorityQueue, 3, 3 ) rc = 3
+pblPriorityQueueAddLast( priorityQueue, 4, 4 ) rc = 4
+pblPriorityQueueAddLast( priorityQueue, 5, 5a ) rc = 5
+pblPriorityQueueAddLast( priorityQueue, 5, 5b ) rc = 6
+pblPriorityQueueAddLast( priorityQueue, 6, 6 ) rc = 7
+pblPriorityQueueAddLast( priorityQueue, 7, 7 ) rc = 8
+pblPriorityQueueAddLast( priorityQueue, 8, 8 ) rc = 9
+pblPriorityQueueConstruct( priorityQueue ) 
+pblPriorityQueueGet( priorityQueue, 0 ), priority = 8, data = 8
+pblPriorityQueueGet( priorityQueue, 1 ), priority = 7, data = 7
+pblPriorityQueueGet( priorityQueue, 2 ), priority = 6, data = 6
+pblPriorityQueueGet( priorityQueue, 3 ), priority = 4, data = 4
+pblPriorityQueueGet( priorityQueue, 4 ), priority = 5, data = 5a
+pblPriorityQueueGet( priorityQueue, 5 ), priority = 5, data = 5b
+pblPriorityQueueGet( priorityQueue, 6 ), priority = 3, data = 3
+pblPriorityQueueGet( priorityQueue, 7 ), priority = 2, data = 2
+pblPriorityQueueGet( priorityQueue, 8 ), priority = 1, data = 1
+pblPriorityQueueRemoveAt( priorityQueue, 3, &prio ) rc = 4, data = 4
+pblPriorityQueueGet( priorityQueue, 0 ), priority = 8, data = 8
+pblPriorityQueueGet( priorityQueue, 1 ), priority = 7, data = 7
+pblPriorityQueueGet( priorityQueue, 2 ), priority = 6, data = 6
+pblPriorityQueueGet( priorityQueue, 3 ), priority = 2, data = 2
+pblPriorityQueueGet( priorityQueue, 4 ), priority = 5, data = 5a
+pblPriorityQueueGet( priorityQueue, 5 ), priority = 5, data = 5b
+pblPriorityQueueGet( priorityQueue, 6 ), priority = 3, data = 3
+pblPriorityQueueGet( priorityQueue, 7 ), priority = 1, data = 1
+pblPriorityQueueInsert( priorityQueue, 4, 4 ) rc = 9
+pblPriorityQueueGet( priorityQueue, 0 ), priority = 8, data = 8
+pblPriorityQueueGet( priorityQueue, 1 ), priority = 7, data = 7
+pblPriorityQueueGet( priorityQueue, 2 ), priority = 6, data = 6
+pblPriorityQueueGet( priorityQueue, 3 ), priority = 4, data = 4
+pblPriorityQueueGet( priorityQueue, 4 ), priority = 5, data = 5a
+pblPriorityQueueGet( priorityQueue, 5 ), priority = 5, data = 5b
+pblPriorityQueueGet( priorityQueue, 6 ), priority = 3, data = 3
+pblPriorityQueueGet( priorityQueue, 7 ), priority = 1, data = 1
+pblPriorityQueueGet( priorityQueue, 8 ), priority = 2, data = 2
+pblPriorityQueueSize( priorityQueue ) rc = 9
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 0
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 8, data = 8
+pblPriorityQueueChangePriorityFirst( priorityQueue, -1 ) rc = 4
+pblPriorityQueueChangePriorityAt( priorityQueue, 4, 8 ) rc = 0
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 8, data = 8
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 8, data = 8
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 7, data = 7
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 7, data = 7
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 6, data = 6
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 6, data = 6
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 5, data = 5a
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 5, data = 5a
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 5, data = 5b
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 5, data = 5b
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 4, data = 4
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 4, data = 4
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 3, data = 3
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 3, data = 3
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 2, data = 2
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 2, data = 2
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 1, data = 1
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 1, data = 1
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 1
+pblPriorityQueueInsert( other, 1, 1 ) rc = 1
+pblPriorityQueueInsert( other, 2, 2 ) rc = 2
+pblPriorityQueueInsert( other, 3, 3 ) rc = 3
+pblPriorityQueueInsert( other, 4, 4 ) rc = 4
+pblPriorityQueueInsert( other, 5, 5 ) rc = 5
+pblPriorityQueueJoin( priorityQueue, other ) rc = 5
+pblPriorityQueueIsEmpty( other ) rc = 1
+pblPriorityQueueFree( other ) 
+pblPriorityQueueGetFirst( priorityQueue, &prio ) rc = 5, data = 5
+pblPriorityQueueRemoveFirst( priorityQueue, &prio ) rc = 5, data = 5
+pblPriorityQueueClear( priorityQueue ) 
+pblPriorityQueueIsEmpty( priorityQueue ) rc = 1
+pblPriorityQueueFree( priorityQueue )

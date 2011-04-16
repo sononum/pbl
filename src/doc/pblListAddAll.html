@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblListAddAll</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblListAddAll</A></H2><H2>( <!1><A HREF="PblList.html">PblList</A>*  list,   void*  collection )</H2><BLOCKQUOTE> Appends all of the elements in the specified Collection to the end of this list, in the order that they are returned by the specified Collection's Iterator.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Appends all of the elements in the specified Collection to the end of this list,
+in the order that they are returned by the specified Collection's Iterator.
+
+<P>This method has a time complexity of O(M),
+with M being the size of the collection whose elements are added.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>list</B> -   The list to use                                
+<BR><B>collection</B> -   The collection whose elements are to be added to this list. <BR><DT><B>Returns:</B><DD>  int rc >= 0: The size of this list instance.
+<BR>  int rc <  0: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
+<BR>PBL_ERROR_PARAM_LIST              - Collection cannot be iterated.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - Collection was modified concurrently.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

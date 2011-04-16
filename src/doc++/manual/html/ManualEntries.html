@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE> Manual Entries</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2> <A HREF="#DOC.DOCU">Manual Entries</A></H2></H2>
+<HR>
+<DL>
+<DT>
+
+<IMG ALT="o" BORDER=0 SRC=icon1.gif><A NAME="Manual Entry Fields"></A>
+<A HREF=ManualEntryFields.html><B>Manual Entry Fields</B></A></DL>
+<A NAME="DOC.DOCU"></A>
+<BLOCKQUOTE>
+Just like in JavaDoc, the documentation for DOC++ is contained in
+special versions of Java, C or C++ comments. These are comments with the
+format:
+
+<P><UL>
+<LI>	<TT>/**&nbsp;...&nbsp;*</TT><TT>/</TT><BR>
+<LI>	<TT>///&nbsp;...</TT>
+</UL>
+
+<P>Note that DOC++ comments are only those with a double asterisk `<TT>/**</TT>'
+or `<TT>//</TT>' respectively. We shall refer to such a comment as a
+<EM>DOC++ comment</EM>. Each DOC++ comment is used to specify the
+documentation for the <EM>subsequent</EM> declaration (of a variable,
+class, etc.).
+
+<P>Every DOC++ comment defines a <EM>manual entry</EM>. A manual entry
+consists in documentation provided in the DOC++ comment and some
+information from the subsequent declaration, if available.
+
+<P>Trailing comments can be used to define manual entries too by turning on
+the Quantel extensions. This is done by using the `<TT>--quantel</TT>' (or
+`<TT>-Q</TT>') command line option.
+
+<P>Manual entries are structured into various <EM>fields</EM>. Some of them
+are automatically filled in by DOC++ while the others may be specified
+by the documentation writer. Here is the list of the fields of manual
+entries:
+
+<P><CENTER>
+<TABLE BORDER>
+<TR><TD>
+Field name		</TD><TD> provider	</TD><TD> description				</TD></TR><TR><TD>
+</TD></TR><TR><TD>
+<TT>args</TT>		</TD><TD> DOC++	</TD><TD> depends on source code			</TD></TR><TR><TD>
+<TT>author</TT>		</TD><TD> user	</TD><TD> author					</TD></TR><TR><TD>
+<TT>deprecated</TT>	</TD><TD> user	</TD><TD> doc for deprecated functions			</TD></TR><TR><TD>
+<TT>doc</TT>		</TD><TD> user	</TD><TD> long documentation				</TD></TR><TR><TD>
+<TT>exception</TT>		</TD><TD> user	</TD><TD> doc for exceptions thrown by a function	</TD></TR><TR><TD>
+<TT>field</TT>		</TD><TD> user	</TD><TD> doc for fields documentation			</TD></TR><TR><TD>
+<TT>friends</TT>		</TD><TD> DOC++	</TD><TD> doc for entry's friends			</TD></TR><TR><TD>
+<TT>invariant</TT>		</TD><TD> user  </TD><TD> doc for invariants				</TD></TR><TR><TD>
+<TT>memo</TT>		</TD><TD> user	</TD><TD> short documentation				</TD></TR><TR><TD>
+<TT>name</TT>		</TD><TD> both	</TD><TD> depends on source code			</TD></TR><TR><TD>
+<TT>param</TT>		</TD><TD> user	</TD><TD> doc of parameters of a function		</TD></TR><TR><TD>
+<TT>postcondition</TT>	</TD><TD> user  </TD><TD> doc for postconditions			</TD></TR><TR><TD>
+<TT>precondition</TT>	</TD><TD> user  </TD><TD> doc for preconditions				</TD></TR><TR><TD>
+<TT>return</TT>		</TD><TD> user	</TD><TD> doc of return value of a function		</TD></TR><TR><TD>
+<TT>see</TT>		</TD><TD> user	</TD><TD> cross reference				</TD></TR><TR><TD>
+<TT>since</TT>		</TD><TD> user	</TD><TD> version since the function exists		</TD></TR><TR><TD>
+<TT>type</TT>		</TD><TD> DOC++	</TD><TD> depends on source code			</TD></TR><TR><TD>
+<TT>version</TT>		</TD><TD> user	</TD><TD> version					</TD></TR><TR><TD>
+</TD></TR><TR><TD>
+</TR></TABLE>
+</CENTER>
+
+<P>Except for explicit manual entries, the first three fields will
+generally be filled automatically by DOC++. How they are filled depends
+on the <EM>category</EM> of a manual entry, which is determined by the
+source code following a DOC++ comment. Generally they contain the
+entire signature of the subsequent declaration. The following table
+lists all categories of manual entries and how the fields are filled:
+
+<P><CENTER>
+<TABLE BORDER>
+<TR><TD>
+Category	</TD><TD> <TT>@type</TT>	</TD><TD> <TT>@name</TT>	</TD><TD> <TT>@args</TT>	</TD></TR><TR><TD>
+</TD></TR><TR><TD>
+macro	</TD><TD> #define	</TD><TD> name		</TD><TD> [argument list]	</TD></TR><TR><TD>
+variable	</TD><TD> Type		</TD><TD> name		</TD><TD> -	</TD></TR><TR><TD>
+function/method	</TD><TD> Return type	</TD><TD> name		</TD><TD> arguments list [exceptions]	</TD></TR><TR><TD>
+union/enum	</TD><TD> union/enum	</TD><TD> name		</TD><TD> -	</TD></TR><TR><TD>
+class/struct	</TD><TD> class/struct	</TD><TD> name		</TD><TD> [derived classes] </TD></TR><TR><TD>
+interface	</TD><TD> interface	</TD><TD> name		</TD><TD> [extended interfaces] </TD></TR><TR><TD>
+</TD></TR><TR><TD>
+</TR></TABLE>
+</CENTER>
+
+<P>In any case `<TT>@name</TT>' contains the name of the declaration to be documented.
+It will be included in the table of contents.
+
+<P>The remaining fields are filled from the text in the DOC++ comment.
+Except for the `<TT>@doc</TT>' and `<TT>@memo</TT>' field, the text for a field must be
+preceeded by the field name in the beginning of a line of the DOC++
+comment. The subsequent text up to the next occurrence of a field name
+is used for the field. Field `<TT>@name</TT>' is an exception in that only the
+remaining text in the same line is used to fill the field. As an
+example:
+
+<P><PRE>
+	&nbsp;&nbsp;&nbsp;&nbsp;@author&nbsp;Snoopy
+	</PRE>
+
+<P>is used to fill the `<TT>@author</TT>' field with the text ``Snoopy''.
+
+<P>Text that is not preceeded by a field name is used for the `<TT>@doc</TT>' field.
+The very first text in a DOC++ comment up to the first occurrence of
+character `.' is also copied to the `<TT>@memo</TT>' field. This may be
+overridden by explicitly specifying a `<TT>@memo</TT>' field. In this case also
+characters `.' are allowed.
+
+<P>The `<TT>@type</TT>', `<TT>@args</TT>' and `<TT>@doc</TT>' fields may not be filled
+explicitly.</BLOCKQUOTE>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">Hierarchy of classes</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

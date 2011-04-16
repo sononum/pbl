@@ -1,0 +1,203 @@
+/** @name Command Line Options
+
+    	Calling DOC++ with `#-h#' or `#--help#' option will give you a long
+	screen with one-line descriptions of the command line options provided
+	by DOC++. However, we'll now attempt to provide a more detailed
+	description suitable for you to understand how to call DOC++ with your
+	docified sources.
+
+	At the command line DOC++ may be called with a sequence of options and a
+	list of files or directories. No option may be passed after the first
+	filename. All files passed to DOC++ are parsed in the order they are
+	specified for generating documentation from them. All directories are
+	traversed recursively and all files #*.h*# or #*.java# (depending on the
+	`#-J#' or `#--java#' command line option) are parsed. However, it is
+	good practice to control the input files with one main input file and
+	use the `#@Include:#' directive (the way this documentation was
+	written).
+
+	Options consists either of a leading character `#-#', followed by one or
+	two characters, or a leading `#--#', followed by the long option name,
+	and optionally a space-separated argument.
+
+	Note that options that are set in the configuration file overrides
+	command line options.
+
+	Command line options come in three different flavours. The first type of
+	options control parameters that are independent of the chosen output,
+	the second type when generating HTML output (the default) and the third
+	for TeX output (selected with `#-t#' or `#--tex#' option).
+	These are:
+
+	\begin{description}
+	\item[-A	-all]
+			Instructs DOC++ to generate manual entries for every
+			declaration it finds, no matter if it is documented with
+			a DOC++ comment or not.
+	\item[-c	--c-comments]
+			Instructs DOC++ to use the C/C++ comments as DOC++
+			comments.
+	\item[-C	--config #FILE#]
+			Read options from the configuration file #FILE#.
+	\item[-h	--help]
+			Don't do anything, just print a one-line description of
+			all options to the standard output.
+	\item[-H	--html]
+			Instructs DOC++ to parse HTML as formatting language
+			instead of TeX.
+	\item[-I	--input #FILE#]
+			Instructs DOC++ to read the list of input files from
+			#FILE# instead of command line.
+	\item[-J	--java]
+			Sets DOC++ into Java mode, i.e. instructs DOC++ to parse
+			Java instead of C/C++ (the default).
+	\item[-nd	--no-define]
+			Instructs DOC++ to ignore the `\#define' macros.
+	\item[-ng	--no-class-graph]
+			Suppress the class graph generation.
+	\item[-p	--private]
+			Instructs DOC++ to include private class members in
+			the documentation. If not specified no private member
+			will show up in the documentation (even if they are
+			docified).
+	\item[-q	--quick]
+			Turn DOC++ into a quick operating mode, which increase
+			the generated documentation size.
+	\item[-Q	--quantel]
+			Parse Quantel extensions.
+	\item[-R	--internal-doc]
+			Generate internal documentation too.
+	\item[-t	--tex]
+			Instructs DOC++ to produce TeX output rather than HTML.
+	\item[-u	--upwards-arrows]
+			Draw arrows from derived class to the base class when
+	       		generating class graphs.
+	\item[-v	--verbose]
+			Sets DOC++ into verbose mode making it operate more
+			noisy. This may be helpful when debugging your
+			documentation.
+	\item[-V	--version]
+			Don't do anything, just output version information.
+	\item[-y	--scan-includes]
+			Scan `\#include'ed header files
+	\item[-Y	--idl]
+			Sets DOC++ into IDL mode, i.e. instructs DOC++ to parse
+			IDL instead of C/C++ (the default).
+	\item[-z	--php]
+			Sets DOC++ into PHP mode, i.e. instructs DOC++ to parse
+			PHP instead of C/C++ (the default).
+	\item[-Z	--docbook]
+			Instructs DOC++ to produce DocBook SGML instead of HTML.
+	\end{description}
+
+	The following command line options are only active when HTML output is
+	selected, i.e. no `#-t#' or `#--tex#' option is passed:
+
+	\begin{description}
+	\item[-a	--tables]
+			When this option is specified, DOC++ will use HTML
+			tables for listing the members of a class. This yields
+			all member names to be aligned.
+	\item[-b	--tables-border]
+			Same as ``#--tables#'' except that a bordered table
+			will be used.
+	\item[-B	--footer #FILE#]
+			Use #FILE# as the footer for every HTML page generated
+			by DOC++. This is how to get rid of DOC++ logos and
+			customize the output for your needs.
+	\item[-d	--dir #NAME#]
+			This specifies the directory where the HTML files and
+			GIFs are to be written. If not specified, the current
+			directory will be used. If the specified directory does
+			not exist, it will be created by DOC++.
+	\item[-f	--filenames]
+			Instructs DOC++ to write on each HTML page the file of
+			the source code, where this manual entry has been
+			declared.
+	\item[-F	--filenames-path]
+			Same as ``#--filenames#'' except the complete path of
+			the source file is shown.
+	\item[-g	--no-gifs]
+			Instructs DOC++ not to generate GIFs for equations and
+			`#\TEX{}#' text in the documentation. This may reduce
+			execution time when calling DOC++, but note that DOC++
+			keeps a database of already generated GIFs, such that
+			GIFs are not recreated if they already exists. However,
+			if you do not have `latex', `dvips', `ghostscript' and
+			the `ppmtools' installed on your system, you {\em must}
+			use this option, since then DOC++ will fail setting up
+			the GIFs.
+	\item[-G	--gifs]
+			This instructs DOC++ to reconstruct all GIFs, even if
+			they already exists. This may be useful if the
+			database is corrupted for some reason.
+	\item[-i	--no-inherited]
+			Instructs DOC++ not to show inherited members
+			in the generated HTML documentation.
+	\item[-j	--no-java-graphs]
+			Suppresses the generation of Java applets for drawing
+			class graphs.
+	\item[-k	--trivial-graphs]
+			Generate class graphs for classes with neither base
+			class nor child classes.
+	\item[-m	--no-members]
+			Don't show the members with zero-length documentation
+			in DOC section.
+	\item[-M	--full-toc]
+			Show members in HTML TOC.
+	\item[-P	--no-general]
+			Discard general stuff.
+	\item[-S	--sort]
+			Instructs DOC++ to sort documentation entries
+			alphabetically.
+	\item[-T	--header #FILE#]
+			Use #FILE# as header for every HTML page generated by
+			DOC++. This is how to get rid of DOC++ logos and
+			customize the output for your needs.
+	\item[-w	--before-group]
+			Print the groups' documentation before groups.
+	\item[-W	--before-class]
+			Print the classes' documentation before classes.
+	\item[-x	--suffix #SUFFIX#]
+			Use #SUFFIX# as suffix for every generated HTML page,
+			instead of ``.html''.
+	\item[-K	--stylesheet #FILE#]
+			Use #FILE# as style sheet for every generated HTML page.
+	\end{description}
+
+	Finally, this set of command line options provides some control for the
+	TeX output of DOC++:
+
+	\begin{description}
+	\item[-ec	--class-graph]
+			Only generates the class graph.
+	\item[-ef	--env #FILE#]
+			Reads the TeX environment from #FILE#.
+	\item[-ei	--index]
+			Only generates the index.
+	\item[-eo	--style #OPTION#]
+			Adds #OPTION# to TeX's `#\documentclass#'.
+	\item[-ep	--package #PACKAGE#]
+			Adds `#\usepackage{package}#' to the TeX environment.
+	\item[-et	--title #FILE#]
+			Uses the contents of #FILE# as TeX title page.
+	\item[-D	--depth #DEPTH#]
+			Sets the minimum depth (number of levels) in TOC.
+	\item[-l	--no-env]
+			Switches off generation of the TeX environment. This
+			should be used if you intend to include the
+			documentation in some TeX document.
+	\item[-o	--output #FILE#]
+			Sets the output file name. If not specified, the output
+			is printed to standard output.
+	\item[-s	--source]
+			Instead of generating a manual from the manual entries,
+			DOC++ will generate a source code listing. This listing
+			contains all {\em normal} C or C++ comments typeset in
+			TeX quality. Every line is preceeded with its line
+			number.
+	\item[-X	--hide-index]
+			Turn off generation of index at beggining of every
+			section.
+	\end{description}
+*/

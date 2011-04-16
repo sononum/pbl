@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblIteratorAdd</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblIteratorAdd</A></H2><H2>( <!1><A HREF="PblIterator.html">PblIterator</A>*  iterator,   void*  element )</H2><BLOCKQUOTE> Inserts the specified element into the underlying collection.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Inserts the specified element into the underlying collection.
+
+<P>The element is inserted immediately before the next element that would be returned by next,
+if any, and after the next element that would be returned by previous, if any.
+
+<P>If the list contains no elements, the new element becomes the sole element on the list.
+
+<P>The new element is inserted before the implicit cursor:
+a subsequent call to next would be unaffected,
+and a subsequent call to previous would return the new element.
+This call increases by one the value that would be returned by a
+call to nextIndex or previousIndex.
+
+<P>For array lists this method has a time complexity of O(N),
+with N being the number of elements in the underlying list.
+
+<P>For linked lists this method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>iterator</B> -   The iterator to add the element to 
+<BR><B>element</B> -   Element to be added to this list   <BR><DT><B>Returns:</B><DD>  int rc >= 0: The size of the list.
+<BR>  int rc <  0: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying list was modified concurrently.
+<BR>PBL_ERROR_PARAM_LIST              - The underlying collection is not a list.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

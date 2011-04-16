@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+   <TITLE>pblSet - Set Implementation</TITLE>
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblSet - Set Implementation</H2>
+<SMALL>Set in C, C hash set, C-HashSet, hash set in C, HashSet in C,</SMALL>
+<SMALL>C tree set, C-TreeSet, tree set in C, TreeSet in C.</SMALL>
+<P>
+<HR>
+<H2>Documentation</H2>
+Open source C implementation of a collection that contains no duplicate elements.
+More formally, sets contain no pair of elements e1 and e2 such that e1.equals(e2).
+This C implementation is
+similar to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Set.html">Java Set</a>
+interface.
+<P>
+This implementations of sets do not allow NULL elements.
+<P>
+As implied by its name, this module models the mathematical set abstraction and
+allows very efficient access to their elements.
+<P>
+The Set module provides two implementations of sets,
+an open source C hash set implementation equivalent to the 
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/HashSet.html">Java HashSet</a> class
+and
+a sorted open source C avl-tree-based balanced tree set implementation equivalent to the
+<A href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/TreeSet.html">Java TreeSet</a>
+class.
+<P>
+Hash sets make no guarantees as to the iteration order of the set;
+in particular, they do not guarantee that the order will remain constant over time.
+Hash sets offer constant time performance for the basic operations (add, remove, contains and size),
+assuming the hash function disperses the elements properly among the buckets.
+Iterating over hash sets requires time proportional to the sum of the hash set
+instance's size (the number of elements) plus the "capacity" of the set (the number of buckets).
+Thus, it's very important not to set the initial capacity too
+high (or the load factor too low) if iteration performance is important.
+<P>
+Tree sets being sorted guarantee that the set can be iterated in ascending element order, according to the 
+compare function specified for the set.
+The implementation provides guaranteed log(n) time cost for the basic operations (add, remove and contains).
+Iterating over tree sets requires time proportional to the tree set
+instance's size.
+<P>
+The user can also access elements by their integer index (position in the set).
+From a performance standpoint, these methods should be used with caution.
+They will perform costly linear searches.
+Thus, iterating over the elements in a set is
+preferable to indexing through it.
+<P>
+The Set module provides an iterator, called a
+<A href="iterator.html">pblIterator</A>,
+that allows bidirectional access in addition to the normal operations iterators provide.
+<P>
+All set functions described below work on hash sets as well as on tree sets,
+they of course will show different runtime and memory complexities depending on the type of
+set used.
+
+<HR>
+<H2>Constructors and Destructors</H2>
+<LI><A HREF="pblSetNewHashSet.html">pblSetNewHashSet</A> <I> Creates a new hash set.</I>
+<LI><A HREF="pblSetNewTreeSet.html">pblSetNewTreeSet</A> <I> Creates a new tree set.</I>
+<LI><A HREF="pblSetClone.html">pblSetClone</A> <I> Returns a shallow copy of this set instance.</I>
+<LI><A HREF="pblSetCloneRange.html">pblSetCloneRange</A> <I> Returns a shallow copy from this set of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblSetFree.html">pblSetFree</A> <I> Free the set's memory from heap.</I>
+
+<HR>
+<H2>Adding to a Set</H2>
+<LI><A HREF="pblSetAdd.html">pblSetAdd</A> <I> Adds the specified element to this set.</I>
+<LI><A HREF="pblSetAddAll.html">pblSetAddAll</A> <I> Adds all of the elements in the specified Collection to this set.</I>
+<LI><A HREF="pblSetReplaceElement.html">pblSetReplaceElement</A> <I> Replaces the element of the set that matches the given element with the given element.</I>
+
+<HR>
+<H2>Accessing Set Elements</H2>
+<LI><A HREF="pblSetContains.html">pblSetContains</A> <I> Returns true if this set contains the specified element.</I>
+<LI><A HREF="pblSetContainsAll.html">pblSetContainsAll</A> <I> Returns a value > 0 if this set contains all of the elements in the specified collection.</I>
+<LI><A HREF="pblSetElement.html">pblSetElement</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetGet.html">pblSetGet</A> <I> Returns the element at the specified position in this set.</I>
+<LI><A HREF="pblSetGetElement.html">pblSetGetElement</A> <I> Returns the element of this set that matches the given element.</I>
+<LI><A HREF="pblSetGetFirst.html">pblSetGetFirst</A> <I> Returns the first element in this set.</I>
+<LI><A HREF="pblSetGetLast.html">pblSetGetLast</A> <I> Returns the last element in this set.</I>
+<LI><A HREF="pblSetHead.html">pblSetHead</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetIndexOf.html">pblSetIndexOf</A> <I> Returns the index of the given argument in the set.</I>
+<LI><A HREF="pblSetLastIndexOf.html">pblSetLastIndexOf</A> <I> Returns the index of the given argument in the set.</I>
+<LI><A HREF="pblSetPeek.html">pblSetPeek</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetTail.html">pblSetTail</A> <I> Retrieves, but does not remove, the tail (last element) of this set.</I>
+<LI><A HREF="pblSetTop.html">pblSetTop</A> <I> Retrieves, but does not remove, the tail (last element) of this set.</I>
+
+<HR>
+<H2>Mathematical Set Functions</H2>
+<LI><A HREF="pblSetContains.html">pblSetContains</A> <I> Returns true if this set contains the specified element.</I>
+<LI><A HREF="pblSetContainsAll.html">pblSetContainsAll</A> <I> Returns a value > 0 if this set contains all of the elements in the specified collection.</I>
+
+<LI><A HREF="pblSetDifference.html">pblSetDifference</A> <I> Creates a new set containing the difference of the elements of the two sets passed as parameters.</I>
+<LI><A HREF="pblSetEquals.html">pblSetEquals</A> <I> Compares the specified collection with this set for equality.</I>
+<LI><A HREF="pblSetIntersection.html">pblSetIntersection</A> <I> Creates a new set containing the intersection of the elements of the two sets passed as parameters.</I>
+<LI><A HREF="pblSetIsEmpty.html">pblSetIsEmpty</A> <I> Tests if this set has no elements.</I>
+<LI><A HREF="pblSetIsSubset.html">pblSetIsSubset</A> <I> Returns a value > 0 if the set passed as second parameter is a subset of the set passed as first parameter, ie.</I>
+<LI><A HREF="pblSetSize.html">pblSetSize</A> <I> Returns the number of elements in this set.</I>
+<LI><A HREF="pblSetSymmectricDifference.html">pblSetSymmectricDifference</A> <I> Creates a new set containing all elements of the two sets passed as parameters that are contained in either of the sets but not in both of them.</I>
+<LI><A HREF="pblSetUnion.html">pblSetUnion</A> <I> Creates a new set containing the union of the elements of both sets passed as parameters.</I>
+
+<HR>
+<H2>Removing from a Set</H2>
+<LI><A HREF="pblSetPoll.html">pblSetPoll</A> <I> Retrieves and removes the head (first element) of this set.</I>
+<LI><A HREF="pblSetPop.html">pblSetPop</A> <I> Retrieves and removes the tail (last element) of this set.</I>
+<LI><A HREF="pblSetRemove.html">pblSetRemove</A> <I> Retrieves and removes the head (first element) of this set.</I>
+<LI><A HREF="pblSetRemoveAll.html">pblSetRemoveAll</A> <I> Removes from this set all of its elements that are contained in the specified collection.</I>
+<LI><A HREF="pblSetRemoveAt.html">pblSetRemoveAt</A> <I> Removes the element at the specified position in this set.</I>
+<LI><A HREF="pblSetRemoveElement.html">pblSetRemoveElement</A> <I> Removes the specified element from this set if it is present.</I>
+<LI><A HREF="pblSetRemoveFirst.html">pblSetRemoveFirst</A> <I> Removes and returns the first element in this set.</I>
+<LI><A HREF="pblSetRemoveLast.html">pblSetRemoveLast</A> <I> Removes and returns the last element of this set.</I>
+<LI><A HREF="pblSetRetainAll.html">pblSetRetainAll</A> <I> Retains only the elements in this set that are contained in the specified collection.</I>
+
+<HR>
+<H2>Functions on Sets</H2>
+
+<LI><A HREF="pblSetByteBufferHashValue.html">pblSetByteBufferHashValue</A> <I> Creates a hash value of byte buffer and its length.</I>
+
+<LI><A HREF="pblSetClear.html">pblSetClear</A> <I> Removes all of the elements from this set.</I>
+<LI><A HREF="pblSetDefaultCompare.html">pblSetDefaultCompare</A> <I> Default compare function used if no application specific compare function is specified by the user.</I>
+<LI><A HREF="pblSetDefaultHashValue.html">pblSetDefaultHashValue</A> <I> Default hash value function used if no application specific function is specified by the user.</I>
+<LI><A HREF="pblSetEnsureCapacity.html">pblSetEnsureCapacity</A> <I> Increases the capacity of this set instance, if necessary.</I>
+<LI><A HREF="pblSetEquals.html">pblSetEquals</A> <I> Compares the specified collection with this set for equality.</I>
+<LI><A HREF="pblSetFree.html">pblSetFree</A> <I> Free the set's memory from heap.</I>
+<LI><A HREF="pblSetGetCapacity.html">pblSetGetCapacity</A> <I> Returns the capacity of this set instance.</I>
+<LI><A HREF="pblSetGetCompareFunction.html">pblSetGetCompareFunction</A> <I> Gets the application specific compare function for the elements of the set.</I>
+<LI><A HREF="pblSetGetHashValueFunction.html">pblSetGetHashValueFunction</A> <I> Gets the application specific hash value function for the elements of the set.</I>
+<LI><A HREF="pblSetIsHashSet.html">pblSetIsHashSet</A> <I> Tests if the object is a hash set.</I>
+<LI><A HREF="pblSetIsSet.html">pblSetIsSet</A> <I> Tests if the object is a set.</I>
+<LI><A HREF="pblSetIsTreeSet.html">pblSetIsTreeSet</A> <I> Tests if the object is a tree set.</I>
+<LI><A HREF="pblSetIterator.html">pblSetIterator</A> <I> Returns an iterator over the elements in this set.</I>
+<LI><A HREF="pblSetReverseIterator.html">pblSetReverseIterator</A> <I> Returns a reverse iterator over the elements in this set.</I>
+<LI><A HREF="pblSetSetCompareFunction.html">pblSetSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the set.</I>
+<LI><A HREF="pblSetSetHashValueFunction.html">pblSetSetHashValueFunction</A> <I> Sets an application specific hash value function for the elements of the hash set.</I>
+<LI><A HREF="pblSetSetLoadFactor.html">pblSetSetLoadFactor</A> <I> Sets an application specific load factor for a hash set.</I>
+<LI><A HREF="pblSetSize.html">pblSetSize</A> <I> Returns the number of elements in this set.</I>
+<LI><A HREF="pblSetStringHashValue.html">pblSetStringHashValue</A> <I> Creates a hash value of a '\0' terminated string.</I>
+<LI><A HREF="pblSetToArray.html">pblSetToArray</A> <I> Returns an array containing all of the elements in this set.</I>
+<LI><A HREF="pblSetTrimToSize.html">pblSetTrimToSize</A> <I> Trims the capacity of this set instance to the set's current size divided by the load factor of the set.</I>
+<HR>
+<H2>Collection Functions</H2>
+Each pblSet is also a pblCollection, therefore all collection functions can be used on sets.
+<P>
+
+<LI><A HREF="pblCollectionAggregate.html">pblCollectionAggregate</A> <I> Aggregates a collection by calling the aggregation function on every element of the collection while running through the collection with an iterator.</I>
+<LI><A HREF="pblCollectionContains.html">pblCollectionContains</A> <I> Returns true if this collection contains the specified element.</I>
+<LI><A HREF="pblCollectionConvertToArrayList.html">pblCollectionConvertToArrayList</A> <I> Returns a pblArrayList with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToHashSet.html">pblCollectionConvertToHashSet</A> <I> Returns a pblHashSet with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToLinkedList.html">pblCollectionConvertToLinkedList</A> <I> Returns a pblLinkedList with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionConvertToTreeSet.html">pblCollectionConvertToTreeSet</A> <I> Returns a pblTreeSet with a shallow copy of this collection instance.</I>
+<LI><A HREF="pblCollectionElementCompare.html">pblCollectionElementCompare</A> <I> Compare two elements of a collection.</I>
+<LI><A HREF="pblCollectionIsCollection.html">pblCollectionIsCollection</A> <I> Tests if the object is a collection.</I>
+<LI><A HREF="pblCollectionSetCompareFunction.html">pblCollectionSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the collection.</I>
+<LI><A HREF="pblCollectionStringCompareFunction.html">pblCollectionStringCompareFunction</A> <I> Compares two '\0' terminated strings.</I>
+
+<HR>
+<H2>Alphabetic List of Set Functions</H2>
+
+<LI><A HREF="pblSetAdd.html">pblSetAdd</A> <I> Adds the specified element to this set.</I>
+<LI><A HREF="pblSetAddAll.html">pblSetAddAll</A> <I> Adds all of the elements in the specified Collection to this set.</I>
+<LI><A HREF="pblSetByteBufferHashValue.html">pblSetByteBufferHashValue</A> <I> Creates a hash value of byte buffer and its length.</I>
+<LI><A HREF="pblSetClear.html">pblSetClear</A> <I> Removes all of the elements from this set.</I>
+<LI><A HREF="pblSetClone.html">pblSetClone</A> <I> Returns a shallow copy of this set instance.</I>
+<LI><A HREF="pblSetCloneRange.html">pblSetCloneRange</A> <I> Returns a shallow copy from this set of all of the elements whose index is between fromIndex, inclusive and toIndex, exclusive.</I>
+<LI><A HREF="pblSetContains.html">pblSetContains</A> <I> Returns true if this set contains the specified element.</I>
+<LI><A HREF="pblSetContainsAll.html">pblSetContainsAll</A> <I> Returns a value > 0 if this set contains all of the elements in the specified collection.</I>
+<LI><A HREF="pblSetDefaultHashValue.html">pblSetDefaultHashValue</A> <I> Default hash value function used if no application specific function is specified by the user.</I>
+<LI><A HREF="pblSetDifference.html">pblSetDifference</A> <I> Creates a new set containing the difference of the elements of the two sets passed as parameters.</I>
+<LI><A HREF="pblSetElement.html">pblSetElement</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetEnsureCapacity.html">pblSetEnsureCapacity</A> <I> Increases the capacity of this set instance, if necessary.</I>
+<LI><A HREF="pblSetEquals.html">pblSetEquals</A> <I> Compares the specified collection with this set for equality.</I>
+<LI><A HREF="pblSetFree.html">pblSetFree</A> <I> Free the set's memory from heap.</I>
+<LI><A HREF="pblSetGet.html">pblSetGet</A> <I> Returns the element at the specified position in this set.</I>
+<LI><A HREF="pblSetGetCapacity.html">pblSetGetCapacity</A> <I> Returns the capacity of this set instance.</I>
+<LI><A HREF="pblSetGetCompareFunction.html">pblSetGetCompareFunction</A> <I> Gets the application specific compare function for the elements of the set.</I>
+<LI><A HREF="pblSetGetElement.html">pblSetGetElement</A> <I> Returns the element of this set that matches the given element.</I>
+<LI><A HREF="pblSetGetFirst.html">pblSetGetFirst</A> <I> Returns the first element in this set.</I>
+<LI><A HREF="pblSetGetHashValueFunction.html">pblSetGetHashValueFunction</A> <I> Gets the application specific hash value function for the elements of the set.</I>
+<LI><A HREF="pblSetGetLast.html">pblSetGetLast</A> <I> Returns the last element in this set.</I>
+<LI><A HREF="pblSetHead.html">pblSetHead</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetIndexOf.html">pblSetIndexOf</A> <I> Returns the index of the given argument in the set.</I>
+<LI><A HREF="pblSetIntersection.html">pblSetIntersection</A> <I> Creates a new set containing the intersection of the elements of the two sets passed as parameters.</I>
+<LI><A HREF="pblSetIsEmpty.html">pblSetIsEmpty</A> <I> Tests if this set has no elements.</I>
+<LI><A HREF="pblSetIsHashSet.html">pblSetIsHashSet</A> <I> Tests if the object is a hash set.</I>
+<LI><A HREF="pblSetIsSet.html">pblSetIsSet</A> <I> Tests if the object is a set.</I>
+<LI><A HREF="pblSetIsSubset.html">pblSetIsSubset</A> <I> Returns a value > 0 if the set passed as second parameter is a subset of the set passed as first parameter, ie.</I>
+<LI><A HREF="pblSetIsTreeSet.html">pblSetIsTreeSet</A> <I> Tests if the object is a tree set.</I>
+<LI><A HREF="pblSetIterator.html">pblSetIterator</A> <I> Returns an iterator over the elements in this set.</I>
+<LI><A HREF="pblSetLastIndexOf.html">pblSetLastIndexOf</A> <I> Returns the index of the given argument in the set.</I>
+<LI><A HREF="pblSetNewHashSet.html">pblSetNewHashSet</A> <I> Creates a new hash set.</I>
+<LI><A HREF="pblSetNewTreeSet.html">pblSetNewTreeSet</A> <I> Creates a new tree set.</I>
+<LI><A HREF="pblSetPeek.html">pblSetPeek</A> <I> Retrieves, but does not remove, the head (first element) of this set.</I>
+<LI><A HREF="pblSetPoll.html">pblSetPoll</A> <I> Retrieves and removes the head (first element) of this set.</I>
+<LI><A HREF="pblSetPop.html">pblSetPop</A> <I> Retrieves and removes the tail (last element) of this set.</I>
+<LI><A HREF="pblSetRemove.html">pblSetRemove</A> <I> Retrieves and removes the head (first element) of this set.</I>
+<LI><A HREF="pblSetRemoveAll.html">pblSetRemoveAll</A> <I> Removes from this set all of its elements that are contained in the specified collection.</I>
+<LI><A HREF="pblSetRemoveAt.html">pblSetRemoveAt</A> <I> Removes the element at the specified position in this set.</I>
+<LI><A HREF="pblSetRemoveElement.html">pblSetRemoveElement</A> <I> Removes the specified element from this set if it is present.</I>
+<LI><A HREF="pblSetRemoveFirst.html">pblSetRemoveFirst</A> <I> Removes and returns the first element in this set.</I>
+<LI><A HREF="pblSetRemoveLast.html">pblSetRemoveLast</A> <I> Removes and returns the last element of this set.</I>
+<LI><A HREF="pblSetReplaceElement.html">pblSetReplaceElement</A> <I> Replaces the element of the set that matches the given element with the given element.</I>
+<LI><A HREF="pblSetRetainAll.html">pblSetRetainAll</A> <I> Retains only the elements in this set that are contained in the specified collection.</I>
+<LI><A HREF="pblSetReverseIterator.html">pblSetReverseIterator</A> <I> Returns a reverse iterator over the elements in this set.</I>
+<LI><A HREF="pblSetSetCompareFunction.html">pblSetSetCompareFunction</A> <I> Sets an application specific compare function for the elements of the set.</I>
+<LI><A HREF="pblSetSetHashValueFunction.html">pblSetSetHashValueFunction</A> <I> Sets an application specific hash value function for the elements of the hash set.</I>
+<LI><A HREF="pblSetSetLoadFactor.html">pblSetSetLoadFactor</A> <I> Sets an application specific load factor for a hash set.</I>
+<LI><A HREF="pblSetSize.html">pblSetSize</A> <I> Returns the number of elements in this set.</I>
+<LI><A HREF="pblSetStringHashValue.html">pblSetStringHashValue</A> <I> Creates a hash value of a '\0' terminated string.</I>
+<LI><A HREF="pblSetSymmectricDifference.html">pblSetSymmectricDifference</A> <I> Creates a new set containing all elements of the two sets passed as parameters that are contained in either of the sets but not in both of them.</I>
+<LI><A HREF="pblSetTail.html">pblSetTail</A> <I> Retrieves, but does not remove, the tail (last element) of this set.</I>
+<LI><A HREF="pblSetToArray.html">pblSetToArray</A> <I> Returns an array containing all of the elements in this set.</I>
+<LI><A HREF="pblSetTop.html">pblSetTop</A> <I> Retrieves, but does not remove, the tail (last element) of this set.</I>
+<LI><A HREF="pblSetTrimToSize.html">pblSetTrimToSize</A> <I> Trims the capacity of this set instance to the set's current size divided by the load factor of the set.</I>
+<LI><A HREF="pblSetUnion.html">pblSetUnion</A> <I> Creates a new set containing the union of the elements of both sets passed as parameters.</I>
+
+<hr>
+Copyright(C) 2003 - 2010 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

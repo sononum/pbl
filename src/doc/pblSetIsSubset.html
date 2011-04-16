@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblSetIsSubset</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblSetIsSubset</A></H2><H2>( <!1><A HREF="PblSet.html">PblSet</A>*  setA,   <!1><A HREF="PblSet.html">PblSet</A>*  setB )</H2><BLOCKQUOTE> Returns a value > 0 if the set passed as second parameter is a subset of the set passed as first parameter, ie.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns a value > 0 if the set passed as second parameter is a subset
+of the set passed as first parameter, ie. the first set contains all of
+the elements in the second set.
+
+<P>This implementation iterates over the set passed as second parameter,
+checking each element returned by the iterator in turn to see if it's contained
+in the set passed as first parameter.
+
+<P>If all elements are so contained a value > 0 is returned, otherwise 0.
+
+<P>For hash sets this method has a time complexity of O(M) and
+for tree sets this method has a time complexity of O((Log N) * M),
+with N being the size of the first set and M being the size of the
+second set.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>setA</B> -   Superset to check  
+<BR><B>setB</B> -   Subset to check    <BR><DT><B>Returns:</B><DD>  int rc >  0: The set contains all of the elements in the specified collection.
+<BR>  int rc == 0: The set does not contain all of the elements.
+<BR>  int rc <  0: An error, see pbl_errno:
+<BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

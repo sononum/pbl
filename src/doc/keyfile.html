@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>pblKeyFile Implementation</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblKeyFile Implementation</H2>
+
+<HR>
+<H2>Documentation</H2>
+An open source C key file implementation.
+<P>
+<UL>
+<B>Features</B>
+<UL>
+<LI>ultra fast B* tree implementation for random lookups
+<LI>transaction handling
+<LI>sequential access methods
+<LI>embedable small footprint, < 35 Kb
+<LI>arbitrary size files, up to 4 terrabytes
+<LI>arbitrary number of records per file, up to 2 ^^ 48 records
+<LI>duplicate keys
+<LI>advanced key compression for minimal size B trees
+<LI>keylength up to 255 bytes
+<LI>regression test frame
+</UL>
+</UL>
+
+<HR>
+<H2>Functions</H2>
+<LI><A HREF="pblKfClose.html">pblKfClose</A> <I> close a key file</I>
+<LI><A HREF="pblKfCommit.html">pblKfCommit</A> <I> commit or rollback changes done during a transaction.</I>
+<LI><A HREF="pblKfCreate.html">pblKfCreate</A> <I> create a key file with the name specified by path.</I>
+<LI><A HREF="pblKfDelete.html">pblKfDelete</A> <I> delete the current record of the key file.</I>
+<LI><A HREF="pblKfFind.html">pblKfFind</A> <I> find a record in a key file, set the current record</I>
+<LI><A HREF="pblKfFlush.html">pblKfFlush</A> <I> flush a key file</I>
+<LI><A HREF="pblKfGetAbs.html">pblKfGetAbs</A> <I> set current record to a record with an absolute position index</I>
+<LI><A HREF="pblKfGetRel.html">pblKfGetRel</A> <I> set current record to a record with a relative position index</I>
+<LI><A HREF="pblKfInit.html">pblKfInit</A> <I> change the number of cache blocks used per open key file</I>
+<LI><A HREF="pblKfInsert.html">pblKfInsert</A> <I> insert a new record with the given key and data into a key file,</I>
+<LI><A HREF="pblKfOpen.html">pblKfOpen</A> <I> open an existing key file</I>
+<LI><A HREF="pblKfRead.html">pblKfRead</A> <I> read the data of the current record of the file</I>
+<LI><A HREF="pblKfRestorePosition.html">pblKfRestorePosition</A> <I> restore the position of the current record saved by the last previous call to <!1><A HREF="pblKfSavePosition.html">pblKfSavePositi
+
+<hr>
+Copyright(C) 2003 - 2009 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

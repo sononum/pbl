@@ -1,0 +1,31 @@
+DOC++ 3.4.x
+May 2, 2002
+REPORTING-BUGS: How to report bugs
+Copyright (c) 2000-2002 Dragos Acostachioaie
+
+    This file describe a suggested procedure for reporting DOC++ bugs. You
+aren't forced to use the following format, it is provided just as a guide to
+what informations could be useful to developers.
+
+    Please send the bug report to docpp-users@lists.sourceforge.net
+
+1. DOC++ version, as reported by `doc++ -V'
+
+2. The canonical system name, as reported by `configure' script, or at least
+   the operating system name
+
+3. Full description of the problem
+
+4. Command line
+
+5. A small example program which triggers the problem (if possible)
+
+6. Other notes, patches, fixes, workarounds
+
+   If you experience compiling problems:
+
+7. Compiler version (if you are using GCC, `gcc -v')
+
+8. Flex version (`flex --version' on most systems)
+
+9. `configure' and `make' output

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>PblList* pblCollectionConvertToLinkedList</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2><!1><A HREF="PblList.html">PblList</A>* <A HREF="#DOC.DOCU">pblCollectionConvertToLinkedList</A></H2><H2>( <!1><A HREF="PblCollection.html">PblCollection</A>*  collection )</H2><BLOCKQUOTE> Returns a pblLinkedList with a shallow copy of this collection instance.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns a pblLinkedList with a shallow copy of this collection instance.
+
+<P>The elements themselves are not copied.
+
+<P>This method has a memory and time complexity of O(N),
+with N being the number of elements in the collection.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>collection</B> -   The collection to convert <BR><DT><B>Returns:</B><DD>  PblList * retPtr != NULL: A pointer to the new list.
+<BR>  PblList * retPtr == NULL: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
+<BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

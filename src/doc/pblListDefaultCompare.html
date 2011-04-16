@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblListDefaultCompare</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblListDefaultCompare</A></H2><H2>( const void* left,<BR>&nbsp;  const void* right )</H2><BLOCKQUOTE> Default compare function used if no application specific compare function is specified by the user.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Default compare function used if no application specific compare function
+is specified by the user.
+
+<P>This function compares the values of the pointers directly,
+i.e. it tests for object identity.
+
+<P>This compare function behaves like the one that
+can be specified for the C-library function 'qsort'.
+
+<P>The arguments actually passed to the compare function when it is called
+are addresses of the element pointers added to the list.
+E.g.: If char * pointers are added to the list, the compare function
+will be called with char ** pointers as arguments. See the documentation
+for the C-library function 'qsort' for further information.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>left</B> -   left element for compare  
+<BR><B>right</B> -   right element for compare <BR><DT><B>Returns:</B><DD>  int rc  < 0: left is smaller than right
+<BR>  int rc == 0: left and right are equal
+<BR>  int rc  > 0: left is greater than right
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

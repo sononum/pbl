@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE> Command Line Options</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<H2> <A HREF="#DOC.DOCU">Command Line Options</A></H2></H2><A NAME="DOC.DOCU"></A>
+<BLOCKQUOTE>
+Calling DOC++ with `<TT>-h</TT>' or `<TT>--help</TT>' option will give you a long
+screen with one-line descriptions of the command line options provided
+by DOC++. However, we'll now attempt to provide a more detailed
+description suitable for you to understand how to call DOC++ with your
+docified sources.
+
+<P>At the command line DOC++ may be called with a sequence of options and a
+list of files or directories. No option may be passed after the first
+filename. All files passed to DOC++ are parsed in the order they are
+specified for generating documentation from them. All directories are
+traversed recursively and all files <TT>*.h*</TT> or <TT>*.java</TT> (depending on the
+`<TT>-J</TT>' or `<TT>--java</TT>' command line option) are parsed. However, it is
+good practice to control the input files with one main input file and
+use the `<TT>@Include:</TT>' directive (the way this documentation was
+written).
+
+<P>Options consists either of a leading character `<TT>-</TT>', followed by one or
+two characters, or a leading `<TT>--</TT>', followed by the long option name,
+and optionally a space-separated argument.
+
+<P>Note that options that are set in the configuration file overrides
+command line options.
+
+<P>Command line options come in three different flavours. The first type of
+options control parameters that are independent of the chosen output,
+the second type when generating HTML output (the default) and the third
+for TeX output (selected with `<TT>-t</TT>' or `<TT>--tex</TT>' option).
+These are:
+
+<P><DL>
+<DT><B>-A	-all</B><DD>
+Instructs DOC++ to generate manual entries for every
+declaration it finds, no matter if it is documented with
+a DOC++ comment or not.
+<DT><B>-c	--c-comments</B><DD>
+Instructs DOC++ to use the C/C++ comments as DOC++
+comments.
+<DT><B>-C	--config <TT>FILE</TT></B><DD>
+Read options from the configuration file <TT>FILE</TT>.
+<DT><B>-h	--help</B><DD>
+Don't do anything, just print a one-line description of
+all options to the standard output.
+<DT><B>-H	--html</B><DD>
+Instructs DOC++ to parse HTML as formatting language
+instead of TeX.
+<DT><B>-I	--input <TT>FILE</TT></B><DD>
+Instructs DOC++ to read the list of input files from
+<TT>FILE</TT> instead of command line.
+<DT><B>-J	--java</B><DD>
+Sets DOC++ into Java mode, i.e. instructs DOC++ to parse
+Java instead of C/C++ (the default).
+<DT><B>-nd	--no-define</B><DD>
+Instructs DOC++ to ignore the `#define' macros.
+<DT><B>-ng	--no-class-graph</B><DD>
+Suppress the class graph generation.
+<DT><B>-p	--private</B><DD>
+Instructs DOC++ to include private class members in
+the documentation. If not specified no private member
+will show up in the documentation (even if they are
+docified).
+<DT><B>-q	--quick</B><DD>
+Turn DOC++ into a quick operating mode, which increase
+the generated documentation size.
+<DT><B>-Q	--quantel</B><DD>
+Parse Quantel extensions.
+<DT><B>-R	--internal-doc</B><DD>
+Generate internal documentation too.
+<DT><B>-t	--tex</B><DD>
+Instructs DOC++ to produce TeX output rather than HTML.
+<DT><B>-u	--upwards-arrows</B><DD>
+Draw arrows from derived class to the base class when
+generating class graphs.
+<DT><B>-v	--verbose</B><DD>
+Sets DOC++ into verbose mode making it operate more
+noisy. This may be helpful when debugging your
+documentation.
+<DT><B>-V	--version</B><DD>
+Don't do anything, just output version information.
+<DT><B>-y	--scan-includes</B><DD>
+Scan `#include'ed header files
+<DT><B>-Y	--idl</B><DD>
+Sets DOC++ into IDL mode, i.e. instructs DOC++ to parse
+IDL instead of C/C++ (the default).
+<DT><B>-z	--php</B><DD>
+Sets DOC++ into PHP mode, i.e. instructs DOC++ to parse
+PHP instead of C/C++ (the default).
+<DT><B>-Z	--docbook</B><DD>
+Instructs DOC++ to produce DocBook SGML instead of HTML.
+</DL>
+
+<P>The following command line options are only active when HTML output is
+selected, i.e. no `<TT>-t</TT>' or `<TT>--tex</TT>' option is passed:
+
+<P><DL>
+<DT><B>-a	--tables</B><DD>
+When this option is specified, DOC++ will use HTML
+tables for listing the members of a class. This yields
+all member names to be aligned.
+<DT><B>-b	--tables-border</B><DD>
+Same as ``<TT>--tables</TT>'' except that a bordered table
+will be used.
+<DT><B>-B	--footer <TT>FILE</TT></B><DD>
+Use <TT>FILE</TT> as the footer for every HTML page generated
+by DOC++. This is how to get rid of DOC++ logos and
+customize the output for your needs.
+<DT><B>-d	--dir <TT>NAME</TT></B><DD>
+This specifies the directory where the HTML files and
+GIFs are to be written. If not specified, the current
+directory will be used. If the specified directory does
+not exist, it will be created by DOC++.
+<DT><B>-f	--filenames</B><DD>
+Instructs DOC++ to write on each HTML page the file of
+the source code, where this manual entry has been
+declared.
+<DT><B>-F	--filenames-path</B><DD>
+Same as ``<TT>--filenames</TT>'' except the complete path of
+the source file is shown.
+<DT><B>-g	--no-gifs</B><DD>
+Instructs DOC++ not to generate GIFs for equations and
+`<TT>\TEX{}</TT>' text in the documentation. This may reduce
+execution time when calling DOC++, but note that DOC++
+keeps a database of already generated GIFs, such that
+GIFs are not recreated if they already exists. However,
+if you do not have `latex', `dvips', `ghostscript' and
+the `ppmtools' installed on your system, you <EM>must</EM>
+use this option, since then DOC++ will fail setting up
+the GIFs.
+<DT><B>-G	--gifs</B><DD>
+This instructs DOC++ to reconstruct all GIFs, even if
+they already exists. This may be useful if the
+database is corrupted for some reason.
+<DT><B>-i	--no-inherited</B><DD>
+Instructs DOC++ not to show inherited members
+in the generated HTML documentation.
+<DT><B>-j	--no-java-graphs</B><DD>
+Suppresses the generation of Java applets for drawing
+class graphs.
+<DT><B>-k	--trivial-graphs</B><DD>
+Generate class graphs for classes with neither base
+class nor child classes.
+<DT><B>-m	--no-members</B><DD>
+Don't show the members with zero-length documentation
+in DOC section.
+<DT><B>-M	--full-toc</B><DD>
+Show members in HTML TOC.
+<DT><B>-P	--no-general</B><DD>
+Discard general stuff.
+<DT><B>-S	--sort</B><DD>
+Instructs DOC++ to sort documentation entries
+alphabetically.
+<DT><B>-T	--header <TT>FILE</TT></B><DD>
+Use <TT>FILE</TT> as header for every HTML page generated by
+DOC++. This is how to get rid of DOC++ logos and
+customize the output for your needs.
+<DT><B>-w	--before-group</B><DD>
+Print the groups' documentation before groups.
+<DT><B>-W	--before-class</B><DD>
+Print the classes' documentation before classes.
+<DT><B>-x	--suffix <TT>SUFFIX</TT></B><DD>
+Use <TT>SUFFIX</TT> as suffix for every generated HTML page,
+instead of ``.html''.
+<DT><B>-K	--stylesheet <TT>FILE</TT></B><DD>
+Use <TT>FILE</TT> as style sheet for every generated HTML page.
+</DL>
+
+<P>Finally, this set of command line options provides some control for the
+TeX output of DOC++:
+
+<P><DL>
+<DT><B>-ec	--class-graph</B><DD>
+Only generates the class graph.
+<DT><B>-ef	--env <TT>FILE</TT></B><DD>
+Reads the TeX environment from <TT>FILE</TT>.
+<DT><B>-ei	--index</B><DD>
+Only generates the index.
+<DT><B>-eo	--style <TT>OPTION</TT></B><DD>
+Adds <TT>OPTION</TT> to TeX's `<TT>\documentclass</TT>'.
+<DT><B>-ep	--package <TT>PACKAGE</TT></B><DD>
+Adds `<TT>\usepackage{package}</TT>' to the TeX environment.
+<DT><B>-et	--title <TT>FILE</TT></B><DD>
+Uses the contents of <TT>FILE</TT> as TeX title page.
+<DT><B>-D	--depth <TT>DEPTH</TT></B><DD>
+Sets the minimum depth (number of levels) in TOC.
+<DT><B>-l	--no-env</B><DD>
+Switches off generation of the TeX environment. This
+should be used if you intend to include the
+documentation in some TeX document.
+<DT><B>-o	--output <TT>FILE</TT></B><DD>
+Sets the output file name. If not specified, the output
+is printed to standard output.
+<DT><B>-s	--source</B><DD>
+Instead of generating a manual from the manual entries,
+DOC++ will generate a source code listing. This listing
+contains all <EM>normal</EM> C or C++ comments typeset in
+TeX quality. Every line is preceeded with its line
+number.
+<DT><B>-X	--hide-index</B><DD>
+Turn off generation of index at beggining of every
+section.
+</DL></BLOCKQUOTE>
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I> <I><A HREF="HIER.html">Hierarchy of classes</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblArrayListAddAllAt</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblArrayListAddAllAt</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,   int index,<BR>&nbsp;  void*  collection )</H2><BLOCKQUOTE> Inserts all of the elements in the specified collection into this list at the specified position.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Inserts all of the elements in the specified collection
+into this list at the specified position.
+Shifts the element currently at that position (if any) and any
+subsequent elements to the right (increases their indices).
+The new elements will appear in this list in the order that
+they are returned by the specified collection's iterator.
+The behavior of this operation is unspecified if the specified
+collection is modified while the operation is in progress.
+(Note that this will occur if the specified collection
+is this list, and it's nonempty.)
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                                
+<BR><B>index</B> -   Index at which the element is to be inserted   
+<BR><B>collection</B> -   The collection whose elements are to be added to this list. <BR><DT><B>Returns:</B><DD>  int rc >= 0: The size of this ArrayList instance
+<BR>  int rc <  0: An error, see pbl_errno
+PBL_ERROR_OUT_OF_MEMORY         - out of memory
+PBL_ERROR_OUT_OF_BOUNDS         - index is out of range
+(index < 0 || index >= size())
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

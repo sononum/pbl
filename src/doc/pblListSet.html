@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>void* pblListSet</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>void* <A HREF="#DOC.DOCU">pblListSet</A></H2><H2>( <!1><A HREF="PblList.html">PblList</A>*  list,   int index,   void*  element )</H2><BLOCKQUOTE> Replaces the element at the specified position in this list with the specified element.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Replaces the element at the specified position in this list with the specified element.
+
+<P>For array lists this method has a time complexity of O(1).
+
+<P>For linked lists this method has a time complexity of O(N),
+with N being the minimum of the differences between index and
+0 or index and the size of the list. Therefore changing the first
+or last element has a time complexity of O(1),
+but changing a random element from the list has O(N).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>list</B> -   The list to use                                
+<BR><B>index</B> -   Index of element to replace                    
+<BR><B>element</B> -   Element to be stored at the specified position <BR><DT><B>Returns:</B><DD>  void * retptr != (void*)-1: The element previously at the specified position, may be NULL.
+<BR>  void * retptr == (void*)-1: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

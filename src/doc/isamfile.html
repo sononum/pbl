@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>pblIsamFile Implementation</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+<TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library</H2>
+</center>
+
+<H2>pblIsamFile Implementation</H2>
+
+<HR>
+<H2>Documentation</H2>
+An open source C ISAM file implementation.
+<P>
+<UL>
+<B>Features</B>
+<UL>
+<LI>ultra fast B* tree implementation for random lookups
+<LI>transaction handling
+<LI>sequential access methods
+<LI>embedable small footprint, < 75 Kb
+<LI>arbitrary size files, up to 4 terrabytes
+<LI>arbitrary number of records per file, up to 2 ^^ 48 records
+<LI>duplicate keys and unique keys
+<LI>advanced key compression for minimal size index files
+<LI>keylength up to 255 bytes per index
+<LI>keylength up to 1024 per record
+<LI>regression test frame
+</UL>
+</UL>
+
+<HR>
+<H2>Functions</H2>
+<LI><A HREF="pblIsamClose.html">pblIsamClose</A> <I> close an ISAM file</I>
+<LI><A HREF="pblIsamCommit.html">pblIsamCommit</A> <I> commit or rollback changes done during a transaction</I>
+<LI><A HREF="pblIsamDelete.html">pblIsamDelete</A> <I> delete the current record of the ISAM file.</I>
+<LI><A HREF="pblIsamFind.html">pblIsamFind</A> <I> find a record in an ISAM file, set the current record</I>
+<LI><A HREF="pblIsamFlush.html">pblIsamFlush</A> <I> flush an ISAM file</I>
+<LI><A HREF="pblIsamGet.html">pblIsamGet</A> <I> get the key and keylen of a record</I>
+<LI><A HREF="pblIsamInsert.html">pblIsamInsert</A> <I> insert a new record with the given keys and data into the isam file,</I>
+<LI><A HREF="pblIsamOpen.html">pblIsamOpen</A> <I> open an ISAM file, creates the file if necessary</I>
+<LI><A HREF="pblIsamReadData.html">pblIsamReadData</A> <I> read the data of the current record</I>
+<LI><A HREF="pblIsamReadDatalen.html">pblIsamReadDatalen</A> <I> read the datalen of the current record</I>
+<LI><A HREF="pblIsamReadKey.html">pblIsamReadKey</A> <I> read the key and keylen of the current record</I>
+<LI><A HREF="pblIsamSetCompareFunction.html">pblIsamSetCompareFunction</A> <I> set an application specific compare function for a key of an ISAM file</I>
+<LI><A HREF="pblIsamStartTransaction.html">pblIsamStartTransaction</A> <I> start a transaction on a set of ISAM files</I>
+<LI><A HREF="pblIsamUpdateData.html">pblIsamUpdateData</A> <I> update the data of the current record</I>
+<LI><A HREF="pblIsamUpdateKey.html">pblIsamUpdateKey</A> <I> update a key of the current record of the ISAM file</I>
+
+<hr>
+Copyright(C) 2003 - 2009 Peter Graf, this software is distributed under the
+<a href="http://www.gnu.org/">GNU</a> Lesser General Public License
+<HR>
+
+<DL><DT><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

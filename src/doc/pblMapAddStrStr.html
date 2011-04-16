@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblMapAddStrStr</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblMapAddStrStr</A></H2><H2>(  <!1><A HREF="PblMap.html">PblMap</A>*  map,   char*  key,   char*  value )</H2><BLOCKQUOTE> Associates the specified string value with the specified string key in this map.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Associates the specified string value with the specified string key in this map.
+
+<P>If the map previously contained a mapping for the key, the old value is replaced by the specified value.
+(A map m is said to contain a mapping for a key k if and only if pblMapContainsKey(k) would return true.)
+
+<P>For hash maps this method has a time complexity of O(1).
+For tree maps this method has a time complexity of O(Log N).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>map</B> -                     The map to add to         
+<BR><B>key</B> -                       Key to add a mapping for  
+<BR><B>value</B> -                      Value of the new mapping  <BR><DT><B>Returns:</B><DD>  int rc >  0: The map did not already contain a mapping for the key.
+<BR>  int rc == 0: The map did already contain a mapping for the key.
+<BR>  int rc <  0: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+<BR>PBL_ERROR_OUT_OF_BOUNDS - Maximum capacity of the hash set exceeded.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>
