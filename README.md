@@ -1,5 +1,3 @@
-[![Mission Base][]][]
-## 
 
 ## Peter Graf's Free GPL Open Source Software
 
@@ -249,15 +247,15 @@ copyright (C) 2001 - 2010 by Peter Graf
   [Java Map]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/Map.html
   [Java HashMap]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/HashMap.html
   [Java TreeMap]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/TreeMap.html
-  [**PBL HEAP**]: pbl/doc/heap.html
-  [**PBL PRIORITY QUEUE**]: pbl/doc/priorityQueue.html
-  [**PBL HASH**]: pbl/doc/hash.html
-  [**PBL KEYFILE**]: pbl/doc/keyfile.html
-  [**PBL ISAM**]: pbl/doc/isamfile.html
+  [**PBL HEAP**]: http://www.mission-base.com/peter/source/pbl/doc/heap.html
+  [**PBL PRIORITY QUEUE**]: http://www.mission-base.com/peter/source/pbl/doc/priorityQueue.html
+  [**PBL HASH**]: http://www.mission-base.com/peter/source/pbl/doc/hash.html
+  [**PBL KEYFILE**]: http://www.mission-base.com/peter/source/pbl/doc/keyfile.html
+  [**PBL ISAM**]: http://www.mission-base.com/peter/source/pbl/doc/isamfile.html
   [**AvlDictionary<TKey,TValue\>**]: ./AvlDictionary/class_com_1_1_mission___base_1_1_pbl_1_1_avl_dictionary_3_01_t_key_00_01_t_value_01_4.html
   [**AvlDictionary documentation**]: ./AvlDictionary/
   [**AvlDictionary.cs**]: ./AvlDictionary.cs
   [documentation]: http://www.mission-base.com/peter/source/pbl/doc/
-  [Version 1.04 tar source]: http://www.mission-base.com/peter/source/pbl_1_04.tar.gz
-  [sources]: src/
+  [Version 1.04 tar source]: pbl_1_04.tar.gz
+  [sources]: http://www.mission-base.com/peter/source/pbl/
   [Spam Probe]: http://spamprobe.sourceforge.net/
