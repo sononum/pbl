@@ -81,11 +81,11 @@ if you want to convert large files.
   [Mission Base]: http://www.mission-base.com/
   [The GNU General Public License]: http://www.gnu.org/licenses/licenses.html#GPL
   [The GNU Lesser General Public License]: http://www.gnu.org/licenses/licenses.html#LGPL
-  [**PBL BASE**]: src/doc/base.html
-  [**PBL COLLECTION**]: src/doc/collection.html
-  [**PBL LIST**]: src/pbl/doc/list.html
+  [**PBL BASE**]: http://www.mission-base.com/peter/source/pbl/doc/base.html
+  [**PBL COLLECTION**]: http://www.mission-base.com/peter/source/pbl/doc/collection.html
+  [**PBL LIST**]: http://www.mission-base.com/peter/source/pbl/pbl/doc/list.html
   [Java List]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/List.html
   [Java ArrayList]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/ArrayList.html
   [Java LinkedList]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/LinkedList.html
-  [**pblIterator**]: src/doc/iterator.html
+  [**pblIterator**]: http://www.mission-base.com/peter/source/pbl/doc/iterator.html
   [Java ListIterator]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/ListIterator.html
