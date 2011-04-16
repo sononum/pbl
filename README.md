@@ -227,7 +227,6 @@ Dictionary<TKey,TValue\>.
 
 copyright (C) 2001 - 2010 by Peter Graf
 
-  [Mission Base]: http://www.mission-base.com/index-images/mb240.gif
   [![Mission Base][]]: http://www.mission-base.com/
   [The GNU General Public License]: http://www.gnu.org/licenses/licenses.html#GPL
   [The GNU Lesser General Public License]: http://www.gnu.org/licenses/licenses.html#LGPL
