@@ -83,7 +83,7 @@ if you want to convert large files.
   [The GNU Lesser General Public License]: http://www.gnu.org/licenses/licenses.html#LGPL
   [**PBL BASE**]: http://www.mission-base.com/peter/source/pbl/doc/base.html
   [**PBL COLLECTION**]: http://www.mission-base.com/peter/source/pbl/doc/collection.html
-  [**PBL LIST**]: http://www.mission-base.com/peter/source/pbl/pbl/doc/list.html
+  [**PBL LIST**]: http://www.mission-base.com/peter/source/pbl/doc/list.html
   [Java List]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/List.html
   [Java ArrayList]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/ArrayList.html
   [Java LinkedList]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/LinkedList.html
