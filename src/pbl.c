@@ -43,7 +43,7 @@
 
 */
 /*
- * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
+ * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pbl_c_id = "$Id: pbl.c,v 1.15 2010/05/30 20:06:45 peter Exp $";
 
