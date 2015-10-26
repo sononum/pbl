@@ -1,0 +1,65 @@
+###########################################################################
+##
+## PBL - Program Base Library, Copyright 2002 - 2007 Peter Graf
+##
+##  This file is part of PBL - The Program Base Library.
+##  PBL is free software.
+##
+##   This program is free software; you can redistribute it and/or modify
+##   it under the terms of the GNU General Public License as published by
+##   the Free Software Foundation; either version 2 of the License, or
+##   (at your option) any later version.
+##
+##   This program is distributed in the hope that it will be useful,
+##   but WITHOUT ANY WARRANTY; without even the implied warranty of
+##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##   GNU General Public License for more details.
+##
+##   You should have received a copy of the GNU General Public License
+##   along with this program; if not, write to the Free Software
+##   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+##
+##  For more information on the Program Base Library or Peter Graf,
+##  please see: http://www.mission-base.com/.
+##
+## ISAM file implementation test case, this test case is set up for
+## a regression test of the ISAM library, don't change it unless you
+## know what you are doing!
+##
+##   1. Build the pbliftst executable.          make all
+##   2. Create the sub directory isamtest.      mkdir isamtest
+##   3. Clear the sub directory isamtest.       rm isamtest/*
+##   4. Run the test frame on this file.        pbliftst ISAM0002.TST
+##   5. Compare ISAM0002.TST and pbliftst.log   diff ISAM0002.TST pbliftst.log
+##
+##   There should be no differences reported, if so your build of the
+##   PBL library is most likely ok!
+##
+###########################################################################
+##
+## Test case 2
+##
+## Create a file with 200000 records, close and reopen the file
+## and then do a lot of record lookup requests
+##
+open isamtest/0002main 0002key0,0002dup1,0002key2 1
+# pblIsamOpen( isamtest/0002main, 3, 1 )
+# ok!
+##
+## read the first record
+##
+get 0 FIRST
+# pblIsamGet( 4, 0 )
+# rc -1, pbl_errno 1003, errno 0
+##
+## make sure the file is empty
+##
+ndelete 250000
+# pblIsamDelete( 250000 records )
+# i 0, rc -1, pbl_errno 1041, errno 0
+##
+## Insert a lot of records
+##
+ninsert 200000 key0,duplicatekey1,loooooooooooooooooooooongerkey2 dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+# pblIsamInsert( 1, ,key00,duplicatekey10,loooooooooooooooooooooongerkey20, 54, dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, 61 )
+# inserted 200000 records, rc 0
