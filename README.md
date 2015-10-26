@@ -200,25 +200,6 @@ An open source C ISAM file implementation, see **pblIsam\*** functions
 -   keylength up to 1024 per record
 -   regression test frame
 
-[**AvlDictionary<TKey,TValue\>**][]: -- C\# .NET Avl-Tree based generic
-IDictionary<TKey,TValue\>
-AvlDictionary<TKey,TValue\> is an open source C\# Avl-Tree based generic
-IDictionary<TKey,TValue\> implementation. See the [**AvlDictionary
-documentation**][].
-
-**Features**
--   implements generic IDictionary<TKey, TValue\> interface
--   implements generic ICollection<KeyValuePair<TKey, TValue\>\>
-    interface
--   implements generic IEnumerable<KeyValuePair<TKey, TValue\>\>
-    interface
--   [Serializable]
-
-In order to use AvlDictionary<TKey,TValue\> copy
-[**AvlDictionary.cs**][] to your solution and use the AVL-Tree based
-generic AvlDictionary<TKey,TValue\> like you use the hash based generic
-Dictionary<TKey,TValue\>.
-
 ## MORE:
 
 -   See the PBL [documentation][].
