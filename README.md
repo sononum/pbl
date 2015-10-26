@@ -3,12 +3,17 @@
 
 * * * * *
 
-All software published here is published under the [The GNU General
-Public License][] or the [The GNU Lesser General Public License][]
+The library PBL is published under 
+[The GNU Lesser General Public License][]
+as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
+
+The test cases, which are not directly part of the library, are published under 
+[The GNU General Public License][] 
+as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
 ### PBL - The Program Base Library
 
-PBL is an GPL open source C library of functions that can be used in a C
+PBL is an LGPL open source C library of functions that can be used in a C
 or C++ project. PBL is highly portable and compiles warning free on
 Linux gcc, MAC OS X and Windows Microsoft Visual C++ 2010 Express
 Edition.
