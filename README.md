@@ -219,13 +219,9 @@ In order to use AvlDictionary<TKey,TValue\> copy
 generic AvlDictionary<TKey,TValue\> like you use the hash based generic
 Dictionary<TKey,TValue\>.
 
-## VERSIONS:
-
-## GET PBL:
+## MORE:
 
 -   See the PBL [documentation][].
--   Download the PBL [Version 1.04 tar source][] file.
--   Take a look at the PBL [sources][].
 -   Take a look at [Spam Probe][], a project that uses PBL.
 
 * * * * *
