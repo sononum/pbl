@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblListContainsAll</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblListContainsAll</A></H2><H2>( <!1><A HREF="PblList.html">PblList</A>*  list,   void*  collection )</H2><BLOCKQUOTE> Returns a value > 0 if this list contains all of the elements in the specified collection.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns a value > 0 if this list contains all of the elements
+in the specified collection.
+
+<P>This implementation iterates over the specified collection,
+checking each element returned by the iterator in turn to see if it's contained in this list.
+If all elements are so contained a value > 0 is returned, otherwise 0.
+
+<P>This method has a time complexity of O(N * M),
+with N being the size of the list and M being the size of the
+collection.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>list</B> -   The list to use                                            
+<BR><B>collection</B> -   The collection to be checked for containment in this list. <BR><DT><B>Returns:</B><DD>  int rc >  0: The list contains all of the elements in the specified collection.
+<BR>  int rc == 0: The list does not contain all of the elements.
+<BR>  int rc <  0: An error, see pbl_errno:
+<BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

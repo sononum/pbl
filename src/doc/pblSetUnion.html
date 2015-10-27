@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>PblSet* pblSetUnion</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2><!1><A HREF="PblSet.html">PblSet</A>* <A HREF="#DOC.DOCU">pblSetUnion</A></H2><H2>( <!1><A HREF="PblSet.html">PblSet</A>*  setA,<BR>&nbsp;  <!1><A HREF="PblSet.html">PblSet</A>*  setB )</H2><BLOCKQUOTE> Creates a new set containing the union of the elements of both sets passed as parameters.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Creates a new set containing the union of the elements of both
+sets passed as parameters.
+
+<P>This functions clones the larger of the two parameter sets
+and then adds all elements from the smaller set to the clone.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>setA</B> -   The first set to unite  
+<BR><B>setB</B> -   The second set to unite <BR><DT><B>Returns:</B><DD>  PblSet * retPtr != NULL: A pointer to the new set.
+<BR>  PblSet * retPtr == NULL: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
+<BR>PBL_ERROR_PARAM_COLLECTION        - A set cannot be iterated.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - A set was modified concurrently.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

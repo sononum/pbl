@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>void pblArrayListSetCompareFunction</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>void <A HREF="#DOC.DOCU">pblArrayListSetCompareFunction</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,<BR>&nbsp;  int (* compare ) ( void* left,<BR>&nbsp;  void* right ) )</H2><BLOCKQUOTE> Set an application specific compare function for the elements of the list</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Set an application specific compare function for the elements
+of the list
+
+<P>An application specific compare function can be used.
+
+<P>The default compare function compares the two pointers directly,
+i.e. it tests for object identity.
+
+<P>The keycompare function specified should behave like strcmp().
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to set compare function for   
+<BR><B>compare</B> -   compare function to set                
+<BR><B>left</B> -   "left" element for compare             
+<BR><B>right</B> -   "right" element for compare            <BR><DT><B>Returns:</B><DD>  void
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

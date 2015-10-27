@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblCollectionAggregate</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblCollectionAggregate</A></H2><H2>( <!1><A HREF="PblCollection.html">PblCollection</A>*  collection,<BR>&nbsp;  void*  context,<BR>&nbsp;  int (* aggregation ) ( void*  context,<BR>&nbsp;  int index,   void*  element ) )</H2><BLOCKQUOTE> Aggregates a collection by calling the aggregation function on every element of the collection while running through the collection with an iterator.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Aggregates a collection by calling the aggregation function on every element
+of the collection while running through the collection with an iterator.
+
+<P>The application context supplied is passed to the aggregation function
+for each element.
+
+<P>If the aggregation function for an element returns a value > 0,
+the aggregation is terminated immediately and the return value of
+the aggregation function is given back to the caller.
+
+<P>Otherwise the aggregation is continued to the next element
+of the collection until the iterator reaches its end.
+
+<P>This method has a time complexity of O(N),
+with N being the size of the collection.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>collection</B> -   The collection to aggregate.                                 
+<BR><B>context</B> -   The application context to pass to the aggregation function. 
+<BR><B>aggregation</B> -   The aggregation function called on every collection element. 
+<BR><B>context</B> -   The application context passed.                              
+<BR><B>index</B> -   The index of the element passed.                             
+<BR><B>element</B> -   The collection element to aggregate.                         <BR><DT><B>Returns:</B><DD>  int rc  > 0: The aggregation was terminated with the return code of the aggregation function.
+<BR>  int rc == 0: The aggregation succeeded, all elements where aggregated.
+<BR>  int rc  < 0: An error, see pbl_errno:
+<BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

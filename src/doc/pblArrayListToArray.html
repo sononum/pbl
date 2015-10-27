@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>void* pblArrayListToArray</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>void* <A HREF="#DOC.DOCU">pblArrayListToArray</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList )</H2><BLOCKQUOTE> Returns an array containing all of the elements in this list in the correct order.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns an array containing all of the elements in this list in the correct order.
+
+<P>The pointer array returned is malloced from heap, the caller has to free it
+after it is no longer needed!
+
+<P>The size of the pointer array malloced and returned is defined by the size()
+of the list.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                                <BR><DT><B>Returns:</B><DD>  void * retptr != NULL: The array containing the elements of the list.
+<BR>  void * retptr == NULL: An error, see pbl_errno
+PBL_ERROR_OUT_OF_MEMORY        - out of memory
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

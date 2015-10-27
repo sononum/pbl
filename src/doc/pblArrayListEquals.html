@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblArrayListEquals</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblArrayListEquals</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,<BR>&nbsp;  void*  object )</H2><BLOCKQUOTE> Compares the specified object with this list for equality.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Compares the specified object with this list for equality.
+
+<P>Returns true if and only if the specified object is also a list,
+both lists have the same size, and all corresponding pairs of
+elements in the two lists are equal. (Two elements e1 and e2
+are equal if (e1==null ? e2==null : e1.equals(e2)).)
+
+<P>In other words, two lists are defined to be equal if they contain the same elements in the same order.
+
+<P>This implementation first checks if the specified object is this list.
+If so, it returns true; if not, it checks if the specified object is a list.
+If not, it returns false; if so, it iterates over both lists, comparing corresponding pairs of elements.
+If any comparison returns false, this method returns false.
+If either iterator runs out of elements before the other it returns false (as the lists are of unequal length);
+otherwise it returns true when the iterations complete.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                                
+<BR><B>object</B> -   The object to be compared for equality with this list. <BR><DT><B>Returns:</B><DD>  int rc >  0: The specified object is equal to this list.
+<BR>  int rc == 0: The specified object is not equal to this list.
+<BR>  int rc <  0: An error, see pbl_errno
+PBL_ERROR_OUT_OF_MEMORY         - out of memory
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

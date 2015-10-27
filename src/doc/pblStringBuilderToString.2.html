@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>char* pblStringBuilderToString</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>char* <A HREF="#DOC.DOCU">pblStringBuilderToString</A></H2><H2>(  <!1><A HREF="PblStringBuilder.html">PblStringBuilder</A>*  stringBuilder )</H2><BLOCKQUOTE> Converts the string builder's data to a '\0' terminated string.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Converts the string builder's data to a '\0' terminated string.
+
+<P>This function has a time complexity of O(N),
+with N beeing the length of the data of the string builder.
+
+<P>Note: The memory for the data returned is malloced,
+it is the caller's responsibility to free that memory!
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>stringBuilder</B> -   The string builder to use <BR><DT><B>Returns:</B><DD>  char * rc != NULL: The data.
+<BR>  char * rc == NULL: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

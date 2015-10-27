@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblMapPutAll</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblMapPutAll</A></H2><H2>(  <!1><A HREF="PblMap.html">PblMap</A>*  map,   <!1><A HREF="PblMap.html">PblMap</A>*  sourceMap )</H2><BLOCKQUOTE> Copies all of the mappings from the specified source map to this map.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Copies all of the mappings from the specified source map to this map.
+These mappings will replace any mappings that this map had for any
+of the keys currently in the specified map.
+
+<P>For hash maps this method has a time complexity of O(M).
+For tree maps this method has a time complexity of O(M * Log N).
+With M being the number of elements in the source map and
+N being the number of elements in the target map.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>map</B> -                  The map to copy the entries to 
+<BR><B>sourceMap</B> -           The map to copy the entries from <BR><DT><B>Returns:</B><DD>  int rc == 0: Ok.
+<BR>  int rc <  0:  An error, see pbl_errno:
+<BR>PBL_ERROR_CONCURRENT_MODIFICATION - The source map was modified concurrently.
+<BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

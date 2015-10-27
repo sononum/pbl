@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblListStringCompareFunction</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblListStringCompareFunction</A></H2><H2>( const void*  left,<BR>&nbsp;  const void*  right  )</H2><BLOCKQUOTE> Compares two '\0' terminated strings.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Compares two '\0' terminated strings.
+
+<P>Can be used as compare function for lists in case '\0'
+terminated strings are inserted into the list.
+
+<P>This compare function behaves like the one that
+can be specified for the C-library function 'qsort'.
+
+<P>The arguments actually passed to the compare function when it is called
+are addresses of the element pointers added to the list.
+E.g.: If you add char * pointers to the list, the compare function
+will be called with char ** pointers as arguments. See the documentation
+for the C-library function 'qsort' for further information.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Returns:</B><DD>  int rc  < 0: left is smaller than right
+<BR>  int rc == 0: left and right are equal
+<BR>  int rc  > 0: left is greater than right<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

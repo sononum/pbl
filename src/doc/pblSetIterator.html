@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>PblIterator* pblSetIterator</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2><!1><A HREF="PblIterator.html">PblIterator</A>* <A HREF="#DOC.DOCU">pblSetIterator</A></H2><H2>( <!1><A HREF="PblSet.html">PblSet</A>*  set )</H2><BLOCKQUOTE> Returns an iterator over the elements in this set.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns an iterator over the elements in this set.
+
+<P>The iterator starts the iteration at the beginning of the set.
+
+<P><B>Note</B>: The memory allocated by this method for the iterator returned needs to be released
+by calling pblIteratorFree() once the iterator is no longer needed.
+
+<P>The iterators returned by the this method are fail-fast:
+if the set is structurally modified at any time after the iterator is created,
+in any way except through the Iterator's own remove or add methods,
+the iterator will return a PBL_ERROR_CONCURRENT_MODIFICATION error.
+
+<P>Thus, in the face of concurrent modification,
+the iterator fails quickly and cleanly,
+rather than risking arbitrary, non-deterministic
+behavior at an undetermined time in the future.
+
+<P>This method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>set</B> -   The set to create the iterator for <BR><DT><B>Returns:</B><DD>  void * retptr != NULL: The iterator.
+<BR>  void * retptr == NULL: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+<BR>PBL_ERROR_PARAM_SET     - The set cannot be iterated.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

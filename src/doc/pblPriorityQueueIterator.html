@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>PblIterator* pblPriorityQueueIterator</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2><!1><A HREF="PblIterator.html">PblIterator</A>* <A HREF="#DOC.DOCU">pblPriorityQueueIterator</A></H2><H2>(  <!1><A HREF="PblPriorityQueue.html">PblPriorityQueue</A>*  queue )</H2><BLOCKQUOTE> Returns an iterator over the elements in the queue.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Returns an iterator over the elements in the queue.
+
+<P>The iterator starts the iteration at the element with the highest priority.
+
+<P><B>Note</B>: The memory allocated by this method for the iterator returned needs to be released
+by calling <!1><A HREF="pblIteratorFree.html">pblIteratorFree</A>() once the iterator is no longer needed.
+
+<P>The pointers returned by the <!1><A HREF="pblIteratorNext.html">pblIteratorNext</A>() or <!1><A HREF="pblIteratorPrevious.html">pblIteratorPrevious</A>() functions
+of the iterator are of type <!1><A HREF="PblPriorityQueueEntry.html">PblPriorityQueueEntry</A> allowing to access priority and
+element.
+
+<P>Modifying the priority queue via the Iterator's own remove or add methods
+does not maintain the heap property of the priority queue.
+In this case the heap property has to be restored by a call
+to <!1><A HREF="pblPriorityQueueConstruct.html">pblPriorityQueueConstruct</A>().
+
+<P>The iterators returned by the this method are fail-fast:
+if the queue is structurally modified at any time after the iterator is created,
+in any way except through the Iterator's own remove or add methods,
+the iterator will return a PBL_ERROR_CONCURRENT_MODIFICATION error.
+
+<P>Thus, in the face of concurrent modification,
+the iterator fails quickly and cleanly,
+rather than risking arbitrary, non-deterministic
+behavior at an undetermined time in the future.
+
+<P>This method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>queue</B> -   The queue to use <BR><DT><B>Returns:</B><DD>  void * retptr != NULL: The iterator.
+<BR>  void * retptr == NULL: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

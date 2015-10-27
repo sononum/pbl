@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblListTrimToSize</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <TABLE width=100% border=0> 
+<TR> 
+<TD align=left> 
+<A HREF="http://www.mission-base.com/peter/source/"
+   target="_top"><img src="http://www.mission-base.com/index-images/mb240.gif"
+   ALT="Mission Base" align=center width="240" height="48" border="0"></a> 
+ 
+<TD align=left> 
+<h2></H2> 
+</TR> 
+</TABLE>
+<center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblListTrimToSize</A></H2><H2>( <!1><A HREF="PblList.html">PblList</A>*  list )</H2><BLOCKQUOTE> Trims the capacity of this list instance to be the list's current size.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Trims the capacity of this list instance to be the list's current size.
+
+<P>For linked list this call returns the list's size.
+
+<P>If the list is an array list and if the capacity is actually
+decreased, this method has a time complexity of O(N),
+with N being the number of elements in the list.
+
+<P>In all other cases this method has a time complexity of O(1).
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>list</B> -   The list to use <BR><DT><B>Returns:</B><DD>  int rc >= 0: The capacity of this list instance.
+<BR>  int rc <  0: An error, see pbl_errno:
+<BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

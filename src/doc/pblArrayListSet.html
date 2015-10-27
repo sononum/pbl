@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>void* pblArrayListSet</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>void* <A HREF="#DOC.DOCU">pblArrayListSet</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,   int index,<BR>&nbsp;  void*  element )</H2><BLOCKQUOTE> Replaces the element at the specified position in this list with the specified element.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Replaces the element at the specified position in this list with the specified element.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                                
+<BR><B>index</B> -   Index of element to replace                    
+<BR><B>element</B> -   Element to be stored at the specified position <BR><DT><B>Returns:</B><DD>  void * retptr != (void*)-1: The element previously at the specified position
+<BR>  void * retptr == (void*)-1: An error, see pbl_errno
+PBL_ERROR_OUT_OF_BOUNDS         - index is out of range
+(index < 0 || index >= size())
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>

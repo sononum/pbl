@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+<HEAD>
+   <TITLE>int pblArrayListLastIndexOf</TITLE>
+   <META NAME="GENERATOR" CONTENT="DOC++ 3.4.10">
+</HEAD>
+ <center>
+<H2>Program Base Library Functions</H2>
+</center>
+
+<H2>int <A HREF="#DOC.DOCU">pblArrayListLastIndexOf</A></H2><H2>( <!1><A HREF="pblArrayList.html">pblArrayList</A>*  arrayList,<BR>&nbsp;  void*  element )</H2><BLOCKQUOTE> Searches for the last occurence of the given argument, testing for equality uses the following rule.</BLOCKQUOTE>
+
+<A NAME="DOC.DOCU"></A>
+<HR>
+<H2>Documentation</H2>
+<BLOCKQUOTE>
+Searches for the last occurence of the given argument,
+testing for equality uses the following rule.
+
+<P>If a specific compare function is specified for the list,
+this compare function is used.
+
+<P>Otherwise if the element size of the list is set to a
+positive value, the c-library function memcmp() is used.
+
+<P>Otherwise the element pointer specified is tested for
+equality with the elements of the list.
+
+<P></BLOCKQUOTE>
+<DL><DT><DT><B>Parameters:</B><DD><B>arrayList</B> -   The list to use                                
+<BR><B>element</B> -   Element to look for                            <BR><DT><B>Returns:</B><DD>  int rc >= 0: The last index of the specified element
+<BR>  int rc <  0: The specified element is not present
+<BR><DD></DL><P><P><I><A HREF="index.html">Alphabetic index</A></I></P><HR>
+<BR>
+This page was generated with the help of <A HREF="http://docpp.sourceforge.net">DOC++</A>.
+</BODY>
+</HTML>
