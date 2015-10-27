@@ -207,7 +207,7 @@ An open source C ISAM file implementation, see **pblIsam\*** functions
 
 * * * * *
 
-copyright (C) 2001 - 2010 by Peter Graf
+copyright (C) 2001 - 2015 by Peter Graf
 
   [The GNU General Public License]: http://www.gnu.org/licenses/licenses.html#GPL
   [The GNU Lesser General Public License]: http://www.gnu.org/licenses/licenses.html#LGPL
