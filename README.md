@@ -3,12 +3,17 @@
 
 * * * * *
 
-All software published here is published under the [The GNU General
-Public License][] or the [The GNU Lesser General Public License][]
+The library PBL is published under 
+[The GNU Lesser General Public License][]
+as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
+
+The test cases, which are not directly part of the library, are published under 
+[The GNU General Public License][] 
+as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
 ### PBL - The Program Base Library
 
-PBL is an GPL open source C library of functions that can be used in a C
+PBL is an LGPL open source C library of functions that can be used in a C
 or C++ project. PBL is highly portable and compiles warning free on
 Linux gcc, MAC OS X and Windows Microsoft Visual C++ 2010 Express
 Edition.
@@ -195,32 +200,9 @@ An open source C ISAM file implementation, see **pblIsam\*** functions
 -   keylength up to 1024 per record
 -   regression test frame
 
-[**AvlDictionary<TKey,TValue\>**][]: -- C\# .NET Avl-Tree based generic
-IDictionary<TKey,TValue\>
-AvlDictionary<TKey,TValue\> is an open source C\# Avl-Tree based generic
-IDictionary<TKey,TValue\> implementation. See the [**AvlDictionary
-documentation**][].
-
-**Features**
--   implements generic IDictionary<TKey, TValue\> interface
--   implements generic ICollection<KeyValuePair<TKey, TValue\>\>
-    interface
--   implements generic IEnumerable<KeyValuePair<TKey, TValue\>\>
-    interface
--   [Serializable]
-
-In order to use AvlDictionary<TKey,TValue\> copy
-[**AvlDictionary.cs**][] to your solution and use the AVL-Tree based
-generic AvlDictionary<TKey,TValue\> like you use the hash based generic
-Dictionary<TKey,TValue\>.
-
-## VERSIONS:
-
-## GET PBL:
+## MORE:
 
 -   See the PBL [documentation][].
--   Download the PBL [Version 1.04 tar source][] file.
--   Take a look at the PBL [sources][].
 -   Take a look at [Spam Probe][], a project that uses PBL.
 
 * * * * *
