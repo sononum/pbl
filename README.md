@@ -1,5 +1,5 @@
 
-## Peter Graf's Free GPL Open Source Software
+## PBL - The Program Base Library
 
 * * * * *
 
@@ -11,7 +11,7 @@ The test cases, which are not directly part of the library, are published under
 [The GNU General Public License][] 
 as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
-### PBL - The Program Base Library
+### PBL - Introduction
 
 PBL is an LGPL open source C library of functions that can be used in a C
 or C++ project. PBL is highly portable and compiles warning free on
@@ -207,7 +207,7 @@ An open source C ISAM file implementation, see **pblIsam\*** functions
 
 * * * * *
 
-copyright (C) 2001 - 2010 by Peter Graf
+copyright (C) 2001 - 2015 by Peter Graf
 
   [The GNU General Public License]: http://www.gnu.org/licenses/licenses.html#GPL
   [The GNU Lesser General Public License]: http://www.gnu.org/licenses/licenses.html#LGPL
