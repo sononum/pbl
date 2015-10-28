@@ -1,5 +1,5 @@
-- doc  - The documentation of the C-PBL implementations is in the doc directory.
-- src  - The sources of the C-PBL implementations is in the doc directory.
+- doc  - The documentation of the C-PBL implementations.
+- src  - The sources of the C-PBL implementations.
 - test - Test data for the C-PBL implementations.
 
 - dotNETsrc - 
