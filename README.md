@@ -200,6 +200,22 @@ An open source C ISAM file implementation, see **pblIsam\*** functions
 -   keylength up to 1024 per record
 -   regression test frame
 
+[**AvlDictionary<TKey,TValue\>**][]: -- C# .NET Avl-Tree based generic IDictionary<TKey,TValue>
+
+AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictionary<TKey,TValue> implementation. See the [**AvlDictionary documentation**][].
+
+**Features**
+-   implements generic IDictionary<TKey, TValue> interface
+-   implements generic ICollection<KeyValuePair<TKey, TValue>> interface
+-   implements generic IEnumerable<KeyValuePair<TKey, TValue>> interface
+-   [Serializable] 
+
+In order to use AvlDictionary<TKey,TValue> copy [**AvlDictionary.cs**][] to your solution and use the AVL-Tree based generic [**AvlDictionary<TKey,TValue\>**][] like you use the hash based generic Dictionary<TKey,TValue>.
+
+[**PriorityQueue<T\>**][]: -- C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
+
+In order to use [**PriorityQueue<T\>**][] copy [**PriorityQueue.cs**][] to your solution and use the List<T> based generic min-heap PriorityQueue<T>. 
+
 ## MORE:
 
 -   See the PBL [documentation][].
@@ -232,9 +248,12 @@ copyright (C) 2001 - 2015 by Peter Graf
   [**PBL HASH**]: http://www.mission-base.com/peter/source/pbl/doc/hash.html
   [**PBL KEYFILE**]: http://www.mission-base.com/peter/source/pbl/doc/keyfile.html
   [**PBL ISAM**]: http://www.mission-base.com/peter/source/pbl/doc/isamfile.html
-  [**AvlDictionary<TKey,TValue\>**]: ./AvlDictionary/class_com_1_1_mission___base_1_1_pbl_1_1_avl_dictionary_3_01_t_key_00_01_t_value_01_4.html
-  [**AvlDictionary documentation**]: ./AvlDictionary/
-  [**AvlDictionary.cs**]: ./AvlDictionary.cs
+  [**AvlDictionary<TKey,TValue\>**]: ./src/dotNETsrc/AvlDictionary.cs
+  [**AvlDictionary documentation**]: http://www.mission-base.com/peter/source/AvlDictionary/
+  [**AvlDictionary.cs**]: ./src/dotNETsrc/AvlDictionary.cs
+  [**PriorityQueue<T\>**]: ./src/dotNETsrc/PriorityQueue.cs  
+  [**PriorityQueue documentation**]: http://www.mission-base.com/peter/source/html/_priority_queue_8cs.html
+  [**PriorityQueue.cs**]: ./src/dotNETsrc/PriorityQueue.cs
   [documentation]: http://www.mission-base.com/peter/source/pbl/doc/
   [Version 1.04 tar source]: pbl_1_04.tar.gz
   [sources]: http://www.mission-base.com/peter/source/pbl/
