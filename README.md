@@ -92,7 +92,7 @@ functions,
 [**PBL Set**][] - An open source C implementation of hash sets and tree
 sets similar to the [Java Set][] interface, see **pblSet*** functions,
 
--   [**pblHashSet**]:
+-   [**pblHashSet**][**PBL Set**]:
     Open source C resizable hash set implementation equivalent to the
     [Java HashSet][] class.
 
@@ -108,7 +108,7 @@ sets similar to the [Java Set][] interface, see **pblSet*** functions,
     instance (the number of buckets). Thus, it's very important not to
     set the initial capacity too high (or the load factor too low) if
     iteration performance is important. [][**PBL Set**]
--   [**pblTreeSet**]:
+-   [**pblTreeSet**][**PBL Set**]:
     Open source C avl-tree-based balanced tree set implementation
     equivalent to the [Java TreeSet][] class.
 
