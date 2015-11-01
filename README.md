@@ -19,17 +19,16 @@ Linux gcc, MAC OS X and Windows Microsoft Visual C++ 2010 Express
 Edition.
 The code of the PBL library includes the following modules:
 
-[**PBL BASE**][] - Some base functions, see **pbl\_\*** functions,
+[**PBL BASE**][] - Some base functions, see **pbl\_*** functions,
 
 [**PBL COLLECTION**][] - An open source C implementation of a collection
 used by the list and set implementations.
 
 [**PBL LIST**][] - An open source C implementation of array lists and
-linked lists similar to the [Java List][] interface, see **pblList\***
+linked lists similar to the [Java List][] interface, see **pblList***
 functions,
 
--   **pblArrayList**: -- C array list, C-ArrayList, array list in C,
-    ArrayList in C, List in C
+-   [**pblArrayList**][**PBL LIST**]:
     Open source C resizable-array implementation equivalent to the [Java
     ArrayList][] class.
 
@@ -54,8 +53,7 @@ functions,
     An application can increase the capacity of an ArrayList instance
     before adding a large number of elements using the ensureCapacity
     operation. This may reduce the amount of incremental reallocation.
--   [**pblLinkedList**][**PBL LIST**]: -- C linked list, C-LinkedList,
-    linked list in C, LinkedList in C, List in C
+-   [**pblLinkedList**][**PBL LIST**]:
     Open source C linked list implementation equivalent to the [Java
     LinkedList][] class.
 
@@ -75,8 +73,7 @@ functions,
     doubly-linked list. Operations that index into the list will
     traverse the list from the beginning or the end, whichever is closer
     to the specified index.
--   [**pblIterator**][]: -- C list iterator, C-ListIterator, list
-    iterator in C, ListIterator in C
+-   [**pblIterator**][]:
     Open source C Iterator implementation equivalent to the [Java
     ListIterator][] interface.
 
@@ -93,10 +90,9 @@ functions,
     last element returned by a call to next() or previous().
 
 [**PBL Set**][] - An open source C implementation of hash sets and tree
-sets similar to the [Java Set][] interface, see **pblSet\*** functions,
+sets similar to the [Java Set][] interface, see **pblSet*** functions,
 
--   **pblHashSet**: -- C hash set, C-HashSet, hash set in C, HashSet in
-    C, Set in C
+-   [**pblHashSet**]:
     Open source C resizable hash set implementation equivalent to the
     [Java HashSet][] class.
 
@@ -112,8 +108,7 @@ sets similar to the [Java Set][] interface, see **pblSet\*** functions,
     instance (the number of buckets). Thus, it's very important not to
     set the initial capacity too high (or the load factor too low) if
     iteration performance is important. [][**PBL Set**]
--   **pblTreeSet**: -- C tree set, C-TreeSet, tree set in C, TreeSet in
-    C, Set in C
+-   [**pblTreeSet**]:
     Open source C avl-tree-based balanced tree set implementation
     equivalent to the [Java TreeSet][] class.
 
@@ -125,10 +120,9 @@ sets similar to the [Java Set][] interface, see **pblSet\*** functions,
     basic operations (add, remove and contains).
 
 [**PBL Map**][] - An open source C implementation of hash maps and tree
-maps similar to the [Java Map][] interface, see **pblMap\*** functions,
+maps similar to the [Java Map][] interface, see **pblMap*** functions,
 
--   **pblHashMap**: -- C hash map, C-HashMap, hash map in C, HashMap in
-    C, Map in C \
+-   [**pblHashMap**]:
      Open source C resizable hash map implementation equivalent to the
     [Java HashMap][] class. \
      Hash maps make no guarantees as to the iteration order of the set;
@@ -143,8 +137,7 @@ maps similar to the [Java Map][] interface, see **pblMap\*** functions,
     set the initial capacity too high (or the load factor too low) if
     iteration performance is important.
     [][**PBL Map**]
--   **pblTreeMap**: -- C tree map, C-TreeMap, tree map in C, TreeMap in
-    C, Map in C \
+-   **pblTreeMap**:
      Open source C avl-tree-based balanced tree map implementation
     equivalent to the [Java TreeMap][] class. \
      Tree maps guarantee that the sorted map will be in ascending
@@ -153,15 +146,12 @@ maps similar to the [Java Map][] interface, see **pblMap\*** functions,
      This implementation provides guaranteed log(n) time cost for the
     basic operations (add, remove and contains).
 
-[**PBL HEAP**][] -- Heap in C, C heap, heap in C, C-Heap, binary heap in
-C, binary min-max heap in C
+[**PBL HEAP**][] -- Binary min-max heap in C
 
-[**PBL PRIORITY QUEUE**][] -- PriorityQueue in C, C priority queue,
-priority queue in C, Heap in C, C-Heap, binary heap in C, binary max
-heap in C
+[**PBL PRIORITY QUEUE**][] A priority queue in C
 
-[**PBL HASH**][]: -- C hash table, C-HashTable
-An open source C memory hash table implementation, see **pblHt\***
+[**PBL HASH**][]:
+An open source C memory hash table implementation, see **pblHt***
 functions,
 
 **Features**
@@ -169,8 +159,8 @@ functions,
 -   sequential access
 -   regression test frame
 
-[**PBL KEYFILE**][]: -- C key file, C-KeyFile
-An open source C key file implementation, see **pblKf\*** functions,
+[**PBL KEYFILE**][]:
+An open source C key file implementation, see **pblKf*** functions,
 
 **Features**
 -   ultra fast B\* tree implementation for random lookups
@@ -184,8 +174,8 @@ An open source C key file implementation, see **pblKf\*** functions,
 -   keylength up to 255 bytes
 -   regression test frame
 
-[**PBL ISAM**][]: -- C isam file, C-IsamFile
-An open source C ISAM file implementation, see **pblIsam\*** functions
+[**PBL ISAM**][]:
+An open source C ISAM file implementation, see **pblIsam*** functions
 
 **Features**
 -   ultra fast B\* tree implementation for random lookups
