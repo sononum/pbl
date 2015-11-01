@@ -122,7 +122,7 @@ sets similar to the [Java Set][] interface, see **pblSet*** functions,
 [**PBL Map**][] - An open source C implementation of hash maps and tree
 maps similar to the [Java Map][] interface, see **pblMap*** functions,
 
--   [**pblHashMap**]:
+-   [**pblHashMap**][**PBL Map**]:
      Open source C resizable hash map implementation equivalent to the
     [Java HashMap][] class. \
      Hash maps make no guarantees as to the iteration order of the set;
@@ -137,18 +137,18 @@ maps similar to the [Java Map][] interface, see **pblMap*** functions,
     set the initial capacity too high (or the load factor too low) if
     iteration performance is important.
     [][**PBL Map**]
--   **pblTreeMap**:
+-   [**pblTreeMap**][**PBL Map**]:
      Open source C avl-tree-based balanced tree map implementation
-    equivalent to the [Java TreeMap][] class. \
+    equivalent to the [Java TreeMap][] class. 
      Tree maps guarantee that the sorted map will be in ascending
     element order, sorted according to the natural order of the
-    elements, or by the comparator provided. \
+    elements, or by the comparator provided. 
      This implementation provides guaranteed log(n) time cost for the
     basic operations (add, remove and contains).
 
-[**PBL HEAP**][] -- Binary min-max heap in C
+[**PBL HEAP**][] -- Binary min-max heap in C.
 
-[**PBL PRIORITY QUEUE**][] A priority queue in C
+[**PBL PRIORITY QUEUE**][] A priority queue in C.
 
 [**PBL HASH**][]:
 An open source C memory hash table implementation, see **pblHt***
