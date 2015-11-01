@@ -190,9 +190,9 @@ An open source C ISAM file implementation, see **pblIsam*** functions
 -   keylength up to 1024 per record
 -   regression test frame
 
-[**AvlDictionary<TKey,TValue\>**][]: -- C# .NET Avl-Tree based generic IDictionary<TKey,TValue>
+[**AvlDictionary\<TKey,TValue\>**][**AvlDictionary<TKey,TValue\>**]: -- C# .NET Avl-Tree based generic IDictionary\<TKey,TValue\>
 
-AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictionary<TKey,TValue> implementation. See the [**AvlDictionary documentation**][].
+AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictionary\<TKey,TValue\> implementation. See the [**AvlDictionary documentation**][].
 
 **Features**
 -   implements generic IDictionary<TKey, TValue> interface
@@ -200,11 +200,11 @@ AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictiona
 -   implements generic IEnumerable<KeyValuePair<TKey, TValue>> interface
 -   [Serializable] 
 
-In order to use AvlDictionary<TKey,TValue> copy [**AvlDictionary.cs**][] to your solution and use the AVL-Tree based generic [**AvlDictionary<TKey,TValue\>**][] like you use the hash based generic Dictionary<TKey,TValue>.
+In order to use AvlDictionary<TKey,TValue> copy [**AvlDictionary.cs**][] to your solution and use the AVL-Tree based generic [**AvlDictionary<TKey,TValue\>**][] like you use the hash based generic Dictionary\<TKey,TValue\>.
 
-[**PriorityQueue<T\>**][]: -- C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
+[**PriorityQueue\<T\>**][**PriorityQueue<T\>**]: -- C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
 
-In order to use [**PriorityQueue<T\>**][] copy [**PriorityQueue.cs**][] to your solution and use the List<T> based generic min-heap PriorityQueue<T>. 
+In order to use [**PriorityQueue\<T\>**][**PriorityQueue<T\>**] copy [**PriorityQueue.cs**][] to your solution and use the List<T\> based generic min-heap PriorityQueue<T\>. 
 
 ## MORE:
 
