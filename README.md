@@ -124,10 +124,10 @@ maps similar to the [Java Map][] interface, see **pblMap*** functions,
 
 -   [**pblHashMap**][**PBL Map**]:
      Open source C resizable hash map implementation equivalent to the
-    [Java HashMap][] class. \
+    [Java HashMap][] class.
      Hash maps make no guarantees as to the iteration order of the set;
     in particular, it does not guarantee that the order will remain
-    constant over time. \
+    constant over time.
      Hash maps offer constant time performance for the basic operations
     (add, remove, contains and size), assuming the hash function
     disperses the elements properly among the buckets. Iterating over
@@ -137,6 +137,7 @@ maps similar to the [Java Map][] interface, see **pblMap*** functions,
     set the initial capacity too high (or the load factor too low) if
     iteration performance is important.
     [][**PBL Map**]
+
 -   [**pblTreeMap**][**PBL Map**]:
      Open source C avl-tree-based balanced tree map implementation
     equivalent to the [Java TreeMap][] class. 
@@ -190,7 +191,7 @@ An open source C ISAM file implementation, see **pblIsam*** functions
 -   keylength up to 1024 per record
 -   regression test frame
 
-[**AvlDictionary\<TKey,TValue\>**][**AvlDictionary<TKey,TValue\>**]: -- C# .NET Avl-Tree based generic IDictionary\<TKey,TValue\>
+[**AvlDictionary\<TKey,TValue\>**][**AvlDictionary<TKey,TValue\>**]: C# .NET Avl-Tree based generic IDictionary\<TKey,TValue\>
 
 AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictionary\<TKey,TValue\> implementation. See the [**AvlDictionary documentation**][].
 
@@ -202,7 +203,7 @@ AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictiona
 
 In order to use AvlDictionary<TKey,TValue> copy [**AvlDictionary.cs**][] to your solution and use the AVL-Tree based generic [**AvlDictionary<TKey,TValue\>**][] like you use the hash based generic Dictionary\<TKey,TValue\>.
 
-[**PriorityQueue\<T\>**][**PriorityQueue<T\>**]: -- C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
+[**PriorityQueue\<T\>**][**PriorityQueue<T\>**]: C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
 
 In order to use [**PriorityQueue\<T\>**][**PriorityQueue<T\>**] copy [**PriorityQueue.cs**][] to your solution and use the List<T\> based generic min-heap PriorityQueue<T\>. 
 
