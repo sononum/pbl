@@ -1,5 +1,5 @@
 
-## PBL - The Program Base Library
+# PBL - The Program Base Library
 
 * * * * *
 
@@ -11,7 +11,7 @@ The test cases, which are not directly part of the library, are published under
 [The GNU General Public License][] 
 as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
-### PBL - Introduction
+## PBL - Introduction
 
 PBL is an LGPL open source C library of functions that can be used in a C
 or C++ project. PBL is highly portable and compiles warning free on
@@ -19,12 +19,15 @@ Linux gcc, MAC OS X and Windows Microsoft Visual C++ 2010 Express
 Edition.
 The code of the PBL library includes the following modules:
 
-[**PBL BASE**][] - Some base functions, see **pbl\_*** functions,
+###[**PBL BASE**][] - C Base Functions
+Some base functions, see **pbl\_*** functions,
 
-[**PBL COLLECTION**][] - An open source C implementation of a collection
+###[**PBL COLLECTION**][] - C Collections
+An open source C implementation of a collection 
 used by the list and set implementations.
 
-[**PBL LIST**][] - An open source C implementation of array lists and
+###[**PBL LIST**][] - C Array and Linked Lists
+An open source C implementation of array lists and
 linked lists similar to the [Java List][] interface, see **pblList***
 functions,
 
@@ -89,7 +92,8 @@ functions,
     terms of the cursor position; they are defined to operate on the
     last element returned by a call to next() or previous().
 
-[**PBL Set**][] - An open source C implementation of hash sets and tree
+###[**PBL Set**][] - C Hash and Tree Sets
+An open source C implementation of hash sets and tree
 sets similar to the [Java Set][] interface, see **pblSet*** functions,
 
 -   [**pblHashSet**][**PBL Set**]:
@@ -119,7 +123,8 @@ sets similar to the [Java Set][] interface, see **pblSet*** functions,
     This implementation provides guaranteed log(n) time cost for the
     basic operations (add, remove and contains).
 
-[**PBL Map**][] - An open source C implementation of hash maps and tree
+###[**PBL Map**][] - C Hash and Tree Maps
+An open source C implementation of hash maps and tree
 maps similar to the [Java Map][] interface, see **pblMap*** functions,
 
 -   [**pblHashMap**][**PBL Map**]:
@@ -147,11 +152,11 @@ maps similar to the [Java Map][] interface, see **pblMap*** functions,
      This implementation provides guaranteed log(n) time cost for the
     basic operations (add, remove and contains).
 
-[**PBL HEAP**][] -- Binary min-max heap in C.
+###[**PBL HEAP**][] - C Binary Min-Max Heap
 
-[**PBL PRIORITY QUEUE**][] A priority queue in C.
+###[**PBL PRIORITY QUEUE**][] - C Priority Queue
 
-[**PBL HASH**][]:
+###[**PBL HASH**][] - C Memory Hash Table
 An open source C memory hash table implementation, see **pblHt***
 functions,
 
@@ -160,7 +165,7 @@ functions,
 -   sequential access
 -   regression test frame
 
-[**PBL KEYFILE**][]:
+###[**PBL KEYFILE**][] - C Key File
 An open source C key file implementation, see **pblKf*** functions,
 
 **Features**
@@ -175,7 +180,7 @@ An open source C key file implementation, see **pblKf*** functions,
 -   keylength up to 255 bytes
 -   regression test frame
 
-[**PBL ISAM**][]:
+###[**PBL ISAM**][] - C ISAM File
 An open source C ISAM file implementation, see **pblIsam*** functions
 
 **Features**
@@ -191,7 +196,8 @@ An open source C ISAM file implementation, see **pblIsam*** functions
 -   keylength up to 1024 per record
 -   regression test frame
 
-[**AvlDictionary\<TKey,TValue\>**][**AvlDictionary<TKey,TValue\>**]: C# .NET Avl-Tree based generic IDictionary\<TKey,TValue\>
+###[**AvlDictionary\<TKey,TValue\>**][**AvlDictionary<TKey,TValue\>**] - C# .NET Avl-Tree 
+C# .NET Avl-Tree based generic IDictionary\<TKey,TValue\>
 
 AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictionary\<TKey,TValue\> implementation. See the [**AvlDictionary documentation**][].
 
@@ -203,7 +209,8 @@ AvlDictionary<TKey,TValue> is an open source C# Avl-Tree based generic IDictiona
 
 In order to use AvlDictionary<TKey,TValue> copy [**AvlDictionary.cs**][] to your solution and use the AVL-Tree based generic [**AvlDictionary<TKey,TValue\>**][] like you use the hash based generic Dictionary\<TKey,TValue\>.
 
-[**PriorityQueue\<T\>**][**PriorityQueue<T\>**]: C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
+###[**PriorityQueue\<T\>**][**PriorityQueue<T\>**] - C# .NET Min-Heap
+C# .NET List<T> based generic min-heap [**PriorityQueue<T\>**]. See the [**PriorityQueue documentation**][].
 
 In order to use [**PriorityQueue\<T\>**][**PriorityQueue<T\>**] copy [**PriorityQueue.cs**][] to your solution and use the List<T\> based generic min-heap PriorityQueue<T\>. 
 
