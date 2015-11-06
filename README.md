@@ -26,7 +26,7 @@ Some base functions, see **pbl\_*** functions,
 An open source C implementation of a collection 
 used by the list and set implementations.
 
-###[**PBL LIST**][] - C Array and Linked Lists
+###[**PBL LIST**][] - C Array- and Linked-Lists
 An open source C implementation of array lists and
 linked lists similar to the [Java List][] interface, see **pblList***
 functions,
@@ -92,7 +92,7 @@ functions,
     terms of the cursor position; they are defined to operate on the
     last element returned by a call to next() or previous().
 
-###[**PBL Set**][] - C Hash and Tree Sets
+###[**PBL Set**][] - C Hash- and Tree-Sets
 An open source C implementation of hash sets and tree
 sets similar to the [Java Set][] interface, see **pblSet*** functions,
 
@@ -123,7 +123,7 @@ sets similar to the [Java Set][] interface, see **pblSet*** functions,
     This implementation provides guaranteed log(n) time cost for the
     basic operations (add, remove and contains).
 
-###[**PBL Map**][] - C Hash and Tree Maps
+###[**PBL Map**][] - C Hash- and Tree-Maps
 An open source C implementation of hash maps and tree
 maps similar to the [Java Map][] interface, see **pblMap*** functions,
 
@@ -165,7 +165,7 @@ functions,
 -   sequential access
 -   regression test frame
 
-###[**PBL KEYFILE**][] - C Key File
+###[**PBL KEYFILE**][] - C Key-File
 An open source C key file implementation, see **pblKf*** functions,
 
 **Features**
@@ -180,7 +180,7 @@ An open source C key file implementation, see **pblKf*** functions,
 -   keylength up to 255 bytes
 -   regression test frame
 
-###[**PBL ISAM**][] - C ISAM File
+###[**PBL ISAM**][] - C ISAM-File
 An open source C ISAM file implementation, see **pblIsam*** functions
 
 **Features**
