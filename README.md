@@ -22,10 +22,6 @@ The code of the PBL library includes the following modules:
 ###[**PBL BASE**][] - C Base Functions
 Some base functions, see **pbl\_*** functions,
 
-###[**PBL COLLECTION**][] - C Collection
-An open source C implementation of a collection 
-used by the list and set implementations.
-
 ###[**PBL LIST**][] - C Array-List and Linked-List
 An open source C implementation of array lists and
 linked lists similar to the [Java List][] interface, see **pblList***
@@ -77,8 +73,7 @@ functions,
     traverse the list from the beginning or the end, whichever is closer
     to the specified index.
 -   [**pblIterator**][]:
-    Open source C Iterator implementation equivalent to the [Java
-    ListIterator][] interface.
+    Open source C Iterator implementation equivalent to the [Java ListIterator][] interface.
 
     An iterator for lists that allows the programmer to traverse the
     list in either direction, modify the list during iteration, and
@@ -91,6 +86,10 @@ functions,
     Note that the remove() and set(Object) methods are not defined in
     terms of the cursor position; they are defined to operate on the
     last element returned by a call to next() or previous().
+
+-   [**pblCollection**][]:
+    Open source C implementation of a collection used by the list and 
+    set implementations implementation equivalent to the [Java Collection][] interface.
 
 ###[**PBL Set**][] - C Hash-Set and Tree-Set
 An open source C implementation of hash sets and tree
@@ -233,6 +232,8 @@ copyright (C) 2001 - 2015 by Peter Graf
   [Java LinkedList]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/LinkedList.html
   [**pblIterator**]: http://www.mission-base.com/peter/source/pbl/doc/iterator.html
   [Java ListIterator]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/ListIterator.html
+  [**pblCollection**]: http://www.mission-base.com/peter/source/pbl/doc/collection.html
+  [Java Collection]:  http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Collection.html
   [**PBL Set**]: http://www.mission-base.com/peter/source/pbl/doc/set.html
   [Java Set]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/Set.html
   [Java HashSet]: http://java.sun.com/j2se/1.5.0/docs/api/java/util/HashSet.html
