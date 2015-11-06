@@ -22,11 +22,11 @@ The code of the PBL library includes the following modules:
 ###[**PBL BASE**][] - C Base Functions
 Some base functions, see **pbl\_*** functions,
 
-###[**PBL COLLECTION**][] - C Collections
+###[**PBL COLLECTION**][] - C Collection
 An open source C implementation of a collection 
 used by the list and set implementations.
 
-###[**PBL LIST**][] - C Array- and Linked-Lists
+###[**PBL LIST**][] - C Array-List and Linked-List
 An open source C implementation of array lists and
 linked lists similar to the [Java List][] interface, see **pblList***
 functions,
@@ -92,7 +92,7 @@ functions,
     terms of the cursor position; they are defined to operate on the
     last element returned by a call to next() or previous().
 
-###[**PBL Set**][] - C Hash- and Tree-Sets
+###[**PBL Set**][] - C Hash-Set and Tree-Set
 An open source C implementation of hash sets and tree
 sets similar to the [Java Set][] interface, see **pblSet*** functions,
 
@@ -123,7 +123,7 @@ sets similar to the [Java Set][] interface, see **pblSet*** functions,
     This implementation provides guaranteed log(n) time cost for the
     basic operations (add, remove and contains).
 
-###[**PBL Map**][] - C Hash- and Tree-Maps
+###[**PBL Map**][] - C Hash-Map and Tree-Map
 An open source C implementation of hash maps and tree
 maps similar to the [Java Map][] interface, see **pblMap*** functions,
 
