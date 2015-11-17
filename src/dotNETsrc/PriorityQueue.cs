@@ -562,11 +562,10 @@ namespace Com.Mission_Base.Pbl
         /// </exception>
         public new void Reverse(int index, int count)
         {
-            if (index > LastParentIndex)
+            if (Count > 1)
             {
                 throw new InvalidOperationException("A priority queue cannot be partially reversed.");
             }
-            base.Reverse(index, count);
         }
 
         /// <summary>
