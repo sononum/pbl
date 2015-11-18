@@ -25,6 +25,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblList.c,v $
+    Revision 1.42  2015/11/18 18:10:27  peter
+    Fixed a bug in error handling in linked list.
+
     Revision 1.41  2015/04/02 15:35:25  peter
     Better naming of the base collection of a list.
 
@@ -49,7 +52,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblList_c_id = "$Id: pblList.c,v 1.41 2015/04/02 15:35:25 peter Exp $";
+char* pblList_c_id = "$Id: pblList.c,v 1.42 2015/11/18 18:10:27 peter Exp $";
 
 char * PblArrayListMagic = "PblArrayListMagic";
 char * PblLinkedListMagic = "PblLinkedListMagic";
@@ -1482,7 +1485,7 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
             //
             while( nAdded-- > 0 )
             {
-                pblLinkedListRemoveAt( list, list->collection.size - 1 );
+                pblLinkedListRemoveAt( list, index );
             }
             PBL_FREE( newNode );
             return -1;
@@ -1500,7 +1503,7 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
         //
         while( nAdded-- > 0 )
         {
-            pblLinkedListRemoveAt( list, list->collection.size - 1 );
+            pblLinkedListRemoveAt( list, index );
         }
         return -1;
     }
@@ -3317,3 +3320,6 @@ PblList * list                 /** The list to create the iterator for */
 
     return pblIteratorReverseNew( list );
 }
+
+
+
