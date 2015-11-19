@@ -24,20 +24,21 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblStringBuilder.c,v $
+ Revision 1.3  2015/11/19 23:31:43  peter
+ Just formatting the source.
+
  Revision 1.2  2015/04/06 14:33:11  peter
  Some cleanup.
 
  Revision 1.1  2015/03/23 15:53:10  peter
  Added the string builder.
 
-
  */
-
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblStringBuilder_c_id =
-        "$Id: pblStringBuilder.c,v 1.2 2015/04/06 14:33:11 peter Exp $";
+        "$Id: pblStringBuilder.c,v 1.3 2015/11/19 23:31:43 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
