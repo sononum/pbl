@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblkf.c,v $
+    Revision 1.25  2016/04/23 23:19:13  peter
+    Fixing GitHub Issue: Build warnings and test failure #5
+
     Revision 1.24  2015/02/23 04:05:11  peter
     Port to Visual Studio 2012.
 
@@ -62,7 +65,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblkf_c_id = "$Id: pblkf.c,v 1.24 2015/02/23 04:05:11 peter Exp $";
+char * pblkf_c_id = "$Id: pblkf.c,v 1.25 2016/04/23 23:19:13 peter Exp $";
 
 #ifndef _WIN32
 
@@ -3300,7 +3303,10 @@ unsigned int      keylen
     nentries = block->nentries;
     if( block->nentries > 0 )
     {
-        pblItemGet( block, block->nentries - 1, &item );
+        if( pblItemGet( block, block->nentries - 1, &item ))
+        {
+            return( -1 );
+        }
 
         predkeylen = item.keylen;
         if( predkeylen )
@@ -3319,7 +3325,10 @@ unsigned int      keylen
      */
     for( i = 0; i < from->nentries; i++ )
     {
-        pblItemGet( from, i, &item );
+        if( pblItemGet( from, i, &item ))
+        {
+            return( -1 );
+        }
 
         /*
          * The first item can have an empty key, if so we use
