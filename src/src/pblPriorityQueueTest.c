@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblPriorityQueueTest.c,v $
+ Revision 1.13  2016/06/03 21:13:30  peter
+ Syncing with GIT version.
+
  Revision 1.12  2015/02/22 07:06:07  peter
  Port to Visual Studio 2012.
 
@@ -37,7 +40,7 @@
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblPriorityQueueTest_c_id =
-        "$Id: pblPriorityQueueTest.c,v 1.12 2015/02/22 07:06:07 peter Exp $";
+        "$Id: pblPriorityQueueTest.c,v 1.13 2016/06/03 21:13:30 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -677,11 +680,7 @@ int pblPriorityQueue_TestFrame( void )
  * therefore we hide all but one main with this -D option
  */
 
-#ifdef _CDT_BUILD
-#define PQ_TST_SHOW_MAIN
-#endif
-
-#ifdef PBLTEST
+#ifdef CDT_BUILD
 #define PQ_TST_SHOW_MAIN
 #endif
 
@@ -689,8 +688,8 @@ int pblPriorityQueue_TestFrame( void )
 #define PQ_TST_SHOW_MAIN
 #endif
 
-#ifdef CDT_BUILD
-#undef PQ_TST_SHOW_MAIN
+#ifdef PBLTEST
+#define PQ_TST_SHOW_MAIN
 #endif
 
 #ifdef PQ_TST_SHOW_MAIN

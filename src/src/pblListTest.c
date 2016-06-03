@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblListTest.c,v $
+    Revision 1.26  2016/06/03 21:13:30  peter
+    Syncing with GIT version.
+
     Revision 1.24  2015/02/22 07:06:07  peter
     Port to Visual Studio 2012.
 
@@ -58,7 +61,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblListTest_c_id = "$Id: pblListTest.c,v 1.24 2015/02/22 07:06:07 peter Exp $";
+char* pblListTest_c_id = "$Id: pblListTest.c,v 1.26 2016/06/03 21:13:30 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>

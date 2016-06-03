@@ -25,6 +25,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblList.c,v $
+    Revision 1.44  2016/06/03 21:13:30  peter
+    Syncing with GIT version.
+
     Revision 1.42  2015/11/18 18:10:27  peter
     Fixed a bug in error handling in linked list.
 
@@ -52,7 +55,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblList_c_id = "$Id: pblList.c,v 1.42 2015/11/18 18:10:27 peter Exp $";
+char* pblList_c_id = "$Id: pblList.c,v 1.44 2016/06/03 21:13:30 peter Exp $";
 
 char * PblArrayListMagic = "PblArrayListMagic";
 char * PblLinkedListMagic = "PblLinkedListMagic";

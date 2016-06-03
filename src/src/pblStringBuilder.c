@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblStringBuilder.c,v $
+ Revision 1.5  2016/06/03 21:13:30  peter
+ Syncing with GIT version.
+
  Revision 1.3  2015/11/19 23:31:43  peter
  Just formatting the source.
 
@@ -38,7 +41,7 @@
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblStringBuilder_c_id =
-        "$Id: pblStringBuilder.c,v 1.3 2015/11/19 23:31:43 peter Exp $";
+        "$Id: pblStringBuilder.c,v 1.5 2016/06/03 21:13:30 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -256,7 +259,7 @@ const char * data   /** The data to be added to the string builder   */
  * @return size_t rc == -1: An error, see pbl_errno:
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
- * <BR>PBL_ERROR_PARAM_FORMAT  - Parameter format is not valid.
+ * <BR>PBL_ERROR_PARAM_FORMAT  - The parameter format is not valid.
  */
 size_t pblStringBuilderAppend(    /*                                        */
 PblStringBuilder * stringBuilder, /** The string builder to use             */
@@ -304,7 +307,7 @@ const char *format,               /** The format of the arguments to append */
  * @return size_t rc == -1: An error, see pbl_errno:
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
- * <BR>PBL_ERROR_PARAM_FORMAT  - Parameter format is not valid.
+ * <BR>PBL_ERROR_PARAM_FORMAT  - The parameter format is not valid.
  */
 size_t pblStringBuilderAppendN(    /*                                       */
 PblStringBuilder * stringBuilder, /** The string builder to use             */

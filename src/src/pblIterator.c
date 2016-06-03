@@ -25,6 +25,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblIterator.c,v $
+    Revision 1.12  2016/06/03 21:13:30  peter
+    Syncing with GIT version.
+
     Revision 1.10  2015/03/23 15:53:10  peter
     Added the string builder.
 
@@ -46,7 +49,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblIterator_c_id = "$Id: pblIterator.c,v 1.10 2015/03/23 15:53:10 peter Exp $";
+char* pblIterator_c_id = "$Id: pblIterator.c,v 1.12 2016/06/03 21:13:30 peter Exp $";
 
 char * PblIteratorMagic = "PblIteratorMagic";
 
