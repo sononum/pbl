@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblisam.c,v $
+    Revision 1.20  2016/08/11 22:10:33  peter
+    Removed a warning shown by Microsoft Visual C++ 2015
+
     Revision 1.19  2015/02/22 07:06:06  peter
     Port to Visual Studio 2012.
 
@@ -57,7 +60,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblisam_c_id = "$Id: pblisam.c,v 1.19 2015/02/22 07:06:06 peter Exp $";
+char * pblisam_c_id = "$Id: pblisam.c,v 1.20 2016/08/11 22:10:33 peter Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1497,7 +1500,7 @@ size_t          datalen     /** length of the data                        */
             pbl_errno = PBL_ERROR_PARAM_KEYLEN;
             return( -1 );
         }
-        allkeys[ allkeyslen++ ] = keylen;
+        allkeys[ allkeyslen++ ] = (char) keylen;
 
         if( allkeyslen + keylen > PBLDATALENGTH )
         {
@@ -3235,7 +3238,7 @@ size_t           ukeylen     /** length of that value                       */
         }
         else
         {
-            *newkey++ = keylen = 0xff & *key++;
+            *newkey++ = (char) keylen = 0xff & *key++;
 
             /*
              * copy the old key
