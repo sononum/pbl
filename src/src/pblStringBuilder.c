@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblStringBuilder.c,v $
+ Revision 1.6  2016/09/26 19:20:55  peter
+ Port to VS 2015
+
  Revision 1.5  2016/06/03 21:13:30  peter
  Syncing with GIT version.
 
@@ -41,7 +44,7 @@
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblStringBuilder_c_id =
-        "$Id: pblStringBuilder.c,v 1.5 2016/06/03 21:13:30 peter Exp $";
+        "$Id: pblStringBuilder.c,v 1.6 2016/09/26 19:20:55 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -225,7 +228,11 @@ const char * data   /** The data to be added to the string builder   */
             return -1;
         }
 
+#ifdef WIN32
+		strncpy_s(element, n + 1, data, n);
+#else
         strncpy( element, data, n );
+#endif
         element[ n ] = '\0';
         length = strlen( element );
     }
@@ -283,8 +290,13 @@ const char *format,               /** The format of the arguments to append */
 
     if( rc < 0 )
     {
+#ifdef WIN32
+		_snprintf_s(pbl_errstr, PBL_ERRSTR_LEN, PBL_ERRSTR_LEN,
+			"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
+#else
         snprintf( pbl_errstr, PBL_ERRSTR_LEN,
         		"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno );
+#endif
         pbl_errno = PBL_ERROR_PARAM_FORMAT;
 
         return (size_t) -1;
@@ -345,8 +357,13 @@ const char *format,               /** The format of the arguments to append */
     {
     	PBL_FREE( data );
 
+#ifdef WIN32
+		_snprintf_s(pbl_errstr, PBL_ERRSTR_LEN, PBL_ERRSTR_LEN,
+			"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
+#else
     	snprintf( pbl_errstr, PBL_ERRSTR_LEN,
     		       "%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno );
+#endif
     	pbl_errno = PBL_ERROR_PARAM_FORMAT;
 
     	return (size_t) -1;

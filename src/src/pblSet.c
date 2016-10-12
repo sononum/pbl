@@ -25,6 +25,9 @@ For more information on the Program Base Library or Peter Graf,
 please see: http://www.mission-base.com/.
 
 $Log: pblSet.c,v $
+Revision 1.36  2016/10/12 20:58:26  peter
+Removed warnings found by gcc 5.4.0
+
 Revision 1.35  2016/06/03 21:13:30  peter
 Syncing with GIT version.
 
@@ -67,7 +70,7 @@ Exposing the hash set and tree set interfaces.
 /*
 * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
 */
-char* pblSet_c_id = "$Id: pblSet.c,v 1.35 2016/06/03 21:13:30 peter Exp $";
+char* pblSet_c_id = "$Id: pblSet.c,v 1.36 2016/10/12 20:58:26 peter Exp $";
 
 char * PblHashSetMagic = "PblHashSetMagic";
 char * PblTreeSetMagic = "PblTreeSetMagic";
@@ -1762,7 +1765,7 @@ static int pblHashSetAdd(
 		{
 			if( pblHashSetEnsureCapacity( set, minCapacity ) < 0 )
 			{
-				return -1;
+				break;
 			}
 			mask = set->capacity - 1;
 		}
@@ -1815,6 +1818,7 @@ static int pblHashSetAdd(
 		minCapacity = set->capacity + 1;
 		neededCapacity = (int)( ( (double)minCapacity ) / set->loadFactor );
 	}
+	return -1;
 }
 
 /*
@@ -2911,6 +2915,7 @@ static int pblHashSetRemoveElement(
 			}
 		}
 	}
+	return 0;
 }
 
 /**
@@ -3018,7 +3023,7 @@ static void * pblHashSetReplaceElement(
 		pointer = set->pointerArray[ index ];
 		if( !pointer )
 		{
-			return NULL;
+			break;
 		}
 
 		if( !pblCollectionElementCompare( (PblCollection*)set, pointer, element ) )
@@ -3033,6 +3038,7 @@ static void * pblHashSetReplaceElement(
 
 		index = ( index + set->stepSize ) & mask;
 	}
+	return NULL;
 }
 
 /**
@@ -3134,7 +3140,7 @@ static void * pblHashSetGetElement(
 		pointer = set->pointerArray[ index ];
 		if( !pointer )
 		{
-			return NULL;
+			break;
 		}
 
 		if( !pblCollectionElementCompare( (PblCollection*)set, pointer, element ) )
@@ -3147,6 +3153,7 @@ static void * pblHashSetGetElement(
 
 		index = ( index + set->stepSize ) & mask;
 	}
+	return NULL;
 }
 
 /**
@@ -3244,7 +3251,7 @@ static int pblHashSetContains(
 		pointer = set->pointerArray[ index ];
 		if( !pointer )
 		{
-			return 0;
+			break;
 		}
 
 		if( !pblCollectionElementCompare( (PblCollection*)set, pointer, element ) )
@@ -3257,6 +3264,7 @@ static int pblHashSetContains(
 
 		index = ( index + set->stepSize ) & mask;
 	}
+	return 0;
 }
 
 /**

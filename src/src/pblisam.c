@@ -24,6 +24,12 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblisam.c,v $
+    Revision 1.23  2016/10/04 23:40:58  peter
+    removed a warning found by gcc (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609
+
+    Revision 1.22  2016/10/02 12:17:08  peter
+    Allowing the technical keys for pblFind and pblGet.
+
     Revision 1.21  2016/08/11 23:03:17  peter
     Removing a warning produced on Mac
 
@@ -63,7 +69,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblisam_c_id = "$Id: pblisam.c,v 1.21 2016/08/11 23:03:17 peter Exp $";
+char * pblisam_c_id = "$Id: pblisam.c,v 1.23 2016/10/04 23:40:58 peter Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -2041,13 +2047,13 @@ size_t         * rkeylen
 
 
 /**
- * find a record in an ISAM file, set the current record
+ * Find a record in an ISAM file, set the current record.
  *
- * parameter which specifies which record to find relative
- * to the search key specified by skey and skeylen.
- * the following values for which are possible
+ * Parameter 'which' specifies which record to find relative
+ * to the search key specified by 'skey' and 'skeylen'.
+ * The following values for 'which' are possible
  *
- * <BR><B> PBLEQ </B> - find a record whose key is equal to skey
+ * <BR><B> PBLEQ </B> - find a record whose key is equal to 'skey'
  * <BR><B> PBLFI </B> - find the first record that is equal
  * <BR><B> PBLLA </B> - find the last record that is equal
  * <BR><B> PBLGE </B> - find the last record that is equal or the smallest
@@ -2057,27 +2063,31 @@ size_t         * rkeylen
  *                      record that is smaller
  * <BR><B> PBLLT </B> - find the biggest record that is smaller
  *
- * parameter index specifies which of the keys to use
+ * Parameter 'index' specifies which of the keys to use.
+ * The pseudo index value -1 can be used in order to
+ * search for technical keys in the main file.
+ * If the pseudo index value of -1 is used only the
+ * values PBLEQ, PBLFI and PBLLA are allowed for 'which'.
  *
  * <P>
  * <B>RESTRICTIONS</B>:
- * <BR> - the out parameter okey must point to a memory area that is
+ * <BR> - The out parameter 'okey' must point to a memory area that is
  *        big enough to hold any possible key, i.e 255 bytes
  *
  * @return int rc >= 0:
  * <UL>
- * <LI>                  call went OK,
+ * <LI>                  Call went OK,
  *                       the value returned is the length
  *                       of the key of the record found,
- * <LI>                  the key of the record is copied to okey,
- * <LI>                  the current record of the file is set to the
+ * <LI>                  The key of the record is copied to 'okey',
+ * <LI>                  The current record of the file is set to the
  *                       record found
  * </UL>
  *
  * @return int rc <  0:
  * <UL>
- * <LI>                  some error occurred, see pbl_errno
- *                       especially PBL_ERROR_NOT_FOUND, if there is no
+ * <LI>                  Some error occurred, see pbl_errno,
+ *                       Especially PBL_ERROR_NOT_FOUND, if there is no
  *                       matching record
  * </UL>
  */
@@ -2095,15 +2105,35 @@ void           * okey       /** buffer for result key                     */
     long            datalen;
     unsigned char   key[ PBLKEYLENGTH ];
     int             keylen;
-    size_t          okeylen;
+    size_t          okeylen = 0;
 
     /*
      * make sure the index is in bounds
      */
-    if( index >= isam->nkeys )
+    if( index != -1 && index >= isam->nkeys )
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
         return( -1 );
+    }
+
+    if( index == -1)
+    {
+    	if( which != PBLEQ && which != PBLFI && which != PBLLA )
+        {
+            pbl_errno = PBL_ERROR_PARAM_INDEX;
+            return( -1 );
+        }
+
+        /*
+         * find the record in the main file
+         */
+        datalen = pblKfFind( isam->mainfile, which,
+                             skey, skeylen, okey, &okeylen );
+        if( datalen < 0 )
+        {
+            return( datalen );
+        }
+        return okeylen;
     }
 
     /*
@@ -2298,11 +2328,11 @@ unsigned char  * okey
 }
 
 /**
- * get the key and keylen of a record
+ * Get the key and key length of a record
  *
- * parameter which specifies which record to get relative
+ * Parameter 'which' specifies which record to get relative
  * to the search key specified by index.
- * the following values for which are possible
+ * The following values for 'which' are possible
  *
  * <BR><B> PBLTHIS  </B> - get key and keylen of current record
  * <BR><B> PBLNEXT  </B> - get key and keylen of next record
@@ -2310,30 +2340,31 @@ unsigned char  * okey
  * <BR><B> PBLFIRST </B> - get key and keylen of first record
  * <BR><B> PBLLAST  </B> - get key and keylen of last record
  *
- * parameter index specifies which of the keys to get,
+ * Parameter 'index' specifies which of the keys to get,
  * the pseudo index value -1 can be used in order to access the file
  * sequentially in the order the records were inserted.
- * okey is not set in this case, a key length of 0 is returned in case
- * the call went OK.
+ * The output parameter 'okey' is set to the technical key in the main
+ * file in this case, the key length of that technical key is returned
+ * in case the call went OK.
  *
  * <P>
  * <B>RESTRICTIONS</B>:
- * <BR> - the out parameter okey must point to a memory area that is
+ * <BR> - The out parameter 'okey' must point to a memory area that is
  *        big enough to hold any possible key, i.e 255 bytes
  *
  * @return int rc >= 0:
  * <UL>
- * <LI>                  call went OK,
- *                       the value returned is the length
+ * <LI>                  Call went OK,
+ *                       The value returned is the length
  *                       of the key of the record found,
- * <LI>                  the key of the record is copied to okey,
- * <LI>                  the current record of the file is set to the
- *                       record found
+ * <LI>                  The key of the record is copied to 'okey',
+ * <LI>                  The current record of the file is set to the
+ *                       record found.
  * </UL>
  *
  * @return int rc <  0:
  * <UL>
- * <LI>                  some error occurred, see pbl_errno
+ * <LI>                  Some error occurred, see pbl_errno.
  * </UL>
  */
 
@@ -2346,8 +2377,7 @@ void           * okey       /** buffer for result key                     */
 {
     PBLISAMFILE_t * isam = ( PBLISAMFILE_t * ) isamfile;
     unsigned char   rkey[ PBLKEYLENGTH ];
-    size_t          rkeylen = 0;
-    size_t          okeylen;
+    size_t          okeylen = 0;
     long            datalen;
     int             rc;
 
@@ -2387,7 +2417,7 @@ void           * okey       /** buffer for result key                     */
             /*
              * read the next entry in the main file
              */
-            datalen = pblKfNext( isam->mainfile, rkey, &rkeylen );
+            datalen = pblKfNext( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
                 pblKfRestorePosition( isam->mainfile );
@@ -2398,7 +2428,7 @@ void           * okey       /** buffer for result key                     */
              * length 8 or 17 is for allkeys records
              * if the length is 9 or 18, the record is a data record
              */
-            if( rkeylen != 8 && rkeylen != 17 )
+            if( okeylen != 8 && okeylen != 17 )
             {
                 /*
                  * found a data record, continue reading records
@@ -2406,7 +2436,7 @@ void           * okey       /** buffer for result key                     */
                 continue;
             }
 
-            return( 0 );
+            return( okeylen );
         }
 
         /*
@@ -2436,7 +2466,7 @@ void           * okey       /** buffer for result key                     */
             /*
              * read the previous entry in the main file
              */
-            datalen = pblKfPrev( isam->mainfile, rkey, &rkeylen );
+            datalen = pblKfPrev( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
                 pblKfRestorePosition( isam->mainfile );
@@ -2447,7 +2477,7 @@ void           * okey       /** buffer for result key                     */
              * length 8 or 17 is for allkeys records
              * if the length is 9 or 18, the record is a data record
              */
-            if( rkeylen != 8 && rkeylen != 17 )
+            if( okeylen != 8 && okeylen != 17 )
             {
                 /*
                  * found a data record, continue reading records
@@ -2455,7 +2485,7 @@ void           * okey       /** buffer for result key                     */
                 continue;
             }
 
-            return( 0 );
+            return( okeylen );
         }
 
         /*
@@ -2471,12 +2501,12 @@ void           * okey       /** buffer for result key                     */
       case PBLFIRST:
         if( index == -1 )
         {
-            datalen = pblKfFirst( isam->mainfile, 0, 0 );
+            datalen = pblKfFirst( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
                 return( -1 );
             }
-            return( 0 );
+            return( okeylen );
         }
 
         datalen = pblKfFirst( isam->keyfiles[ index ], okey, &okeylen );
@@ -2489,12 +2519,12 @@ void           * okey       /** buffer for result key                     */
       case PBLLAST:
         if( index == -1 )
         {
-            datalen = pblKfLast( isam->mainfile, rkey, &rkeylen );
+            datalen = pblKfLast( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
                 return( -1 );
             }
-            if( rkeylen == 8 || rkeylen == 17 )
+            if( okeylen == 8 || okeylen == 17 )
             {
                 return( 0 );
             }
@@ -2503,9 +2533,9 @@ void           * okey       /** buffer for result key                     */
         while( index == -1 )
         {
             /*
-             * read the next entry in the main file
+             * read the previous entry in the main file
              */
-            datalen = pblKfPrev( isam->mainfile, rkey, &rkeylen );
+            datalen = pblKfPrev( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
                 return( -1 );
@@ -2515,7 +2545,7 @@ void           * okey       /** buffer for result key                     */
              * length 8 or 17 is for allkeys records
              * if the length is 9 or 18, the record is a data record
              */
-            if( rkeylen != 8 && rkeylen != 17 )
+            if( okeylen != 8 && okeylen != 17 )
             {
                 /*
                  * found a data record, continue reading records
@@ -2523,7 +2553,7 @@ void           * okey       /** buffer for result key                     */
                 continue;
             }
 
-            return( 0 );
+            return( okeylen );
         }
 
         datalen = pblKfLast( isam->keyfiles[ index ], okey, &okeylen );
@@ -2536,12 +2566,12 @@ void           * okey       /** buffer for result key                     */
       case PBLTHIS:
         if( index == -1 )
         {
-            datalen = pblKfThis( isam->mainfile, 0, 0 );
+            datalen = pblKfThis( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
                 return( -1 );
             }
-            return( 0 );
+            return( okeylen );
         }
 
         /*
@@ -2584,7 +2614,6 @@ void           * okey       /** buffer for result key                     */
         {
             return( -1 );
         }
-        rkeylen = rc;
     }
 
     /*

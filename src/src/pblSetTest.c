@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblSetTest.c,v $
+    Revision 1.24  2016/10/12 20:58:26  peter
+    Removed warnings found by gcc 5.4.0
+
     Revision 1.23  2015/02/22 07:06:06  peter
     Port to Visual Studio 2012.
 
@@ -62,7 +65,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblSetTest_c_id = "$Id: pblSetTest.c,v 1.23 2015/02/22 07:06:06 peter Exp $";
+char* pblSetTest_c_id = "$Id: pblSetTest.c,v 1.24 2016/10/12 20:58:26 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -88,9 +91,10 @@ static void putChar( int c )
 
 static int getNonSpace( FILE* file, int* lineNumber )
 {
+	int c = 0;
 	for(;;)
 	{
-		int c = getc( file );
+		c = getc( file );
 		if( c == '\n' )
 		{
 			*lineNumber += 1;
@@ -99,8 +103,9 @@ static int getNonSpace( FILE* file, int* lineNumber )
 		{
 			continue;
 		}
-		return c;
+		break;
 	}
+	return c;
 }
 
 static int diffFiles( FILE * file1, char * logFileName )

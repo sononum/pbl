@@ -26,6 +26,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pbl.h,v $
+    Revision 1.71  2016/10/12 20:59:30  peter
+    Added map unmap and append methods
+
     Revision 1.69  2016/06/03 21:13:30  peter
     Syncing with GIT version.
 
@@ -483,7 +486,6 @@ struct PblCollection_s
     int (*compare)( const void * prev, const void * next );
 
     unsigned long changeCounter; /* Number of changes on the collection      */
-
 };
 
 /**
@@ -609,18 +611,10 @@ struct PblIterator_s
  */
 typedef struct PblIterator_s PblIterator;
 
-/*
- * The map struct
- */
-struct PblMap_s
-{
-    PblSet * entrySet;        /* The set containing the entries of the map   */
-};
-
 /**
  * The map type.
  */
-typedef struct PblMap_s PblMap;
+typedef PblSet PblMap;
 
 /*
  * The map entry struct
@@ -1466,6 +1460,12 @@ extern int pblMapAddStrStr( /*                                    */
     char * value /**                    Value of the new mapping  */
     );
 
+extern int pblMapAppendStrStr( /*                                     */
+		PblMap * map, /**                   The map to add to         */
+		char * key, /**                     Key to add a mapping for  */
+		char * value /**                    Value to append           */
+		);
+
 extern void pblMapClear( /*                                            */
     PblMap * map /**                                  The map to clear */
     );
@@ -1574,10 +1574,26 @@ extern void * pblMapRemoveStr( /*                                           */
         char * key, /**                    Key whose association is removed */
         size_t * valueLengthPtr /**       Out: Length of the value returned */
         );
+extern int pblMapUnmap( /*                                                  */
+		PblMap * map, /**                            The map to remove from */
+		void * key, /**                    Key whose association is removed */
+		size_t keyLength /**                              Length of the key */
+		);
+
+extern int pblMapUnmapStr( /*                                               */
+		PblMap * map, /**                            The map to remove from */
+		char * key /**                     Key whose association is removed */
+		);
 
 extern int pblMapSize( /*           */
     PblMap * map /** The map to use */
     );
+
+extern PblStringBuilder * pblMapStrStrToStringBuilder( /*           */
+		PblMap * map, /**                            The map to use */
+		char * separator, /**     Separator between key-value pairs */
+		char * separator2 /**     Separator between keys and values */
+		);
 
 /*
  * FUNCTIONS ON HEAPS
