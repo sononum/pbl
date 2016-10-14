@@ -26,6 +26,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pbl.h,v $
+    Revision 1.72  2016/10/13 01:52:05  peter
+    Cleanup of the map ...Str() methods
+
     Revision 1.71  2016/10/12 20:59:30  peter
     Added map unmap and append methods
 
@@ -1478,7 +1481,7 @@ extern int pblMapContainsKey( /*                                                
 
 extern int pblMapContainsKeyStr( /*                                              */
     PblMap * map, /**             The map to check                               */
-    char * key  /**               Key whose presence in this map is to be tested */
+    char * key /**                Key whose presence in this map is to be tested */
     );
 
 extern int pblMapContainsValue( /*                                               */
@@ -1521,8 +1524,7 @@ extern void * pblMapGet( /*                                                     
 
 extern void * pblMapGetStr( /*                                                    */
         PblMap * map, /**            The map to check                             */
-        char * key, /**              Key whose associated value is to be returned */
-        size_t * valueLengthPtr /**  Out: Length of the value returned            */
+        char * key /**               Key whose associated value is to be returned */
         );
 
 extern int pblMapIsEmpty( /*                            */
@@ -1553,8 +1555,7 @@ extern void * pblMapPut( /*                                                    *
 extern void * pblMapPutStrStr( /*                                              */
         PblMap * map, /**                                    The map to add to */
         char * key, /**                               Key to add a mapping for */
-        char * value, /**                             Value of the new mapping */
-        size_t * valueLengthPtr /**          Out: Length of the value returned */
+        char * value /**                              Value of the new mapping */
         );
 
 extern int pblMapPutAll( /*                                         */
@@ -1571,9 +1572,9 @@ extern void * pblMapRemove( /*                                              */
 
 extern void * pblMapRemoveStr( /*                                           */
         PblMap * map, /**                            The map to remove from */
-        char * key, /**                    Key whose association is removed */
-        size_t * valueLengthPtr /**       Out: Length of the value returned */
+        char * key /**                     Key whose association is removed */
         );
+
 extern int pblMapUnmap( /*                                                  */
 		PblMap * map, /**                            The map to remove from */
 		void * key, /**                    Key whose association is removed */

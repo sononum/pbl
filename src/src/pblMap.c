@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblMap.c,v $
+ Revision 1.16  2016/10/13 01:52:05  peter
+ Cleanup of the map ...Str() methods
+
  Revision 1.15  2016/10/12 20:59:30  peter
  Added map unmap and append methods
 
@@ -65,7 +68,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblMap_c_id = "$Id: pblMap.c,v 1.15 2016/10/12 20:59:30 peter Exp $";
+char* pblMap_c_id = "$Id: pblMap.c,v 1.16 2016/10/13 01:52:05 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -397,11 +400,10 @@ size_t valueLength /**      Length of the value                              */
  */
 void * pblMapGetStr( /*                                                   */
 PblMap * map, /**            The map to check                             */
-char * key, /**              Key whose associated value is to be returned */
-size_t * valueLengthPtr /**  Out: Length of the value returned            */
+char * key /**               Key whose associated value is to be returned */
 )
 {
-	return pblMapGet(map, key, key ? 1 + strlen(key) : 0, valueLengthPtr);
+	return pblMapGet(map, key, key ? 1 + strlen(key) : 0, NULL);
 }
 
 /**
@@ -582,7 +584,7 @@ char * key, /**                     Key to add a mapping for  */
 char * value /**                    Value to append           */
 )
 {
-	char * oldValue = pblMapGetStr(map, key, NULL);
+	char * oldValue = pblMapGetStr(map, key);
 	if (!oldValue)
 	{
 		return pblMapAddStrStr(map, key, value);
@@ -623,11 +625,10 @@ char * value /**                    Value to append           */
 void * pblMapPutStrStr( /*                                             */
 PblMap * map, /**                                    The map to add to */
 char * key, /**                               Key to add a mapping for */
-char * value, /**                             Value of the new mapping */
-size_t * valueLengthPtr /**          Out: Length of the value returned */
+char * value /**                              Value of the new mapping */
 )
 {
-	return pblMapPut(map, key, key ? 1 + strlen(key) : 0, value, value ? 1 + strlen(value) : 0, valueLengthPtr);
+	return pblMapPut(map, key, key ? 1 + strlen(key) : 0, value, value ? 1 + strlen(value) : 0, NULL);
 }
 
 /**
@@ -796,11 +797,10 @@ PblMap * sourceMap /**         The map to copy the entries from */
  */
 void * pblMapRemoveStr( /*                                          */
 PblMap * map, /**                            The map to remove from */
-char * key, /**                    Key whose association is removed */
-size_t * valueLengthPtr /**       Out: Length of the value returned */
+char * key /**                     Key whose association is removed */
 )
 {
-	return pblMapRemove(map, key, key ? 1 + strlen(key) : 0, valueLengthPtr);
+	return pblMapRemove(map, key, key ? 1 + strlen(key) : 0, NULL);
 }
 
 /**

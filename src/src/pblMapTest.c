@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblMapTest.c,v $
+ Revision 1.9  2016/10/13 01:52:05  peter
+ Cleanup of the map ...Str() methods
+
  Revision 1.8  2010/11/07 01:21:28  peter
  Cleanup.
 
@@ -48,7 +51,7 @@
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblMapTest_c_id =
-        "$Id: pblMapTest.c,v 1.8 2010/11/07 01:21:28 peter Exp $";
+        "$Id: pblMapTest.c,v 1.9 2016/10/13 01:52:05 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -74,7 +77,6 @@ int pblMap_TestFrame( int argc, char * argv[ ] )
 {
     PblMap * map;
     int rc;
-    size_t size;
 
     char * data;
 
@@ -111,46 +113,46 @@ int pblMap_TestFrame( int argc, char * argv[ ] )
     rc = pblMapContainsValueStr( map, "not there" );
     fprintf( stdout, "pblMapContainsValueStr( map, not there ) rc = %d\n", rc );
 
-    data = (char*)pblMapGetStr( map, "123", &size );
-    fprintf( stdout, "pblMapGetStr( map, 123, &size ) size = %lu data = %s\n",
-             (unsigned long)size, data );
+    data = (char*)pblMapGetStr( map, "123" );
+    fprintf( stdout, "pblMapGetStr( map, 123 ) data = %s\n",
+             data );
 
-    data = (char*)pblMapGetStr( map, "124", &size );
-    fprintf( stdout, "pblMapGetStr( map, 124, &size ) size = %lu data = %s\n",
-    		(unsigned long)size, data );
+    data = (char*)pblMapGetStr( map, "124" );
+    fprintf( stdout, "pblMapGetStr( map, 124 ) data = %s\n",
+    		data );
 
-    data = (char*)pblMapGetStr( map, "not there", &size );
+    data = (char*)pblMapGetStr( map, "not there" );
     fprintf( stdout,
-             "pblMapGetStr( map, not there, &size ) size = %lu data = %p\n",
-             (unsigned long)size, data );
+             "pblMapGetStr( map, not there ) data = %p\n",
+             data );
 
-    data = (char*)pblMapPutStrStr( map, "123", "123_3", &size );
+    data = (char*)pblMapPutStrStr( map, "123", "123_3" );
     fprintf(
              stdout,
-             "pblMapPutStrStr( map, 123, 123_3, &size ) size = %lu data = %s\n",
-             (unsigned long)size, data );
+             "pblMapPutStrStr( map, 123, 123_3 ) data = %s\n",
+             data );
     PBL_FREE(data);
 
-    data = (char*)pblMapGetStr( map, "123", &size );
-    fprintf( stdout, "pblMapGetStr( map, 123, &size ) size = %lu data = %s\n",
-    		(unsigned long)size, data );
+    data = (char*)pblMapGetStr( map, "123" );
+    fprintf( stdout, "pblMapGetStr( map, 123 ) data = %s\n",
+    		data );
 
-    data = (char*)pblMapPutStrStr( map, "125", "125", &size );
+    data = (char*)pblMapPutStrStr( map, "125", "125" );
     fprintf( stdout,
-             "pblMapPutStrStr( map, 125, 125, &size ) size = %lu data = %p\n",
-             (unsigned long)size, data );
+             "pblMapPutStrStr( map, 125, 125 ) data = %p\n",
+             data );
     PBL_FREE(data);
 
-    data = (char*)pblMapRemoveStr( map, "125", &size );
+    data = (char*)pblMapRemoveStr( map, "125" );
     fprintf( stdout,
-             "pblMapRemoveStr( map, 125, &size ) size = %lu data = %s\n",
-             (unsigned long)size, data );
+             "pblMapRemoveStr( map, 125 ) data = %s\n",
+             data );
 	PBL_FREE(data);
 
-    data = (char*)pblMapRemoveStr( map, "not there", &size );
+    data = (char*)pblMapRemoveStr( map, "not there" );
     fprintf( stdout,
-             "pblMapRemoveStr( map, not there, &size ) size = %lu data = %p\n",
-             (unsigned long)size, data );
+             "pblMapRemoveStr( map, not there ) data = %p\n",
+             data );
 
     rc = pblMapSize( map );
     fprintf( stdout, "pblMapSize( map ) rc = %d\n", rc );
