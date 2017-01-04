@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblStringBuilder.c,v $
+ Revision 1.7  2017/01/04 21:03:48  peter
+ Code formatting
+
  Revision 1.6  2016/09/26 19:20:55  peter
  Port to VS 2015
 
@@ -43,8 +46,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblStringBuilder_c_id =
-        "$Id: pblStringBuilder.c,v 1.6 2016/09/26 19:20:55 peter Exp $";
+char* pblStringBuilder_c_id = "$Id: pblStringBuilder.c,v 1.7 2017/01/04 21:03:48 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -73,23 +75,23 @@ char* pblStringBuilder_c_id =
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-PblStringBuilder * pblStringBuilderNew( void )
+PblStringBuilder * pblStringBuilderNew(void)
 {
-	PblStringBuilder * stringBuilder = (PblStringBuilder *)pbl_malloc0( "pblStringBuilderNew",
-                                       sizeof(PblStringBuilder) );
-    if( !stringBuilder )
-    {
-        return NULL;
-    }
+	PblStringBuilder * stringBuilder = (PblStringBuilder *) pbl_malloc0("pblStringBuilderNew",
+			sizeof(PblStringBuilder));
+	if (!stringBuilder)
+	{
+		return NULL;
+	}
 
-    stringBuilder->list = pblListNewArrayList();
-    if( !stringBuilder->list )
-    {
-    	PBL_FREE(stringBuilder);
-        return NULL;
-    }
+	stringBuilder->list = pblListNewArrayList();
+	if (!stringBuilder->list)
+	{
+		PBL_FREE(stringBuilder);
+		return NULL;
+	}
 
-    return stringBuilder;
+	return stringBuilder;
 }
 
 /**
@@ -100,19 +102,19 @@ PblStringBuilder * pblStringBuilderNew( void )
  *
  * @return void
  */
-void pblStringBuilderClear(      /*                              */
+void pblStringBuilderClear( /*                                   */
 PblStringBuilder * stringBuilder /** The string builder to clear */
 )
 {
-	while( pblListSize( stringBuilder->list ) > 0 )
+	while (pblListSize(stringBuilder->list) > 0)
 	{
-		void * element = pblListRemoveLast( stringBuilder->list );
-		if( element != NULL && element != (void *) -1)
+		void * element = pblListRemoveLast(stringBuilder->list);
+		if (element != NULL && element != (void *) -1)
 		{
-			PBL_FREE( element );
+			PBL_FREE(element);
 		}
 	}
-    stringBuilder->length = 0;
+	stringBuilder->length = 0;
 }
 
 /**
@@ -123,13 +125,13 @@ PblStringBuilder * stringBuilder /** The string builder to clear */
  *
  * @return void
  */
-void pblStringBuilderFree(       /*                             */
+void pblStringBuilderFree( /*                                   */
 PblStringBuilder * stringBuilder /** The string builder to free */
 )
 {
-    pblStringBuilderClear( stringBuilder );
-    pblListFree( stringBuilder->list );
-    PBL_FREE( stringBuilder );
+	pblStringBuilderClear(stringBuilder);
+	pblListFree(stringBuilder->list);
+	PBL_FREE(stringBuilder);
 }
 
 /**
@@ -139,11 +141,11 @@ PblStringBuilder * stringBuilder /** The string builder to free */
  *
  * @return int rc: The number of elements in the string builder.
  */
-int pblStringBuilderSize(        /*                            */
+int pblStringBuilderSize( /*                                   */
 PblStringBuilder * stringBuilder /** The string builder to use */
 )
 {
-    return pblListSize( stringBuilder->list );
+	return pblListSize(stringBuilder->list);
 }
 
 /**
@@ -153,11 +155,11 @@ PblStringBuilder * stringBuilder /** The string builder to use */
  *
  * @return size_t rc: The number of characters in the string builder.
  */
-size_t pblStringBuilderLength(   /*                            */
+size_t pblStringBuilderLength( /*                              */
 PblStringBuilder * stringBuilder /** The string builder to use */
 )
 {
-    return stringBuilder->length;
+	return stringBuilder->length;
 }
 
 /**
@@ -165,38 +167,38 @@ PblStringBuilder * stringBuilder /** The string builder to use */
  * end of the data of the string builder.
  *
  * This function has a time complexity of O(N),
- * with N beeing the length of the string to append.
+ * with N being the length of the string to append.
  *
  * @return size_t rc >= 0: The length of the string builder.
  * @return size_t rc == -1: An error, see pbl_errno:
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-size_t pblStringBuilderAppendStr(    /*                             */
-PblStringBuilder * stringBuilder,    /** The string builder to use  */
-const char * data  /** The data to be added to the string builder   */
+size_t pblStringBuilderAppendStr( /*                             */
+PblStringBuilder * stringBuilder, /** The string builder to use  */
+const char * data /** The data to be added to the string builder */
 )
 {
 	size_t length = 0;
-    char * element = NULL;
+	char * element = NULL;
 
-    if( data )
-    {
-    	length = strlen( data );
-    	element = (char *)pbl_memdup( "pblStringBuilderAppendStr", (void *)data, length + 1 );
-        if( !element )
-        {
-            return (size_t) -1;
-        }
-    }
+	if (data)
+	{
+		length = strlen(data);
+		element = (char *) pbl_memdup("pblStringBuilderAppendStr", (void *) data, length + 1);
+		if (!element)
+		{
+			return (size_t) -1;
+		}
+	}
 
-    if( pblListAdd( stringBuilder->list, element ) < 0 )
-    {
-    	PBL_FREE( element );
-    	return (size_t) -1;
-    }
+	if (pblListAdd(stringBuilder->list, element) < 0)
+	{
+		PBL_FREE(element);
+		return (size_t) -1;
+	}
 
-    return stringBuilder->length += length;
+	return stringBuilder->length += length;
 }
 
 /**
@@ -204,50 +206,49 @@ const char * data  /** The data to be added to the string builder   */
  * end of the data of the string builder.
  *
  * This function has a time complexity of O(N),
- * with N beeing the number of characters to append.
+ * with N being the number of characters to append.
  *
  * @return size_t rc >= 0: The length of the string builder.
  * @return size_t rc == -1: An error, see pbl_errno:
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-size_t pblStringBuilderAppendStrN(     /*                            */
-PblStringBuilder * stringBuilder,      /** The string builder to use */
-size_t n,           /** The maximum number of bytes to append        */
-const char * data   /** The data to be added to the string builder   */
+size_t pblStringBuilderAppendStrN( /*                            */
+PblStringBuilder * stringBuilder, /** The string builder to use  */
+size_t n, /** The maximum number of bytes to append              */
+const char * data /** The data to be added to the string builder */
 )
 {
 	size_t length = 0;
-    char * element = NULL;
+	char * element = NULL;
 
-    if( data && n > 0 )
-    {
-    	element = (char *)pbl_malloc( "pblStringBuilderAppendStrN", n + 1 );
-        if( !element )
-        {
-            return -1;
-        }
+	if (data && n > 0)
+	{
+		element = (char *) pbl_malloc("pblStringBuilderAppendStrN", n + 1);
+		if (!element)
+		{
+			return -1;
+		}
 
 #ifdef WIN32
 		strncpy_s(element, n + 1, data, n);
 #else
-        strncpy( element, data, n );
+		strncpy(element, data, n);
 #endif
-        element[ n ] = '\0';
-        length = strlen( element );
-    }
+		element[n] = '\0';
+		length = strlen(element);
+	}
 
-    if( pblListAdd( stringBuilder->list, element ) < 0 )
-    {
-    	PBL_FREE( element );
-    	return -1;
-    }
+	if (pblListAdd(stringBuilder->list, element) < 0)
+	{
+		PBL_FREE(element);
+		return -1;
+	}
 
-    return stringBuilder->length += length;
+	return stringBuilder->length += length;
 }
 
 #define _PBL_BUFFER_ON_STACK_SIZE_MAX  4096
-
 
 /**
  * Appends a variable string defined by the format parameter to the
@@ -268,41 +269,41 @@ const char * data   /** The data to be added to the string builder   */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_PARAM_FORMAT  - The parameter format is not valid.
  */
-size_t pblStringBuilderAppend(    /*                                        */
-PblStringBuilder * stringBuilder, /** The string builder to use             */
-const char *format,               /** The format of the arguments to append */
-... )                             /** The variable arguments to append      */
+size_t pblStringBuilderAppend( /*                               */
+PblStringBuilder * stringBuilder, /** The string builder to use */
+const char *format, /** The format of the arguments to append   */
+... /** The variable arguments to append                        */
+)
 {
 	char * tag = "pblStringBuilderAppend";
 	size_t size = _PBL_BUFFER_ON_STACK_SIZE_MAX;
-	char buffer[ _PBL_BUFFER_ON_STACK_SIZE_MAX ];
+	char buffer[_PBL_BUFFER_ON_STACK_SIZE_MAX];
 	int rc;
 	va_list args;
 
-	if( !format )
+	if (!format)
 	{
-		return pblStringBuilderAppendStr( stringBuilder, NULL );
+		return pblStringBuilderAppendStr(stringBuilder, NULL);
 	}
 
-	va_start( args, format );
-    rc = vsnprintf( buffer, size, format, args );
-    va_end( args );
+	va_start(args, format);
+	rc = vsnprintf(buffer, size, format, args);
+	va_end(args);
 
-    if( rc < 0 )
-    {
+	if (rc < 0)
+	{
 #ifdef WIN32
 		_snprintf_s(pbl_errstr, PBL_ERRSTR_LEN, PBL_ERRSTR_LEN,
-			"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
+				"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
 #else
-        snprintf( pbl_errstr, PBL_ERRSTR_LEN,
-        		"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno );
+		snprintf(pbl_errstr, PBL_ERRSTR_LEN, "%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
 #endif
-        pbl_errno = PBL_ERROR_PARAM_FORMAT;
+		pbl_errno = PBL_ERROR_PARAM_FORMAT;
 
-        return (size_t) -1;
-    }
+		return (size_t) -1;
+	}
 
-    return pblStringBuilderAppendStr( stringBuilder, buffer );
+	return pblStringBuilderAppendStr(stringBuilder, buffer);
 }
 
 /**
@@ -321,11 +322,12 @@ const char *format,               /** The format of the arguments to append */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_PARAM_FORMAT  - The parameter format is not valid.
  */
-size_t pblStringBuilderAppendN(    /*                                       */
-PblStringBuilder * stringBuilder, /** The string builder to use             */
-size_t n,                         /** The maximum number of bytes to append */
-const char *format,               /** The format of the arguments to append */
-... )                             /** The variable arguments to append      */
+size_t pblStringBuilderAppendN( /*                              */
+PblStringBuilder * stringBuilder, /** The string builder to use */
+size_t n, /** The maximum number of bytes to append             */
+const char *format, /** The format of the arguments to append   */
+... /** The variable arguments to append                        */
+)
 {
 	char * tag = "pblStringBuilderAppendN";
 	char * data = NULL;
@@ -333,53 +335,52 @@ const char *format,               /** The format of the arguments to append */
 	size_t size_t_rc;
 	va_list args;
 
-	if( !format )
+	if (!format)
 	{
-		return pblStringBuilderAppendStr( stringBuilder, NULL );
+		return pblStringBuilderAppendStr(stringBuilder, NULL);
 	}
 
-	if( n < 1 )
+	if (n < 1)
 	{
-		return pblStringBuilderAppendStr( stringBuilder, "" );
+		return pblStringBuilderAppendStr(stringBuilder, "");
 	}
 
-    data = (char *)pbl_malloc( tag, n + 1 );
-    if( !data )
-    {
-        return (size_t) -1;
-    }
+	data = (char *) pbl_malloc(tag, n + 1);
+	if (!data)
+	{
+		return (size_t) -1;
+	}
 
-    va_start( args, format );
-    rc = vsnprintf( data, n + 1, format, args );
-    va_end( args );
+	va_start(args, format);
+	rc = vsnprintf(data, n + 1, format, args);
+	va_end(args);
 
-    if( rc < 0 )
-    {
-    	PBL_FREE( data );
+	if (rc < 0)
+	{
+		PBL_FREE(data);
 
 #ifdef WIN32
 		_snprintf_s(pbl_errstr, PBL_ERRSTR_LEN, PBL_ERRSTR_LEN,
-			"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
+				"%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
 #else
-    	snprintf( pbl_errstr, PBL_ERRSTR_LEN,
-    		       "%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno );
+		snprintf(pbl_errstr, PBL_ERRSTR_LEN, "%s: vsnprintf of format '%s' failed with errno %d\n", tag, format, errno);
 #endif
-    	pbl_errno = PBL_ERROR_PARAM_FORMAT;
+		pbl_errno = PBL_ERROR_PARAM_FORMAT;
 
-    	return (size_t) -1;
-    }
+		return (size_t) -1;
+	}
 
-    data[ n ] = '\0';
-    size_t_rc = pblStringBuilderAppendStr( stringBuilder, data );
-    PBL_FREE( data );
-    return size_t_rc;
+	data[n] = '\0';
+	size_t_rc = pblStringBuilderAppendStr(stringBuilder, data);
+	PBL_FREE(data);
+	return size_t_rc;
 }
 
 /**
  * Converts the string builder's data to a '\0' terminated string.
  *
  * This function has a time complexity of O(N),
- * with N beeing the length of the data of the string builder.
+ * with N being the length of the data of the string builder.
  *
  * Note: The memory for the data returned is malloced,
  * it is the caller's responsibility to free that memory!
@@ -395,53 +396,53 @@ PblStringBuilder * stringBuilder /** The string builder to use */
 {
 	char * tag = "pblStringBuilderToString";
 	int hasNext;
-    char * data = NULL;
-    char * ptr;
-    PblIterator   iteratorBuffer;
-    PblIterator * iterator = &iteratorBuffer;
+	char * data = NULL;
+	char * ptr;
+	PblIterator iteratorBuffer;
+	PblIterator * iterator = &iteratorBuffer;
 
-    if( stringBuilder->length == 0 )
-    {
-    	return (char *)pbl_strdup( tag, "" );
-    }
+	if (stringBuilder->length == 0)
+	{
+		return (char *) pbl_strdup(tag, "");
+	}
 
-    data = (char *)pbl_malloc( tag, stringBuilder->length + 1 );
-    if( !data )
-    {
-    	return (char*) NULL;
-    }
-    ptr = data;
+	data = (char *) pbl_malloc(tag, stringBuilder->length + 1);
+	if (!data)
+	{
+		return (char*) NULL;
+	}
+	ptr = data;
 
-    if( pblIteratorInit( (PblCollection *)stringBuilder->list, iterator ) < 0 )
-    {
-    	PBL_FREE( data );
-        return (char*) NULL;
-    }
+	if (pblIteratorInit((PblCollection *) stringBuilder->list, iterator) < 0)
+	{
+		PBL_FREE(data);
+		return (char*) NULL;
+	}
 
-    while( ( hasNext = pblIteratorHasNext( iterator ) ) > 0 )
-    {
-        char * element = (char*) pblIteratorNext( iterator );
-        if( element == (void*)-1 )
-        {
-            // Concurrent modification
-            //
-        	PBL_FREE( data );
-            return (char*) NULL;
-        }
-        if( element )
-        {
-        	size_t length = strlen( element );
-        	memcpy( ptr, element, length + 1 );
-        	ptr += length;
-        }
-    }
-    if( hasNext < 0 )
-    {
-        // Concurrent modification
-        //
-    	PBL_FREE( data );
-        return (char*) NULL;
-    }
+	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
+	{
+		char * element = (char*) pblIteratorNext(iterator);
+		if (element == (void*) -1)
+		{
+			// Concurrent modification
+			//
+			PBL_FREE(data);
+			return (char*) NULL;
+		}
+		if (element)
+		{
+			size_t length = strlen(element);
+			memcpy(ptr, element, length + 1);
+			ptr += length;
+		}
+	}
+	if (hasNext < 0)
+	{
+		// Concurrent modification
+		//
+		PBL_FREE(data);
+		return (char*) NULL;
+	}
 
-    return data;
+	return data;
 }
