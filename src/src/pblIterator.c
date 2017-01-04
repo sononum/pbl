@@ -1,55 +1,58 @@
 /*
  pblIterator.c - C implementation of an Iterator similar
-                 to the Java Iterator and Java ListIterator.
+ to the Java Iterator and Java ListIterator.
 
  Copyright (C) 2009   Peter Graf
 
-   This file is part of PBL - The Program Base Library.
-   PBL is free software.
+ This file is part of PBL - The Program Base Library.
+ PBL is free software.
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-   For more information on the Program Base Library or Peter Graf,
-   please see: http://www.mission-base.com/.
+ For more information on the Program Base Library or Peter Graf,
+ please see: http://www.mission-base.com/.
 
-    $Log: pblIterator.c,v $
-    Revision 1.12  2016/06/03 21:13:30  peter
-    Syncing with GIT version.
+ $Log: pblIterator.c,v $
+ Revision 1.13  2017/01/04 21:28:38  peter
+ Code formatting
 
-    Revision 1.10  2015/03/23 15:53:10  peter
-    Added the string builder.
+ Revision 1.12  2016/06/03 21:13:30  peter
+ Syncing with GIT version.
 
-    Revision 1.9  2010/05/30 20:06:45  peter
-    Removed warnings found by 'Microsoft Visual C++ 2010'.
+ Revision 1.10  2015/03/23 15:53:10  peter
+ Added the string builder.
 
-    Revision 1.8  2009/03/15 21:29:29  peter
-    *** empty log message ***
+ Revision 1.9  2010/05/30 20:06:45  peter
+ Removed warnings found by 'Microsoft Visual C++ 2010'.
 
-    Revision 1.7  2009/03/11 23:48:44  peter
-    More tests and clean up.
+ Revision 1.8  2009/03/15 21:29:29  peter
+ *** empty log message ***
 
-    Revision 1.6  2009/03/08 20:56:50  peter
-    port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
-    Exposing the hash set and tree set interfaces.
+ Revision 1.7  2009/03/11 23:48:44  peter
+ More tests and clean up.
 
-*/
+ Revision 1.6  2009/03/08 20:56:50  peter
+ port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
+ Exposing the hash set and tree set interfaces.
+
+ */
 
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblIterator_c_id = "$Id: pblIterator.c,v 1.12 2016/06/03 21:13:30 peter Exp $";
+char* pblIterator_c_id = "$Id: pblIterator.c,v 1.13 2017/01/04 21:28:38 peter Exp $";
 
 char * PblIteratorMagic = "PblIteratorMagic";
 
@@ -73,17 +76,17 @@ char * PblIteratorMagic = "PblIteratorMagic";
  */
 typedef struct PblTreeIterator_s
 {
-    char          * magic;         /* The magic string of iterators            */
-    unsigned long   changeCounter; /* The number of changes on the collection  */
-    PblCollection * collection;    /* The collection the iterator works on     */
-    int             index;         /* The current index of the iterator        */
+	char * magic; /* The magic string of iterators                          */
+	unsigned long changeCounter; /* The number of changes on the collection */
+	PblCollection * collection; /* The collection the iterator works on     */
+	int index; /* The current index of the iterator                         */
 
-    int lastIndexReturned;         /* Index of element that was returned last  */
+	int lastIndexReturned; /* Index of element that was returned last       */
 
-    PblTreeNode * current;         /* The current node in the tree set         */
+	PblTreeNode * current; /* The current node in the tree set              */
 
-    PblTreeNode * prev;            /* The previous node in the tree set        */
-    PblTreeNode * next;            /* The next node in the tree set            */
+	PblTreeNode * prev; /* The previous node in the tree set                */
+	PblTreeNode * next; /* The next node in the tree set                    */
 
 } PblTreeIterator;
 
@@ -92,17 +95,17 @@ typedef struct PblTreeIterator_s
  */
 typedef struct PblHashIterator_s
 {
-    char          * magic;         /* The magic string of iterators            */
-    unsigned long   changeCounter; /* The number of changes on the collection  */
-    PblCollection * collection;    /* The collection the iterator works on     */
-    int             index;         /* The current index of the iterator        */
+	char * magic; /* The magic string of iterators                          */
+	unsigned long changeCounter; /* The number of changes on the collection */
+	PblCollection * collection; /* The collection the iterator works on     */
+	int index; /* The current index of the iterator                         */
 
-    int lastIndexReturned;         /* Index of element that was returned last  */
+	int lastIndexReturned; /* Index of element that was returned last       */
 
-    void ** current;               /* The current element in the hash          */
+	void ** current; /* The current element in the hash                     */
 
-    void ** prev;                  /* The previous element in the hash         */
-    void ** next;                  /* The next element in the hash             */
+	void ** prev; /* The previous element in the hash                       */
+	void ** next; /* The next element in the hash                           */
 
 } PblHashIterator;
 
@@ -136,31 +139,31 @@ typedef struct PblHashIterator_s
  * <BR>PBL_ERROR_OUT_OF_MEMORY       - Out of memory.
  * <BR>PBL_ERROR_PARAM_COLLECTION    - The collection cannot be iterated.
  */
-PblIterator * pblIteratorNew(
-PblCollection * collection     /** The collection to create the iterator for */
+PblIterator * pblIteratorNew( /*                                         */
+PblCollection * collection /** The collection to create the iterator for */
 )
 {
-    PblIterator * iterator;
+	PblIterator * iterator;
 
-    if( !PBL_COLLECTION_IS_COLLECTION( collection ) )
-    {
-        pbl_errno = PBL_ERROR_PARAM_COLLECTION;
-        return NULL;
-    }
+	if (!PBL_COLLECTION_IS_COLLECTION(collection))
+	{
+		pbl_errno = PBL_ERROR_PARAM_COLLECTION;
+		return NULL;
+	}
 
-    iterator = (PblIterator *)pbl_malloc( "pblIteratorNew", sizeof(PblIterator) );
-    if( !iterator )
-    {
-        return NULL;
-    }
+	iterator = (PblIterator *) pbl_malloc("pblIteratorNew", sizeof(PblIterator));
+	if (!iterator)
+	{
+		return NULL;
+	}
 
-    if( pblIteratorInit( collection, iterator ) < 0 )
-    {
-        PBL_FREE( iterator );
-        return NULL;
-    }
+	if (pblIteratorInit(collection, iterator) < 0)
+	{
+		PBL_FREE(iterator);
+		return NULL;
+	}
 
-    return (PblIterator *)iterator;
+	return (PblIterator *) iterator;
 }
 
 /*
@@ -185,50 +188,48 @@ PblCollection * collection     /** The collection to create the iterator for */
  *
  * <BR>PBL_ERROR_PARAM_COLLECTION    - The collection cannot be iterated.
  */
-int pblIteratorInit(
-PblCollection * collection,    /** The collection to create the iterator for */
-PblIterator   * iterator       /** The iterator to initialize                */
+int pblIteratorInit( /*                                                   */
+PblCollection * collection, /** The collection to create the iterator for */
+PblIterator * iterator /** The iterator to initialize                     */
 )
 {
-    if( !PBL_COLLECTION_IS_COLLECTION( collection ) )
-    {
-        pbl_errno = PBL_ERROR_PARAM_COLLECTION;
-        return -1;
-    }
+	if (!PBL_COLLECTION_IS_COLLECTION(collection))
+	{
+		pbl_errno = PBL_ERROR_PARAM_COLLECTION;
+		return -1;
+	}
 
-    iterator->magic = PblIteratorMagic;
-    iterator->collection = collection;
-    iterator->index = 0;
-    iterator->lastIndexReturned = -1;
-    iterator->changeCounter = collection->changeCounter;
+	iterator->magic = PblIteratorMagic;
+	iterator->collection = collection;
+	iterator->index = 0;
+	iterator->lastIndexReturned = -1;
+	iterator->changeCounter = collection->changeCounter;
 
-    iterator->current = NULL;
-    iterator->prev = NULL;
+	iterator->current = NULL;
+	iterator->prev = NULL;
 
-    if( PBL_SET_IS_HASH_SET( collection ) )
-    {
-        PblHashIterator * hashIterator = (PblHashIterator *)iterator;
-        hashIterator->next = pblHashElementFirst( (PblHashSet*)collection );
-    }
-    else if( PBL_SET_IS_TREE_SET( collection ) )
-    {
-        PblTreeIterator * treeIterator = (PblTreeIterator *)iterator;
-        PblTreeSet * treeSet = (PblTreeSet*)collection;
-        treeIterator->next
-                = treeSet->rootNode ? pblTreeNodeFirst( treeSet->rootNode )
-                        : NULL;
-    }
-    else if( PBL_LIST_IS_LINKED_LIST( collection ) )
-    {
-        PblLinkedList * linkedList = (PblLinkedList*)collection;
-        iterator->next = linkedList->head;
-    }
-    else
-    {
-        iterator->next = NULL;
-    }
+	if (PBL_SET_IS_HASH_SET(collection))
+	{
+		PblHashIterator * hashIterator = (PblHashIterator *) iterator;
+		hashIterator->next = pblHashElementFirst((PblHashSet*) collection);
+	}
+	else if (PBL_SET_IS_TREE_SET(collection))
+	{
+		PblTreeIterator * treeIterator = (PblTreeIterator *) iterator;
+		PblTreeSet * treeSet = (PblTreeSet*) collection;
+		treeIterator->next = treeSet->rootNode ? pblTreeNodeFirst(treeSet->rootNode) : NULL;
+	}
+	else if (PBL_LIST_IS_LINKED_LIST(collection))
+	{
+		PblLinkedList * linkedList = (PblLinkedList*) collection;
+		iterator->next = linkedList->head;
+	}
+	else
+	{
+		iterator->next = NULL;
+	}
 
-    return 0;
+	return 0;
 }
 
 /**
@@ -257,31 +258,31 @@ PblIterator   * iterator       /** The iterator to initialize                */
  * <BR>PBL_ERROR_OUT_OF_MEMORY      - Out of memory.
  * <BR>PBL_COLLECTION_IS_COLLECTION - The collection cannot be iterated.
  */
-PblIterator * pblIteratorReverseNew(
-PblCollection * collection          /** The collection to create the iterator for */
+PblIterator * pblIteratorReverseNew( /*                                  */
+PblCollection * collection /** The collection to create the iterator for */
 )
 {
-    PblIterator * iterator;
+	PblIterator * iterator;
 
-    if( !PBL_COLLECTION_IS_COLLECTION( collection ) )
-    {
-        pbl_errno = PBL_ERROR_PARAM_COLLECTION;
-        return NULL;
-    }
+	if (!PBL_COLLECTION_IS_COLLECTION(collection))
+	{
+		pbl_errno = PBL_ERROR_PARAM_COLLECTION;
+		return NULL;
+	}
 
-    iterator = (PblIterator *)pbl_malloc( "pblIteratorReverseNew", sizeof(PblIterator) );
-    if( !iterator )
-    {
-        return NULL;
-    }
+	iterator = (PblIterator *) pbl_malloc("pblIteratorReverseNew", sizeof(PblIterator));
+	if (!iterator)
+	{
+		return NULL;
+	}
 
-    if( pblIteratorReverseInit( collection, iterator ) < 0 )
-    {
-        PBL_FREE( iterator );
-        return NULL;
-    }
+	if (pblIteratorReverseInit(collection, iterator) < 0)
+	{
+		PBL_FREE(iterator);
+		return NULL;
+	}
 
-    return (PblIterator *)iterator;
+	return (PblIterator *) iterator;
 }
 
 /*
@@ -309,50 +310,48 @@ PblCollection * collection          /** The collection to create the iterator fo
  *
  * <BR>PBL_COLLECTION_IS_COLLECTION - The collection cannot be iterated.
  */
-int pblIteratorReverseInit(
-PblCollection * collection,          /** The collection to create the iterator for */
-PblIterator   * iterator             /** The iterator to initialize                */
+int pblIteratorReverseInit( /*                                            */
+PblCollection * collection, /** The collection to create the iterator for */
+PblIterator * iterator /** The iterator to initialize                     */
 )
 {
-    if( !PBL_COLLECTION_IS_COLLECTION( collection ) )
-    {
-        pbl_errno = PBL_ERROR_PARAM_LIST;
-        return -1;
-    }
+	if (!PBL_COLLECTION_IS_COLLECTION(collection))
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return -1;
+	}
 
-    iterator->magic = PblIteratorMagic;
-    iterator->collection = collection;
-    iterator->index = collection->size;
-    iterator->lastIndexReturned = -1;
-    iterator->changeCounter = collection->changeCounter;
+	iterator->magic = PblIteratorMagic;
+	iterator->collection = collection;
+	iterator->index = collection->size;
+	iterator->lastIndexReturned = -1;
+	iterator->changeCounter = collection->changeCounter;
 
-    iterator->current = NULL;
-    iterator->next = NULL;
+	iterator->current = NULL;
+	iterator->next = NULL;
 
-    if( PBL_SET_IS_HASH_SET( collection ) )
-    {
-        PblHashIterator * hashIterator = (PblHashIterator *)iterator;
-        hashIterator->prev = pblHashElementLast( (PblHashSet*)collection );
-    }
-    else if( PBL_SET_IS_TREE_SET( collection ) )
-    {
-        PblTreeIterator * treeIterator = (PblTreeIterator *)iterator;
-        PblTreeSet * treeSet = (PblTreeSet*)collection;
-        treeIterator->prev
-                = treeSet->rootNode ? pblTreeNodeLast( treeSet->rootNode )
-                        : NULL;
-    }
-    else if( PBL_LIST_IS_LINKED_LIST( collection ) )
-    {
-        PblLinkedList * linkedList = (PblLinkedList*)collection;
-        iterator->prev = linkedList->tail;
-    }
-    else
-    {
-        iterator->prev = NULL;
-    }
+	if (PBL_SET_IS_HASH_SET(collection))
+	{
+		PblHashIterator * hashIterator = (PblHashIterator *) iterator;
+		hashIterator->prev = pblHashElementLast((PblHashSet*) collection);
+	}
+	else if (PBL_SET_IS_TREE_SET(collection))
+	{
+		PblTreeIterator * treeIterator = (PblTreeIterator *) iterator;
+		PblTreeSet * treeSet = (PblTreeSet*) collection;
+		treeIterator->prev = treeSet->rootNode ? pblTreeNodeLast(treeSet->rootNode) : NULL;
+	}
+	else if (PBL_LIST_IS_LINKED_LIST(collection))
+	{
+		PblLinkedList * linkedList = (PblLinkedList*) collection;
+		iterator->prev = linkedList->tail;
+	}
+	else
+	{
+		iterator->prev = NULL;
+	}
 
-    return 0;
+	return 0;
 }
 
 /**
@@ -370,21 +369,21 @@ PblIterator   * iterator             /** The iterator to initialize             
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying collection was modified concurrently.
  *
  */
-int pblIteratorHasPrevious(
+int pblIteratorHasPrevious( /*                                            */
 PblIterator * iterator /** The iterator to check the previous element for */
 )
 {
-    if( iterator->changeCounter != iterator->collection->changeCounter )
-    {
-        pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
-        return -1;
-    }
+	if (iterator->changeCounter != iterator->collection->changeCounter)
+	{
+		pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
+		return -1;
+	}
 
-    if( iterator->index > 0 && iterator->index <= iterator->collection->size )
-    {
-        return 1;
-    }
-    return 0;
+	if (iterator->index > 0 && iterator->index <= iterator->collection->size)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 /**
@@ -401,21 +400,21 @@ PblIterator * iterator /** The iterator to check the previous element for */
  *
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying collection was modified concurrently.
  */
-int pblIteratorHasNext(
+int pblIteratorHasNext( /*                                            */
 PblIterator * iterator /** The iterator to check the next element for */
 )
 {
-    if( iterator->changeCounter != iterator->collection->changeCounter )
-    {
-        pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
-        return -1;
-    }
+	if (iterator->changeCounter != iterator->collection->changeCounter)
+	{
+		pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
+		return -1;
+	}
 
-    if( iterator->index >= 0 && iterator->index < iterator->collection->size )
-    {
-        return 1;
-    }
-    return 0;
+	if (iterator->index >= 0 && iterator->index < iterator->collection->size)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 /**
@@ -434,85 +433,83 @@ PblIterator * iterator /** The iterator to check the next element for */
  * <BR>PBL_ERROR_NOT_FOUND               - The iteration has no more elements.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying collection was modified concurrently.
  */
-void * pblIteratorNext(
+void * pblIteratorNext( /*                                             */
 PblIterator * iterator /** The iterator to return the next element for */
 )
 {
-    void * element;
-    int hasNext = pblIteratorHasNext( iterator );
-    if( hasNext < 0 )
-    {
-        return (void*)-1;
-    }
+	void * element;
+	int hasNext = pblIteratorHasNext(iterator);
+	if (hasNext < 0)
+	{
+		return (void*) -1;
+	}
 
-    if( !hasNext )
-    {
-        pbl_errno = PBL_ERROR_NOT_FOUND;
-        return (void*)-1;
-    }
+	if (!hasNext)
+	{
+		pbl_errno = PBL_ERROR_NOT_FOUND;
+		return (void*) -1;
+	}
 
-    if( PBL_SET_IS_HASH_SET( iterator->collection ) )
-    {
-        PblHashIterator * hashIterator = (PblHashIterator *)iterator;
+	if (PBL_SET_IS_HASH_SET(iterator->collection))
+	{
+		PblHashIterator * hashIterator = (PblHashIterator *) iterator;
 
-        if( !hashIterator->next )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
+		if (!hashIterator->next)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
 
-        hashIterator->current = hashIterator->next;
-        hashIterator->prev = hashIterator->next;
-        hashIterator->next
-                = pblHashElementNext( (PblHashSet *)hashIterator->collection,
-                                      hashIterator->next );
+		hashIterator->current = hashIterator->next;
+		hashIterator->prev = hashIterator->next;
+		hashIterator->next = pblHashElementNext((PblHashSet *) hashIterator->collection, hashIterator->next);
 
-        element = *( hashIterator->current );
-    }
-    else if( PBL_SET_IS_TREE_SET( iterator->collection ) )
-    {
-        PblTreeIterator * treeIterator = (PblTreeIterator *)iterator;
+		element = *(hashIterator->current);
+	}
+	else if (PBL_SET_IS_TREE_SET(iterator->collection))
+	{
+		PblTreeIterator * treeIterator = (PblTreeIterator *) iterator;
 
-        if( !treeIterator->next )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
+		if (!treeIterator->next)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
 
-        treeIterator->current = treeIterator->next;
-        treeIterator->prev = treeIterator->next;
-        treeIterator->next = pblTreeNodeNext( treeIterator->next );
+		treeIterator->current = treeIterator->next;
+		treeIterator->prev = treeIterator->next;
+		treeIterator->next = pblTreeNodeNext(treeIterator->next);
 
-        element = treeIterator->current->element;
-    }
-    else if( PBL_LIST_IS_LINKED_LIST( iterator->collection ) )
-    {
-        if( !iterator->next )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
+		element = treeIterator->current->element;
+	}
+	else if (PBL_LIST_IS_LINKED_LIST(iterator->collection))
+	{
+		if (!iterator->next)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
 
-        iterator->current = iterator->next;
-        iterator->prev = iterator->next;
-        iterator->next = iterator->next->next;
+		iterator->current = iterator->next;
+		iterator->prev = iterator->next;
+		iterator->next = iterator->next->next;
 
-        element = iterator->current->element;
-    }
-    else
-    {
-        element = pblListGet( (PblList*)iterator->collection, iterator->index );
-        if( element == (void*)-1 )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
-    }
+		element = iterator->current->element;
+	}
+	else
+	{
+		element = pblListGet((PblList*) iterator->collection, iterator->index);
+		if (element == (void*) -1)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
+	}
 
-    iterator->lastIndexReturned = iterator->index;
-    iterator->index++;
+	iterator->lastIndexReturned = iterator->index;
+	iterator->index++;
 
-    return element;
+	return element;
 }
 
 /**
@@ -531,87 +528,83 @@ PblIterator * iterator /** The iterator to return the next element for */
  * <BR>PBL_ERROR_NOT_FOUND               - The iteration has no more elements.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying collection was modified concurrently.
  */
-void * pblIteratorPrevious(
+void * pblIteratorPrevious( /*                                             */
 PblIterator * iterator /** The iterator to return the previous element for */
 )
 {
-    void * element;
-    int hasPrevious = pblIteratorHasPrevious( iterator );
-    if( hasPrevious < 0 )
-    {
-        return (void*)-1;
-    }
-    if( !hasPrevious )
-    {
-        pbl_errno = PBL_ERROR_NOT_FOUND;
-        return (void*)-1;
-    }
+	void * element;
+	int hasPrevious = pblIteratorHasPrevious(iterator);
+	if (hasPrevious < 0)
+	{
+		return (void*) -1;
+	}
+	if (!hasPrevious)
+	{
+		pbl_errno = PBL_ERROR_NOT_FOUND;
+		return (void*) -1;
+	}
 
-    if( PBL_SET_IS_HASH_SET( iterator->collection ) )
-    {
-        PblHashIterator * hashIterator = (PblHashIterator *)iterator;
+	if (PBL_SET_IS_HASH_SET(iterator->collection))
+	{
+		PblHashIterator * hashIterator = (PblHashIterator *) iterator;
 
-        if( !hashIterator->prev )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
+		if (!hashIterator->prev)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
 
-        hashIterator->current = hashIterator->prev;
-        hashIterator->next = hashIterator->prev;
-        hashIterator->prev
-                = pblHashElementPrevious(
-                                          (PblHashSet *)hashIterator->collection,
-                                          hashIterator->prev );
+		hashIterator->current = hashIterator->prev;
+		hashIterator->next = hashIterator->prev;
+		hashIterator->prev = pblHashElementPrevious((PblHashSet *) hashIterator->collection, hashIterator->prev);
 
-        element = *( hashIterator->current );
-    }
-    else if( PBL_SET_IS_TREE_SET( iterator->collection ) )
-    {
-        PblTreeIterator * treeIterator = (PblTreeIterator *)iterator;
+		element = *(hashIterator->current);
+	}
+	else if (PBL_SET_IS_TREE_SET(iterator->collection))
+	{
+		PblTreeIterator * treeIterator = (PblTreeIterator *) iterator;
 
-        if( !treeIterator->prev )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
+		if (!treeIterator->prev)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
 
-        treeIterator->current = treeIterator->prev;
-        treeIterator->next = treeIterator->prev;
-        treeIterator->prev = pblTreeNodePrevious( treeIterator->prev );
+		treeIterator->current = treeIterator->prev;
+		treeIterator->next = treeIterator->prev;
+		treeIterator->prev = pblTreeNodePrevious(treeIterator->prev);
 
-        element = treeIterator->current->element;
-    }
-    else if( PBL_LIST_IS_LINKED_LIST( iterator->collection ) )
-    {
-        if( !iterator->prev )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
+		element = treeIterator->current->element;
+	}
+	else if (PBL_LIST_IS_LINKED_LIST(iterator->collection))
+	{
+		if (!iterator->prev)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
 
-        iterator->current = iterator->prev;
-        iterator->next = iterator->prev;
-        iterator->prev = iterator->prev->prev;
+		iterator->current = iterator->prev;
+		iterator->next = iterator->prev;
+		iterator->prev = iterator->prev->prev;
 
-        element = iterator->current->element;
-    }
-    else
-    {
-        element = pblListGet( (PblList*)iterator->collection, iterator->index
-                - 1 );
+		element = iterator->current->element;
+	}
+	else
+	{
+		element = pblListGet((PblList*) iterator->collection, iterator->index - 1);
 
-        if( element == (void*)-1 )
-        {
-            pbl_errno = PBL_ERROR_NOT_FOUND;
-            return (void*)-1;
-        }
-    }
+		if (element == (void*) -1)
+		{
+			pbl_errno = PBL_ERROR_NOT_FOUND;
+			return (void*) -1;
+		}
+	}
 
-    iterator->index--;
-    iterator->lastIndexReturned = iterator->index;
+	iterator->index--;
+	iterator->lastIndexReturned = iterator->index;
 
-    return element;
+	return element;
 }
 
 /**
@@ -640,87 +633,86 @@ PblIterator * iterator /** The iterator to return the previous element for */
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying list was modified concurrently.
  * <BR>PBL_ERROR_PARAM_LIST              - The underlying collection is not a list.
  */
-int pblIteratorAdd(
+int pblIteratorAdd( /*                                         */
 PblIterator * iterator, /** The iterator to add the element to */
-void * element          /** Element to be added to this list   */
+void * element /** Element to be added to this list            */
 )
 {
-    PblList * list = (PblList*)iterator->collection;
+	PblList * list = (PblList*) iterator->collection;
 
-    if( !PBL_LIST_IS_LIST( list ) )
-    {
-        pbl_errno = PBL_ERROR_PARAM_LIST;
-        return -1;
-    }
+	if (!PBL_LIST_IS_LIST(list))
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return -1;
+	}
 
-    if( iterator->changeCounter != list->changeCounter )
-    {
-        pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
-        return -1;
-    }
+	if (iterator->changeCounter != list->changeCounter)
+	{
+		pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
+		return -1;
+	}
 
-    if( list->size == 0 )
-    {
-        if( pblListAdd( (PblList*)list, element ) < 1 )
-        {
-            return -1;
-        }
+	if (list->size == 0)
+	{
+		if (pblListAdd((PblList*) list, element) < 1)
+		{
+			return -1;
+		}
 
-        iterator->index = 1;
-        iterator->next = NULL;
+		iterator->index = 1;
+		iterator->next = NULL;
 
-        iterator->lastIndexReturned = -1;
-        iterator->current = NULL;
+		iterator->lastIndexReturned = -1;
+		iterator->current = NULL;
 
-        if( PBL_LIST_IS_LINKED_LIST( list ) )
-        {
-            PblLinkedList * linkedList = (PblLinkedList*)list;
-            iterator->prev = linkedList->tail;
-        }
-        iterator->changeCounter = list->changeCounter;
-        return 1;
-    }
+		if (PBL_LIST_IS_LINKED_LIST(list))
+		{
+			PblLinkedList * linkedList = (PblLinkedList*) list;
+			iterator->prev = linkedList->tail;
+		}
+		iterator->changeCounter = list->changeCounter;
+		return 1;
+	}
 
-    if( PBL_LIST_IS_ARRAY_LIST( list ) )
-    {
-        int rc = pblListAddAt( (PblList*)list, iterator->index, element );
-        if( rc < 0 )
-        {
-            return -1;
-        }
-    }
-    else
-    {
-        PblLinkedList * linkedList = (PblLinkedList*)list;
-        PblLinkedNode * newNode = (PblLinkedNode *)pbl_malloc( "pblIteratorAdd",
-                                              sizeof(PblLinkedNode) );
-        if( !newNode )
-        {
-            return -1;
-        }
-        newNode->element = element;
+	if (PBL_LIST_IS_ARRAY_LIST(list))
+	{
+		int rc = pblListAddAt((PblList*) list, iterator->index, element);
+		if (rc < 0)
+		{
+			return -1;
+		}
+	}
+	else
+	{
+		PblLinkedList * linkedList = (PblLinkedList*) list;
+		PblLinkedNode * newNode = (PblLinkedNode *) pbl_malloc("pblIteratorAdd", sizeof(PblLinkedNode));
+		if (!newNode)
+		{
+			return -1;
+		}
+		newNode->element = element;
 
-        if( !iterator->next )
-        {
-            PBL_LIST_APPEND( linkedList->head, linkedList->tail, newNode, next, prev );
-        }
-        else
-        {
-            PBL_LIST_INSERT( linkedList->head, iterator->next, newNode, next, prev );
-        }
-        linkedList->collection.size++;
-        linkedList->collection.changeCounter++;
+		if (!iterator->next)
+		{
+			PBL_LIST_APPEND(linkedList->head, linkedList->tail, newNode, next, prev);
+		}
+		else
+		{
+			PBL_LIST_INSERT(linkedList->head, iterator->next, newNode, next, prev);
+		}
+		linkedList->collection.size++;
+		linkedList->collection.changeCounter++;
 
-        iterator->prev = newNode;
-    }
+		iterator->prev = newNode;
+	}
 
-    iterator->lastIndexReturned = -1;
-    iterator->current = NULL;
+	iterator->lastIndexReturned = -1;
+	iterator->current = NULL;
 
-    iterator->index++;
+	iterator->index++;
 
-    iterator->changeCounter = list->changeCounter;
-    return list->size;
+	iterator->changeCounter = list->changeCounter;
+	return list->size;
 }
 
 /**
@@ -746,99 +738,97 @@ void * element          /** Element to be added to this list   */
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying list or tree set was modified concurrently.
  * <BR>PBL_ERROR_PARAM_LIST              - The underlying collection is neither a list nor a tree set.
  */
-int pblIteratorRemove(
+int pblIteratorRemove( /*                                               */
 PblIterator * iterator /** The iterator to remove the next element from */
 )
 {
-    if( iterator->changeCounter != iterator->collection->changeCounter )
-    {
-        pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
-        return -1;
-    }
+	if (iterator->changeCounter != iterator->collection->changeCounter)
+	{
+		pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
+		return -1;
+	}
 
-    if( PBL_SET_IS_TREE_SET( iterator->collection ) )
-    {
-        PblTreeIterator * treeIterator = (PblTreeIterator *)iterator;
+	if (PBL_SET_IS_TREE_SET(iterator->collection))
+	{
+		PblTreeIterator * treeIterator = (PblTreeIterator *) iterator;
 
-        if( !treeIterator->current )
-        {
-            pbl_errno = PBL_ERROR_NOT_ALLOWED;
-            return -1;
-        }
-        else
-        {
-            if( treeIterator->next == treeIterator->current )
-            {
-                treeIterator->next = pblTreeNodeNext( treeIterator->next );
-            }
-            else if( treeIterator->prev == treeIterator->current )
-            {
-                treeIterator->prev = pblTreeNodePrevious( treeIterator->prev );
-            }
+		if (!treeIterator->current)
+		{
+			pbl_errno = PBL_ERROR_NOT_ALLOWED;
+			return -1;
+		}
+		else
+		{
+			if (treeIterator->next == treeIterator->current)
+			{
+				treeIterator->next = pblTreeNodeNext(treeIterator->next);
+			}
+			else if (treeIterator->prev == treeIterator->current)
+			{
+				treeIterator->prev = pblTreeNodePrevious(treeIterator->prev);
+			}
 
-            pblSetRemoveElement( (PblSet*)treeIterator->collection,
-                                 treeIterator->current->element );
-        }
-    }
-    else if( PBL_LIST_IS_LINKED_LIST( iterator->collection ) )
-    {
-        if( !iterator->current )
-        {
-            pbl_errno = PBL_ERROR_NOT_ALLOWED;
-            return -1;
-        }
-        else
-        {
-            PblLinkedList * linkedList = (PblLinkedList *)iterator->collection;
-            PblLinkedNode * nodeToFree = iterator->current;
+			pblSetRemoveElement((PblSet*) treeIterator->collection, treeIterator->current->element);
+		}
+	}
+	else if (PBL_LIST_IS_LINKED_LIST(iterator->collection))
+	{
+		if (!iterator->current)
+		{
+			pbl_errno = PBL_ERROR_NOT_ALLOWED;
+			return -1;
+		}
+		else
+		{
+			PblLinkedList * linkedList = (PblLinkedList *) iterator->collection;
+			PblLinkedNode * nodeToFree = iterator->current;
 
-            if( iterator->next == iterator->current )
-            {
-                iterator->next = iterator->next->next;
-            }
-            else if( iterator->prev == iterator->current )
-            {
-                iterator->prev = iterator->prev->prev;
-            }
+			if (iterator->next == iterator->current)
+			{
+				iterator->next = iterator->next->next;
+			}
+			else if (iterator->prev == iterator->current)
+			{
+				iterator->prev = iterator->prev->prev;
+			}
 
-            PBL_LIST_UNLINK( linkedList->head, linkedList->tail, nodeToFree, next, prev );
-            linkedList->collection.size--;
-            linkedList->collection.changeCounter++;
+			PBL_LIST_UNLINK(linkedList->head, linkedList->tail, nodeToFree, next, prev);
+			linkedList->collection.size--;
+			linkedList->collection.changeCounter++;
 
-            PBL_FREE( nodeToFree );
-        }
-    }
-    else if( PBL_LIST_IS_ARRAY_LIST( iterator->collection ) )
-    {
-        if( iterator->lastIndexReturned < 0 )
-        {
-            pbl_errno = PBL_ERROR_NOT_ALLOWED;
-            return -1;
-        }
+			PBL_FREE(nodeToFree);
+		}
+	}
+	else if (PBL_LIST_IS_ARRAY_LIST(iterator->collection))
+	{
+		if (iterator->lastIndexReturned < 0)
+		{
+			pbl_errno = PBL_ERROR_NOT_ALLOWED;
+			return -1;
+		}
 
-        if( pblArrayListRemoveAt( (PblArrayList*)iterator->collection,
-                                  iterator->lastIndexReturned ) == (void*)-1 )
-        {
-            return -1;
-        }
-    }
-    else
-    {
-        pbl_errno = PBL_ERROR_PARAM_LIST;
-        return -1;
-    }
+		if (pblArrayListRemoveAt((PblArrayList*) iterator->collection, iterator->lastIndexReturned) == (void*) -1)
+		{
+			return -1;
+		}
+	}
+	else
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return -1;
+	}
 
-    if( iterator->lastIndexReturned < iterator->index )
-    {
-        iterator->index--;
-    }
+	if (iterator->lastIndexReturned < iterator->index)
+	{
+		iterator->index--;
+	}
 
-    iterator->current = NULL;
-    iterator->lastIndexReturned = -1;
+	iterator->current = NULL;
+	iterator->lastIndexReturned = -1;
 
-    iterator->changeCounter = iterator->collection->changeCounter;
+	iterator->changeCounter = iterator->collection->changeCounter;
 
-    return iterator->collection->size;
+	return iterator->collection->size;
 }
 
 /**
@@ -853,57 +843,56 @@ PblIterator * iterator /** The iterator to remove the next element from */
  * @return void * retptr == (void*)-1: An error, see pbl_errno:
  *
  * <BR>PBL_ERROR_NOT_ALLOWED     - Neither the next nor previous have been called,
- *                             or remove or add have been called after the last
- *                             call to next or previous.
+ *                                 or remove or add have been called after the last
+ *                                 call to next or previous.
  *
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The underlying list was modified concurrently.
  * <BR>PBL_ERROR_PARAM_LIST              - The underlying collection is not a list.
  */
-void * pblIteratorSet(
-PblIterator * iterator, /** The iterator to replace the element of. */
-void * element          /** Element with which to replace the last element returned by next or previous. */
+void * pblIteratorSet( /*                                                                      */
+PblIterator * iterator, /** The iterator to replace the element of                             */
+void * element /** Element with which to replace the last element returned by next or previous */
 )
 {
-    void * retptr = (void*)-1;
+	void * retptr = (void*) -1;
 
-    if( !PBL_LIST_IS_LIST( iterator->collection ) )
-    {
-        pbl_errno = PBL_ERROR_PARAM_LIST;
-        return retptr;
-    }
+	if (!PBL_LIST_IS_LIST(iterator->collection))
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return retptr;
+	}
 
-    if( iterator->changeCounter != iterator->collection->changeCounter )
-    {
-        pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
-        return retptr;
-    }
+	if (iterator->changeCounter != iterator->collection->changeCounter)
+	{
+		pbl_errno = PBL_ERROR_CONCURRENT_MODIFICATION;
+		return retptr;
+	}
 
-    if( PBL_LIST_IS_LINKED_LIST( iterator->collection ) )
-    {
-        if( !iterator->current )
-        {
-            pbl_errno = PBL_ERROR_NOT_ALLOWED;
-            return retptr;
-        }
-        else
-        {
-            retptr = iterator->current->element;
-            iterator->current->element = element;
-        }
-    }
-    else
-    {
-        if( iterator->lastIndexReturned < 0 )
-        {
-            pbl_errno = PBL_ERROR_NOT_ALLOWED;
-            return retptr;
-        }
+	if (PBL_LIST_IS_LINKED_LIST(iterator->collection))
+	{
+		if (!iterator->current)
+		{
+			pbl_errno = PBL_ERROR_NOT_ALLOWED;
+			return retptr;
+		}
+		else
+		{
+			retptr = iterator->current->element;
+			iterator->current->element = element;
+		}
+	}
+	else
+	{
+		if (iterator->lastIndexReturned < 0)
+		{
+			pbl_errno = PBL_ERROR_NOT_ALLOWED;
+			return retptr;
+		}
 
-        retptr = pblListSet( (PblList*)iterator->collection,
-                             iterator->lastIndexReturned, element );
-    }
+		retptr = pblListSet((PblList*) iterator->collection, iterator->lastIndexReturned, element);
+	}
 
-    return retptr;
+	return retptr;
 }
 
 /**
@@ -916,11 +905,11 @@ void * element          /** Element with which to replace the last element retur
  * @return int rc: The index of the element that would be returned by a subsequent call to next,
  *                 or list size if list iterator is at end of list.
  */
-int pblIteratorNextIndex(
+int pblIteratorNextIndex( /*                   */
 PblIterator * iterator /** The iterator to use */
 )
 {
-    return iterator->index;
+	return iterator->index;
 }
 
 /**
@@ -933,11 +922,11 @@ PblIterator * iterator /** The iterator to use */
  * @return int rc: The index of the element that would be returned by a subsequent call to previous,
  *                 or -1 if list iterator is at beginning of list.
  */
-int pblIteratorPreviousIndex(
+int pblIteratorPreviousIndex( /*               */
 PblIterator * iterator /** The iterator to use */
 )
 {
-    return iterator->index - 1;
+	return iterator->index - 1;
 }
 
 /**
@@ -947,11 +936,11 @@ PblIterator * iterator /** The iterator to use */
  *
  * @return int rc: The number of elements in the collection.
  */
-int pblIteratorSize(
+int pblIteratorSize( /*                        */
 PblIterator * iterator /** The iterator to use */
 )
 {
-    return iterator->collection->size;
+	return iterator->collection->size;
 }
 
 /**
@@ -961,13 +950,9 @@ PblIterator * iterator /** The iterator to use */
  *
  * Must be called once the iterator is no longer needed.
  */
-void pblIteratorFree(
+void pblIteratorFree( /*                        */
 PblIterator * iterator /** The iterator to free */
 )
 {
-    PBL_FREE(iterator);
+	PBL_FREE(iterator);
 }
-
-
-
-
