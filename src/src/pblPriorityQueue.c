@@ -24,17 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblPriorityQueue.c,v $
- Revision 1.14  2011/09/08 18:01:03  peter
- Fixed some typos.
+ Revision 1.15  2017/01/04 20:55:35  peter
+ Code formatting
 
- Revision 1.13  2011/02/08 22:01:35  peter
- Removed some typos.
-
- Revision 1.12  2010/10/01 20:44:31  peter
- Port to 64 bit windows
-
- Revision 1.11  2010/08/29 15:29:31  peter
- Added the heap functions.
 
  Revision 1.10  2010/08/20 20:10:25  peter
  Implemented the priority queue functions.
@@ -45,8 +37,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblPriorityQueue_c_id =
-        "$Id: pblPriorityQueue.c,v 1.14 2011/09/08 18:01:03 peter Exp $";
+char* pblPriorityQueue_c_id = "$Id: pblPriorityQueue.c,v 1.15 2017/01/04 20:55:35 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -58,14 +49,6 @@ char* pblPriorityQueue_c_id =
 #include <stdlib.h>
 
 #include "pbl.h"
-
-/*****************************************************************************/
-/* #defines                                                                  */
-/*****************************************************************************/
-
-/*****************************************************************************/
-/* Function declarations                                                     */
-/*****************************************************************************/
 
 /*****************************************************************************/
 /* Functions                                                                 */
@@ -85,31 +68,31 @@ const void * left, /* The left value for the comparison  */
 const void * right /* The right value for the comparison */
 )
 {
-    PblPriorityQueueEntry * leftEntry = *(PblPriorityQueueEntry**)left;
-    PblPriorityQueueEntry * rightEntry = *(PblPriorityQueueEntry**)right;
+	PblPriorityQueueEntry * leftEntry = *(PblPriorityQueueEntry**) left;
+	PblPriorityQueueEntry * rightEntry = *(PblPriorityQueueEntry**) right;
 
-    if( !leftEntry )
-    {
-        if( rightEntry )
-        {
-            return -1;
-        }
-        return 0;
-    }
-    if( !rightEntry )
-    {
-        return 1;
-    }
+	if (!leftEntry)
+	{
+		if (rightEntry)
+		{
+			return -1;
+		}
+		return 0;
+	}
+	if (!rightEntry)
+	{
+		return 1;
+	}
 
-    if( leftEntry->priority < rightEntry->priority )
-    {
-        return -1;
-    }
-    if( leftEntry->priority == rightEntry->priority )
-    {
-        return 0;
-    }
-    return 1;
+	if (leftEntry->priority < rightEntry->priority)
+	{
+		return -1;
+	}
+	if (leftEntry->priority == rightEntry->priority)
+	{
+		return 0;
+	}
+	return 1;
 }
 
 /**
@@ -129,17 +112,17 @@ const void * right /* The right value for the comparison */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-PblPriorityQueue * pblPriorityQueueNew( void )
+PblPriorityQueue * pblPriorityQueueNew(void)
 {
-    PblHeap * pblHeap = pblHeapNew();
-    if( !pblHeap )
-    {
-        return NULL;
-    }
+	PblHeap * pblHeap = pblHeapNew();
+	if (!pblHeap)
+	{
+		return NULL;
+	}
 
-    pblHeapSetCompareFunction( pblHeap, PblPriorityQueueEntryCompareFunction );
+	pblHeapSetCompareFunction(pblHeap, PblPriorityQueueEntryCompareFunction);
 
-    return (PblPriorityQueue *)pblHeap;
+	return (PblPriorityQueue *) pblHeap;
 }
 
 /**
@@ -156,20 +139,20 @@ void pblPriorityQueueClear( /*                  */
 PblPriorityQueue * queue /** The queue to clear */
 )
 {
-    int index;
+	int index;
 
-    // Loop over the heap and free the entries allocated
-    // by pblPriorityQueueAddLast()
-    //
-    for( index = pblHeapSize( (PblHeap *)queue ) - 1; index >= 0; index-- )
-    {
-        void * ptr = pblHeapGet( (PblHeap *)queue, index );
-        if( ptr != (void*)-1 )
-        {
-            PBL_FREE(ptr);
-        }
-    }
-    pblHeapClear( (PblHeap *)queue );
+	// Loop over the heap and free the entries allocated
+	// by pblPriorityQueueAddLast()
+	//
+	for (index = pblHeapSize((PblHeap *) queue) - 1; index >= 0; index--)
+	{
+		void * ptr = pblHeapGet((PblHeap *) queue, index);
+		if (ptr != (void*) -1)
+		{
+			PBL_FREE(ptr);
+		}
+	}
+	pblHeapClear((PblHeap *) queue);
 }
 
 /**
@@ -186,8 +169,8 @@ void pblPriorityQueueFree( /*                  */
 PblPriorityQueue * queue /** The queue to free */
 )
 {
-    pblPriorityQueueClear( queue );
-    pblHeapFree( (PblHeap *)queue );
+	pblPriorityQueueClear(queue);
+	pblHeapFree((PblHeap *) queue);
 }
 
 /**
@@ -211,7 +194,7 @@ PblPriorityQueue * queue, /** The queue to use   */
 int minCapacity /** The desired minimum capacity */
 )
 {
-    return pblHeapEnsureCapacity( (PblHeap *)queue, minCapacity );
+	return pblHeapEnsureCapacity((PblHeap *) queue, minCapacity);
 }
 
 /**
@@ -225,7 +208,7 @@ int pblPriorityQueueGetCapacity( /*           */
 PblPriorityQueue * queue /** The queue to use */
 )
 {
-    return pblHeapGetCapacity( (PblHeap *)queue );
+	return pblHeapGetCapacity((PblHeap *) queue);
 }
 
 /**
@@ -235,11 +218,11 @@ PblPriorityQueue * queue /** The queue to use */
  *
  * @return int rc: The number of elements in the priority queue.
  */
-int pblPriorityQueueSize( /**/
+int pblPriorityQueueSize( /*                  */
 PblPriorityQueue * queue /** The queue to use */
 )
 {
-    return pblHeapSize( (PblHeap *)queue );
+	return pblHeapSize((PblHeap *) queue);
 }
 
 /**
@@ -254,7 +237,7 @@ int pblPriorityQueueIsEmpty( /*               */
 PblPriorityQueue * queue /** The queue to use */
 )
 {
-    return pblHeapIsEmpty( (PblHeap *)queue );
+	return pblHeapIsEmpty((PblHeap *) queue);
 }
 
 /**
@@ -273,7 +256,7 @@ int pblPriorityQueueTrimToSize( /*            */
 PblPriorityQueue * queue /** The queue to use */
 )
 {
-    return pblHeapTrimToSize( (PblHeap *)queue );
+	return pblHeapTrimToSize((PblHeap *) queue);
 }
 
 /**
@@ -305,26 +288,25 @@ int priority, /** Priority of the element to be added */
 void * element /** Element to be added to the queue   */
 )
 {
-    int rc;
-    PblPriorityQueueEntry *newEntry =
-            (PblPriorityQueueEntry *)pbl_malloc( "pblPriorityQueueAddLast",
-                                                 sizeof(PblPriorityQueueEntry) );
-    if( !newEntry )
-    {
-        return -1;
-    }
+	int rc;
+	PblPriorityQueueEntry *newEntry = (PblPriorityQueueEntry *) pbl_malloc("pblPriorityQueueAddLast",
+			sizeof(PblPriorityQueueEntry));
+	if (!newEntry)
+	{
+		return -1;
+	}
 
-    newEntry->element = element;
-    newEntry->priority = priority;
+	newEntry->element = element;
+	newEntry->priority = priority;
 
-    rc = pblHeapAddLast( (PblHeap *)queue, newEntry );
-    if( rc < 0 )
-    {
-        PBL_FREE(newEntry);
-        return rc;
-    }
+	rc = pblHeapAddLast((PblHeap *) queue, newEntry);
+	if (rc < 0)
+	{
+		PBL_FREE(newEntry);
+		return rc;
+	}
 
-    return pblHeapSize( (PblHeap *)queue );
+	return pblHeapSize((PblHeap *) queue);
 }
 
 /**
@@ -346,16 +328,16 @@ int priority, /** Priority of the element to be inserted */
 void * element /** Element to be inserted to the queue   */
 )
 {
-    // Add to the end of the queue
-    //
-    int rc = pblPriorityQueueAddLast( queue, priority, element );
-    if( rc > 1 )
-    {
-        // Ensure the heap condition for the last entry
-        //
-        pblHeapEnsureCondition( queue, rc - 1 );
-    }
-    return rc;
+	// Add to the end of the queue
+	//
+	int rc = pblPriorityQueueAddLast(queue, priority, element);
+	if (rc > 1)
+	{
+		// Ensure the heap condition for the last entry
+		//
+		pblHeapEnsureCondition(queue, rc - 1);
+	}
+	return rc;
 }
 
 /**
@@ -377,26 +359,25 @@ PblPriorityQueue * queue, /** The queue to use                            */
 int * priority /** On return contains the priority of the element removed */
 )
 {
-    void * retptr;
-    PblPriorityQueueEntry *lastEntry =
-            (PblPriorityQueueEntry *)pblHeapRemoveLast( (PblHeap *)queue );
+	void * retptr;
+	PblPriorityQueueEntry *lastEntry = (PblPriorityQueueEntry *) pblHeapRemoveLast((PblHeap *) queue);
 
-    if( lastEntry == (PblPriorityQueueEntry *)-1 )
-    {
-        return (void*)-1;
-    }
+	if (lastEntry == (PblPriorityQueueEntry *) -1)
+	{
+		return (void*) -1;
+	}
 
-    retptr = lastEntry->element;
-    if( priority )
-    {
-        *priority = lastEntry->priority;
-    }
+	retptr = lastEntry->element;
+	if (priority)
+	{
+		*priority = lastEntry->priority;
+	}
 
-    PBL_FREE(lastEntry);
+	PBL_FREE(lastEntry);
 
-    // Removing the last entry cannot break the heap condition!
-    //
-    return retptr;
+	// Removing the last entry cannot break the heap condition!
+	//
+	return retptr;
 }
 
 /**
@@ -417,22 +398,22 @@ int index, /** The index at which the element is to be removed            */
 int * priority /** On return contains the priority of the element removed */
 )
 {
-    void * retptr;
-    PblPriorityQueueEntry *entry = pblHeapRemoveAt( (PblHeap *)queue, index );
-    if( entry == (PblPriorityQueueEntry *)-1 )
-    {
-        return (void*)-1;
-    }
+	void * retptr;
+	PblPriorityQueueEntry *entry = pblHeapRemoveAt((PblHeap *) queue, index);
+	if (entry == (PblPriorityQueueEntry *) -1)
+	{
+		return (void*) -1;
+	}
 
-    retptr = entry->element;
-    if( priority )
-    {
-        *priority = entry->priority;
-    }
+	retptr = entry->element;
+	if (priority)
+	{
+		*priority = entry->priority;
+	}
 
-    PBL_FREE(entry);
+	PBL_FREE(entry);
 
-    return retptr;
+	return retptr;
 }
 
 /**
@@ -452,7 +433,7 @@ PblPriorityQueue * queue, /** The queue to use                            */
 int * priority /** On return contains the priority of the element removed */
 )
 {
-    return pblPriorityQueueRemoveAt( queue, 0, priority );
+	return pblPriorityQueueRemoveAt(queue, 0, priority);
 }
 
 /**
@@ -471,20 +452,19 @@ int index, /** Index of the element to return                     */
 int * priority /** On return contains the priority of the element */
 )
 {
-    PblPriorityQueueEntry *entry =
-            (PblPriorityQueueEntry *)pblHeapGet( (PblHeap *)queue, index );
+	PblPriorityQueueEntry *entry = (PblPriorityQueueEntry *) pblHeapGet((PblHeap *) queue, index);
 
-    if( entry == (PblPriorityQueueEntry *)-1 )
-    {
-        return (void*)-1;
-    }
+	if (entry == (PblPriorityQueueEntry *) -1)
+	{
+		return (void*) -1;
+	}
 
-    if( priority )
-    {
-        *priority = entry->priority;
-    }
+	if (priority)
+	{
+		*priority = entry->priority;
+	}
 
-    return entry->element;
+	return entry->element;
 }
 
 /**
@@ -503,7 +483,7 @@ PblPriorityQueue * queue, /** The queue to use                          */
 int * priority /** On return contains the priority of the first element */
 )
 {
-    return pblPriorityQueueGet( queue, 0, priority );
+	return pblPriorityQueueGet(queue, 0, priority);
 }
 
 /**
@@ -527,7 +507,7 @@ void pblPriorityQueueConstruct( /*            */
 PblPriorityQueue * queue /** The queue to use */
 )
 {
-    pblHeapConstruct( (PblHeap *)queue );
+	pblHeapConstruct((PblHeap *) queue);
 }
 
 /**
@@ -548,49 +528,48 @@ int index, /** The index at which the priority is to be changed */
 int priority /** The new priority of the element                */
 )
 {
-    PblPriorityQueueEntry *entry =
-            (PblPriorityQueueEntry *)pblHeapGet( (PblHeap *)queue, index );
-    if( entry == (PblPriorityQueueEntry *)-1 )
-    {
-        return -1;
-    }
+	PblPriorityQueueEntry *entry = (PblPriorityQueueEntry *) pblHeapGet((PblHeap *) queue, index);
+	if (entry == (PblPriorityQueueEntry *) -1)
+	{
+		return -1;
+	}
 
-    if( priority < entry->priority )
-    {
-        int size = pblHeapSize( (PblHeap *)queue );
+	if (priority < entry->priority)
+	{
+		int size = pblHeapSize((PblHeap *) queue);
 
-        entry->priority = priority;
+		entry->priority = priority;
 
-        // For zero based arrays all entries with an index bigger
-        // than 'size / 2 - 1' do not have any children.
-        //
-        // Decreasing the priority cannot violate the heap condition
-        // for entries with no children
-        //
-        if( index <= size / 2 - 1 )
-        {
-            // The heap condition only needs to be ensured
-            // if the entry has children
-            //
-            return pblHeapEnsureCondition( queue, index );
-        }
-    }
-    else if( priority > entry->priority )
-    {
-        entry->priority = priority;
+		// For zero based arrays all entries with an index bigger
+		// than 'size / 2 - 1' do not have any children.
+		//
+		// Decreasing the priority cannot violate the heap condition
+		// for entries with no children
+		//
+		if (index <= size / 2 - 1)
+		{
+			// The heap condition only needs to be ensured
+			// if the entry has children
+			//
+			return pblHeapEnsureCondition(queue, index);
+		}
+	}
+	else if (priority > entry->priority)
+	{
+		entry->priority = priority;
 
-        // Increasing the priority cannot violate the heap condition
-        // for the top entry at index 0
-        //
-        if( index > 0 )
-        {
-            // The heap condition needs to ensured
-            //
-            return pblHeapEnsureCondition( queue, index );
-        }
-    }
+		// Increasing the priority cannot violate the heap condition
+		// for the top entry at index 0
+		//
+		if (index > 0)
+		{
+			// The heap condition needs to ensured
+			//
+			return pblHeapEnsureCondition(queue, index);
+		}
+	}
 
-    return index;
+	return index;
 }
 
 /**
@@ -610,7 +589,7 @@ PblPriorityQueue * queue, /** The queue to use         */
 int priority /** The new priority of the first element */
 )
 {
-    return pblPriorityQueueChangePriorityAt( queue, 0, priority );
+	return pblPriorityQueueChangePriorityAt(queue, 0, priority);
 }
 
 /**
@@ -651,7 +630,7 @@ PblIterator * pblPriorityQueueIterator( /*    */
 PblPriorityQueue * queue /** The queue to use */
 )
 {
-    return pblHeapIterator( (PblHeap *)queue );
+	return pblHeapIterator((PblHeap *) queue);
 }
 
 /**
@@ -671,5 +650,5 @@ PblPriorityQueue * queue, /** The queue to join to   */
 PblPriorityQueue * other /** The other queue to join */
 )
 {
-    return pblHeapJoin( (PblHeap *)queue, (PblHeap *)other );
+	return pblHeapJoin((PblHeap *) queue, (PblHeap *) other);
 }
