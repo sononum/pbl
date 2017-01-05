@@ -25,6 +25,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblSet.c,v $
+ Revision 1.38  2017/01/05 21:51:45  peter
+ Simplified hash set trim
+
  Revision 1.37  2017/01/04 22:07:50  peter
  Code formatting
 
@@ -73,7 +76,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblSet_c_id = "$Id: pblSet.c,v 1.37 2017/01/04 22:07:50 peter Exp $";
+char* pblSet_c_id = "$Id: pblSet.c,v 1.38 2017/01/05 21:51:45 peter Exp $";
 
 char * PblHashSetMagic = "PblHashSetMagic";
 char * PblTreeSetMagic = "PblTreeSetMagic";
@@ -1382,70 +1385,16 @@ PblSet * set /** The set to free */
 	pblHashSetFree((PblHashSet *) set);
 }
 
-/*
- * Decreases the capacity of this hash set instance, if possible.
- *
- * @return int rc >= 0: OK, the set capacity is returned.
- * @return int rc <  0: An error, see pbl_errno:
- *
- * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
- * <BR>PBL_ERROR_OUT_OF_BOUNDS - The needed capacity is bigger than maximum allowed value.
- */
-static int pblHashSetTrimToSize( /* */
-PblHashSet * set /** The set to use */
+static int pblHashSetSetCapacity( /*     */
+PblHashSet * set, /** The set to use  */
+int capacity, /** The capacity to set */
+int stepSize /** The step size to set */
 )
 {
-	PblHashSet * newSet;
-	int neededCapacity = (int) (((double) ((PblSet*) set)->size) / set->loadFactor) + 1;
-	int targetCapacity = 0;
-	int stepSize = _PBL_STEP_SIZE;
 	int i;
-
-	if (((PblSet*) set)->size == 0)
-	{
-		PBL_FREE(set->pointerArray);
-		set->capacity = 0;
-		set->stepSize = _PBL_STEP_SIZE;
-		return set->capacity;
-	}
-
-	/*
-	 * Find the capacity needed
-	 */
-	for (i = 0; i < 28; i++)
-	{
-		if (i > 1)
-		{
-			stepSize = pblPrimeStepSize[i - 2];
-		}
-		if (neededCapacity <= pblCapacities[i])
-		{
-			targetCapacity = pblCapacities[i];
-			break;
-		}
-	}
-
-	if (targetCapacity == 0)
-	{
-		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
-		return -1;
-	}
-
-	if (targetCapacity >= set->capacity)
-	{
-		/*
-		 * Nothing to do
-		 */
-		return set->capacity;
-	}
-
-	/*
-	 * Create a new hash set
-	 */
-	newSet = (PblHashSet*) pblSetNewHashSet();
+	PblHashSet * newSet = (PblHashSet*) pblSetNewHashSet();
 	if (!newSet)
 	{
-		pblSetFree((PblSet*) newSet);
 		return -1;
 	}
 
@@ -1454,15 +1403,15 @@ PblHashSet * set /** The set to use */
 	newSet->loadFactor = set->loadFactor;
 
 	/*
-	 * Malloc space for 'targetCapacity' pointers
+	 * Malloc space for 'capacity' pointers
 	 */
-	newSet->pointerArray = (unsigned char **) pbl_malloc0("pblHashSetTrimToSize", sizeof(void*) * targetCapacity);
+	newSet->pointerArray = (unsigned char **) pbl_malloc0("pblHashSetSetCapacity", sizeof(void*) * capacity);
 	if (!newSet->pointerArray)
 	{
 		pblSetFree((PblSet*) newSet);
 		return -1;
 	}
-	newSet->capacity = targetCapacity;
+	newSet->capacity = capacity;
 	newSet->stepSize = stepSize;
 
 	/*
@@ -1513,6 +1462,65 @@ PblHashSet * set /** The set to use */
 
 	set->collection.changeCounter++;
 	return set->capacity;
+}
+
+/*
+ * Decreases the capacity of this hash set instance, if possible.
+ *
+ * @return int rc >= 0: OK, the set capacity is returned.
+ * @return int rc <  0: An error, see pbl_errno:
+ *
+ * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+ * <BR>PBL_ERROR_OUT_OF_BOUNDS - The needed capacity is bigger than maximum allowed value.
+ */
+static int pblHashSetTrimToSize( /* */
+PblHashSet * set /** The set to use */
+)
+{
+	int neededCapacity = (int) (((double) ((PblSet*) set)->size) / set->loadFactor) + 1;
+	int targetCapacity = 0;
+	int stepSize = _PBL_STEP_SIZE;
+	int i;
+
+	if (((PblSet*) set)->size == 0)
+	{
+		PBL_FREE(set->pointerArray);
+		set->capacity = 0;
+		set->stepSize = _PBL_STEP_SIZE;
+		return set->capacity;
+	}
+
+	/*
+	 * Find the capacity needed
+	 */
+	for (i = 0; i < 28; i++)
+	{
+		if (i > 1)
+		{
+			stepSize = pblPrimeStepSize[i - 2];
+		}
+		if (neededCapacity <= pblCapacities[i])
+		{
+			targetCapacity = pblCapacities[i];
+			break;
+		}
+	}
+
+	if (targetCapacity == 0)
+	{
+		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
+		return -1;
+	}
+
+	if (targetCapacity >= set->capacity)
+	{
+		/*
+		 * Nothing to do
+		 */
+		return set->capacity;
+	}
+
+	return pblHashSetSetCapacity(set, targetCapacity, stepSize);
 }
 
 /**
@@ -1562,7 +1570,6 @@ PblHashSet * set, /** The set to use             */
 int minCapacity /** The desired minimum capacity */
 )
 {
-	PblHashSet * newSet;
 	int neededCapacity = (int) (((double) minCapacity) / set->loadFactor) + 1;
 	int targetCapacity = 0;
 	int stepSize = _PBL_STEP_SIZE;
@@ -1598,80 +1605,7 @@ int minCapacity /** The desired minimum capacity */
 		return set->capacity;
 	}
 
-	/*
-	 * Create a new hash set
-	 */
-	newSet = (PblHashSet*) pblSetNewHashSet();
-	if (!newSet)
-	{
-		pblSetFree((PblSet*) newSet);
-		return -1;
-	}
-
-	newSet->collection.compare = set->collection.compare;
-	newSet->hashValue = set->hashValue;
-	newSet->loadFactor = set->loadFactor;
-
-	/*
-	 * Malloc space for 'targetCapacity' pointers
-	 */
-	newSet->pointerArray = (unsigned char **) pbl_malloc0("pblHashSetEnsureCapacity", sizeof(void*) * targetCapacity);
-	if (!newSet->pointerArray)
-	{
-		pblSetFree((PblSet*) newSet);
-		return -1;
-	}
-	newSet->capacity = targetCapacity;
-	newSet->stepSize = stepSize;
-
-	/*
-	 * Rehash the table if necessary
-	 */
-	if (set->collection.size > 0)
-	{
-		unsigned char ** pointer = set->pointerArray;
-		for (i = 0; i < set->capacity; i++)
-		{
-			void * element = *pointer++;
-			if (!element)
-			{
-				continue;
-			}
-			if (pblHashSetAdd(newSet, element) < 0)
-			{
-				pblSetFree((PblSet*) newSet);
-				return -1;
-			}
-		}
-	}
-
-	/*
-	 * Free old pointer buffer
-	 */
-	if (set->pointerArray)
-	{
-		PBL_FREE(set->pointerArray);
-	}
-
-	/*
-	 * Remember the new capacity and step size
-	 */
-	set->capacity = newSet->capacity;
-	set->stepSize = newSet->stepSize;
-
-	/*
-	 * Remember the new pointer buffer
-	 */
-	set->pointerArray = newSet->pointerArray;
-
-	/*
-	 * Release the new set, but not its pointer buffer
-	 */
-	newSet->pointerArray = NULL;
-	pblSetFree((PblSet*) newSet);
-
-	set->collection.changeCounter++;
-	return set->capacity;
+	return pblHashSetSetCapacity(set, targetCapacity, stepSize);
 }
 
 /**
