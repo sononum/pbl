@@ -7,4 +7,4 @@
 - - AvlDictionary<TKey,TValue>: -- C# .NET Avl-Tree based generic IDictionary<TKey,TValue> 
 - - PriorityQueue<T>: -- C# .NET List<T> based generic min-heap PriorityQueue<T>
 
-- dotNETdoc - Dokumentation for the two C# .NET classes
+- dotNETdoc - Documentation for the two C# .NET classes
