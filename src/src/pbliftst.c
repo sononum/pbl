@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pbliftst.c,v $
+    Revision 1.18  2018/03/11 19:07:07  peter
+    Improved test framework
+
     Revision 1.17  2018/03/10 18:00:45  peter
     Cleanup of unneeded parentheses
 
@@ -81,7 +84,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pbliftst_c_id = "$Id: pbliftst.c,v 1.17 2018/03/10 18:00:45 peter Exp $";
+char * pbliftst_c_id = "$Id: pbliftst.c,v 1.18 2018/03/11 19:07:07 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -145,7 +148,7 @@ static void putChar( int c )
 
 static int getNonSpace( FILE* file, int* lineNumber )
 {
-	int c = 0;
+	int c = EOF;
 	for(;;)
 	{
 		int c = getc( file );
@@ -196,7 +199,7 @@ static int diffFiles( FILE * file1, char * logFileName )
 			 rc = lineNumber1;
 			 break;
 		}
-		if( c1 == EOF )
+		if( c1 == EOF || c2 == EOF )
 		{
 			break;
 		}

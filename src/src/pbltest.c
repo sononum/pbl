@@ -25,6 +25,9 @@
 
 
     $Log: pbltest.c,v $
+    Revision 1.8  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.7  2009/03/08 20:56:50  peter
     port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
     Exposing the hash set and tree set interfaces.
@@ -52,7 +55,7 @@ extern "C" {
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pbltest_c_id = "$Id: pbltest.c,v 1.7 2009/03/08 20:56:50 peter Exp $";
+char* pbltest_c_id = "$Id: pbltest.c,v 1.8 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -132,7 +135,7 @@ int main( int argc, char * argv[ ] )
 
     rc = pblHtDelete( ht );
 
-    return( rc );
+    return rc;
 }
 
 #endif /* CDT_BUILD */
