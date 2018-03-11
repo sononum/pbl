@@ -25,6 +25,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCollection.c,v $
+ Revision 1.18  2018/03/10 18:00:45  peter
+ Cleanup of unneeded parentheses
+
  Revision 1.17  2017/01/04 21:19:43  peter
  Code formatting
 
@@ -49,7 +52,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblCollection_c_id = "$Id: pblCollection.c,v 1.17 2017/01/04 21:19:43 peter Exp $";
+char* pblCollection_c_id = "$Id: pblCollection.c,v 1.18 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -148,7 +151,7 @@ const void *right /** The right element for compare */
 	 */
 	if (leftPointer < rightPointer)
 	{
-		return (-1);
+		return -1;
 	}
 
 	if (leftPointer == rightPointer)
@@ -156,7 +159,7 @@ const void *right /** The right element for compare */
 		return 0;
 	}
 
-	return (1);
+	return 1;
 }
 
 /**
@@ -275,7 +278,7 @@ void * element /** Element to look for                 */
 {
 	if (PBL_LIST_IS_LIST(collection))
 	{
-		return (pblListIndexOf((PblList *) collection, element) >= 0);
+		return pblListIndexOf((PblList *) collection, element) >= 0;
 	}
 	return pblSetContains((PblSet*) collection, element);
 }
@@ -534,3 +537,4 @@ void * element /** The collection element to aggregate                          
 
 	return 0;
 }
+

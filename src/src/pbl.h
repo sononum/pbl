@@ -26,6 +26,12 @@
    please see: http://www.mission-base.com/.
 
     $Log: pbl.h,v $
+    Revision 1.74  2018/03/10 19:08:59  peter
+    Removed warnings found by Visual Studio 2017 Version 15.6.0.
+
+    Revision 1.73  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.72  2016/10/13 01:52:05  peter
     Cleanup of the map ...Str() methods
 
@@ -509,7 +515,6 @@ typedef struct PblTreeNode_s
     struct PblTreeNode_s * parent;      /* The parent node                 */
     int balance;                        /* AVL balance information of node */
 
-
 } PblTreeNode;
 
 /**
@@ -524,14 +529,12 @@ typedef struct PblHashSet_s
 {
     PblSet collection;     /* The collection part of the hash set            */
 
-    /* The array of all pointers hashed                                      */
-    unsigned char ** pointerArray;
-
     int capacity;          /* The capacity of the pointer array              */
     int stepSize;          /* The step size used for collision resolution    */
     double loadFactor;     /* The load factor of the hash set                */
-
-    /* A user defined element hash value function                            */
+						   /* The array of all pointers hashed                                      */
+	unsigned char ** pointerArray;
+                           /* A user defined element hash value function     */
     int (*hashValue)( const void * element );
 
 } PblHashSet;
@@ -805,8 +808,8 @@ extern void * pblCollectionSetCompareFunction(
 PblCollection * collection,  /** The collection to set compare function for   */
 int ( *compare )             /** The compare function to set                  */
     (
-        const void* prev,    /** The "left" element for compare               */
-        const void* next     /** The "right" element for compare              */
+        const void* left,    /** The "left" element for compare               */
+        const void* right    /** The "right" element for compare              */
     )
 );
 
@@ -937,8 +940,6 @@ extern int pblListContainsAll(
         PblList * list,   /** The list to use */
         void * collection /** The collection whose elements are to be added to this list. */
         );
-
-extern int pblListDefaultCompare( const void *left, const void *right );
 
 extern void * pblListElement(
         PblList * list   /** The list to use */
@@ -1215,11 +1216,6 @@ extern int pblSetContainsAll(
     PblSet * set,      /** The set to use                                            */
     void * collection  /** The collection to be checked for containment in this set. */
     );
-
-extern int pblSetDefaultCompare(
-    const void *left,     /** left element for compare  */
-    const void *right     /** right element for compare */
-);
 
 extern int pblSetDefaultHashValue(
     const void *element     /** Element to calculate hash value for */

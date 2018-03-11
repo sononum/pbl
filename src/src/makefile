@@ -9,7 +9,7 @@ CC= gcc
 
 INCLIB    = 
 
-LIB_OBJS  = pblStringBuilder.o pblPriorityQueue.o pblHeap.o pblMap.o pblSet.o pblList.o pblCollection.o pblIterator.o pblisam.o pblkf.o pblhash.o pbl.o
+LIB_OBJS  = pblCgi.o pblStringBuilder.o pblPriorityQueue.o pblHeap.o pblMap.o pblSet.o pblList.o pblCollection.o pblIterator.o pblisam.o pblkf.o pblhash.o pbl.o
 THELIB    = libpbl.a
 
 EXE_OBJS1 = pblhttst.o
@@ -39,7 +39,7 @@ THEEXE8   = pblMapTest
 EXE_OBJS9 = pblPriorityQueueTest.o
 THEEXE9   = pblPriorityQueueTest
 
-all: $(THELIB) $(THEEXE1) $(THEEXE2) $(THEEXE3) $(THEEXE4) $(THEEXE5) $(THEEXE6) $(THEEXE7) $(THEEXE8) $(THEEXE9)
+all: $(THELIB) $(THEEXE1) $(THEEXE2) $(THEEXE3) $(THEEXE4) $(THEEXE5) $(THEEXE6) $(THEEXE7) $(THEEXE8) $(THEEXE9) $(THEEXE10) $(THEEXE11)
 
 $(THELIB):  $(LIB_OBJS)
 	$(AR) rc $(THELIB) $?
@@ -72,6 +72,12 @@ $(THEEXE8):  $(EXE_OBJS8) $(THELIB)
 $(THEEXE9):  $(EXE_OBJS9) $(THELIB)
 	$(CC) -O2 -o $(THEEXE9) $(EXE_OBJS9) $(THELIB) $(INCLIB)
 
+$(THEEXE10):  $(EXE_OBJS10) $(THELIB)
+	$(CC) -O2 -o $(THEEXE10) $(EXE_OBJS10) $(THELIB) $(INCLIB)
+
+$(THEEXE11):  $(EXE_OBJS11) $(THELIB)
+	$(CC) -O2 -o $(THEEXE11) $(EXE_OBJS11) $(THELIB) $(INCLIB)
+		
 test: $(THEEXE3) $(THEEXE5) $(THEEXE6)
 	mkdir -p isamtest/
 	rm -f isamtest/0*
@@ -107,6 +113,8 @@ test: $(THEEXE3) $(THEEXE5) $(THEEXE6)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 test1: $(THEEXE3)
@@ -127,6 +135,8 @@ test1: $(THEEXE3)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 test2: $(THEEXE3)
@@ -147,6 +157,8 @@ test2: $(THEEXE3)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 
@@ -168,6 +180,8 @@ test4: $(THEEXE3)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 
@@ -189,6 +203,8 @@ test5: $(THEEXE3)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 
@@ -210,6 +226,8 @@ test6: $(THEEXE3)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 test7: $(THEEXE5)
@@ -233,6 +251,8 @@ test7: $(THEEXE5)
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 
 clean:
@@ -246,5 +266,7 @@ clean:
 	rm -f ${THEEXE7} ${EXE_OBJS7}
 	rm -f ${THEEXE8} ${EXE_OBJS8}
 	rm -f ${THEEXE9} ${EXE_OBJS9}
+	rm -f ${THEEXE10} ${EXE_OBJS10}
+	rm -f ${THEEXE11} ${EXE_OBJS11}
 	rm -f isamtest/0*
 

@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblkf.c,v $
+    Revision 1.26  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.25  2016/04/23 23:19:13  peter
     Fixing GitHub Issue: Build warnings and test failure #5
 
@@ -65,7 +68,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblkf_c_id = "$Id: pblkf.c,v 1.25 2016/04/23 23:19:13 peter Exp $";
+char * pblkf_c_id = "$Id: pblkf.c,v 1.26 2018/03/10 18:00:45 peter Exp $";
 
 #ifndef _WIN32
 
@@ -377,28 +380,28 @@ long            datalen
     if(( keylen < 1 ) || ( keylen > 255 ))
     {
         pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-        return( -1 );
+        return -1;
     }
 
     if( datalen < 0 )
     {
         pbl_errno = PBL_ERROR_PARAM_DATALEN;
-        return( -1 );
+        return -1;
     }
 
     if( !key )
     {
         pbl_errno = PBL_ERROR_PARAM_KEY;
-        return( -1 );
+        return -1;
     }
 
     if( datalen && ( !data ))
     {
         pbl_errno = PBL_ERROR_PARAM_DATA;
-        return( -1 );
+        return -1;
     }
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -431,7 +434,7 @@ static int pblBlockHashInsert( long blockno, long bf, PBLBLOCK_t * block )
         pblblockhash = pblHtCreate();
         if( !pblblockhash )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -445,7 +448,7 @@ static int pblBlockHashInsert( long blockno, long bf, PBLBLOCK_t * block )
          * The reference is already there, update the block pointer
          */
         ref->block = block;
-        return( 1 );
+        return 1;
     }
 
     if( pbl_errno == PBL_ERROR_NOT_FOUND )
@@ -459,7 +462,7 @@ static int pblBlockHashInsert( long blockno, long bf, PBLBLOCK_t * block )
     ref = pbl_malloc0( "pblBlockHashInsert BLOCKREF", sizeof( PBLBLOCKREF_t ));
     if( !ref )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -475,10 +478,10 @@ static int pblBlockHashInsert( long blockno, long bf, PBLBLOCK_t * block )
     else
     {
         PBL_FREE( ref );
-        return( -1 );
+        return -1;
     }
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -506,7 +509,7 @@ static int pblBlockHashRemove( long blockno, long bf )
      */
     if( !pblblockhash )
     {
-        return( 1 );
+        return 1;
     }
 
     /*
@@ -520,7 +523,7 @@ static int pblBlockHashRemove( long blockno, long bf )
             pbl_errno = 0;
         }
 
-        return( 1 );
+        return 1;
     }
 
     /*
@@ -529,7 +532,7 @@ static int pblBlockHashRemove( long blockno, long bf )
     rc = pblHtRemove( pblblockhash, &key, sizeof( key ));
     if( rc )
     {
-        return( 1 );
+        return 1;
     }
 
     PBL_FREE( ref );
@@ -554,7 +557,7 @@ static int pblBlockHashRemove( long blockno, long bf )
         pbl_errno = 0;
     }
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -581,7 +584,7 @@ static PBLBLOCK_t * pblBlockHashFind( long blockno, long bf )
      */
     if( !pblblockhash )
     {
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -595,10 +598,10 @@ static PBLBLOCK_t * pblBlockHashFind( long blockno, long bf )
             pbl_errno = 0;
         }
 
-        return( 0 );
+        return NULL;
     }
 
-    return( ref->block );
+    return ref->block;
 }
 
 /*
@@ -623,11 +626,11 @@ static PBLBIGFILEHANDLE_t * pbf_fh_find( int bf, int n )
                 PBL_LIST_UNLINK( pbf_ft_head, pbf_ft_tail, entry, next, prev );
                 PBL_LIST_PUSH( pbf_ft_head, pbf_ft_tail, entry, next, prev );
             }
-            return( entry );
+            return entry;
         }
     }
 
-    return( 0 );
+    return NULL;
 }
 
 /*
@@ -693,15 +696,15 @@ static char * pbf_fh_path( char * name, long n )
         if( !path )
         {
             pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-            return( 0 );
+            return NULL;
         }
-        return( path );
+        return path;
     }
 
     path = (char *)pbl_malloc( "pbf_fh_path path", 6 + strlen( name ));
     if( !path )
     {
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -735,7 +738,7 @@ static char * pbf_fh_path( char * name, long n )
         snprintf( path + strlen( path ), 6, "_%04lx", 0xffff & n );
     }
 
-    return( path );
+    return path;
 }
 
 /*
@@ -767,7 +770,7 @@ static int pbf_fh_open( char * name, int mode, int bf, int n )
             /*
              * The file is open in the right mode, use the file handle
              */
-            return( entry->fh );
+            return entry->fh;
         }
     }
 
@@ -777,7 +780,7 @@ static int pbf_fh_open( char * name, int mode, int bf, int n )
     path = pbf_fh_path( name, n );
     if( !path )
     {
-        return( -1 );
+        return -1;
     }
 
     for( i = 0; i < 3; i++ )
@@ -800,7 +803,7 @@ static int pbf_fh_open( char * name, int mode, int bf, int n )
     if( -1 == fh )
     {
         pbl_errno = PBL_ERROR_OPEN;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -810,7 +813,7 @@ static int pbf_fh_open( char * name, int mode, int bf, int n )
     if( !entry )
     {
         close( fh );
-        return( 0 );
+        return -1;
     }
 
     entry->fh   = fh;
@@ -820,7 +823,7 @@ static int pbf_fh_open( char * name, int mode, int bf, int n )
 
     PBL_LIST_PUSH( pbf_ft_head, pbf_ft_tail, entry, next, prev );
 
-    return( entry->fh );
+    return entry->fh;
 }
 
 /*
@@ -830,7 +833,7 @@ static int pbf_close( int bf )
 {
     if( bf < 0 || bf >= PBL_NFILES )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -841,7 +844,7 @@ static int pbf_close( int bf )
     PBL_FREE( pbf_pool[ bf ].name );
     pbf_pool[ bf ].name = 0;
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -862,7 +865,7 @@ long   blocksize
     path = pbf_fh_path( name, 0 );
     if( !path )
     {
-        return( -1 );
+        return -1;
     }
 
     if( update )
@@ -900,16 +903,16 @@ long   blocksize
         {
             PBL_FREE( path );
             pbl_errno = PBL_ERROR_OPEN;
-            return( -1 );
+            return -1;
         }
 
         pbf_pool[ i ].name = path;
-        return( i );
+        return i ;
     }
 
     PBL_FREE( path );
     pbl_errno = PBL_ERROR_OPEN;
-    return( -1 );
+    return -1;
 }
 
 /*
@@ -932,7 +935,7 @@ unsigned char * buffer
     if( bf < 0 || bf >= PBL_NFILES || !pbf_pool[ bf ].name )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -944,7 +947,7 @@ unsigned char * buffer
     if( -1 == fh )
     {
         pbl_errno = PBL_ERROR_READ;
-        return( -1 );
+        return -1;
     }
 
     blockno %= pbf_pool[ bf ].blocksperfile;
@@ -972,7 +975,7 @@ unsigned char * buffer
             if( offset != rc )
             {
                 pbl_errno = PBL_ERROR_SEEK;
-                return( -1 );
+                return -1;
             }
 
             rc = write( fh, buffer, (unsigned int) pbf_pool[ bf ].blocksize );
@@ -983,14 +986,14 @@ unsigned char * buffer
                     continue;
                 }
                 pbl_errno = PBL_ERROR_WRITE;
-                return( -1 );
+                return -1;
             }
             break;
         }
         if( i >= 3 )
         {
             pbl_errno = PBL_ERROR_WRITE;
-            return( -1 );
+            return -1;
         }
 
         pblnwrites++;
@@ -1017,7 +1020,7 @@ unsigned char * buffer
             if( offset != rc )
             {
                 pbl_errno = PBL_ERROR_SEEK;
-                return( -1 );
+                return -1;
             }
 
             rc = read( fh, buffer, (unsigned int) pbf_pool[ bf ].blocksize );
@@ -1028,7 +1031,7 @@ unsigned char * buffer
                     continue;
                 }
                 pbl_errno = PBL_ERROR_READ;
-                return( -1 );
+                return -1;
             }
             pblnreads++;
 
@@ -1039,18 +1042,18 @@ unsigned char * buffer
                     continue;
                 }
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( -1 );
+                return -1;
             }
             break;
         }
         if( i >= 3 )
         {
             pbl_errno = PBL_ERROR_READ;
-            return( -1 );
+            return -1;
         }
     }
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -1062,7 +1065,7 @@ static int pbf_blockread( int bf, long blockno, unsigned char * buffer )
 
     rc = pbf_blockio( bf, 0, blockno, buffer );
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -1074,7 +1077,7 @@ static int pbf_blockwrite( int bf, long blockno, unsigned char * buffer )
 
     rc = pbf_blockio( bf, 1, blockno, buffer );
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -1092,7 +1095,7 @@ static long pbf_blockappend( int bf, unsigned char * buffer )
     if( bf < 0 || bf >= PBL_NFILES || !pbf_pool[ bf ].name )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( pbf_pool[ bf ].nextblockno == 0x3fff )
@@ -1117,7 +1120,7 @@ static long pbf_blockappend( int bf, unsigned char * buffer )
             if( -1 == fh )
             {
                 pbl_errno = PBL_ERROR_WRITE;
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -1127,7 +1130,7 @@ static long pbf_blockappend( int bf, unsigned char * buffer )
             if( -1 == fh )
             {
                 pbl_errno = PBL_ERROR_WRITE;
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -1185,7 +1188,7 @@ static long pbf_blockappend( int bf, unsigned char * buffer )
                     }
 
                     pbl_errno = PBL_ERROR_WRITE;
-                    return( -1 );
+                    return -1;
                 }
                 break;
             }
@@ -1193,7 +1196,7 @@ static long pbf_blockappend( int bf, unsigned char * buffer )
             if( rc % pbf_pool[ bf ].blocksize )
             {
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( -1 );
+                return -1;
             }
 
             pbf_pool[ bf ].nextblockno = rc / pbf_pool[ bf ].blocksize;
@@ -1207,10 +1210,10 @@ static long pbf_blockappend( int bf, unsigned char * buffer )
     rc = pbf_blockio( bf, 1, pbf_pool[ bf ].nextblockno, buffer );
     if( rc )
     {
-        return( rc );
+        return rc;
     }
 
-    return( pbf_pool[ bf ].nextblockno++ );
+    return pbf_pool[ bf ].nextblockno++;
 }
 
 /*
@@ -1375,7 +1378,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     if( itemIndex >= PBL_CACHED_ITEMS_PER_BLOCK )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -1384,7 +1387,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     item = block->cachedItems[ itemIndex ];
     if( item )
     {
-        return( item );
+        return item;
     }
     index = itemIndex;
 
@@ -1395,7 +1398,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     if( bufoff < 0 || bufoff >= (int)sizeof( block->data ))
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -1404,7 +1407,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     item = (PBL_CACHED_ITEM_t *)pbl_malloc0("pblBufToCachedItem item", sizeof(PBL_CACHED_ITEM_t));
     if( !item )
     {
-        return( 0 );
+        return NULL;
     }
 
     endptr = &( block->data[ sizeof( block->data ) ] );
@@ -1436,7 +1439,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     {
         PBL_FREE( item );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( 0 );
+        return NULL;
     }
 
     if( item->keylen > 0 )
@@ -1447,7 +1450,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
         {
             PBL_FREE( item );
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( 0 );
+            return NULL;
         }
     }
     else
@@ -1470,11 +1473,11 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
                 if( !item->key )
                 {
                     PBL_FREE( item );
-                    return( 0 );
+                    return NULL;
                 }
             }
             block->cachedItems[ itemIndex ] = item;
-            return( item );
+            return item;
         }
 
         keybytesmissing = keycommon;
@@ -1495,7 +1498,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             {
                 PBL_FREE( item );
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( 0 );
+                return NULL;
             }
             else
             {
@@ -1519,7 +1522,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             {
                 PBL_FREE( item );
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( 0 );
+                return NULL;
             }
             ptr = &( block->data[ bufoff ] );
 
@@ -1531,7 +1534,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             {
                 PBL_FREE( item );
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( 0 );
+                return NULL;
             }
 
             keycommon = *ptr++;
@@ -1550,7 +1553,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
                 {
                     PBL_FREE( item );
                     pbl_errno = PBL_ERROR_BAD_FILE;
-                    return( 0 );
+                    return NULL;
                 }
 
                 keybytesmissing -= keylen;
@@ -1567,11 +1570,11 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             if( !item->key )
             {
                 PBL_FREE( item );
-                return( 0 );
+                return NULL;
             }
         }
         block->cachedItems[ itemIndex ] = item;
-        return( item );
+        return item;
     }
 
     if( item->datalen <= PBLDATALENGTH )
@@ -1584,7 +1587,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             {
                 PBL_FREE( item );
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( 0 );
+                return NULL;
             }
         }
         else
@@ -1602,7 +1605,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     {
         PBL_FREE( item );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( 0 );
+        return NULL;
     }
 
     if( item->keylen < 1 || keycommon < 1)
@@ -1616,11 +1619,11 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             if( !item->key )
             {
                 PBL_FREE( item );
-                return( 0 );
+                return NULL;
             }
         }
         block->cachedItems[ itemIndex ] = item;
-        return( item );
+        return item;
     }
 
     keybytesmissing = keycommon;
@@ -1641,7 +1644,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
         {
             PBL_FREE( item );
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( 0 );
+            return NULL;
         }
         else
         {
@@ -1665,7 +1668,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
         {
             PBL_FREE( item );
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( 0 );
+            return NULL;
         }
         ptr = &( block->data[ bufoff ] );
 
@@ -1677,7 +1680,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
         {
             PBL_FREE( item );
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( 0 );
+            return NULL;
         }
 
         keycommon = *ptr++;
@@ -1696,7 +1699,7 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
             {
                 PBL_FREE( item );
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( 0 );
+                return NULL;
             }
 
             keybytesmissing -= keylen;
@@ -1713,11 +1716,11 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
         if( !item->key )
         {
             PBL_FREE( item );
-            return( 0 );
+            return NULL;
         }
     }
     block->cachedItems[ itemIndex ] = item;
-    return( item );
+    return item;
 }
 
 #ifdef  PBL_MEMTRACE
@@ -1784,7 +1787,7 @@ static int pblBufToItem( PBLBLOCK_t * block, unsigned int index, PBLITEM_t * ite
     cachedItem = pblBufToCachedItem( block, index );
     if( !cachedItem )
     {
-        return( -1 );
+        return -1;
     }
 
     if( index > block->maxItemCacheIndex )
@@ -1848,7 +1851,7 @@ static int pblBufToItemKey( PBLBLOCK_t * block, unsigned int index, PBLITEM_t * 
     PBL_CACHED_ITEM_t * cachedItem = pblBufToCachedItem( block, index );
     if( !cachedItem )
     {
-        return( -1 );
+        return -1;
     }
 
     if( index > block->maxItemCacheIndex )
@@ -1882,7 +1885,7 @@ static int pblItemSize( PBLBLOCK_t * block, PBLITEM_t * item )
 
     if( block->level > 0 )
     {
-        return( rc );
+        return rc;
     }
 
     if( item->datalen <= PBLDATALENGTH )
@@ -1898,7 +1901,7 @@ static int pblItemSize( PBLBLOCK_t * block, PBLITEM_t * item )
         rc += pbl_LongSize( item->dataoffset );
     }
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -1925,7 +1928,7 @@ static int pblItemCompare( PBLKFILE_t *kf, PBLITEM_t *left, PBLITEM_t *right )
                          right->key, right->keylen );
     }
 
-    return( rc );
+    return rc;
 }
 
 static int pblItemGet( PBLBLOCK_t * block, unsigned int index, PBLITEM_t *item )
@@ -1936,7 +1939,7 @@ static int pblItemGet( PBLBLOCK_t * block, unsigned int index, PBLITEM_t *item )
     if( index >= (unsigned int)block->nentries )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1944,10 +1947,10 @@ static int pblItemGet( PBLBLOCK_t * block, unsigned int index, PBLITEM_t *item )
      */
     if( pblBufToItem( block, index, item ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( 0 );
+    return 0;
 }
 
 static int pblItemGetKey( PBLBLOCK_t * block, unsigned int index, PBLITEM_t *item )
@@ -1958,7 +1961,7 @@ static int pblItemGetKey( PBLBLOCK_t * block, unsigned int index, PBLITEM_t *ite
     if( index >= (unsigned int)block->nentries )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1966,10 +1969,10 @@ static int pblItemGetKey( PBLBLOCK_t * block, unsigned int index, PBLITEM_t *ite
      */
     if( pblBufToItemKey( block, index, item ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -1988,13 +1991,13 @@ PBLITEM_t       * item
     if( !block->writeable )
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( -1 );
+        return -1;
     }
 
     if( !predkey && block->nentries > 0 )
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2022,7 +2025,7 @@ PBLITEM_t       * item
     if( PBLINDEXBLOCKNFREE( block ) < itemsize + 2 )
     {
         pbl_errno = PBL_ERROR_NOFIT;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2039,7 +2042,7 @@ PBLITEM_t       * item
     block->free     += itemsize;
     block->nentries += 1;
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -2062,7 +2065,7 @@ static int pblItemDelete( PBLBLOCK_t * block, int index )
      */
     if( pblItemGet( block, index, &item ))
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2079,7 +2082,7 @@ static int pblItemDelete( PBLBLOCK_t * block, int index )
     if( ntomove < 0 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( ntomove > 0 )
@@ -2206,7 +2209,7 @@ static int pblItemDelete( PBLBLOCK_t * block, int index )
 #endif
 
     block->dirty = 1;
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -2229,7 +2232,7 @@ static int pblItemInsert( PBLBLOCK_t * block, PBLITEM_t * item, int index )
     if( PBLINDEXBLOCKNFREE( block ) < itemsize + 2 )
     {
         pbl_errno = PBL_ERROR_NOFIT;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2275,7 +2278,7 @@ static int pblItemInsert( PBLBLOCK_t * block, PBLITEM_t * item, int index )
 #endif
 
     block->dirty = 1;
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -2296,7 +2299,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
     if( !block->writeable )
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2305,7 +2308,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
     if( index >= block->nentries )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( index == block->nentries - 1 )
@@ -2314,7 +2317,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
          * Delete the last item on the block
          */
         rc = pblItemDelete( block, index );
-        return( rc );
+        return rc;
     }
 
     /*
@@ -2324,7 +2327,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
     {
         if( pblItemGet( block, index - 1, &previtem ))
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -2333,7 +2336,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
      */
     if( pblItemGet( block, index + 1, &peeritem ))
     {
-        return( -1 );
+        return -1;
     }
 
     if(( index > 0 ) && ( previtem.keylen > 0 ))
@@ -2382,7 +2385,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
         rc = pblItemDelete( block, index + 1 );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
     }
 
@@ -2392,7 +2395,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
     rc = pblItemDelete( block, index );
     if( rc )
     {
-        return( rc );
+        return rc;
     }
 
     if( dodelete )
@@ -2402,7 +2405,7 @@ static int pblItemRemove( PBLBLOCK_t *block, unsigned int index )
          */
         rc = pblItemInsert( block, &peeritem, index );
     }
-    return( rc );
+    return rc;
 }
 
 /*
@@ -2430,7 +2433,7 @@ int          which
 
         if( pblItemGetKey( block, index, &curitem ))
         {
-            return( -1 );
+            return -1;
         }
 
         rc = pblItemCompare( kf, &curitem, item );
@@ -2450,7 +2453,7 @@ int          which
 
               case PBLEQ:
                 found = index;
-                return( found );
+                return found;
 
               case PBLLA:
               case PBLGE:
@@ -2508,7 +2511,7 @@ int          which
         pbl_errno = PBL_ERROR_NOT_FOUND;
     }
 
-    return( found );
+    return found;
 }
 
 static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
@@ -2526,16 +2529,16 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
     if( !block->writeable )
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( -1 );
+        return -1;
     }
 
     if( block->nentries < 1 )
     {
         if( pblItemAppend( block, 0, 0, item ))
         {
-            return( -1 );
+            return -1;
         }
-        return( 0 );
+        return 0;
     }
 
     /*
@@ -2546,7 +2549,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
     {
         if( pbl_errno != PBL_ERROR_NOT_FOUND )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -2557,7 +2560,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
 
         if( pblItemGet( block, index - 1, &peeritem ))
         {
-            return( -1 );
+            return -1;
         }
 
         savekeylen = peeritem.keylen;
@@ -2568,9 +2571,9 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
 
         if( pblItemAppend( block, savekey, savekeylen, item ))
         {
-            return( -1 );
+            return -1;
         }
-        return( index );
+        return index;
     }
 
     /*
@@ -2580,7 +2583,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
     {
         if( pblItemGet( block, index - 1, &previtem ))
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -2609,7 +2612,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
     if( PBLINDEXBLOCKNFREE( block ) < itemsize + 2 )
     {
         pbl_errno = PBL_ERROR_NOFIT;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2617,7 +2620,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
      */
     if( pblItemGet( block, index, &peeritem ))
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2665,7 +2668,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
         rc = pblItemDelete( block, index );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
 
         /*
@@ -2674,7 +2677,7 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
         rc = pblItemInsert( block, &peeritem, index );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
     }
 
@@ -2684,10 +2687,10 @@ static int pblItemAdd( PBLKFILE_t * kf, PBLBLOCK_t * block, PBLITEM_t * item )
     rc = pblItemInsert( block, item, index );
     if( rc )
     {
-        return( rc );
+        return rc;
     }
 
-    return( index );
+    return index;
 }
 
 /*
@@ -2854,10 +2857,10 @@ static int pblBlockWrite( PBLBLOCK_t * block )
         block->bf         = -1;
         block->filesettag = NULL;
         pbl_errno = PBL_ERROR_WRITE;
-        return( -1 );
+        return -1;
     }
 
-    return( 0 );
+    return 0;
 }
 
 static int pblBlockFlush( int bf, int release )
@@ -2918,7 +2921,7 @@ static int pblBlockFlush( int bf, int release )
                  * most likely the file is inconsistent after that !!!!
                  */
                 pblBlocksRelease( bf );
-                return( -1 );
+                return -1;
             }
             else
             {
@@ -2946,7 +2949,7 @@ static int pblBlockFlush( int bf, int release )
             }
         }
     }
-    return( 0 );
+    return 0;
 }
 
 static PBLBLOCK_t * pblBlockGetVictim( PBLKFILE_t * file )
@@ -2965,7 +2968,7 @@ static PBLBLOCK_t * pblBlockGetVictim( PBLKFILE_t * file )
         block = (PBLBLOCK_t *)pbl_malloc0( "pblBlockGetVictim BLOCK", sizeof( PBLBLOCK_t ));
         if( !block )
         {
-            return( ( PBLBLOCK_t * ) 0 );
+            return NULL;
         }
         pblnblocks++;
         PBL_LIST_PUSH( blockListHead, blockListTail, block, next, prev );
@@ -2987,7 +2990,7 @@ static PBLBLOCK_t * pblBlockGetVictim( PBLKFILE_t * file )
                     rc = pblBlockFlush( blockListTail->bf, 0 );
                     if( rc )
                     {
-                        return( ( PBLBLOCK_t * ) 0 );
+                        return NULL;
                     }
                 }
 
@@ -3008,7 +3011,7 @@ static PBLBLOCK_t * pblBlockGetVictim( PBLKFILE_t * file )
         else
         {
             pbl_errno = PBL_ERROR_PROGRAM;
-            return( 0 );
+            return NULL;
         }
 
         pblBlockCachedItemsRelease( block );
@@ -3020,7 +3023,7 @@ static PBLBLOCK_t * pblBlockGetVictim( PBLKFILE_t * file )
     block->bf           = -1;
     block->filesettag   = NULL;
 
-    return( block );
+    return block;
 }
 
 static PBLBLOCK_t * pblBlockFind( PBLKFILE_t * file, long blockno )
@@ -3046,7 +3049,7 @@ static PBLBLOCK_t * pblBlockFind( PBLKFILE_t * file, long blockno )
                                file->writeableListTail, block, next, prev );
             }
 
-            return( block );
+            return block;
         }
     }
 
@@ -3057,7 +3060,7 @@ static PBLBLOCK_t * pblBlockFind( PBLKFILE_t * file, long blockno )
      && blockListHead->blockno == blockno
      && blockListHead->bf      == file->bf )
     {
-        return( blockListHead );
+        return blockListHead;
     }
 
     /*
@@ -3075,10 +3078,10 @@ static PBLBLOCK_t * pblBlockFind( PBLKFILE_t * file, long blockno )
             PBL_LIST_PUSH( blockListHead, blockListTail, block, next, prev );
         }
 
-        return( block );
+        return block;
     }
 
-    return( 0 );
+    return NULL;
 }
 
 static PBLBLOCK_t * pblBlockGet( PBLKFILE_t * file, long blockno )
@@ -3092,7 +3095,7 @@ static PBLBLOCK_t * pblBlockGet( PBLKFILE_t * file, long blockno )
     block = pblBlockFind( file, blockno );
     if( block )
     {
-        return( block );
+        return block;
     }
 
     /*
@@ -3101,7 +3104,7 @@ static PBLBLOCK_t * pblBlockGet( PBLKFILE_t * file, long blockno )
     block = pblBlockGetVictim( file );
     if( !block )
     {
-        return( block );
+        return block;
     }
 
     /*
@@ -3110,7 +3113,7 @@ static PBLBLOCK_t * pblBlockGet( PBLKFILE_t * file, long blockno )
     rc = pbf_blockread( file->bf, blockno, block->data );
     if( rc < 0 )
     {
-        return( ( PBLBLOCK_t * ) 0 );
+        return NULL;
     }
 
     /*
@@ -3128,9 +3131,9 @@ static PBLBLOCK_t * pblBlockGet( PBLKFILE_t * file, long blockno )
     if( pblBlockHashInsert( block->blockno, block->bf, block ) )
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( 0 );
+        return NULL;
     }
-    return( block );
+    return block;
 }
 
 /*
@@ -3147,7 +3150,7 @@ static PBLBLOCK_t * pblBlockGetWriteable( PBLKFILE_t * file, long blockno )
     block = pblBlockGet( file, blockno );
     if( !block || block->writeable )
     {
-        return( block );
+        return block;
     }
 
     if( !block->dirty )
@@ -3163,7 +3166,7 @@ static PBLBLOCK_t * pblBlockGetWriteable( PBLKFILE_t * file, long blockno )
         PBL_LIST_PUSH( file->writeableListHead,
                        file->writeableListTail, block, next, prev );
 
-        return( block );
+        return block;
     }
 
     /*
@@ -3173,7 +3176,7 @@ static PBLBLOCK_t * pblBlockGetWriteable( PBLKFILE_t * file, long blockno )
                            block, sizeof( *block ) );
     if( !newblock )
     {
-        return( newblock );
+        return newblock;
     }
 
     newblock->writeable = 1;
@@ -3186,7 +3189,7 @@ static PBLBLOCK_t * pblBlockGetWriteable( PBLKFILE_t * file, long blockno )
     memset( block->cachedItems, 0, sizeof( block->cachedItems ));
     block->maxItemCacheIndex = 0;
 
-    return( newblock );
+    return newblock;
 }
 
 static int pblBlockFree( PBLKFILE_t * file, long blockno )
@@ -3202,7 +3205,7 @@ static int pblBlockFree( PBLKFILE_t * file, long blockno )
     rootblock = pblBlockGetWriteable( file, 0 );
     if( !rootblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3211,7 +3214,7 @@ static int pblBlockFree( PBLKFILE_t * file, long blockno )
     block = pblBlockGetWriteable( file, blockno );
     if( !block )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3222,7 +3225,7 @@ static int pblBlockFree( PBLKFILE_t * file, long blockno )
         nblock = pblBlockGetWriteable( file, block->nblock );
         if( !nblock )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -3231,7 +3234,7 @@ static int pblBlockFree( PBLKFILE_t * file, long blockno )
         pblock = pblBlockGetWriteable( file, block->pblock );
         if( !pblock )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -3272,7 +3275,7 @@ static int pblBlockFree( PBLKFILE_t * file, long blockno )
     rootblock->pblock = blockno;
     rootblock->dirty  = 1;
 
-    return( 0 );
+    return 0;
 }
 
 static int pblBlockConcat(
@@ -3294,7 +3297,7 @@ unsigned int      keylen
     if( !block->writeable || !from->writeable )
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3305,7 +3308,7 @@ unsigned int      keylen
     {
         if( pblItemGet( block, block->nentries - 1, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         predkeylen = item.keylen;
@@ -3327,9 +3330,9 @@ unsigned int      keylen
     {
         if( pblItemGet( from, i, &item ))
         {
-            return( -1 );
+            return -1;
         }
-
+        
         /*
          * The first item can have an empty key, if so we use
          * the key given as parameter
@@ -3345,10 +3348,10 @@ unsigned int      keylen
             if( pbl_errno == PBL_ERROR_NOFIT )
             {
                 pbl_errno = 0;
-                return( 0 );
+                return 0;
             }
 
-            return( rc );
+            return rc;
         }
 
         predkeylen = item.keylen;
@@ -3379,7 +3382,7 @@ unsigned int      keylen
         file->index  += nentries;
     }
 
-    return( 1 );
+    return 1;
 }
 
 static long pblBlockAppend(
@@ -3406,7 +3409,7 @@ long         pblock
         if( !rootblock )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3424,7 +3427,7 @@ long         pblock
                 if( block->level != 254 )
                 {
                     pbl_errno = PBL_ERROR_BAD_FILE;
-                    return( -1 );
+                    return -1;
                 }
 
                 /*
@@ -3436,7 +3439,7 @@ long         pblock
             else
             {
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( -1 );
+                return -1;
             }
         }
     }
@@ -3474,7 +3477,7 @@ long         pblock
         if( freeblockno < 0 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3484,7 +3487,7 @@ long         pblock
         if( !block || block->level != 254 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
     }
 
@@ -3500,7 +3503,7 @@ long         pblock
     block->free       = PBLHEADERSIZE;
     block->dirty      = 1;
 
-    return( block->blockno );
+    return block->blockno;
 }
 
 static int pblBlockMerge(
@@ -3529,7 +3532,7 @@ long         blockno
          * No error because the parent block might have been split
          */
         pbl_errno = 0;
-        return( merged );
+        return merged;
     }
 
     /*
@@ -3538,7 +3541,7 @@ long         blockno
      */
     if( parentindex >= (int)parentblock->nentries )
     {
-        return( merged );
+        return merged;
     }
 
     /*
@@ -3546,7 +3549,7 @@ long         blockno
      */
     if( pblItemGet( parentblock, parentindex, &item ))
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3555,7 +3558,7 @@ long         blockno
      */
     if( blockno != item.datablock )
     {
-        return( merged );
+        return merged;
     }
 
     /*
@@ -3569,7 +3572,7 @@ long         blockno
          */
         if( parentindex >= (int)parentblock->nentries )
         {
-            return( merged );
+            return merged;
         }
 
         /*
@@ -3577,7 +3580,7 @@ long         blockno
          */
         if( pblItemGet( parentblock, parentindex, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3591,7 +3594,7 @@ long         blockno
         block = pblBlockGet( file, blockno );
         if( !block )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3599,7 +3602,7 @@ long         blockno
          */
         if( pblItemGet( parentblock, parentindex - 1, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3608,7 +3611,7 @@ long         blockno
         peerblock = pblBlockGet( file, item.datablock );
         if( !peerblock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3629,7 +3632,7 @@ long         blockno
         block = pblBlockGetWriteable( file, blockno );
         if( !block )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3638,7 +3641,7 @@ long         blockno
         peerblock = pblBlockGetWriteable( file, item.datablock );
         if( !peerblock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3647,7 +3650,7 @@ long         blockno
         parentblock = pblBlockGetWriteable( file, parentblockno );
         if( !parentblock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3655,7 +3658,7 @@ long         blockno
          */
         if( parentindex >= (int)parentblock->nentries )
         {
-            return( merged );
+            return merged;
         }
 
         /*
@@ -3663,13 +3666,13 @@ long         blockno
          */
         if( pblItemGet( parentblock, parentindex, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         if( item.keylen < 1 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         keylen = item.keylen;
@@ -3681,7 +3684,7 @@ long         blockno
         rc = pblBlockConcat( file, peerblock, block, key, keylen );
         if( rc < 0 )
         {
-            return( rc );
+            return rc;
         }
         else if( rc == 0 )
         {
@@ -3702,13 +3705,13 @@ long         blockno
         rc = pblBlockFree( file, blockno );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
 
         rc = pblItemRemove( parentblock, parentindex );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
     }
 
@@ -3722,7 +3725,7 @@ long         blockno
          */
         if( pblItemGet( parentblock, parentindex, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3736,7 +3739,7 @@ long         blockno
         block = pblBlockGet( file, blockno );
         if( !block )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3744,7 +3747,7 @@ long         blockno
          */
         if( pblItemGet( parentblock, parentindex + 1, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3753,7 +3756,7 @@ long         blockno
         peerblock = pblBlockGet( file, item.datablock );
         if( !peerblock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3774,7 +3777,7 @@ long         blockno
         block = pblBlockGetWriteable( file, blockno );
         if( !block )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3784,7 +3787,7 @@ long         blockno
         peerblock = pblBlockGetWriteable( file, blockno );
         if( !peerblock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3793,7 +3796,7 @@ long         blockno
         parentblock = pblBlockGetWriteable( file, parentblockno );
         if( !parentblock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3801,7 +3804,7 @@ long         blockno
          */
         if( parentindex >= (int)parentblock->nentries - 1 )
         {
-            return( merged );
+            return merged;
         }
 
         /*
@@ -3809,13 +3812,13 @@ long         blockno
          */
         if( pblItemGet( parentblock, parentindex + 1, &item ))
         {
-            return( -1 );
+            return -1;
         }
 
         if( item.keylen < 1 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         keylen = item.keylen;
@@ -3827,7 +3830,7 @@ long         blockno
         rc = pblBlockConcat( file, block, peerblock, key, keylen );
         if( rc < 0 )
         {
-            return( rc );
+            return rc;
         }
         else if( rc == 0 )
         {
@@ -3848,17 +3851,17 @@ long         blockno
         rc = pblBlockFree( file, blockno );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
 
         rc = pblItemRemove( parentblock, parentindex + 1 );
         if( rc )
         {
-            return( rc );
+            return rc;
         }
     }
 
-    return( merged );
+    return merged;
 }
 
 /*
@@ -3891,7 +3894,7 @@ static int pblBlockListTruncate( void )
                 rc = pblBlockFlush( block->bf, 0 );
                 if( rc )
                 {
-                    return( rc );
+                    return rc;
                 }
             }
 
@@ -3907,7 +3910,7 @@ static int pblBlockListTruncate( void )
         pblnblocks--;
     }
 
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -3927,7 +3930,7 @@ int nblocks            /* number of blocks used per open file */
 
     if( nblocks < 1 )
     {
-        return( pblnblocks );
+        return pblnblocks;
     }
 
     if( nblocks < 8 )
@@ -3937,7 +3940,7 @@ int nblocks            /* number of blocks used per open file */
 
     pblblocksperfile = nblocks;
 
-    return( pblblocksperfile );
+    return pblblocksperfile;
 }
 
 /*
@@ -3962,7 +3965,7 @@ long       * offset
     rootblock = pblBlockGet( file, 0 );
     if( !rootblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3971,19 +3974,19 @@ long       * offset
     datablock = pblBlockGetWriteable( file, rootblock->nblock );
     if( !datablock )
     {
-        return( -1 );
+        return -1;
     }
 
     if( datablock->level != 255 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( PBLDATABLOCKNFREE( datablock ) > PBLDATABLOCKMAXFREE)
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3999,7 +4002,7 @@ long       * offset
         blockno = pblBlockAppend( file, -1, 0, datablock->blockno );
         if( blockno < 0 )
         {
-            return( -1 );
+            return -1;
         }
 
         datablock->nblock = blockno;
@@ -4011,7 +4014,7 @@ long       * offset
         datablock = pblBlockGetWriteable( file, blockno );
         if( !datablock )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -4020,7 +4023,7 @@ long       * offset
         rootblock = pblBlockGetWriteable( file, 0 );
         if( !rootblock )
         {
-            return( -1 );
+            return -1;
         }
 
         rootblock->nblock = blockno;
@@ -4062,7 +4065,7 @@ long       * offset
             blockno = pblBlockAppend( file, -1, 0, datablock->blockno );
             if( blockno < 0 )
             {
-                return( -1 );
+                return -1;
             }
 
             datablock->nblock = blockno;
@@ -4074,7 +4077,7 @@ long       * offset
             datablock = pblBlockGetWriteable( file, blockno );
             if( !datablock )
             {
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -4083,7 +4086,7 @@ long       * offset
             rootblock = pblBlockGetWriteable( file, 0 );
             if( !rootblock )
             {
-                return( -1 );
+                return -1;
             }
 
             rootblock->nblock = blockno;
@@ -4093,7 +4096,7 @@ long       * offset
 
     *offset = returnoffset;
 
-    return( returnblock );
+    return returnblock;
 }
 
 /*
@@ -4123,7 +4126,7 @@ long         datalen
         datablock = pblBlockGetWriteable( file, blockno );
         if( !datablock )
         {
-            return( -1 );
+            return -1;
         }
         nextBlockNo = datablock->nblock;
 
@@ -4135,7 +4138,7 @@ long         datalen
         if( datablock->level != 255 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -4166,7 +4169,7 @@ long         datalen
 
             if( pblBlockFree(file, datablock->blockno))
             {
-                return( -1 );
+                return -1;
             }
             else
             {
@@ -4177,7 +4180,7 @@ long         datalen
                 PBLBLOCK_t * rootblock = pblBlockGetWriteable( file, 0 );
                 if( !rootblock )
                 {
-                    return( -1 );
+                    return -1;
                 }
 
                 if( rootblock->nblock == blockno)
@@ -4200,14 +4203,14 @@ long         datalen
             if( blockno < 1 )
             {
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( -1 );
+                return -1;
             }
 
             blockoffset = PBLHEADERSIZE;
         }
     }
 
-    return( bytesRemoved );
+    return bytesRemoved;
 }
 
 /**
@@ -4258,7 +4261,7 @@ void * filesettag  /** file set tag, for flushing multiple files consistently */
     if( -1 == fh )
     {
         pbl_errno = PBL_ERROR_CREATE;
-        return( 0 );
+        return NULL;
     }
     close( fh );
 
@@ -4268,7 +4271,7 @@ void * filesettag  /** file set tag, for flushing multiple files consistently */
     bf = pbf_open( path, 1, PBLFILEBLOCKS, PBLDATASIZE );
     if( bf < 0 )
     {
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -4378,7 +4381,7 @@ void * filesettag  /** file set tag, for flushing multiple files consistently */
 
     pblnfiles++;
 
-    return( k );
+    return k;
 
 errout:
 
@@ -4398,7 +4401,7 @@ errout:
         unlink( path );
     }
 
-    return( 0 );
+    return NULL;
 }
 
 /**
@@ -4436,7 +4439,7 @@ void * filesettag  /** file set tag, for flushing multiple files consistently */
     bf = pbf_open( path, update, PBLFILEBLOCKS, PBLDATASIZE );
     if( -1 == bf )
     {
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -4446,7 +4449,7 @@ void * filesettag  /** file set tag, for flushing multiple files consistently */
     if( !kf )
     {
         pbf_close( bf );
-        return( 0 );
+        return NULL;
     }
     kf->magic      = pblkf_c_id;
     kf->bf         = bf;
@@ -4465,12 +4468,12 @@ void * filesettag  /** file set tag, for flushing multiple files consistently */
         pbf_close( bf );
         PBL_FREE( kf );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( 0 );
+        return NULL;
     }
 
     pblnfiles++;
 
-    return( ( pblKeyFile_t * ) kf );
+    return (pblKeyFile_t *) kf;
 }
 
 /**
@@ -4511,7 +4514,7 @@ pblKeyFile_t * k   /** key file to close */
         rc = -1;
     }
 
-    return( rc );
+    return rc;
 }
 
 /**
@@ -4564,12 +4567,12 @@ pblKeyFile_t * k   /** key file to flush */
     rc = pblBlockFlush( kf->bf, 0 );
     if( rc )
     {
-        return( rc );
+        return rc;
     }
 
     rc = pblBlockListTruncate();
 
-    return( rc );
+    return rc;
 }
 
 /**
@@ -4607,7 +4610,7 @@ int rollback      /** != 0: roll back the changes, == 0: commit the changes   */
     if( !rollback && ( kf->transactions < 1 ))
     {
         pbl_errno = PBL_ERROR_PROGRAM;
-        return( -1 );
+        return -1;
     }
     kf->transactions--;
 
@@ -4627,7 +4630,7 @@ int rollback      /** != 0: roll back the changes, == 0: commit the changes   */
      */
     if( kf->transactions > 0 )
     {
-        return( kf->rollback );
+        return kf->rollback;
     }
 
     /*
@@ -4655,7 +4658,7 @@ int rollback      /** != 0: roll back the changes, == 0: commit the changes   */
          */
         kf->transactions = 0;
         kf->rollback = 0;
-        return( 1 );
+        return 1;
     }
 
     /*
@@ -4705,7 +4708,7 @@ int rollback      /** != 0: roll back the changes, == 0: commit the changes   */
         if( pblBlockHashInsert( block->blockno, block->bf, block ) < 0 )
         {
             pbl_errno = PBL_ERROR_PROGRAM;
-            return( 0 );
+            return 0;
         }
     }
 
@@ -4715,7 +4718,7 @@ int rollback      /** != 0: roll back the changes, == 0: commit the changes   */
     kf->transactions = 0;
     kf->rollback = 0;
 
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -4743,11 +4746,11 @@ pblKeyFile_t * k           /** key file to start transaction on               */
     {
         kf->transactions = 1;
         kf->rollback = 0;
-        return( 0 );
+        return 0;
     }
     kf->transactions++;
 
-    return( kf->rollback );
+    return kf->rollback;
 }
 
 /**
@@ -4770,7 +4773,7 @@ pblKeyFile_t * k       /** key file to save position for                     */
     kf->saveblockno = kf->blockno;
     kf->saveindex   = kf->index;
 
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -4793,7 +4796,7 @@ pblKeyFile_t * k       /** key file to restore position for                   */
     kf->blockno = kf->saveblockno;
     kf->index   = kf->saveindex;
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -4806,7 +4809,7 @@ static int pblItemSave( PBLITEM_t * item )
     newitem = (PBLITEM_t *)pbl_malloc0( "pblItemSave ITEM", sizeof( PBLITEM_t ));
     if( !newitem )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -4824,7 +4827,7 @@ static int pblItemSave( PBLITEM_t * item )
         if( !newitem->key )
         {
             PBL_FREE( newitem );
-            return( -1 );
+            return -1;
         }
     }
     else
@@ -4845,7 +4848,7 @@ static int pblItemSave( PBLITEM_t * item )
      */
     PBL_LIST_PUSH( itemListHead, itemListTail, newitem, next, prev );
 
-    return( 0 );
+    return 0;
 }
 
 static void pblItemRelease( void )
@@ -4892,7 +4895,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
                                  block->nblock, block->blockno );
     if( newblockno < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -4903,7 +4906,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
         PBLBLOCK_t * nextBlock = pblBlockGetWriteable( file, block->nblock );
         if( !nextBlock )
         {
-            return( -1 );
+            return -1;
         }
 
         nextBlock->pblock = newblockno;
@@ -4916,7 +4919,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
     newblock = pblBlockGetWriteable( file, newblockno );
     if( !newblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -4946,7 +4949,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
         {
             pblBlockCachedItemsRelease( &tmpblock );
 
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -4971,7 +4974,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
             {
                 pblBlockCachedItemsRelease( &tmpblock );
 
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -4995,7 +4998,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
         {
             pblBlockCachedItemsRelease( &tmpblock );
 
-            return( -1 );
+            return -1;
         }
 
         predkeylen = item.keylen;
@@ -5017,7 +5020,7 @@ static int pblSplit( PBLKFILE_t *file, PBLBLOCK_t * block )
     newblock->parentblock = block->parentblock;
     newblock->parentindex = block->parentindex + 1;
 
-    return( 0 );
+    return 0;
 }
 
 static int pblSplitRoot( PBLKFILE_t *file )
@@ -5034,7 +5037,7 @@ static int pblSplitRoot( PBLKFILE_t *file )
     rootblock = pblBlockGetWriteable( file, 0 );
     if( !rootblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5043,13 +5046,13 @@ static int pblSplitRoot( PBLKFILE_t *file )
     newblockno = pblBlockAppend( file, rootblock->level, 0, 0 );
     if( newblockno < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     newblock = pblBlockGetWriteable( file, newblockno );
     if( !newblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5067,7 +5070,7 @@ static int pblSplitRoot( PBLKFILE_t *file )
     rootblock = pblBlockGetWriteable( file, 0 );
     if( !rootblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5083,7 +5086,7 @@ static int pblSplitRoot( PBLKFILE_t *file )
     newblock = pblBlockGetWriteable( file, newblockno );
     if( !newblock )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5092,7 +5095,7 @@ static int pblSplitRoot( PBLKFILE_t *file )
     rc = pblItemGet( newblock, 0, &item );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     item.level      = rootblock->level;
@@ -5104,7 +5107,7 @@ static int pblSplitRoot( PBLKFILE_t *file )
     rc = pblItemAppend( rootblock, 0, 0, &item );
     if( rc < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5116,7 +5119,7 @@ static int pblSplitRoot( PBLKFILE_t *file )
     /*
      * Split the new block
      */
-    return( pblSplit( file, newblock ));
+    return pblSplit( file, newblock );
 }
 
 /**
@@ -5171,21 +5174,21 @@ size_t          datalen /** length of the data                                */
     if( pblBlockListTruncate())
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     if( !kf->update )
     {
         pblKfCommit( k, 1 );
         pbl_errno = PBL_ERROR_NOT_ALLOWED;
-        return( -1 );
+        return -1;
     }
 
     rc = pblParamsCheck( key, keylen, data, datalen );
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5201,7 +5204,7 @@ size_t          datalen /** length of the data                                */
         if( item.datablock < 1 )
         {
             pblKfCommit( k, 1 );
-            return( -1 );
+            return -1;
         }
         item.data = 0;
     }
@@ -5228,7 +5231,7 @@ size_t          datalen /** length of the data                                */
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5408,11 +5411,11 @@ size_t          datalen /** length of the data                                */
         kf->index = -1;
         pblKfCommit( k, 1 );
         pbl_errno = saveerrno;
-        return( -1 );
+        return -1;
     }
 
     pblKfCommit( k, 0 );
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -5429,7 +5432,7 @@ static PBLBLOCK_t * pblPositionCheck( PBLKFILE_t *kf )
     if( kf->blockno < 0 )
     {
         pbl_errno = PBL_ERROR_POSITION;
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -5438,7 +5441,7 @@ static PBLBLOCK_t * pblPositionCheck( PBLKFILE_t *kf )
     block = pblBlockGet( kf, kf->blockno );
     if( !block )
     {
-        return( 0 );
+        return NULL;
     }
     index = kf->index;
 
@@ -5470,7 +5473,7 @@ static PBLBLOCK_t * pblPositionCheck( PBLKFILE_t *kf )
             block = pblBlockGet( kf, block->pblock );
             if( !block )
             {
-                return( 0 );
+                return NULL;
             }
 
             if( block->nentries )
@@ -5495,7 +5498,7 @@ static PBLBLOCK_t * pblPositionCheck( PBLKFILE_t *kf )
             block = pblBlockGet( kf, block->nblock );
             if( !block )
             {
-                return( 0 );
+                return NULL;
             }
 
             if( block->nentries )
@@ -5522,14 +5525,14 @@ static PBLBLOCK_t * pblPositionCheck( PBLKFILE_t *kf )
              */
             pbl_errno = PBL_ERROR_BAD_FILE;
             kf->blockno = -1;
-            return( 0 );
+            return NULL;
         }
         else
         {
             block = pblBlockGet( kf, block->pblock );
             if( !block )
             {
-                return( 0 );
+                return NULL;
             }
 
             if( block->nentries )
@@ -5547,13 +5550,13 @@ static PBLBLOCK_t * pblPositionCheck( PBLKFILE_t *kf )
     {
         pbl_errno = PBL_ERROR_NOT_FOUND;
         kf->blockno = -1;
-        return( 0 );
+        return NULL;
     }
 
     kf->blockno = block->blockno;
     kf->index = index;
 
-    return( block );
+    return block;
 }
 
 static long pblDataWrite(
@@ -5574,13 +5577,13 @@ long         datalen
         datablock = pblBlockGetWriteable( file, blockno );
         if( !datablock )
         {
-            return( -1 );
+            return -1;
         }
 
         if( datablock->level != 255 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         diff = datalen - bytesWritten;
@@ -5615,7 +5618,7 @@ long         datalen
         }
     }
 
-    return( bytesWritten );
+    return bytesWritten;
 }
 
 /**
@@ -5657,14 +5660,14 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
     if( pblBlockListTruncate())
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     if( !kf->update )
     {
         pblKfCommit( k, 1 );
         pbl_errno = PBL_ERROR_NOT_ALLOWED;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5674,7 +5677,7 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
     if( !block )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5684,7 +5687,7 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
     if( !block )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5693,7 +5696,7 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
     rc = pblItemGet( block, kf->index, &item );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5720,7 +5723,7 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
         if( !block )
         {
             pblKfCommit( k, 1 );
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -5729,7 +5732,7 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
         rc = pblItemGet( block, kf->index, &item );
         if( rc )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -5740,7 +5743,7 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( rc );
+        return rc;
     }
 
     /*
@@ -5776,18 +5779,18 @@ pblKeyFile_t  * k       /** key file to delete record from                    */
         if( !block )
         {
             pblKfCommit( k, 1 );
-            return( -1 );
+            return -1;
         }
     }
 
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     pblKfCommit( k, 0 );
-    return( rc );
+    return rc;
 }
 
 /**
@@ -5832,20 +5835,20 @@ size_t          datalen /** length of the new data                            */
     if( pblBlockListTruncate())
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     if( !kf->update )
     {
         pblKfCommit( k, 1 );
         pbl_errno = PBL_ERROR_NOT_ALLOWED;
-        return( -1 );
+        return -1;
     }
 
     if( pblParamsCheck( (unsigned char*)1, 1, data, datalen ))
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5855,7 +5858,7 @@ size_t          datalen /** length of the new data                            */
     if( !block )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5865,7 +5868,7 @@ size_t          datalen /** length of the new data                            */
     if( !block )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -5875,7 +5878,7 @@ size_t          datalen /** length of the new data                            */
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( -1 );
+        return -1;
     }
 
     if( datalen == item.datalen )
@@ -5895,7 +5898,7 @@ size_t          datalen /** length of the new data                            */
             }
 
             pblKfCommit( k, 0 );
-            return( 0 );
+            return 0;
         }
 
         /*
@@ -5905,11 +5908,11 @@ size_t          datalen /** length of the new data                            */
         if( rc != datalen )
         {
             pblKfCommit( k, 1 );
-            return( -1 );
+            return -1;
         }
 
         pblKfCommit( k, 0 );
-        return( 0 );
+        return 0;
     }
 
     if( item.keycommon )
@@ -5921,7 +5924,7 @@ size_t          datalen /** length of the new data                            */
         if( rc )
         {
             pblKfCommit( k, 1 );
-            return( -1 );
+            return -1;
         }
     }
 
@@ -5935,19 +5938,19 @@ size_t          datalen /** length of the new data                            */
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( rc );
+        return rc;
     }
 
     rc = pblKfInsert( k, key, item.keylen, data, datalen );
     if( rc )
     {
         pblKfCommit( k, 1 );
-        return( rc );
+        return rc;
     }
 
     pblKfCommit( k, 0 );
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -5978,7 +5981,7 @@ PBLITEM_t     * item
     block = pblBlockGet( kf, blockno );
     if( !block )
     {
-        return( -1 );
+        return -1;
     }
 
     block->parentblock = parentblock;
@@ -5995,7 +5998,7 @@ PBLITEM_t     * item
         index = pblItemFind( kf, block, item, mode );
         if( index < 0 )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -6004,13 +6007,13 @@ PBLITEM_t     * item
         if(( index == 0 ) && ( !block->pblock || !block->blockno ))
         {
             pbl_errno = PBL_ERROR_NOT_FOUND;
-            return( -1 );
+            return -1;
         }
 
         rc = pblItemGet( block, index, &curitem );
         if( rc )
         {
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -6022,7 +6025,7 @@ PBLITEM_t     * item
         /*
          * We return the datalength of the item
          */
-        return( curitem.datalen );
+        return curitem.datalen;
     }
 
     direction = 1;
@@ -6045,7 +6048,7 @@ PBLITEM_t     * item
 
       default:
         pbl_errno  = PBL_ERROR_PARAM_MODE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6075,14 +6078,14 @@ PBLITEM_t     * item
         rc = pblItemGet( block, index, &curitem );
         if( rc )
         {
-            return( -1 );
+            return -1;
         }
 
         rc = pblItemCompare( kf, &curitem, item );
         if(( rc > 0 ) && ( mode != PBLGT ))
         {
             pbl_errno = PBL_ERROR_NOT_FOUND;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -6094,7 +6097,7 @@ PBLITEM_t     * item
             /*
              * The find was successful
              */
-            return( rc );
+            return rc;
         }
 
         /*
@@ -6102,7 +6105,7 @@ PBLITEM_t     * item
          */
         if( pbl_errno != PBL_ERROR_NOT_FOUND )
         {
-            return( -1 );
+            return -1;
         }
         else
         {
@@ -6116,7 +6119,7 @@ PBLITEM_t     * item
         block = pblBlockGet( kf, blockno );
         if( !block )
         {
-            return( -1 );
+            return -1;
         }
 
         block->parentblock = parentblock;
@@ -6127,7 +6130,7 @@ PBLITEM_t     * item
      * We couldn't find the item, tell the caller
      */
     pbl_errno = PBL_ERROR_NOT_FOUND;
-    return( -1 );
+    return -1;
 }
 
 static long pblDataGet(
@@ -6148,13 +6151,13 @@ long         datalen
         datablock = pblBlockGet( file, blockno );
         if( !datablock )
         {
-            return( -1 );
+            return -1;
         }
 
         if( datablock->level != 255 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         diff = datalen - bytesRead;
@@ -6188,7 +6191,7 @@ long         datalen
         }
     }
 
-    return( bytesRead );
+    return bytesRead;
 }
 
 /**
@@ -6254,7 +6257,7 @@ size_t        * okeylen  /** length of the result key after return            */
     rc = pblParamsCheck( skey, skeylen, (unsigned char*)0, 0 );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6298,7 +6301,7 @@ size_t        * okeylen  /** length of the result key after return            */
 
     if( rc < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6307,7 +6310,7 @@ size_t        * okeylen  /** length of the result key after return            */
     block = pblBlockGet( kf, kf->blockno );
     if( !block )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6316,7 +6319,7 @@ size_t        * okeylen  /** length of the result key after return            */
     rc = pblItemGet( block, kf->index, &item );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6328,7 +6331,7 @@ size_t        * okeylen  /** length of the result key after return            */
         pbl_memlcpy( okey, PBLKEYLENGTH, item.key, item.keylen );
     }
 
-    return( item.datalen );
+    return item.datalen;
 }
 
 /**
@@ -6364,7 +6367,7 @@ long            datalen /** length of the data                                */
     rc = pblParamsCheck( (unsigned char*)1, 1, (unsigned char*)data, datalen );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6373,7 +6376,7 @@ long            datalen /** length of the data                                */
     block = pblPositionCheck( kf );
     if( !block )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6382,7 +6385,7 @@ long            datalen /** length of the data                                */
     rc = pblItemGet( block, kf->index, &item );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6406,7 +6409,7 @@ long            datalen /** length of the data                                */
     if( datalen <= PBLDATALENGTH )
     {
         memcpy( data, item.data, datalen );
-        return( datalen );
+        return datalen;
     }
 
     /*
@@ -6415,10 +6418,10 @@ long            datalen /** length of the data                                */
     rc = pblDataGet( kf, data, item.datablock, item.dataoffset, datalen );
     if( rc != datalen )
     {
-        return( -1 );
+        return -1;
     }
 
-    return( datalen );
+    return datalen;
 }
 
 /**
@@ -6469,7 +6472,7 @@ size_t        * okeylen   /** length of the result key after return  */
     block = pblPositionCheck( kf );
     if( !block )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6570,7 +6573,7 @@ size_t        * okeylen   /** length of the result key after return  */
      */
     if( pbl_errno )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6579,7 +6582,7 @@ size_t        * okeylen   /** length of the result key after return  */
     rc = pblItemGet( block, index, &item );
     if( rc )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6589,7 +6592,7 @@ size_t        * okeylen   /** length of the result key after return  */
     if( item.keylen == 0 )
     {
         pbl_errno = PBL_ERROR_NOT_FOUND;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6604,7 +6607,7 @@ size_t        * okeylen   /** length of the result key after return  */
     kf->blockno = block->blockno;
     kf->index = index;
 
-    return( item.datalen );
+    return item.datalen;
 }
 
 /**
@@ -6654,7 +6657,7 @@ size_t        * okeylen   /** length of the result key after return  */
     block = pblBlockGet( kf, 0 );
     if( !block )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6683,7 +6686,7 @@ size_t        * okeylen   /** length of the result key after return  */
         block = pblBlockGet( kf, item.datablock );
         if( !block )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -6700,16 +6703,16 @@ size_t        * okeylen   /** length of the result key after return  */
         if( absindex >= 0 )
         {
             kf->index = -1;
-            return( pblKfGetRel( k, absindex, okey, okeylen ));
+            return pblKfGetRel( k, absindex, okey, okeylen );
         }
         else
         {
             kf->index = block->nentries;
-            return( pblKfGetRel( k, absindex + 1, okey, okeylen ));
+            return pblKfGetRel( k, absindex + 1, okey, okeylen );
         }
     }
 
-    return( -1 );
+    return -1;
 }
 
 /*
@@ -6776,7 +6779,7 @@ long blockno       /** number of block to print                               */
     if( -1 == bf )
     {
         printf( "pbf_open failed, pbl_errno %d\n", pbl_errno );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -6787,7 +6790,7 @@ long blockno       /** number of block to print                               */
     {
         printf( "pbl_malloc0 failed, pbl_errno %d\n", pbl_errno );
         pbf_close( bf );
-        return( -1 );
+        return -1;
     }
     kf->magic      = pblkf_c_id;
     kf->bf         = bf;
@@ -6806,14 +6809,14 @@ long blockno       /** number of block to print                               */
     {
         printf( "pblBlockGet failed, pbl_errno %d\n", pbl_errno );
         pblKfClose( ( pblKeyFile_t * ) kf );
-        return( -1 );
+        return -1;
     }
 
     if( block->level == 255 )
     {
         printf( "datablock\n" );
         pblKfClose( ( pblKeyFile_t * ) kf );
-        return( 0 );
+        return 0;
     }
 
     printf( "level %d, pblock %ld, nblock %ld, nentries %d, free %d\n",
@@ -6823,7 +6826,7 @@ long blockno       /** number of block to print                               */
     if( block->nentries < 1 )
     {
         pblKfClose( ( pblKeyFile_t * ) kf );
-        return( 0 );
+        return 0;
     }
 
     for( i = 0; i < (int)block->nentries; i++ )
@@ -6849,5 +6852,5 @@ long blockno       /** number of block to print                               */
     }
 
     pblKfClose( ( pblKeyFile_t * ) kf );
-    return( 0 );
+    return 0;
 }

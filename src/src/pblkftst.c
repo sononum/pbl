@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblkftst.c,v $
+    Revision 1.14  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.13  2015/02/22 07:06:06  peter
     Port to Visual Studio 2012.
 
@@ -47,7 +50,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblkftst_c_id = "$Id: pblkftst.c,v 1.13 2015/02/22 07:06:06 peter Exp $";
+char * pblkftst_c_id = "$Id: pblkftst.c,v 1.14 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -149,7 +152,7 @@ static int getChar( void )
     if( c != EOF )
         putChar( c );
 
-    return( c );
+    return c;
 }
 
 
@@ -941,7 +944,7 @@ int pblKEYFILE_TestFrame( int argc, char * argv[] )
 			return -1;
 		}
 	}
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -964,7 +967,7 @@ int pblKEYFILE_TestFrame( int argc, char * argv[] )
 
 int main( int argc, char * argv[] )
 {
-    return( pblKEYFILE_TestFrame( argc, argv ));
+    return pblKEYFILE_TestFrame( argc, argv );
 }
 
 #endif /* CDT_BUILD */

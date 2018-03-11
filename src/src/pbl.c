@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
    $Log: pbl.c,v $
+   Revision 1.19  2018/03/10 18:00:45  peter
+   Cleanup of unneeded parentheses
+
    Revision 1.18  2015/02/22 07:06:06  peter
    Port to Visual Studio 2012.
 
@@ -53,7 +56,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pbl_c_id = "$Id: pbl.c,v 1.18 2015/02/22 07:06:06 peter Exp $";
+char* pbl_c_id = "$Id: pbl.c,v 1.19 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -341,14 +344,14 @@ size_t   size        /** number of bytes to allocate        */
         snprintf( pbl_errstr, PBL_ERRSTR_LEN,
                   "%s: failed to malloc %d bytes\n", tag, (int)size );
         pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-        return( 0 );
+        return ptr;
     }
 
 #ifdef PBL_MEMTRACE
     pbl_memtrace_create( tag, ptr, size );
 #endif
 
-    return( ptr );
+    return ptr;
 }
 
 /**
@@ -369,22 +372,20 @@ size_t   size        /** number of bytes to allocate        */
         tag = "pbl_malloc0";
     }
 
-    ptr = malloc( size );
+    ptr = calloc((size_t) 1, size );
     if( !ptr )
     {
         snprintf( pbl_errstr, PBL_ERRSTR_LEN,
-                  "%s: failed to malloc %d bytes\n", tag, (int)size );
+                  "%s: failed to calloc %d bytes\n", tag, (int)size );
         pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-        return( 0 );
+        return ptr;
     }
-
-    memset( ptr, 0, size );
 
 #ifdef PBL_MEMTRACE
     pbl_memtrace_create( tag, ptr, size );
 #endif
 
-    return( ptr );
+    return ptr;
 }
 
 
@@ -413,7 +414,7 @@ size_t size        /** size of that buffer                */
         snprintf( pbl_errstr, PBL_ERRSTR_LEN,
                   "%s: failed to malloc %d bytes\n", tag, (int)size );
         pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-        return( 0 );
+        return ptr;
     }
 
     memcpy( ptr, data, size );
@@ -422,7 +423,7 @@ size_t size        /** size of that buffer                */
     pbl_memtrace_create( tag, ptr, size );
 #endif
 
-    return( ptr );
+    return ptr;
 }
 
 /**
@@ -471,7 +472,7 @@ size_t len2        /** length of second buffer            */
     ret = pbl_malloc( tag, len1 + len2 );
     if( !ret )
     {
-        return( 0 );
+        return ret;
     }
 
     if( len1 )
@@ -484,7 +485,7 @@ size_t len2        /** length of second buffer            */
         memcpy( ((char*)ret) + len1, mem2, len2 );
     }
 
-    return( ret );
+    return ret;
 }
 
 /**
@@ -502,7 +503,7 @@ size_t n            /** length of source                                     */
     size_t l = n > tolen ? tolen : n;
 
     memcpy( to, from, l );
-    return( l );
+    return l;
 }
 
 /**
@@ -534,7 +535,7 @@ size_t rlen     /** length of that buffer                  */
         }
     }
 
-    return( i );
+    return i;
 }
 
 /**
@@ -561,13 +562,13 @@ size_t rlen     /** length of that buffer                  */
     {
         if( !rlen )
         {
-            return( 0 );
+            return 0;
         }
-        return( -1 );
+        return -1;
     }
     if( !rlen )
     {
-        return( 1 );
+        return 1;
     }
 
     /*
@@ -588,14 +589,14 @@ size_t rlen     /** length of that buffer                  */
     rc = memcmp( left, right, len );
     if( rc )
     {
-        return( rc );
+        return rc;
     }
 
     /*
      * if the two buffers are equal in the first len bytes, but don't have
      * the same lengths, the longer one is logically bigger
      */
-    return( (int) ( ((int)llen) - ((int)rlen) ));
+    return (int) ((int)llen - ((int)rlen));
 }
 
 /**
@@ -622,7 +623,7 @@ unsigned char * buf            /** buffer to read from      */
     unsigned int s  = (( unsigned int ) ( *buf++ )) << 8;
 
     s |= *buf;
-    return( s );
+    return s;
 }
 
 #define PBL_BUFTOSHORT( PTR ) ((( 0 | PTR[ 0 ]) << 8) | PTR[ 1 ] )
@@ -690,9 +691,7 @@ unsigned char * buf        /** the buffer to read from   */
 
     l |= ((( unsigned long ) ( *buf++ ) ) ) << 16;
     l |= ((( unsigned long ) ( *buf++ ) ) ) <<  8;
-    l |= *buf;
-
-    return( l );
+    return l | *buf;
 }
 
 /**
@@ -705,14 +704,14 @@ int pbl_LongToVarBuf( unsigned char * buffer, unsigned long value )
     if( value <= 0x7f )
     {
         *buffer = (unsigned char)value;
-        return( 1 );
+        return 1;
     }
 
     if( value <= 0x3fff )
     {
         *buffer++ = (unsigned char)( value / 0x100 ) | 0x80;
         *buffer = (unsigned char)value & 0xff;
-        return( 2 );
+        return 2;
     }
 
     if( value <= 0x1fffff )
@@ -720,7 +719,7 @@ int pbl_LongToVarBuf( unsigned char * buffer, unsigned long value )
         *buffer++ = (unsigned char)( value / 0x10000 ) | 0x80 | 0x40;
         *buffer++ = (unsigned char)( value / 0x100 );
         *buffer = (unsigned char)value & 0xff;
-        return( 3 );
+        return 3;
     }
 
     if( value <= 0x0fffffff )
@@ -729,13 +728,13 @@ int pbl_LongToVarBuf( unsigned char * buffer, unsigned long value )
         *buffer++ = (unsigned char)( value / 0x10000 );
         *buffer++ = (unsigned char)( value / 0x100 );
         *buffer = (unsigned char)value & 0xff;
-        return( 4 );
+        return 4;
     }
 
     *buffer++ = (unsigned char)0xf0;
     pbl_LongToBuf( buffer, value );
 
-    return( 5 );
+    return 5;
 }
 
 /**
@@ -754,20 +753,20 @@ unsigned long * value      /** long to read to                     */
     if( !( c & 0x80 ))
     {
         *value = c;
-        return( 1 );
+        return 1;
     }
 
     if( !( c & 0x40 ))
     {
         *value = ( c & 0x3f ) * 0x100 + ( *buffer & 0xff );
-        return( 2 );
+        return 2;
     }
     if( !( c & 0x20 ))
     {
         val = ( c & 0x1f ) * 0x10000;
         val += (( *buffer++ ) & 0xff ) * 0x100;
         *value = val + (( *buffer ) & 0xff );
-        return( 3 );
+        return 3;
     }
 
     if( !( c & 0x10 ))
@@ -776,11 +775,11 @@ unsigned long * value      /** long to read to                     */
         val += (( *buffer++ ) & 0xff ) * 0x10000;
         val += (( *buffer++ ) & 0xff ) * 0x100;
         *value = val + (( *buffer ) & 0xff );
-        return( 4 );
+        return 4;
     }
 
     *value = pbl_BufToLong( buffer );
-    return( 5 );
+    return 5;
 }
 
 /**
@@ -794,25 +793,25 @@ unsigned long value               /** value to check          */
 {
     if( value <= 0x7f )
     {
-        return( 1 );
+        return 1;
     }
 
     if( value <= 0x3fff )
     {
-        return( 2 );
+        return 2;
     }
 
     if( value <= 0x1fffff )
     {
-        return( 3 );
+        return 3;
     }
 
     if( value <= 0x0fffffff )
     {
-        return( 4 );
+        return 4;
     }
 
-    return( 5 );
+    return 5;
 }
 
 /**
@@ -828,23 +827,23 @@ unsigned char * buffer   /** buffer to check                  */
 
     if( !( c & 0x80 ))
     {
-        return( 1 );
+        return 1;
     }
 
     if( !( c & 0x40 ))
     {
-        return( 2 );
+        return 2;
     }
 
     if( !( c & 0x20 ))
     {
-        return( 3 );
+        return 3;
     }
 
     if( !( c & 0x10 ))
     {
-        return( 4 );
+        return 4;
     }
 
-    return( 5 );
+    return 5;
 }

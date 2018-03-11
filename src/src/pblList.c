@@ -25,6 +25,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblList.c,v $
+ Revision 1.46  2018/03/10 18:00:45  peter
+ Cleanup of unneeded parentheses
+
  Revision 1.45  2017/01/04 20:11:23  peter
  Code formatting
 
@@ -57,7 +60,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblList_c_id = "$Id: pblList.c,v 1.45 2017/01/04 20:11:23 peter Exp $";
+char* pblList_c_id = "$Id: pblList.c,v 1.46 2018/03/10 18:00:45 peter Exp $";
 
 char * PblArrayListMagic = "PblArrayListMagic";
 char * PblLinkedListMagic = "PblLinkedListMagic";
@@ -861,7 +864,7 @@ PblList * list /** The list to use */
 		return list->size;
 	}
 
-	return ((PblArrayList *) list)->capacity;
+	return ((PblArrayList *)list)->capacity;
 }
 
 /**
@@ -2624,7 +2627,7 @@ PblList * list, /** The list to use    */
 void * element /** Element to look for */
 )
 {
-	return (pblListIndexOf(list, element) >= 0);
+	return pblListIndexOf(list, element) >= 0;
 }
 
 /**

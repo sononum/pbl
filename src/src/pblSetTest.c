@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblSetTest.c,v $
+    Revision 1.25  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.24  2016/10/12 20:58:26  peter
     Removed warnings found by gcc 5.4.0
 
@@ -65,7 +68,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblSetTest_c_id = "$Id: pblSetTest.c,v 1.24 2016/10/12 20:58:26 peter Exp $";
+char* pblSetTest_c_id = "$Id: pblSetTest.c,v 1.25 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -169,7 +172,7 @@ static int getChar( void )
     if( c != EOF )
         putChar( c );
 
-    return( c );
+    return c;
 }
 
 
@@ -2654,7 +2657,7 @@ int pblSet_TestFrame( int argc, char * argv[] )
 			return -1;
 		}
 	}
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -2679,7 +2682,7 @@ int pblSet_TestFrame( int argc, char * argv[] )
 
 int main( int argc, char * argv[] )
 {
-    return( pblSet_TestFrame( argc, argv ));
+    return pblSet_TestFrame( argc, argv );
 }
 
 #endif /* CDT_BUILD */

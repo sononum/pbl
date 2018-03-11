@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblMapTest.c,v $
+ Revision 1.10  2018/03/10 18:00:45  peter
+ Cleanup of unneeded parentheses
+
  Revision 1.9  2016/10/13 01:52:05  peter
  Cleanup of the map ...Str() methods
 
@@ -51,7 +54,7 @@
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblMapTest_c_id =
-        "$Id: pblMapTest.c,v 1.9 2016/10/13 01:52:05 peter Exp $";
+        "$Id: pblMapTest.c,v 1.10 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -163,7 +166,7 @@ int pblMap_TestFrame( int argc, char * argv[ ] )
     pblMapFree( map );
     fprintf( stdout, "pblMapFree( map ) \n" );
 
-    return ( rc );
+    return rc;
 }
 
 /*
@@ -191,7 +194,7 @@ int pblMap_TestFrame( int argc, char * argv[ ] )
 
 int main( int argc, char * argv[ ] )
 {
-    return ( pblMap_TestFrame( argc, argv ) );
+    return pblMap_TestFrame( argc, argv );
 }
 
 #endif /* CDT_BUILD */

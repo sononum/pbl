@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblisam.c,v $
+    Revision 1.24  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.23  2016/10/04 23:40:58  peter
     removed a warning found by gcc (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609
 
@@ -69,7 +72,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblisam_c_id = "$Id: pblisam.c,v 1.23 2016/10/04 23:40:58 peter Exp $";
+char * pblisam_c_id = "$Id: pblisam.c,v 1.24 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -161,7 +164,7 @@ unsigned char * okey
     if( rkeylen < 2 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -185,7 +188,7 @@ unsigned char * okey
     if( lkeylen < 1 || lkeylen > 5 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -194,7 +197,7 @@ unsigned char * okey
     if( rkeylen < 1 + lkeylen )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -204,7 +207,7 @@ unsigned char * okey
     if( len != lkeylen )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -220,7 +223,7 @@ unsigned char * okey
         /*
          * return the number of bytes of the rkey parsed
          */
-        return( lkeylen + 1 );
+        return lkeylen + 1;
     }
 
     /*
@@ -229,7 +232,7 @@ unsigned char * okey
     if( hkeylen > 5 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -238,7 +241,7 @@ unsigned char * okey
     if( rkeylen < 1 + lkeylen + hkeylen )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -248,7 +251,7 @@ unsigned char * okey
     if( len != lkeylen )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -258,7 +261,7 @@ unsigned char * okey
     if( !keyhigh )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -274,7 +277,7 @@ unsigned char * okey
     /*
      * return the number of bytes of the rkey parsed
      */
-    return( hkeylen + lkeylen + 1 );
+    return hkeylen + lkeylen + 1;
 }
 
 static int pblLongs2RKey(
@@ -311,7 +314,7 @@ unsigned char * rkey
     /*
      * return the bytes used for the rkey
      */
-    return( hkeylen + lkeylen + 1 );
+    return hkeylen + lkeylen + 1;
 }
 
 
@@ -328,7 +331,7 @@ unsigned char * rkey
     if( okeylen > PBLKEYLENGTH - 1 )
     {
         pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -354,7 +357,7 @@ unsigned char * rkey
      */
     len = pblLongs2RKey( keylow, keyhigh, rkey );
 
-    return( len );
+    return len;
 }
 
 /*
@@ -373,10 +376,10 @@ static int pblIsamDupKeyLen( unsigned char * fkey, int fkeylen )
     if( len < 0 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
-    return( fkeylen - len );
+    return fkeylen - len;
 }
 
 /*
@@ -404,13 +407,13 @@ size_t rlen     /** length of that buffer                  */
     {
         if( !rlen )
         {
-            return( 0 );
+            return 0;
         }
-        return( -1 );
+        return -1;
     }
     if( !rlen )
     {
-        return( 1 );
+        return 1;
     }
 
     leftlen  = pblRKey2MainKey( (unsigned char*)left, llen, lkey );
@@ -419,13 +422,13 @@ size_t rlen     /** length of that buffer                  */
     if( leftlen < 1 || rightlen < 1 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( leftlen >= (int)llen || rightlen >= (int)rlen )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( pblkeycompare )
@@ -450,7 +453,7 @@ size_t rlen     /** length of that buffer                  */
         rc = strcmp( (char*)lkey, (char*)rkey );
     }
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -503,7 +506,7 @@ static int pblIsamStartTransOnFile( PBLISAMFILE_t * isam )
         }
     }
 
-    return( isam->rollback );
+    return isam->rollback;
 }
 
 
@@ -535,7 +538,7 @@ pblIsamFile_t ** isamfiles   /** ISAM file list to start transaction on */
         }
     }
 
-    return( rollback );
+    return rollback;
 }
 
 
@@ -626,7 +629,7 @@ static int pblIsamCommitFile( PBLISAMFILE_t * isam, int rollback )
      */
     isam->transactions -= 1;
 
-    return( isam->rollback );
+    return isam->rollback;
 }
 
 /**
@@ -690,7 +693,7 @@ int rollback       /** != 0: roll back the changes, == 0: commit the changes  */
         pblIsamCommitFile( files[ n ], dorollback );
     }
 
-    return( dorollback );
+    return dorollback;
 }
 
 /**
@@ -729,7 +732,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
     isam = (PBLISAMFILE_t *)pbl_malloc0( "pblIsamOpen ISAMFILE", sizeof( PBLISAMFILE_t ));
     if( !isam )
     {
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -753,7 +756,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
         if( !isam->keyfiles )
         {
             PBL_FREE( isam );
-            return( 0 );
+            return NULL;
         }
 
         /*
@@ -766,7 +769,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
             PBL_FREE( isam->keyfiles );
             PBL_FREE( isam );
             pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-            return( 0 );
+            return NULL;
         }
 
         /*
@@ -780,7 +783,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
             PBL_FREE( isam->keyfiles );
             PBL_FREE( isam );
             pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-            return( 0 );
+            return NULL;
         }
     }
 
@@ -811,7 +814,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
             PBL_FREE( isam->keydup );
             PBL_FREE( isam->keyfiles );
             PBL_FREE( isam );
-            return( 0 );
+            return NULL;
         }
     }
 
@@ -882,7 +885,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
             PBL_FREE( isam->keyfiles );
             PBL_FREE( isam );
             pbl_errno = PBL_ERROR_OUT_OF_MEMORY;
-            return( 0 );
+            return NULL;
         }
 
         if( update )
@@ -916,7 +919,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
             PBL_FREE( isam->keydup );
             PBL_FREE( isam->keyfiles );
             PBL_FREE( isam );
-            return( 0 );
+            return NULL;
         }
 
         /*
@@ -935,7 +938,7 @@ int  * keydup        /** flaglist: is the i'th index key a duplicate key?     */
     }
 
     isam->magic = pblisam_c_id;
-    return( ( pblIsamFile_t * )isam );
+    return (pblIsamFile_t *)isam;
 }
 
 /**
@@ -988,7 +991,7 @@ pblIsamFile_t * isamfile           /** ISAM file to close */
         pbl_errno = saveerrno;
     }
 
-    return( rc );
+    return rc;
 }
 
 /**
@@ -1035,7 +1038,7 @@ pblIsamFile_t * isamfile           /** ISAM file to flush */
         pbl_errno = saveerrno;
     }
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -1072,12 +1075,12 @@ static int pblIsamSetCurrentRecord( PBLISAMFILE_t * isam )
         if( datalen < 0 )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
     }
 
     pbl_errno = saveerrno;
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -1147,7 +1150,7 @@ size_t          datalen     /** length of the data                        */
          */
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1161,7 +1164,7 @@ size_t          datalen     /** length of the data                        */
              * roll back all changes
              */
             pblIsamCommit( 1, &isamfile, 1 );
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -1232,7 +1235,7 @@ size_t          datalen     /** length of the data                        */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1254,7 +1257,7 @@ size_t          datalen     /** length of the data                        */
                 pblIsamCommit( 1, &isamfile, 1 );
 
                 pbl_errno = PBL_ERROR_PARAM_KEY;
-                return( -1 );
+                return -1;
             }
         }
 
@@ -1269,7 +1272,7 @@ size_t          datalen     /** length of the data                        */
             pblIsamCommit( 1, &isamfile, 1 );
 
             pbl_errno = PBL_ERROR_PARAM_KEY;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -1290,7 +1293,7 @@ size_t          datalen     /** length of the data                        */
                 pblIsamCommit( 1, &isamfile, 1 );
 
                 pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -1320,7 +1323,7 @@ size_t          datalen     /** length of the data                        */
                 pblIsamCommit( 1, &isamfile, 1 );
 
                 pbl_errno = PBL_ERROR_EXISTS;
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -1337,7 +1340,7 @@ size_t          datalen     /** length of the data                        */
                 pblIsamCommit( 1, &isamfile, 1 );
 
                 pbl_errno = saveerrno;
-                return( -1 );
+                return -1;
             }
         }
         else
@@ -1354,7 +1357,7 @@ size_t          datalen     /** length of the data                        */
                 pblIsamCommit( 1, &isamfile, 1 );
 
                 pbl_errno = PBL_ERROR_EXISTS;
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -1372,7 +1375,7 @@ size_t          datalen     /** length of the data                        */
                 pblIsamCommit( 1, &isamfile, 1 );
 
                 pbl_errno = saveerrno;
-                return( -1 );
+                return -1;
             }
         }
 
@@ -1414,7 +1417,7 @@ size_t          datalen     /** length of the data                        */
             pblIsamCommit( 1, &isamfile, 1 );
 
             pbl_errno = saveerrno;
-            return( -1 );
+            return -1;
         }
 
         if( ldatalen < PBLDATALENGTH )
@@ -1440,7 +1443,7 @@ size_t          datalen     /** length of the data                        */
         pblIsamCommit( 1, &isamfile, 1 );
 
         pbl_errno = saveerrno;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1448,10 +1451,10 @@ size_t          datalen     /** length of the data                        */
      */
     if( pblIsamCommit( 1, &isamfile, 0 ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( 0 );
+    return 0;
 }
 
 
@@ -1498,7 +1501,7 @@ size_t          datalen     /** length of the data                        */
                       "pblIsamInsertArgcArgv: strlen() of the key with index %d is %d bytes, only %d bytes are allowed.\n",
                       i, (int)keylen, PBLKEYLENGTH );
             pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-            return( -1 );
+            return -1;
         }
 
         if( allkeyslen + 1 > PBLDATALENGTH )
@@ -1507,7 +1510,7 @@ size_t          datalen     /** length of the data                        */
                       "pblIsamInsertArgcArgv: the length of all keys up to index %d is %d bytes, only %d bytes are allowed.\n",
                       i, (int)allkeyslen + 1, PBLDATALENGTH );
             pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-            return( -1 );
+            return -1;
         }
         allkeys[ allkeyslen++ ] = (char) keylen;
 
@@ -1517,7 +1520,7 @@ size_t          datalen     /** length of the data                        */
                       "pblIsamInsertArgcArgv: the length of all keys up to index %d is %d bytes, only %d bytes are allowed.\n",
                       i, (int)( allkeyslen + keylen ), PBLDATALENGTH );
             pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-            return( -1 );
+            return -1;
         }
         memcpy( allkeys + allkeyslen, argv[ i ], keylen );
         allkeyslen += keylen;
@@ -1572,7 +1575,7 @@ pblIsamFile_t * isamfile    /** ISAM file to delete from                  */
     if( datalen < 0 )
     {
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1583,7 +1586,7 @@ pblIsamFile_t * isamfile    /** ISAM file to delete from                  */
     {
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_POSITION;
-        return( -1 );
+        return -1;
     }
     okey[ okeylen ] = 0;
 
@@ -1594,7 +1597,7 @@ pblIsamFile_t * isamfile    /** ISAM file to delete from                  */
     {
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1604,13 +1607,13 @@ pblIsamFile_t * isamfile    /** ISAM file to delete from                  */
     if( rc < 0 )
     {
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
     else if( rc != datalen )
     {
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1757,14 +1760,14 @@ pblIsamFile_t * isamfile    /** ISAM file to delete from                  */
     if( retval < 0 )
     {
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     if( pblIsamCommit( 1, &isamfile, 0 ))
     {
-        return( -1 );
+        return -1;
     }
-    return( retval );
+    return retval;
 }
 
 /*
@@ -1800,7 +1803,7 @@ void           * okey
     if( index >= isam->nkeys )
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -1815,7 +1818,7 @@ void           * okey
         keylen = pblRKey2MainKey( (unsigned char*)skey, skeylen, (unsigned char*)okey );
         if( keylen < 0 )
         {
-            return( -1 );
+            return -1;
         }
     }
     else
@@ -1826,7 +1829,7 @@ void           * okey
         rc = pblKfRead( isam->keyfiles[ index ], key, sizeof( key ) );
         if( rc < 0 )
         {
-            return( -1 );
+            return -1;
         }
         keylen = rc;
 
@@ -1835,7 +1838,7 @@ void           * okey
          */
         if( pblRKey2MainKey( key, keylen, (unsigned char*)okey ) < 0 )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -1851,10 +1854,10 @@ void           * okey
     if( datalen < 0 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
-    return( keylen );
+    return keylen;
 }
 
 
@@ -1893,7 +1896,7 @@ size_t         * rkeylen
     if( skeylen > PBLKEYLENGTH - 2 )
     {
         pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-        return( -1 );
+        return -1;
     }
 
     switch( which )
@@ -1919,12 +1922,12 @@ size_t         * rkeylen
                                 skey, skeylen, rkey, rkeylen );
         if( rc > 0 )
         {
-            return( rc );
+            return rc;
         }
 
         rc = pblIsamFindDupKey( isam, PBLLT, index,
                                      skey, skeylen, rkey, rkeylen );
-        return( rc );
+        return rc;
         break;
 
       case PBLFI:
@@ -1960,12 +1963,12 @@ size_t         * rkeylen
                                      skey, skeylen, rkey, rkeylen );
         if( rc > 0 )
         {
-            return( rc );
+            return rc;
         }
 
         rc = pblIsamFindDupKey( isam, PBLGT, index,
                                 skey, skeylen, rkey, rkeylen );
-        return( rc );
+        return rc;
         break;
 
       default: /* PBLGT */
@@ -1987,7 +1990,7 @@ size_t         * rkeylen
     if( fkeylen + skeylen >= PBLKEYLENGTH )
     {
         pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2008,7 +2011,7 @@ size_t         * rkeylen
                          ikey, ikeylen, fkey, &fkeylen );
     if( datalen < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2018,7 +2021,7 @@ size_t         * rkeylen
     if( keylen < 0 )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2032,7 +2035,7 @@ size_t         * rkeylen
         if( skeylen != keylen || memcmp( skey, fkey, skeylen ))
         {
             pbl_errno = PBL_ERROR_NOT_FOUND;
-            return( -1 );
+            return -1;
         }
     }
 
@@ -2042,7 +2045,7 @@ size_t         * rkeylen
     memcpy( rkey, fkey, fkeylen );
     *rkeylen = fkeylen;
 
-    return( keylen );
+    return keylen;
 }
 
 
@@ -2113,7 +2116,7 @@ void           * okey       /** buffer for result key                     */
     if( index != -1 && index >= isam->nkeys )
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
-        return( -1 );
+        return -1;
     }
 
     if( index == -1)
@@ -2121,7 +2124,7 @@ void           * okey       /** buffer for result key                     */
     	if( which != PBLEQ && which != PBLFI && which != PBLLA )
         {
             pbl_errno = PBL_ERROR_PARAM_INDEX;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -2131,7 +2134,7 @@ void           * okey       /** buffer for result key                     */
                              skey, skeylen, okey, &okeylen );
         if( datalen < 0 )
         {
-            return( datalen );
+            return datalen;
         }
         return okeylen;
     }
@@ -2153,7 +2156,7 @@ void           * okey       /** buffer for result key                     */
                                     (unsigned char*)skey, skeylen, (unsigned char*)okey, &okeylen );
         if( keylen < 0 )
         {
-            return( keylen );
+            return keylen;
         }
     }
     else
@@ -2165,13 +2168,13 @@ void           * okey       /** buffer for result key                     */
                              skey, skeylen, okey, &okeylen );
         if( datalen < 0 )
         {
-            return( datalen );
+            return datalen;
         }
 
         if( datalen < 2 || datalen > PBLKEYLENGTH )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -2185,7 +2188,7 @@ void           * okey       /** buffer for result key                     */
      */
     if( pblIsamGetMainKey( isam, index, okey, okeylen, key ) < 1 )
     {
-        return( -1 );
+        return -1;
     }
 
     if( isam->keydup[ index ] )
@@ -2193,7 +2196,7 @@ void           * okey       /** buffer for result key                     */
         ((char*)okey)[ keylen ] = 0;
     }
 
-    return( keylen );
+    return keylen;
 }
 
 /*
@@ -2225,7 +2228,7 @@ unsigned char  * okey
     if( index >= isam->nkeys )
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2234,7 +2237,7 @@ unsigned char  * okey
     datalen = pblKfThis( isam->mainfile, fkey, &fkeylen );
     if( datalen < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2244,7 +2247,7 @@ unsigned char  * okey
     if( fkeylen != 8 && fkeylen != 17 )
     {
         pbl_errno = PBL_ERROR_POSITION;
-        return( -1 );
+        return -1;
     }
     fkey[ fkeylen ] = 0;
 
@@ -2254,7 +2257,7 @@ unsigned char  * okey
     if( datalen > PBLDATALENGTH )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2263,12 +2266,12 @@ unsigned char  * okey
     rc = pblKfRead( isam->mainfile, data, datalen );
     if( rc < 0 )
     {
-        return( -1 );
+        return -1;
     }
     else if( rc != datalen )
     {
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2281,7 +2284,7 @@ unsigned char  * okey
         if( key + okeylen > data + datalen )
         {
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         if( n < index )
@@ -2307,7 +2310,7 @@ unsigned char  * okey
             if( rkeylen < 0 )
             {
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -2316,7 +2319,7 @@ unsigned char  * okey
             if( okeylen + rkeylen > PBLKEYLENGTH )
             {
                 pbl_errno = PBL_ERROR_BAD_FILE;
-                return( -1 );
+                return -1;
             }
 
             memcpy( okey + okeylen, rkey, rkeylen );
@@ -2324,7 +2327,7 @@ unsigned char  * okey
         }
     }
 
-    return( okeylen );
+    return okeylen;
 }
 
 /**
@@ -2387,7 +2390,7 @@ void           * okey       /** buffer for result key                     */
     if(( index != -1 ) && ( index >= isam->nkeys ))
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
-        return( -1 );
+        return -1;
     }
 
     if( index >= 0 && isam->keydup[ index ] )
@@ -2408,7 +2411,7 @@ void           * okey       /** buffer for result key                     */
              */
             if( pblKfSavePosition( isam->mainfile ))
             {
-                return( -1 );
+                return -1;
             }
         }
 
@@ -2421,7 +2424,7 @@ void           * okey       /** buffer for result key                     */
             if( datalen < 0 )
             {
                 pblKfRestorePosition( isam->mainfile );
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -2436,7 +2439,7 @@ void           * okey       /** buffer for result key                     */
                 continue;
             }
 
-            return( okeylen );
+            return okeylen;
         }
 
         /*
@@ -2445,7 +2448,7 @@ void           * okey       /** buffer for result key                     */
         datalen = pblKfNext( isam->keyfiles[ index ], okey, &okeylen );
         if( datalen < 0 )
         {
-            return( -1 );
+            return -1;
         }
         break;
 
@@ -2457,7 +2460,7 @@ void           * okey       /** buffer for result key                     */
              */
             if( pblKfSavePosition( isam->mainfile ))
             {
-                return( -1 );
+                return -1;
             }
         }
 
@@ -2470,7 +2473,7 @@ void           * okey       /** buffer for result key                     */
             if( datalen < 0 )
             {
                 pblKfRestorePosition( isam->mainfile );
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -2485,7 +2488,7 @@ void           * okey       /** buffer for result key                     */
                 continue;
             }
 
-            return( okeylen );
+            return okeylen;
         }
 
         /*
@@ -2494,7 +2497,7 @@ void           * okey       /** buffer for result key                     */
         datalen = pblKfPrev( isam->keyfiles[ index ], okey, &okeylen );
         if( datalen < 0 )
         {
-            return( -1 );
+            return -1;
         }
         break;
 
@@ -2504,15 +2507,15 @@ void           * okey       /** buffer for result key                     */
             datalen = pblKfFirst( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
-                return( -1 );
+                return -1;
             }
-            return( okeylen );
+            return okeylen;
         }
 
         datalen = pblKfFirst( isam->keyfiles[ index ], okey, &okeylen );
         if( datalen < 0 )
         {
-            return( -1 );
+            return -1;
         }
         break;
 
@@ -2522,11 +2525,11 @@ void           * okey       /** buffer for result key                     */
             datalen = pblKfLast( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
-                return( -1 );
+                return -1;
             }
             if( okeylen == 8 || okeylen == 17 )
             {
-                return( 0 );
+                return 0;
             }
         }
 
@@ -2538,7 +2541,7 @@ void           * okey       /** buffer for result key                     */
             datalen = pblKfPrev( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
-                return( -1 );
+                return -1;
             }
 
             /*
@@ -2553,13 +2556,13 @@ void           * okey       /** buffer for result key                     */
                 continue;
             }
 
-            return( okeylen );
+            return okeylen;
         }
 
         datalen = pblKfLast( isam->keyfiles[ index ], okey, &okeylen );
         if( datalen < 0 )
         {
-            return( -1 );
+            return -1;
         }
         break;
 
@@ -2569,9 +2572,9 @@ void           * okey       /** buffer for result key                     */
             datalen = pblKfThis( isam->mainfile, okey, &okeylen );
             if( datalen < 0 )
             {
-                return( -1 );
+                return -1;
             }
-            return( okeylen );
+            return okeylen;
         }
 
         /*
@@ -2580,7 +2583,7 @@ void           * okey       /** buffer for result key                     */
         rc = pblIsamThisKey( isam, index, 1, (unsigned char*)okey );
         if( rc <= 0 )
         {
-            return( rc );
+            return rc;
         }
         okeylen = rc;
 
@@ -2592,13 +2595,13 @@ void           * okey       /** buffer for result key                     */
                              PBLEQ, okey, okeylen, 0, 0 );
         if( datalen < 0 )
         {
-            return( -1 );
+            return -1;
         }
         break;
 
       default:
         pbl_errno = PBL_ERROR_PARAM_MODE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2612,7 +2615,7 @@ void           * okey       /** buffer for result key                     */
         rc = pblIsamGetMainKey( isam, index, okey, okeylen, rkey );
         if( rc < 0 )
         {
-            return( -1 );
+            return -1;
         }
     }
 
@@ -2627,14 +2630,14 @@ void           * okey       /** buffer for result key                     */
         rc = pblIsamDupKeyLen( (unsigned char*)okey, okeylen );
         if( rc < 0 )
         {
-            return( -1 );
+            return -1;
         }
         okeylen = rc;
 
         ((char*)okey)[ okeylen ] = 0;
     }
 
-    return( okeylen );
+    return okeylen;
 }
 
 /**
@@ -2676,7 +2679,7 @@ void           * okey       /** buffer for result key                     */
     if( index >= isam->nkeys )
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2684,7 +2687,7 @@ void           * okey       /** buffer for result key                     */
      */
     okeylen = pblIsamThisKey( isam, index, 0, (unsigned char*)okey );
 
-    return( okeylen );
+    return okeylen;
 }
 
 /**
@@ -2713,7 +2716,7 @@ pblIsamFile_t * isamfile   /** ISAM file to read length of data from */
     rc = pblKfThis( isam->mainfile, fkey, &fkeylen );
     if( rc < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2723,7 +2726,7 @@ pblIsamFile_t * isamfile   /** ISAM file to read length of data from */
     if( fkeylen != 8 && fkeylen != 17 )
     {
         pbl_errno = PBL_ERROR_POSITION;
-        return( -1 );
+        return -1;
     }
     fkey[ fkeylen ] = 0;
 
@@ -2732,7 +2735,7 @@ pblIsamFile_t * isamfile   /** ISAM file to read length of data from */
      */
     if( pblKfSavePosition( isam->mainfile ))
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2768,10 +2771,10 @@ pblIsamFile_t * isamfile   /** ISAM file to read length of data from */
      */
     if( pblKfRestorePosition( isam->mainfile ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( datalen );
+    return datalen;
 }
 
 /**
@@ -2804,7 +2807,7 @@ size_t          bufferlen  /** length of that buffer                       */
     rc = pblKfThis( isam->mainfile, fkey, &fkeylen );
     if( rc < 0 )
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2814,7 +2817,7 @@ size_t          bufferlen  /** length of that buffer                       */
     if( fkeylen != 8 && fkeylen != 17 )
     {
         pbl_errno = PBL_ERROR_POSITION;
-        return( -1 );
+        return -1;
     }
     fkey[ fkeylen ] = 0;
 
@@ -2823,7 +2826,7 @@ size_t          bufferlen  /** length of that buffer                       */
      */
     if( pblKfSavePosition( isam->mainfile ))
     {
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2874,10 +2877,10 @@ size_t          bufferlen  /** length of that buffer                       */
      */
     if( pblKfRestorePosition( isam->mainfile ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( dataread );
+    return dataread;
 }
 
 /**
@@ -2923,7 +2926,7 @@ size_t          datalen    /** length of that data                       */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -2942,7 +2945,7 @@ size_t          datalen    /** length of that data                       */
          */
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_POSITION;
-        return( -1 );
+        return -1;
     }
     fkey[ fkeylen ] = 0;
 
@@ -2976,7 +2979,7 @@ size_t          datalen    /** length of that data                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
 
-            return( -1 );
+            return -1;
         }
 
         if( (long)datalen < olddatalen )
@@ -2999,7 +3002,7 @@ size_t          datalen    /** length of that data                       */
             pblIsamCommit( 1, &isamfile, 1 );
 
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
         break;
     }
@@ -3088,7 +3091,7 @@ size_t          datalen    /** length of that data                       */
         pblIsamCommit( 1, &isamfile, 1 );
 
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     if( nwritten < 0 )
@@ -3097,7 +3100,7 @@ size_t          datalen    /** length of that data                       */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3105,10 +3108,10 @@ size_t          datalen    /** length of that data                       */
      */
     if( pblIsamCommit( 1, &isamfile, 0 ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( nwritten );
+    return nwritten;
 }
 
 /**
@@ -3161,7 +3164,7 @@ size_t           ukeylen     /** length of that value                       */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3174,7 +3177,7 @@ size_t           ukeylen     /** length of that value                       */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3188,7 +3191,7 @@ size_t           ukeylen     /** length of that value                       */
          */
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_POSITION;
-        return( -1 );
+        return -1;
     }
     okey[ okeylen ] = 0;
 
@@ -3202,7 +3205,7 @@ size_t           ukeylen     /** length of that value                       */
          */
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3215,7 +3218,7 @@ size_t           ukeylen     /** length of that value                       */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
     else if( rc != datalen )
     {
@@ -3224,7 +3227,7 @@ size_t           ukeylen     /** length of that value                       */
          */
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_BAD_FILE;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3237,7 +3240,7 @@ size_t           ukeylen     /** length of that value                       */
          */
         pblIsamCommit( 1, &isamfile, 1 );
         pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3254,7 +3257,7 @@ size_t           ukeylen     /** length of that value                       */
                  * the key has not changed
                  */
                 pblIsamCommit( 1, &isamfile, 0 );
-                return( 0 );
+                return 0;
             }
 
             /*
@@ -3294,7 +3297,7 @@ size_t           ukeylen     /** length of that value                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
             pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-            return( -1 );
+            return -1;
         }
     }
     newdatalen = newkey - newdata;
@@ -3318,7 +3321,7 @@ size_t           ukeylen     /** length of that value                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3331,7 +3334,7 @@ size_t           ukeylen     /** length of that value                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
             pbl_errno = PBL_ERROR_PARAM_KEYLEN;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3356,7 +3359,7 @@ size_t           ukeylen     /** length of that value                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
             pbl_errno = PBL_ERROR_EXISTS;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3368,7 +3371,7 @@ size_t           ukeylen     /** length of that value                       */
              * roll back all changes
              */
             pblIsamCommit( 1, &isamfile, 1 );
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3382,7 +3385,7 @@ size_t           ukeylen     /** length of that value                       */
              * roll back all changes
              */
             pblIsamCommit( 1, &isamfile, 1 );
-            return( -1 );
+            return -1;
         }
     }
     else
@@ -3398,7 +3401,7 @@ size_t           ukeylen     /** length of that value                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
             pbl_errno = PBL_ERROR_EXISTS;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3412,7 +3415,7 @@ size_t           ukeylen     /** length of that value                       */
              */
             pblIsamCommit( 1, &isamfile, 1 );
             pbl_errno = PBL_ERROR_BAD_FILE;
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3424,7 +3427,7 @@ size_t           ukeylen     /** length of that value                       */
              * roll back all changes
              */
             pblIsamCommit( 1, &isamfile, 1 );
-            return( -1 );
+            return -1;
         }
 
         /*
@@ -3438,7 +3441,7 @@ size_t           ukeylen     /** length of that value                       */
              * roll back all changes
              */
             pblIsamCommit( 1, &isamfile, 1 );
-            return( -1 );
+            return -1;
         }
     }
 
@@ -3452,7 +3455,7 @@ size_t           ukeylen     /** length of that value                       */
          * roll back all changes
          */
         pblIsamCommit( 1, &isamfile, 1 );
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3460,10 +3463,10 @@ size_t           ukeylen     /** length of that value                       */
      */
     if( pblIsamCommit( 1, &isamfile, 0 ))
     {
-        return( -1 );
+        return -1;
     }
 
-    return( rc );
+    return rc;
 }
 
 /**
@@ -3503,7 +3506,7 @@ int ( *keycompare )           /** compare function to set               */
     if( index >= isam->nkeys )
     {
         pbl_errno = PBL_ERROR_PARAM_INDEX;
-        return( -1 );
+        return -1;
     }
 
     /*
@@ -3526,6 +3529,6 @@ int ( *keycompare )           /** compare function to set               */
 
     }
 
-    return( 0 );
+    return 0;
 }
 

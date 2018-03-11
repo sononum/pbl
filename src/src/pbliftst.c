@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pbliftst.c,v $
+    Revision 1.17  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.16  2016/10/12 21:00:34  peter
     Removed warnings found by gcc 5.4.0
 
@@ -78,7 +81,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pbliftst_c_id = "$Id: pbliftst.c,v 1.16 2016/10/12 21:00:34 peter Exp $";
+char * pbliftst_c_id = "$Id: pbliftst.c,v 1.17 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -244,7 +247,7 @@ static int getChar( void )
         putChar( c );
     }
 
-    return( c );
+    return c;
 }
 
 static void getWord( char * buffer )
@@ -290,7 +293,7 @@ static int commaStrlen( char * s )
         ptr++;
     }
 
-    return( ptr - s );
+    return ptr - s;
 }
 
 /*
@@ -1097,7 +1100,7 @@ int pblISAMFILE_TestFrame( int argc, char * argv[] )
 
 #endif
 
-    return( 0 );
+    return 0;
 }
 
 /*
@@ -1124,7 +1127,7 @@ int pblISAMFILE_TestFrame( int argc, char * argv[] )
 
 int main( int argc, char * argv[] )
 {
-    return( pblISAMFILE_TestFrame( argc, argv ));
+    return pblISAMFILE_TestFrame( argc, argv );
 }
 
 #endif /* CDT_BUILD */

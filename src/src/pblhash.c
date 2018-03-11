@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblhash.c,v $
+    Revision 1.21  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.20  2015/02/22 07:06:06  peter
     Port to Visual Studio 2012.
 
@@ -67,7 +70,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblhash_c_id = "$Id: pblhash.c,v 1.20 2015/02/22 07:06:06 peter Exp $";
+char* pblhash_c_id = "$Id: pblhash.c,v 1.21 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -235,7 +238,7 @@ int pblHt_J_Zobel_Hash( const unsigned char * key, size_t keylen )
         ret ^= ( (ret << 5) + *key + (ret >> 2) );
     }
 
-    return ( ret & 0x7fffffff );
+    return ret & 0x7fffffff;
 }
 
 /*
@@ -244,7 +247,7 @@ int pblHt_J_Zobel_Hash( const unsigned char * key, size_t keylen )
 
 int pblHtHashValue( const unsigned char * key, size_t keylen )
 {
-    return ( pblHt_J_Zobel_Hash( key, keylen ) & 0x7fffffff );
+    return pblHt_J_Zobel_Hash( key, keylen ) & 0x7fffffff;
 }
 
 /*
@@ -253,7 +256,7 @@ int pblHtHashValue( const unsigned char * key, size_t keylen )
 
 int pblHtHashValueOfString( const unsigned char * key )
 {
-    return ( pblHt_J_Zobel_Hash( key, strlen( (char*)key ) ) & 0x7fffffff );
+    return pblHt_J_Zobel_Hash( key, strlen( (char*)key ) ) & 0x7fffffff;
 }
 
 /*
@@ -262,7 +265,7 @@ int pblHtHashValueOfString( const unsigned char * key )
 
 static int pblHtHashIndex( const unsigned char * key, size_t keylen )
 {
-    return( pblHtHashValue( key, keylen ) % PBL_HASHTABLE_SIZE );
+    return pblHtHashValue( key, keylen ) % PBL_HASHTABLE_SIZE;
 }
 
 /**
@@ -279,7 +282,7 @@ pblHashTable_t * pblHtCreate( void )
     ht = (pbl_hashtable_t *)pbl_malloc0( "pblHtCreate hashtable", sizeof( pbl_hashtable_t ) );
     if( !ht )
     {
-        return( 0 );
+        return NULL;
     }
 
     ht->buckets = (pbl_hashbucket_t *)pbl_malloc0( "pblHtCreate buckets",
@@ -287,7 +290,7 @@ pblHashTable_t * pblHtCreate( void )
     if( !ht->buckets )
     {
         PBL_FREE( ht );
-        return( 0 );
+        return NULL;
     }
 
     /*
@@ -295,7 +298,7 @@ pblHashTable_t * pblHtCreate( void )
      */
     ht->magic = pblhash_c_id;
 
-    return( ( pblHashTable_t * )ht );
+    return (pblHashTable_t *)ht;
 }
 
 /**
@@ -331,7 +334,7 @@ void                    * dataptr /** Dataptr to insert                   */
          * the length of the key can not be smaller than 1
          */
         pbl_errno = PBL_ERROR_EXISTS;
-        return( -1 );
+        return -1;
     }
 
     for( item = bucket->head; item; item = item->bucketnext )
@@ -344,21 +347,21 @@ void                    * dataptr /** Dataptr to insert                   */
             snprintf( pbl_errstr, PBL_ERRSTR_LEN,
                       "insert of duplicate item in hashtable\n" );
             pbl_errno = PBL_ERROR_EXISTS;
-            return( -1 );
+            return -1;
         }
     }
 
     item = (pbl_hashitem_t *)pbl_malloc0( "pblHtInsert hashitem", sizeof( pbl_hashitem_t ) );
     if( !item )
     {
-        return( -1 );
+        return -1;
     }
 
     item->key = pbl_memdup( "pblHtInsert item->key", key, keylen );
     if( !item->key )
     {
         PBL_FREE( item );
-        return( -1 );
+        return -1;
     }
     item->keylen = keylen;
     item->data = dataptr;
@@ -370,7 +373,7 @@ void                    * dataptr /** Dataptr to insert                   */
     PBL_LIST_APPEND( ht->head, ht->tail, item, next, prev );
 
     ht->current = item;
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -416,13 +419,13 @@ size_t                        keylen  /** Length of that key               */
                                bucketnext, bucketprev );
             }
 
-            return( item->data );
+            return item->data;
         }
     }
 
     pbl_errno = PBL_ERROR_NOT_FOUND;
 
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -457,11 +460,11 @@ pblHashTable_t              * h       /** Hash table to look in            */
     {
         ht->current = item;
         ht->currentdeleted = 0;
-        return( item->data );
+        return item->data;
     }
 
     pbl_errno = PBL_ERROR_NOT_FOUND;
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -506,11 +509,11 @@ pblHashTable_t              * h       /** Hash table to look in            */
     if( item )
     {
         ht->current = item;
-        return( item->data );
+        return item->data;
     }
 
     pbl_errno = PBL_ERROR_NOT_FOUND;
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -537,11 +540,11 @@ size_t                  * keylen  /** OPT: Length of the key on return    */
         {
             *keylen = ht->current->keylen;
         }
-        return( ht->current->key );
+        return ht->current->key;
     }
 
     pbl_errno = PBL_ERROR_NOT_FOUND;
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -560,11 +563,11 @@ pblHashTable_t              * h       /** Hash table to look in            */
 
     if( ht->current )
     {
-        return( ht->current->data );
+        return ht->current->data;
     }
 
     pbl_errno = PBL_ERROR_NOT_FOUND;
-    return( 0 );
+    return 0;
 }
 
 /**
@@ -659,11 +662,11 @@ size_t                      keylen /** OPT: Length of that key             */
 
         PBL_FREE( item->key );
         PBL_FREE( item );
-        return( 0 );
+        return 0;
     }
 
     pbl_errno = PBL_ERROR_NOT_FOUND;
-    return( -1 );
+    return -1;
 }
 
 /**
@@ -685,12 +688,12 @@ pblHashTable_t * h        /** Hash table to delete */
     if( ht->head )
     {
         pbl_errno = PBL_ERROR_EXISTS;
-        return( -1 );
+        return -1;
     }
 
     PBL_FREE( ht->buckets );
     PBL_FREE( ht );
 
-    return( 0 );
+    return 0;
 }
 

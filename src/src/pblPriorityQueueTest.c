@@ -24,6 +24,12 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblPriorityQueueTest.c,v $
+ Revision 1.15  2018/03/10 18:00:45  peter
+ Cleanup of unneeded parentheses
+
+ Revision 1.14  2016/09/19 14:54:07  peter
+ Working on cgi handling
+
  Revision 1.13  2016/06/03 21:13:30  peter
  Syncing with GIT version.
 
@@ -40,7 +46,7 @@
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
 char* pblPriorityQueueTest_c_id =
-        "$Id: pblPriorityQueueTest.c,v 1.13 2016/06/03 21:13:30 peter Exp $";
+        "$Id: pblPriorityQueueTest.c,v 1.15 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -672,7 +678,7 @@ int pblPriorityQueue_TestFrame( void )
     pblPriorityQueueFree( priorityQueue );
     fprintf( stdout, "pblPriorityQueueFree( priorityQueue ) \n" );
 
-    return ( 0 );
+    return 0;
 }
 
 /*
@@ -681,7 +687,7 @@ int pblPriorityQueue_TestFrame( void )
  */
 
 #ifdef CDT_BUILD
-#define PQ_TST_SHOW_MAIN
+#undef PQ_TST_SHOW_MAIN
 #endif
 
 #ifdef _WIN32
@@ -698,9 +704,9 @@ int main( int argc, char * argv[ ] )
 {
     if( argc && argv )
     {
-        return ( pblPriorityQueue_TestFrame() );
+        return pblPriorityQueue_TestFrame();
     }
-    return ( pblPriorityQueue_TestFrame() );
+    return pblPriorityQueue_TestFrame();
 }
 
 #endif

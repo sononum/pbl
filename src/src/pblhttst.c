@@ -24,6 +24,9 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblhttst.c,v $
+    Revision 1.12  2018/03/10 18:00:45  peter
+    Cleanup of unneeded parentheses
+
     Revision 1.11  2010/10/21 21:04:07  peter
     Removed warnings Eclipse CDT port to Win 7.
 
@@ -54,7 +57,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblhttst_c_id = "$Id: pblhttst.c,v 1.11 2010/10/21 21:04:07 peter Exp $";
+char* pblhttst_c_id = "$Id: pblhttst.c,v 1.12 2018/03/10 18:00:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -182,7 +185,7 @@ int pblHASHTABLE_TestFrame( int argc, char * argv[ ] )
     rc = pblHtDelete( ht );
     fprintf( stdout, "pblHtDelete( ht ) rc = %d\n", rc );
 
-    return( rc );
+    return rc;
 }
 
 /*
@@ -195,7 +198,7 @@ int pblHASHTABLE_TestFrame( int argc, char * argv[ ] )
 
 int main( int argc, char * argv[] )
 {
-    return( pblHASHTABLE_TestFrame( argc, argv ));
+    return pblHASHTABLE_TestFrame( argc, argv );
 }
 
 #endif /* CDT_BUILD */
