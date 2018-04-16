@@ -24,6 +24,18 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCgi.c,v $
+ Revision 1.44  2018/04/16 14:18:00  peter
+ Improved handling of start time
+
+ Revision 1.43  2018/04/07 19:32:05  peter
+ Re-added function that is needed
+
+ Revision 1.42  2018/04/07 18:52:34  peter
+ Cleanup
+
+ Revision 1.41  2018/03/15 22:27:46  peter
+ Working on cgi tests
+
  Revision 1.40  2018/03/11 00:23:25  peter
  Cleanup of split to list handling
 
@@ -35,14 +47,12 @@
 
  Revision 1.37  2018/02/23 23:20:24  peter
  Started to work on the cgi code
-
-
  */
 
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblCgi_c_id = "$Id: pblCgi.c,v 1.40 2018/03/11 00:23:25 peter Exp $";
+char* pblCgi_c_id = "$Id: pblCgi.c,v 1.44 2018/04/16 14:18:00 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -66,6 +76,8 @@ char* pblCgi_c_id = "$Id: pblCgi.c,v 1.40 2018/03/11 00:23:25 peter Exp $";
 /*****************************************************************************/
 /* Variables                                                                 */
 /*****************************************************************************/
+
+struct timeval pblCgiStartTime;
 
 FILE * pblCgiTraceFile = NULL;
 
@@ -169,17 +181,12 @@ PblMap * pblCgiFileToMap(PblMap * map, char * filePath)
 	{
 		char * ptr = line;
 
-		while (*ptr && isspace(*ptr))
+		while (isspace(*ptr))
 		{
 			ptr++;
 		}
 
-		if (!*ptr)
-		{
-			continue;
-		}
-
-		if (*ptr == '#')
+		if (!*ptr || *ptr == '#')
 		{
 			continue;
 		}
@@ -269,6 +276,9 @@ char * pblCgiQueryValue(char * key)
 	return pblCgiQueryValueForIteration(key, -1);
 }
 
+/**
+* Trace function
+*/
 void pblCgiTrace(const char * format, ...)
 {
 	if (!pblCgiTraceFile)
@@ -902,15 +912,21 @@ void pblCgiParseQuery(int argc, char * argv[])
 	for (int i = 0; keyValuePairs[i]; i++)
 	{
 		pblCgiStrSplit(keyValuePairs[i], "=", 2, keyValuePair);
-		if (keyValuePair[0] && keyValuePair[1] && !keyValuePair[2])
+		if (keyValuePair[0])
 		{
 			char * key = pblCgiDecode(keyValuePair[0]);
-			char * value = pblCgiDecode(keyValuePair[1]);
 
-			pblCgiSetQueryValue(pblCgiStrTrim(key), pblCgiStrTrim(value));
-
+			if (keyValuePair[1])
+			{
+			    char * value = pblCgiDecode(keyValuePair[1]);
+			    pblCgiSetQueryValue(pblCgiStrTrim(key), pblCgiStrTrim(value));
+			    PBL_FREE(value);
+			}
+			else
+			{
+				pblCgiSetQueryValue(pblCgiStrTrim(key), NULL);
+			}
 			PBL_FREE(key);
-			PBL_FREE(value);
 		}
 
 		PBL_FREE(keyValuePair[0]);
@@ -1591,7 +1607,6 @@ void pblCgiSetValueToMap(char * key, char * value, int iteration, PblMap * map)
 			{
 				PBL_CGI_TRACE("Out %s=%s", iteratedKey, index);
 			}
-
 			PBL_FREE(index);
 		}
 		PBL_FREE(iteratedKey);
@@ -1660,7 +1675,6 @@ void pblCgiUnSetValueFromMap(char * key, int iteration, PblMap * map)
 		pblMapUnmapStr(map, iteratedKey);
 		PBL_CGI_TRACE("Del %s=", iteratedKey);
 		PBL_FREE(iteratedKey);
-
 	}
 	else
 	{
@@ -1703,23 +1717,22 @@ char * pblCgiValueFromMap(char * key, int iteration, PblMap * map)
 {
 	static char * tag = "pblCgiValueFromMap";
 
-	//if (*key && *key == *pblCgiDurationKey && !strcmp(pblCgiDurationKey, key))
-	//{
-	//	struct timeval now;
-	//	gettimeofday(&now, NULL);
+	if (*key && *key == *pblCgiDurationKey && !strcmp(pblCgiDurationKey, key))
+	{
+		struct timeval now;
+		gettimeofday(&now, NULL);
 
-	//	unsigned long duration = now.tv_sec * 1000000 + now.tv_usec;
-	//	duration -= pblCgiStartTime.tv_sec * 1000000 + pblCgiStartTime.tv_usec;
-	//	char * string = pblCgiSprintf("%lu", duration);
-	//	PBL_CGI_TRACE("Duration=%s microseconds", string);
-	//	return string;
-	//}
+		unsigned long duration = now.tv_sec * 1000000 + now.tv_usec;
+		duration -= pblCgiStartTime.tv_sec * 1000000 + pblCgiStartTime.tv_usec;
+		char * string = pblCgiSprintf("%lu", duration);
+		PBL_CGI_TRACE("Duration=%s microseconds", string);
+		return string;
+	}
 
 	if (!key || !*key)
 	{
 		pblCgiExitOnError("%s: Empty key not allowed!\n", tag, pbl_errstr);
 	}
-
 	if (iteration >= 0)
 	{
 		char * iteratedKey = pblCgiSprintf("%s_%d", key, iteration);
@@ -1727,6 +1740,5 @@ char * pblCgiValueFromMap(char * key, int iteration, PblMap * map)
 		PBL_FREE(iteratedKey);
 		return value;
 	}
-
 	return pblMapGetStr(map, key);
 }
