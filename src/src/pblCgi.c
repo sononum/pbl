@@ -308,6 +308,7 @@ void pblCgiTrace(const char * format, ...)
 	fprintf(pblCgiTraceFile, " %d: ", getpid());
 #endif
 
+	fputs(" ", pblCgiTraceFile);
 	fputs(buffer, pblCgiTraceFile);
 	fputs("\n", pblCgiTraceFile);
 	fflush(pblCgiTraceFile);
@@ -776,11 +777,15 @@ FILE * pblCgiFopen(char * filePath, char * openType)
 
 #ifdef WIN32
 
-	errno_t err = fopen_s(&stream, filePath, openType);
-	if (err != 0)
+	stream = _fsopen(filePath, openType, _SH_DENYWR);
+	if (!stream)
 	{
-		pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d\n", tag,
-			filePath, err, errno);
+		errno_t err = fopen_s(&stream, filePath, openType);
+		if (err != 0)
+		{
+			pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d\n", tag,
+				filePath, err, errno);
+		}
 	}
 
 #else
@@ -1709,6 +1714,12 @@ char * pblCgiValueForIteration(char * key, int iteration)
 	}
 	return pblCgiValueFromMap(key, iteration, valueMap);
 }
+
+#ifdef WIN32
+
+extern int gettimeofday(struct timeval * tp, struct timezone * tzp);
+
+#endif
 
 /**
 * Get the value for the given key for a loop iteration from a map.
