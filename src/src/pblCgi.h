@@ -1,5 +1,5 @@
-#ifndef _PBL_CGI_CGI_H_
-#define _PBL_CGI_CGI_H_
+#ifndef _PBL_CGI_H_
+#define _PBL_CGI_H_
 /*
  pblCgi.h - include file for Common Gateway Interface functions.
 
@@ -81,6 +81,10 @@ extern "C"
 
 #define PBL_CGI_TRACE if(pblCgiTraceFile) pblCgiTrace
 
+#define PBL_CGI_COOKIE                         "PBL_CGI_COOKIE"
+#define PBL_CGI_COOKIE_PATH                    "PBL_CGI_COOKIE_PATH"
+#define PBL_CGI_COOKIE_DOMAIN                  "PBL_CGI_COOKIE_DOMAIN"
+
 	/*****************************************************************************/
 	/* Variable declarations                                                     */
 	/*****************************************************************************/
@@ -88,6 +92,9 @@ extern "C"
 	extern struct timeval pblCgiStartTime;
 	extern FILE * pblCgiTraceFile;
 	extern char * pblCgiValueIncrement;
+
+	extern char * pblCgiCookieKey;
+	extern char * pblCgiCookieTag;
 
 	/*****************************************************************************/
 	/* Function declarations                                                     */

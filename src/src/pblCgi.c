@@ -81,15 +81,34 @@ struct timeval pblCgiStartTime;
 
 FILE * pblCgiTraceFile = NULL;
 
+char * pblCgiCookieKey = PBL_CGI_COOKIE;
+char * pblCgiCookieTag = PBL_CGI_COOKIE "=";
+
 static char * contentType = NULL;
 static void pblCgiSetContentType(char * type)
 {
 	if (!contentType)
 	{
+		char * cookie = pblCgiValue(PBL_CGI_COOKIE);
+		char * cookiePath = pblCgiValue(PBL_CGI_COOKIE_PATH);
+		char * cookieDomain = pblCgiValue(PBL_CGI_COOKIE_DOMAIN);
+
 		contentType = type;
 
-		printf("Content-Type: %s\n\n", contentType);
-		PBL_CGI_TRACE("Content-Type: %s\n", contentType);
+		if (cookie && cookiePath && cookieDomain)
+		{
+			printf("Content-Type: %s\n", contentType);
+			PBL_CGI_TRACE("Content-Type: %s\n", contentType);
+
+			printf("Set-Cookie: %s%s; Path=%s; DOMAIN=%s; HttpOnly\n\n", pblCgiCookieTag, cookie, cookiePath, cookieDomain);
+			PBL_CGI_TRACE("Set-Cookie: %s%s; Path=%s; DOMAIN=%s; HttpOnly\n\n", pblCgiCookieTag, cookie, cookiePath,
+				cookieDomain);
+		}
+		else
+		{
+			printf("Content-Type: %s\n\n", contentType);
+			PBL_CGI_TRACE("Content-Type: %s\n", contentType);
+		}
 	}
 }
 
