@@ -673,13 +673,17 @@ int pblCgiStrSplit(char * string, char * splitString, size_t size, char * result
 		char * ptr2 = strstr(ptr, splitString);
 		if (!ptr2)
 		{
-			results[index] = pblCgiStrDup(ptr);
+			char * value = pblCgiStrDup(ptr);
+			results[index] = pblCgiStrDup(pblCgiStrTrim(value));
 			results[++index] = NULL;
+			PBL_FREE(value);
 
 			return index;
 		}
-		results[index] = pblCgiStrRangeDup(ptr, ptr2);
+		char * value = pblCgiStrRangeDup(ptr, ptr2);
+		results[index] = pblCgiStrDup(pblCgiStrTrim(value));
 		results[++index] = NULL;
+		PBL_FREE(value);
 
 		ptr = ptr2 + length;
 	}
@@ -706,17 +710,21 @@ PblList * pblCgiStrSplitToList(char * string, char * splitString)
 		char * ptr2 = strstr(ptr, splitString);
 		if (!ptr2)
 		{
-			if (pblListAdd(list, pblCgiStrDup(ptr)) < 0)
+			char * value = pblCgiStrDup(ptr);
+			if (pblListAdd(list, pblCgiStrDup(pblCgiStrTrim(value))) < 0)
 			{
 				pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
 			}
+			PBL_FREE(value);
 			break;
 		}
 
-		if (pblListAdd(list, pblCgiStrRangeDup(ptr, ptr2)) < 0)
+		char * value = pblCgiStrRangeDup(ptr, ptr2);
+		if (pblListAdd(list, pblCgiStrDup(pblCgiStrTrim(value))) < 0)
 		{
 			pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
 		}
+		PBL_FREE(value);
 		ptr = ptr2 + length;
 	}
 	return list;
@@ -802,8 +810,8 @@ FILE * pblCgiFopen(char * filePath, char * openType)
 		errno_t err = fopen_s(&stream, filePath, openType);
 		if (err != 0)
 		{
-			pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d\n", tag,
-				filePath, err, errno);
+			pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d, %s\n", tag,
+				filePath, err, errno, _getcwd(NULL, 1024));
 		}
 	}
 
