@@ -810,8 +810,13 @@ FILE * pblCgiFopen(char * filePath, char * openType)
 		errno_t err = fopen_s(&stream, filePath, openType);
 		if (err != 0)
 		{
-			pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d, %s\n", tag,
+#ifdef WIN32
+			pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d, cwd='%s'\n", tag,
 				filePath, err, errno, _getcwd(NULL, 1024));
+#else
+			pblCgiExitOnError("%s: Cannot open file '%s', err=%d, errno=%d\n", tag,
+				filePath, err, errno);
+#endif
 		}
 	}
 
