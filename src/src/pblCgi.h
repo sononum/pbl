@@ -26,6 +26,9 @@
  please see: http://www.mission-base.com/.
 
 $Log: pblCgi.h,v $
+Revision 1.31  2018/04/26 14:06:39  peter
+Added the cookie handling
+
 Revision 1.30  2018/04/16 14:18:00  peter
 Improved handling of start time
 
@@ -145,6 +148,12 @@ extern "C"
 
 	extern char * pblCgiGetCoockie(char * cookieKey, char * cookieTag);
 	extern void pblCgiPrint(char * directory, char * fileName, char * contentType);
+
+#ifdef WIN32
+
+	extern int gettimeofday(struct timeval * tp, struct timezone * tzp);
+
+#endif
 
 #ifdef __cplusplus
 }
