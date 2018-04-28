@@ -92,6 +92,8 @@ extern "C"
 	/* Variable declarations                                                     */
 	/*****************************************************************************/
 
+	extern PblMap * pblCgiConfigMap;
+
 	extern struct timeval pblCgiStartTime;
 	extern FILE * pblCgiTraceFile;
 	extern char * pblCgiValueIncrement;
@@ -104,6 +106,7 @@ extern "C"
 	/*****************************************************************************/
 
 	extern void pblCgiTrace(const char * format, ...);
+	extern char * pblCgiConfigValue(char * key, char * defaultValue);
 
 	extern FILE * pblCgiFopen(char * traceFilePath, char * openType);
 	extern char * pblCgiGetEnv(char * name);

@@ -80,6 +80,8 @@ char* pblCgi_c_id = "$Id: pblCgi.c,v 1.45 2018/04/26 14:06:39 peter Exp $";
 /* Variables                                                                 */
 /*****************************************************************************/
 
+PblMap * pblCgiConfigMap = NULL;
+
 struct timeval pblCgiStartTime;
 
 FILE * pblCgiTraceFile = NULL;
@@ -234,6 +236,27 @@ PblMap * pblCgiFileToMap(PblMap * map, char * filePath)
 	fclose(stream);
 
 	return map;
+}
+
+/**
+* Get the value given for the key in the configuration.
+*/
+char * pblCgiConfigValue(char * key, char * defaultValue)
+{
+	if (!pblCgiConfigMap)
+	{
+		pblCgiExitOnError("The configuration file was never read!\n");
+	}
+	if (!key || !*key)
+	{
+		pblCgiExitOnError("Empty key not allowed!\n");
+	}
+	char * value = pblMapGetStr(pblCgiConfigMap, key);
+	if (!value)
+	{
+		return defaultValue;
+	}
+	return value;
 }
 
 static PblMap * queryMap = NULL;
