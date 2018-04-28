@@ -259,6 +259,44 @@ char * pblCgiConfigValue(char * key, char * defaultValue)
 	return value;
 }
 
+void pblCgiInitTrace(struct timeval * startTime, char * traceFilePath)
+{
+	pblCgiStartTime = *startTime;
+
+	if (traceFilePath && *traceFilePath)
+	{
+		FILE * stream;
+
+#ifdef WIN32
+		errno_t err = fopen_s(&stream, traceFilePath, "r");
+		if (err != 0)
+		{
+			return;
+		}
+#else
+		if (!(stream = fopen(traceFilePath, "r")))
+		{
+			return;
+		}
+#endif
+
+		fclose(stream);
+
+		pblCgiTraceFile = pblCgiFopen(traceFilePath, "a");
+		fputs("\n", pblCgiTraceFile);
+		fputs("\n", pblCgiTraceFile);
+		PBL_CGI_TRACE("----------------------------------------> Started");
+
+		extern char **environ;
+		char ** envp = environ;
+
+		while (envp && *envp)
+		{
+			PBL_CGI_TRACE("ENV %s", *envp++);
+		}
+	}
+}
+
 static PblMap * queryMap = NULL;
 static void pblCgiSetQueryValue(char * key, char * value)
 {

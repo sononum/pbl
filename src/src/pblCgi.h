@@ -88,6 +88,8 @@ extern "C"
 #define PBL_CGI_COOKIE_PATH                    "PBL_CGI_COOKIE_PATH"
 #define PBL_CGI_COOKIE_DOMAIN                  "PBL_CGI_COOKIE_DOMAIN"
 
+#define PBL_CGI_TRACE_FILE                     "TraceFilePath"
+
 	/*****************************************************************************/
 	/* Variable declarations                                                     */
 	/*****************************************************************************/
@@ -105,8 +107,9 @@ extern "C"
 	/* Function declarations                                                     */
 	/*****************************************************************************/
 
-	extern void pblCgiTrace(const char * format, ...);
 	extern char * pblCgiConfigValue(char * key, char * defaultValue);
+	extern void pblCgiInitTrace(struct timeval * startTime, char * traceFilePath);
+	extern void pblCgiTrace(const char * format, ...);
 
 	extern FILE * pblCgiFopen(char * traceFilePath, char * openType);
 	extern char * pblCgiGetEnv(char * name);
