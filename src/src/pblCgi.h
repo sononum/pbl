@@ -26,6 +26,9 @@
  please see: http://www.mission-base.com/.
 
 $Log: pblCgi.h,v $
+Revision 1.32  2018/04/29 18:37:45  peter
+Added replace method
+
 Revision 1.31  2018/04/26 14:06:39  peter
 Added the cookie handling
 
@@ -100,6 +103,7 @@ extern "C"
 	extern FILE * pblCgiTraceFile;
 	extern char * pblCgiValueIncrement;
 
+	extern char * pblCgiQueryString;
 	extern char * pblCgiCookieKey;
 	extern char * pblCgiCookieTag;
 
@@ -126,6 +130,7 @@ extern "C"
 	extern int pblCgiStrEquals(char * s1, char * s2);
 	extern int pblCgiStrCmp(char * s1, char * s2);
 	extern char * pblCgiStrCat(char * s1, char * s2);
+	extern char * pblCgiStrReplace(char * string, char * oldValue, char * newValue);
 	extern char * pblCgiStrFromTime(time_t t);
 	extern int pblCgiStrSplit(char * string, char * splitString, size_t size, char * result[]);
 	extern PblList * pblCgiStrSplitToList(char * string, char * splitString);

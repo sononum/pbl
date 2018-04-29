@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCgi.c,v $
+ Revision 1.46  2018/04/29 18:37:45  peter
+ Added replace method
+
  Revision 1.45  2018/04/26 14:06:39  peter
  Added the cookie handling
 
@@ -55,7 +58,7 @@
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblCgi_c_id = "$Id: pblCgi.c,v 1.45 2018/04/26 14:06:39 peter Exp $";
+char* pblCgi_c_id = "$Id: pblCgi.c,v 1.46 2018/04/29 18:37:45 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -72,7 +75,7 @@ char* pblCgi_c_id = "$Id: pblCgi.c,v 1.45 2018/04/26 14:06:39 peter Exp $";
 /*****************************************************************************/
 /* #defines                                                                  */
 /*****************************************************************************/
-#define PBL_CGI_MAX_SIZE_OF_BUFFER_ON_STACK		(4 * 1024)
+#define PBL_CGI_MAX_SIZE_OF_BUFFER_ON_STACK		(64 * 1024)
 #define PBL_CGI_MAX_QUERY_PARAMETERS_COUNT	    128
 #define PBL_CGI_MAX_POST_INPUT_LEN              (1024 * 1024)
 
@@ -85,6 +88,7 @@ PblMap * pblCgiConfigMap = NULL;
 struct timeval pblCgiStartTime;
 
 FILE * pblCgiTraceFile = NULL;
+char * pblCgiQueryString = NULL;
 
 char * pblCgiCookieKey = PBL_CGI_COOKIE;
 char * pblCgiCookieTag = PBL_CGI_COOKIE "=";
@@ -681,6 +685,57 @@ char * pblCgiStrCat(char * s1, char * s2)
 	return result;
 }
 
+/*
+ * Replace the oldValue with newValue. The result is a malloced string.
+ */
+char * pblCgiStrReplace(char * string, char * oldValue, char * newValue)
+{
+	char * tag = "pblCgiStrReplace";
+	char * ptr = string;
+	int length = strlen(oldValue);
+
+	PblStringBuilder * stringBuilder = pblStringBuilderNew();
+	if (!stringBuilder)
+	{
+		pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
+	}
+
+	for (;;)
+	{
+		char * ptr2 = strstr(ptr, oldValue);
+		if (!ptr2)
+		{
+			if (pblStringBuilderAppendStr(stringBuilder, ptr) == ((size_t)-1))
+			{
+				pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
+			}
+			break;
+		}
+
+		if (ptr2 > ptr)
+		{
+			if (pblStringBuilderAppendStrN(stringBuilder, ptr2 - ptr, ptr) == ((size_t)-1))
+			{
+				pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
+			}
+		}
+
+		if (pblStringBuilderAppendStr(stringBuilder, newValue) == ((size_t)-1))
+		{
+			pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
+		}
+		ptr = ptr2 + length;
+	}
+
+	char * result = pblStringBuilderToString(stringBuilder);
+	if (!result)
+	{
+		pblCgiExitOnError("%s: pbl_errno = %d, message='%s'\n", tag, pbl_errno, pbl_errstr);
+	}
+	pblStringBuilderFree(stringBuilder);
+	return result;
+}
+
 /**
  * Return a malloced time string.
  *
@@ -929,7 +984,8 @@ void pblCgiParseQuery(int argc, char * argv[])
 {
 	static char * tag = "pblCgiParseQuery";
 	char * ptr = NULL;
-	char * queryString = NULL;
+
+	pblCgiQueryString = "";
 
 	ptr = pblCgiGetEnv("REQUEST_METHOD");
 	if (!ptr || !*ptr)
@@ -938,34 +994,28 @@ void pblCgiParseQuery(int argc, char * argv[])
 		{
 			pblCgiExitOnError("%s: test usage: %s querystring\n", tag, argv[0]);
 		}
-		queryString = pblCgiStrDup(argv[1]);
+		pblCgiQueryString = argv[1];
 	}
 	else if (!strcmp(ptr, "GET"))
 	{
 		ptr = pblCgiGetEnv("QUERY_STRING");
-		if (!ptr || !*ptr)
+		if (ptr && *ptr)
 		{
-			queryString = pblCgiStrDup("");
-		}
-		else
-		{
-			queryString = pblCgiStrDup(ptr);
+			pblCgiQueryString = ptr;
 		}
 	}
 	else if (!strcmp(ptr, "POST"))
 	{
-		size_t length = 0;
-
 		ptr = pblCgiGetEnv("QUERY_STRING");
 		if (!ptr || !*ptr)
 		{
-			queryString = pblCgiStrDup("");
+			pblCgiQueryString = pblCgiStrDup("");
 		}
 		else
 		{
-			queryString = pblCgiStrCat(ptr, "&");
-			length = strlen(queryString);
+			pblCgiQueryString = pblCgiStrCat(ptr, "&");
 		}
+		size_t length = strlen(pblCgiQueryString);
 
 		ptr = pblCgiGetEnv("CONTENT_LENGTH");
 		if (ptr && *ptr)
@@ -979,14 +1029,14 @@ void pblCgiParseQuery(int argc, char * argv[])
 						length + contentLength);
 				}
 
-				queryString = realloc(queryString, length + contentLength + 1);
-				if (!queryString)
+				pblCgiQueryString = realloc(pblCgiQueryString, length + contentLength + 1);
+				if (!pblCgiQueryString)
 				{
 					pblCgiExitOnError("%s: Out of memory\n", tag);
 				}
 
 				int c;
-				ptr = queryString + length;
+				ptr = pblCgiQueryString + length;
 				while (contentLength-- > 0)
 				{
 					if ((c = getchar()) == EOF)
@@ -1004,12 +1054,12 @@ void pblCgiParseQuery(int argc, char * argv[])
 		pblCgiExitOnError("%s: Unknown REQUEST_METHOD '%s'\n", tag, ptr);
 	}
 
-	PBL_CGI_TRACE("In %s", queryString);
+	PBL_CGI_TRACE("In %s", pblCgiQueryString);
 
 	char * keyValuePairs[PBL_CGI_MAX_QUERY_PARAMETERS_COUNT + 1];
 	char * keyValuePair[2 + 1];
 
-	pblCgiStrSplit(queryString, "&", PBL_CGI_MAX_QUERY_PARAMETERS_COUNT, keyValuePairs);
+	pblCgiStrSplit(pblCgiQueryString, "&", PBL_CGI_MAX_QUERY_PARAMETERS_COUNT, keyValuePairs);
 	for (int i = 0; keyValuePairs[i]; i++)
 	{
 		pblCgiStrSplit(keyValuePairs[i], "=", 2, keyValuePair);
@@ -1034,8 +1084,6 @@ void pblCgiParseQuery(int argc, char * argv[])
 		PBL_FREE(keyValuePair[1]);
 		PBL_FREE(keyValuePairs[i]);
 	}
-
-	PBL_FREE(queryString);
 }
 
 static char * pblCgiReplaceLowerThan(char * string, char *ptr2)
