@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCgi.c,v $
+ Revision 1.47  2018/04/29 20:33:57  peter
+ Changed error message
+
  Revision 1.46  2018/04/29 18:37:45  peter
  Added replace method
 
@@ -58,7 +61,7 @@
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblCgi_c_id = "$Id: pblCgi.c,v 1.46 2018/04/29 18:37:45 peter Exp $";
+char* pblCgi_c_id = "$Id: pblCgi.c,v 1.47 2018/04/29 20:33:57 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -412,11 +415,11 @@ void pblCgiExitOnError(const char * format, ...)
 		"<!DOCTYPE html>\n"
 		"<html>\n"
 		"<head>\n"
-		"<title>Arvos-App Server</title>\n"
+		"<title>Mission-Base PBL CGI Error</title>\n"
 		"</head>\n"
 		"<body>\n"
 		"<h1>\n"
-		"PBL CGI Test\n"
+		"PBL CGI\n"
 		"</h1>\n"
 		"<p><hr> <p>\n"
 		"<h1>An error occurred</h1>\n");
