@@ -26,6 +26,9 @@
  please see: http://www.mission-base.com/.
 
 $Log: pblCgi.h,v $
+Revision 1.33  2018/04/30 14:21:40  peter
+Added try open and time to string with format
+
 Revision 1.32  2018/04/29 18:37:45  peter
 Added replace method
 
@@ -115,6 +118,7 @@ extern "C"
 	extern void pblCgiInitTrace(struct timeval * startTime, char * traceFilePath);
 	extern void pblCgiTrace(const char * format, ...);
 
+	extern FILE * pblCgiTryFopen(char * filePath, char * openType);
 	extern FILE * pblCgiFopen(char * traceFilePath, char * openType);
 	extern char * pblCgiGetEnv(char * name);
 
@@ -131,6 +135,7 @@ extern "C"
 	extern int pblCgiStrCmp(char * s1, char * s2);
 	extern char * pblCgiStrCat(char * s1, char * s2);
 	extern char * pblCgiStrReplace(char * string, char * oldValue, char * newValue);
+	extern char * pblCgiStrFromTimeAndFormat(time_t t, char * format);
 	extern char * pblCgiStrFromTime(time_t t);
 	extern int pblCgiStrSplit(char * string, char * splitString, size_t size, char * result[]);
 	extern PblList * pblCgiStrSplitToList(char * string, char * splitString);

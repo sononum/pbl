@@ -24,6 +24,12 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCgi.c,v $
+ Revision 1.49  2018/04/30 16:10:03  peter
+ Linux port
+
+ Revision 1.48  2018/04/30 14:21:40  peter
+ Added try open and time to string with format
+
  Revision 1.47  2018/04/29 20:33:57  peter
  Changed error message
 
@@ -61,7 +67,7 @@
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblCgi_c_id = "$Id: pblCgi.c,v 1.47 2018/04/29 20:33:57 peter Exp $";
+char* pblCgi_c_id = "$Id: pblCgi.c,v 1.49 2018/04/30 16:10:03 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -390,7 +396,7 @@ void pblCgiTrace(const char * format, ...)
 	}
 	buffer[sizeof(buffer) - 1] = '\0';
 
-	char * now = pblCgiStrFromTime(time((time_t*)0));
+	char * now = pblCgiStrFromTime(time((time_t*)NULL));
 	fputs(now, pblCgiTraceFile);
 	PBL_FREE(now);
 
@@ -746,6 +752,16 @@ char * pblCgiStrReplace(char * string, char * oldValue, char * newValue)
  */
 char * pblCgiStrFromTime(time_t t)
 {
+	return pblCgiStrFromTimeAndFormat(t, "%02d.%02d.%02d %02d:%02d:%02d");
+}
+
+/**
+* Return a malloced time string.
+*
+* If an error occurs, the program exits with an error message.
+*/
+char * pblCgiStrFromTimeAndFormat(time_t t, char * format)
+{
 	struct tm *tm;
 
 #ifdef _WIN32
@@ -753,13 +769,13 @@ char * pblCgiStrFromTime(time_t t)
 	struct tm windowsTm;
 	tm = &windowsTm;
 	localtime_s(tm, (time_t *) &(t));
-	
+
 #else
 
 	tm = localtime((time_t *) &(t));
 
 #endif
-	return pblCgiSprintf("%02d.%02d.%02d %02d:%02d:%02d", (tm->tm_year + 1900) % 100, tm->tm_mon + 1, tm->tm_mday,
+	return pblCgiSprintf(format, (tm->tm_year + 1900) % 100, tm->tm_mon + 1, tm->tm_mday,
 		tm->tm_hour, tm->tm_min, tm->tm_sec);
 }
 
@@ -919,10 +935,44 @@ char * pblCgiGetCoockie(char * cookieKey, char * cookieTag)
 /**
 * Like fopen, needed for Windows port
 */
+FILE * pblCgiTryFopen(char * filePath, char * openType)
+{
+	FILE * stream;
+
+#ifdef WIN32
+
+	stream = _fsopen(filePath, openType, _SH_DENYWR);
+	if (!stream)
+	{
+		errno_t err = fopen_s(&stream, filePath, openType);
+		if (err != 0)
+		{
+			return NULL;
+		}
+	}
+
+#else
+
+	if (!(stream = fopen(filePath, openType)))
+	{
+		return NULL;
+	}
+
+#endif
+	return stream;
+}
+
+/**
+* Like fopen, needed for Windows port
+*/
 FILE * pblCgiFopen(char * filePath, char * openType)
 {
 	static char * tag = "pblCgiFopen";
-	FILE * stream;
+	FILE * stream = pblCgiTryFopen(filePath, openType);
+	if (stream)
+	{
+		return stream;
+	}
 
 #ifdef WIN32
 
