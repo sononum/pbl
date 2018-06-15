@@ -1,4 +1,4 @@
-#<A href="http://www.mission-base.com/peter/source/"><img src="http://www.mission-base.com/index-images/mb240.gif"></img></A> PBL - The Program Base Library 
+<A href="http://www.mission-base.com/peter/source/"><img src="http://www.mission-base.com/index-images/mb240.gif"></img></A> PBL - The Program Base Library 
 
 * * * * *
 
