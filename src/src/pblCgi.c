@@ -57,7 +57,7 @@ char* pblCgi_c_id = "$Id: pblCgi.c,v 1.3 2020/11/11 23:40:31 peter Exp $";
 /*****************************************************************************/
 #define PBL_CGI_MAX_SIZE_OF_BUFFER_ON_STACK		(15 * 1024)
 #define PBL_CGI_MAX_QUERY_PARAMETERS_COUNT		128
-#define PBL_CGI_MAX_POST_INPUT_LEN				(16 * 1024 * 1024)
+#define PBL_CGI_MAX_POST_INPUT_LEN			(16 * 1024 * 1024)
 
 /*****************************************************************************/
 /* Variables                                                                 */
