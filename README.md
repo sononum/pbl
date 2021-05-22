@@ -14,8 +14,7 @@ as published by the Free Software Foundation; either version 2 of the License, o
 
 PBL is an LGPL open source C library of functions that can be used in a C
 or C++ project. PBL is highly portable and compiles warning free on
-Linux gcc, MAC OS X and Windows Microsoft Visual C++ 2010 Express
-Edition.
+Linux gcc, MAC OS X and Windows Microsoft Visual Studio.
 The code of the PBL library includes the following modules:
 
 ###[**PBL BASE**][] - C Base Functions
