@@ -24,51 +24,18 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblkf.c,v $
+    Revision 1.27  2021/06/12 11:18:26  peter
+    Synchronizing with github version
+
     Revision 1.26  2018/03/10 18:00:45  peter
     Cleanup of unneeded parentheses
-
-    Revision 1.25  2016/04/23 23:19:13  peter
-    Fixing GitHub Issue: Build warnings and test failure #5
-
-    Revision 1.24  2015/02/23 04:05:11  peter
-    Port to Visual Studio 2012.
-
-    Revision 1.23  2015/02/22 07:06:06  peter
-    Port to Visual Studio 2012.
-
-    Revision 1.22  2010/05/30 20:06:45  peter
-    Removed warnings found by 'Microsoft Visual C++ 2010'.
-
-    Revision 1.21  2009/03/08 20:56:50  peter
-    port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
-    Exposing the hash set and tree set interfaces.
-
-    Revision 1.20  2009/02/03 16:40:14  peter
-    PBL vesion 1.04, optimizations,
-    MAC OS X port, port to Microsoft Visual C++ 2008 Express Edition,
-    exposing the array list and the linked list interface
-
-    Revision 1.4  2003/02/19 22:26:49  peter
-    made sure #defined values can be set by compiler switches
-
-    Revision 1.3  2002/11/01 13:56:24  peter
-    Truncation of the memory block list is now called
-    at every file close.
-
-    Revision 1.2  2002/11/01 13:27:30  peter
-    The block reference hash table is deleted when the
-    last block is deleted from the table, i.e. when the
-    last file is closed
-
-    Revision 1.1  2002/09/12 20:47:07  peter
-    Initial revision
 
 */
 
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblkf_c_id = "$Id: pblkf.c,v 1.26 2018/03/10 18:00:45 peter Exp $";
+char * pblkf_c_id = "$Id: pblkf.c,v 1.27 2021/06/12 11:18:26 peter Exp $";
 
 #ifndef _WIN32
 
@@ -1723,58 +1690,6 @@ static PBL_CACHED_ITEM_t * pblBufToCachedItem( PBLBLOCK_t * block, unsigned int 
     return item;
 }
 
-#ifdef  PBL_MEMTRACE
-
-static int checkCachedItems( PBLBLOCK_t * block )
-{
-    void * ptr;
-    int i = 0;
-
-    pblHashTable_t * ptrHash = pblHtCreate();
-
-    int saveErrno = pbl_errno;
-
-    for( i = 0; i < PBL_CACHED_ITEMS_PER_BLOCK; i++ )
-    {
-        ptr = block->cachedItems[ i ];
-        if( !ptr )
-        {
-            continue;
-        }
-
-        if( pblHtLookup( ptrHash, &ptr, sizeof( ptr )))
-        {
-            pbl_errno = PBL_ERROR_PROGRAM;
-            return -1;
-        }
-
-        if( pblHtInsert( ptrHash, &ptr, sizeof( ptr ), ptr ))
-        {
-            return -1;
-        }
-    }
-
-
-    while(( ptr = pblHtFirst( ptrHash )) != 0 )
-    {
-        if( pblHtRemove( ptrHash, &ptr, sizeof( ptr )))
-        {
-            pbl_errno = PBL_ERROR_PROGRAM;
-            return -1;
-        }
-    }
-    if( pblHtDelete( ptrHash ))
-    {
-        pbl_errno = PBL_ERROR_PROGRAM;
-        return -1;
-    }
-
-    pbl_errno = saveErrno;
-    return 0;
-}
-
-#endif
-
 static int pblBufToItem( PBLBLOCK_t * block, unsigned int index, PBLITEM_t * item )
 {
     PBL_CACHED_ITEM_t * cachedItem;
@@ -1794,12 +1709,6 @@ static int pblBufToItem( PBLBLOCK_t * block, unsigned int index, PBLITEM_t * ite
     {
         block->maxItemCacheIndex = index;
     }
-
-#ifdef  PBL_MEMTRACE
-
-    checkCachedItems( block );
-
-#endif
 
     /*
      * Get the values from the cached item
@@ -2201,13 +2110,6 @@ static int pblItemDelete( PBLBLOCK_t * block, int index )
             cachedItem->dataoffset -= itemsize;
         }
     }
-
-#ifdef  PBL_MEMTRACE
-
-    checkCachedItems( block );
-
-#endif
-
     block->dirty = 1;
     return 0;
 }
@@ -2270,13 +2172,6 @@ static int pblItemInsert( PBLBLOCK_t * block, PBLITEM_t * item, int index )
     }
 
     block->cachedItems[ index ] = 0;
-
-#ifdef  PBL_MEMTRACE
-
-    checkCachedItems( block );
-
-#endif
-
     block->dirty = 1;
     return 0;
 }

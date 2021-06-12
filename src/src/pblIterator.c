@@ -25,6 +25,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblIterator.c,v $
+ Revision 1.15  2021/06/12 21:06:46  peter
+ More cleanup
+
  Revision 1.14  2021/06/12 11:18:26  peter
  Synchronizing with github version
 
@@ -38,7 +41,7 @@
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblIterator_c_id = "$Id: pblIterator.c,v 1.14 2021/06/12 11:18:26 peter Exp $";
+char* pblIterator_c_id = "$Id: pblIterator.c,v 1.15 2021/06/12 21:06:46 peter Exp $";
 
 char* PblIteratorMagic = "PblIteratorMagic";
 
@@ -286,7 +289,7 @@ PblIterator* pblIteratorReverseNew( /*                                      */
  * @return int rc == 0: Ok, the iterator is initialized.
  * @return int rc <  0: An error, see pbl_errno:
  *
- * <BR>PBL_COLLECTION_IS_COLLECTION - The collection cannot be iterated.
+ * <BR>PBL_ERROR_PARAM_COLLECTION - The collection cannot be iterated.
  */
 int pblIteratorReverseInit( /*                                               */
 	PblCollection* collection, /** The collection to create the iterator for */
@@ -295,7 +298,7 @@ int pblIteratorReverseInit( /*                                               */
 {
 	if (!PBL_COLLECTION_IS_COLLECTION(collection))
 	{
-		pbl_errno = PBL_ERROR_PARAM_LIST;
+		pbl_errno = PBL_ERROR_PARAM_COLLECTION;
 		return -1;
 	}
 

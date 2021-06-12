@@ -24,54 +24,18 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblSetTest.c,v $
+    Revision 1.27  2021/06/12 11:18:27  peter
+    Synchronizing with github version
+
     Revision 1.26  2018/03/11 19:07:07  peter
     Improved test framework
-
-    Revision 1.25  2018/03/10 18:00:45  peter
-    Cleanup of unneeded parentheses
-
-    Revision 1.24  2016/10/12 20:58:26  peter
-    Removed warnings found by gcc 5.4.0
-
-    Revision 1.23  2015/02/22 07:06:06  peter
-    Port to Visual Studio 2012.
-
-    Revision 1.22  2010/10/21 21:04:07  peter
-    Removed warnings Eclipse CDT port to Win 7.
-
-    Revision 1.21  2010/08/14 20:10:30  peter
-    Cleanup during linux tests of pblPriorityQueue interface.
-
-    Revision 1.20  2010/05/19 22:38:45  peter
-    Testing the map.
-
-    Revision 1.19  2009/11/26 18:45:55  peter
-    activated set test
-
-    Revision 1.18  2009/10/20 21:08:00  peter
-    Added the pblHtCurrentKey function.
-
-    Revision 1.17  2009/09/03 20:48:59  peter
-    Just some cleanup on sets.
-
-    Revision 1.16  2009/03/27 23:56:23  peter
-    Some cleanup
-
-    Revision 1.15  2009/03/11 23:48:44  peter
-    More tests and clean up.
-
-    Revision 1.14  2009/03/08 20:56:50  peter
-    port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
-    Exposing the hash set and tree set interfaces.
-
-
 
 */
 
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblSetTest_c_id = "$Id: pblSetTest.c,v 1.26 2018/03/11 19:07:07 peter Exp $";
+char* pblSetTest_c_id = "$Id: pblSetTest.c,v 1.27 2021/06/12 11:18:27 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>

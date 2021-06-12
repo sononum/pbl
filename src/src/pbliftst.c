@@ -24,59 +24,11 @@
    please see: http://www.mission-base.com/.
 
     $Log: pbliftst.c,v $
+    Revision 1.19  2021/06/12 11:18:27  peter
+    Synchronizing with github version
+
     Revision 1.18  2018/03/11 19:07:07  peter
     Improved test framework
-
-    Revision 1.17  2018/03/10 18:00:45  peter
-    Cleanup of unneeded parentheses
-
-    Revision 1.16  2016/10/12 21:00:34  peter
-    Removed warnings found by gcc 5.4.0
-
-    Revision 1.15  2015/02/22 07:06:06  peter
-    Port to Visual Studio 2012.
-
-    Revision 1.14  2011/10/03 18:26:30  peter
-    Cleanup of names of test functions.
-
-    Revision 1.13  2009/03/08 20:56:50  peter
-    port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
-    Exposing the hash set and tree set interfaces.
-
-
-    Revision 1.10  2008/12/18 00:35:27  peter
-    CVS mac problems
-
-    Revision 1.8  2008/12/17 23:34:23  peter
-    Adding tests for the array list
-
-    Revision 1.7  2008/12/08 16:22:06  peter
-    Bugfixes after MAC port
-
-    Revision 1.6  2008/12/06 22:11:49  peter
-    caching items per block
-
-    Revision 1.5  2008/11/21 23:43:18  peter
-    *** empty log message ***
-
-    Revision 1.4  2008/11/02 22:41:42  peter
-    More testing after MAC OS X port.
-
-    Revision 1.3  2008/11/01 23:39:30  peter
-    re-checkin during mac port
-
-    Revision 1.1  2007/07/05 23:01:26  peter
-    *** empty log message ***
-
-    Revision 1.3  2004/04/04 13:02:02  peter
-    removed some compiler warnings
-
-    Revision 1.2  2002/09/12 20:57:15  peter
-    fixed a documentation bug
-
-    Revision 1.1  2002/09/12 20:47:05  peter
-    Initial revision
-
 
 ------------------------------------------------------------------------------
 */
@@ -84,7 +36,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pbliftst_c_id = "$Id: pbliftst.c,v 1.18 2018/03/11 19:07:07 peter Exp $";
+char * pbliftst_c_id = "$Id: pbliftst.c,v 1.19 2021/06/12 11:18:27 peter Exp $";
 
 #include <stdio.h>
 #include <string.h>
@@ -1096,13 +1048,6 @@ int pblISAMFILE_TestFrame( int argc, char * argv[] )
 			return -1;
 		}
 	}
-
-#ifdef PBL_MEMTRACE
-
-    pbl_memtrace_out( 0 );
-
-#endif
-
     return 0;
 }
 

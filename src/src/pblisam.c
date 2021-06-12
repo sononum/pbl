@@ -24,32 +24,11 @@
    please see: http://www.mission-base.com/.
 
     $Log: pblisam.c,v $
+    Revision 1.25  2021/06/12 11:18:26  peter
+    Synchronizing with github version
+
     Revision 1.24  2018/03/10 18:00:45  peter
     Cleanup of unneeded parentheses
-
-    Revision 1.23  2016/10/04 23:40:58  peter
-    removed a warning found by gcc (Ubuntu 5.4.0-6ubuntu1~16.04.2) 5.4.0 20160609
-
-    Revision 1.22  2016/10/02 12:17:08  peter
-    Allowing the technical keys for pblFind and pblGet.
-
-    Revision 1.21  2016/08/11 23:03:17  peter
-    Removing a warning produced on Mac
-
-    Revision 1.20  2016/08/11 22:10:33  peter
-    Removed a warning shown by Microsoft Visual C++ 2015
-
-    Revision 1.19  2015/02/22 07:06:06  peter
-    Port to Visual Studio 2012.
-
-    Revision 1.18  2011/09/23 21:56:57  peter
-    Added the pblIsamInsertArgcArgv function.
-
-    Revision 1.17  2011/02/08 22:51:35  peter
-    Enabled spell checking on comments.
-
-    Revision 1.16  2010/05/30 20:06:45  peter
-    Removed warnings found by 'Microsoft Visual C++ 2010'.
 
     Revision 1.15  2009/03/08 20:56:50  peter
     port to gcc (Ubuntu 4.3.2-1ubuntu12) 4.3.2.
@@ -72,7 +51,7 @@
 /*
  * make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char * pblisam_c_id = "$Id: pblisam.c,v 1.24 2018/03/10 18:00:45 peter Exp $";
+char * pblisam_c_id = "$Id: pblisam.c,v 1.25 2021/06/12 11:18:26 peter Exp $";
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -25,24 +25,21 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblList.c,v $
+ Revision 1.48  2021/06/12 21:06:45  peter
+ More cleanup
+
  Revision 1.47  2021/06/12 11:18:26  peter
  Synchronizing with github version
 
-
- Revision 1.21  2009/02/03 16:40:14  peter
- PBL vesion 1.04, optimizations,
- MAC OS X port, port to Microsoft Visual C++ 2008 Express Edition,
- exposing the array list and the linked list interface
-
  */
 
-/*
- * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
- */
-char* pblList_c_id = "$Id: pblList.c,v 1.47 2021/06/12 11:18:26 peter Exp $";
+ /*
+  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
+  */
+char* pblList_c_id = "$Id: pblList.c,v 1.48 2021/06/12 21:06:45 peter Exp $";
 
-char * PblArrayListMagic = "PblArrayListMagic";
-char * PblLinkedListMagic = "PblLinkedListMagic";
+char* PblArrayListMagic = "PblArrayListMagic";
+char* PblLinkedListMagic = "PblLinkedListMagic";
 
 #include <stdio.h>
 #include <memory.h>
@@ -66,35 +63,35 @@ char * PblLinkedListMagic = "PblLinkedListMagic";
 /* Function declarations                                                     */
 /*****************************************************************************/
 
-static int pblLinkedListAdd( /*                              */
-PblLinkedList * list, /** The list to append to              */
-void * element /** Element to be appended to this list       */
+static int pblLinkedListAdd( /*                                  */
+	PblLinkedList* list, /** The list to append to               */
+	void* element /** Element to be appended to this list        */
 );
 
-static void * pblLinkedListRemoveAt( /*                      */
-PblLinkedList * list, /** The list to use                    */
-int index /** Index at which the element is to be removed    */
+static void* pblLinkedListRemoveAt( /*                           */
+	PblLinkedList* list, /** The list to use                     */
+	int index /** Index at which the element is to be removed    */
 );
 
-static void ** pblLinkedListToArray( /*                      */
-PblLinkedList * list /** The list to use                     */
+static void** pblLinkedListToArray( /*                           */
+	PblLinkedList* list /** The list to use                      */
 );
 
-static int pblLinkedListRemoveRange( /*                      */
-PblLinkedList * list, /** The list to use                    */
-int fromIndex, /** The index of first element to be removed. */
-int toIndex /** The index after last element to be removed.  */
+static int pblLinkedListRemoveRange( /*                          */
+	PblLinkedList* list, /** The list to use                     */
+	int fromIndex, /** The index of first element to be removed. */
+	int toIndex /** The index after last element to be removed.  */
 );
 
-static PblLinkedNode * pblLinkedListGetNodeAt( /*            */
-PblLinkedList * list, /** The list to use                    */
-int index /** Index of the node to return                    */
+static PblLinkedNode* pblLinkedListGetNodeAt( /*                 */
+	PblLinkedList* list, /** The list to use                     */
+	int index /** Index of the node to return                    */
 );
 
-static int pblLinkedListAddAt( /*                            */
-PblLinkedList * list, /** The list to use                    */
-int index, /** Index at which the element is to be inserted  */
-void * element /** Element to be appended to this list       */
+static int pblLinkedListAddAt( /*                                */
+	PblLinkedList* list, /** The list to use                     */
+	int index, /** Index at which the element is to be inserted  */
+	void* element /** Element to be appended to this list        */
 );
 
 /*****************************************************************************/
@@ -111,17 +108,15 @@ void * element /** Element to be appended to this list       */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-PblList * pblListNewArrayList(void)
+PblList* pblListNewArrayList(void)
 {
-	PblArrayList * pblList = (PblArrayList *) pbl_malloc0("pblListNewArrayList", sizeof(PblArrayList));
+	PblArrayList* pblList = (PblArrayList*)pbl_malloc0("pblListNewArrayList", sizeof(PblArrayList));
 	if (!pblList)
 	{
 		return NULL;
 	}
-
 	pblList->collection.magic = PblArrayListMagic;
-
-	return (PblList *) pblList;
+	return (PblList*)pblList;
 }
 
 /**
@@ -134,17 +129,15 @@ PblList * pblListNewArrayList(void)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-PblList * pblListNewLinkedList(void)
+PblList* pblListNewLinkedList(void)
 {
-	PblLinkedList * pblList = (PblLinkedList *) pbl_malloc0("pblListNewLinkedList", sizeof(PblLinkedList));
+	PblLinkedList* pblList = (PblLinkedList*)pbl_malloc0("pblListNewLinkedList", sizeof(PblLinkedList));
 	if (!pblList)
 	{
 		return NULL;
 	}
-
 	pblList->collection.magic = PblLinkedListMagic;
-
-	return (PblList *) pblList;
+	return (PblList*)pblList;
 }
 
 /*
@@ -158,28 +151,28 @@ PblList * pblListNewLinkedList(void)
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
  *                               or toIndex is out of range ( toIndex < 0 || toIndex > size())
  */
-static PblList * pblLinkedListCloneRange( /*                */
-PblLinkedList * list, /** The list to use                   */
-int fromIndex, /** The index of first element to be cloned. */
-int toIndex /** The index after last element to be cloned.  */
+static PblList* pblLinkedListCloneRange( /*                     */
+	PblLinkedList* list, /** The list to use                    */
+	int fromIndex, /** The index of first element to be cloned. */
+	int toIndex /** The index after last element to be cloned.  */
 )
 {
 	int elementsToClone;
 	int distanceToEnd;
-	PblLinkedNode * linkedNode;
-	PblLinkedList * newList = (PblLinkedList *) pblListNewLinkedList();
+	PblLinkedNode* linkedNode;
+	PblLinkedList* newList = (PblLinkedList*)pblListNewLinkedList();
 
 	if (!newList)
 	{
 		return NULL;
 	}
 
-	((PblLinkedList *) newList)->collection.compare = list->collection.compare;
+	((PblLinkedList*)newList)->collection.compare = list->collection.compare;
 
 	elementsToClone = toIndex - fromIndex;
 	if (elementsToClone < 1)
 	{
-		return (PblList *) newList;
+		return (PblList*)newList;
 	}
 
 	distanceToEnd = list->collection.size - toIndex;
@@ -191,7 +184,7 @@ int toIndex /** The index after last element to be cloned.  */
 		linkedNode = pblLinkedListGetNodeAt(list, fromIndex);
 		if (!linkedNode)
 		{
-			pblListFree((PblList *) newList);
+			pblListFree((PblList*)newList);
 			return NULL;
 		}
 
@@ -199,7 +192,7 @@ int toIndex /** The index after last element to be cloned.  */
 		{
 			if (pblLinkedListAdd(newList, linkedNode->element) < 0)
 			{
-				pblListFree((PblList *) newList);
+				pblListFree((PblList*)newList);
 				return NULL;
 			}
 
@@ -214,7 +207,7 @@ int toIndex /** The index after last element to be cloned.  */
 		linkedNode = pblLinkedListGetNodeAt(list, toIndex - 1);
 		if (!linkedNode)
 		{
-			pblListFree((PblList *) newList);
+			pblListFree((PblList*)newList);
 			return NULL;
 		}
 
@@ -222,15 +215,14 @@ int toIndex /** The index after last element to be cloned.  */
 		{
 			if (pblLinkedListAddAt(newList, 0, linkedNode->element) < 0)
 			{
-				pblListFree((PblList *) newList);
+				pblListFree((PblList*)newList);
 				return NULL;
 			}
 
 			linkedNode = linkedNode->prev;
 		}
 	}
-
-	return (PblList *) newList;
+	return (PblList*)newList;
 }
 
 /*
@@ -244,15 +236,15 @@ int toIndex /** The index after last element to be cloned.  */
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
  *                               or toIndex is out of range ( toIndex < 0 || toIndex > size())
  */
-static PblList * pblArrayListCloneRange( /*                 */
-PblArrayList * list, /** The list to use                    */
-int fromIndex, /** The index of first element to be cloned. */
-int toIndex /** The index after last element to be cloned.  */
+static PblList* pblArrayListCloneRange( /*                      */
+	PblArrayList* list, /** The list to use                     */
+	int fromIndex, /** The index of first element to be cloned. */
+	int toIndex /** The index after last element to be cloned.  */
 )
 {
 	int elementsToClone = toIndex - fromIndex;
 
-	PblArrayList * newList = (PblArrayList *) pblListNewArrayList();
+	PblArrayList* newList = (PblArrayList*)pblListNewArrayList();
 	if (!newList)
 	{
 		return NULL;
@@ -262,11 +254,11 @@ int toIndex /** The index after last element to be cloned.  */
 
 	if (elementsToClone < 1)
 	{
-		return (PblList*) newList;
+		return (PblList*)newList;
 	}
 
 	newList->pointerArray = pbl_memdup("pblArrayListCloneRange pointerArray", &(list->pointerArray[fromIndex]),
-			sizeof(void*) * elementsToClone);
+		sizeof(void*) * elementsToClone);
 
 	if (!newList->pointerArray)
 	{
@@ -276,8 +268,7 @@ int toIndex /** The index after last element to be cloned.  */
 
 	newList->capacity = elementsToClone;
 	newList->collection.size = elementsToClone;
-
-	return (PblList*) newList;
+	return (PblList*)newList;
 }
 
 /**
@@ -302,10 +293,10 @@ int toIndex /** The index after last element to be cloned.  */
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
  *                               or toIndex is out of range ( toIndex < 0 || toIndex > size()) or range is negative.
  */
-PblList * pblListCloneRange( /*                             */
-PblList * list, /** The list to use                         */
-int fromIndex, /** The index of first element to be cloned. */
-int toIndex /** The index after last element to be cloned.  */
+PblList* pblListCloneRange( /*                                  */
+	PblList* list, /** The list to use                          */
+	int fromIndex, /** The index of first element to be cloned. */
+	int toIndex /** The index after last element to be cloned.  */
 )
 {
 	int elementsToClone = toIndex - fromIndex;
@@ -330,10 +321,9 @@ int toIndex /** The index after last element to be cloned.  */
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListCloneRange((PblLinkedList *) list, fromIndex, toIndex);
+		return pblLinkedListCloneRange((PblLinkedList*)list, fromIndex, toIndex);
 	}
-
-	return pblArrayListCloneRange((PblArrayList *) list, fromIndex, toIndex);
+	return pblArrayListCloneRange((PblArrayList*)list, fromIndex, toIndex);
 }
 
 /**
@@ -348,17 +338,22 @@ int toIndex /** The index after last element to be cloned.  */
  * @return PblList * retPtr == NULL: An error, see pbl_errno:
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+ * <BR>PBL_ERROR_PARAM_LIST    - The parameter 'list' is NULL.
  */
-PblList * pblListClone( /*           */
-PblList * list /** The list to clone */
+PblList* pblListClone( /*               */
+	PblList* list /** The list to clone */
 )
 {
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return NULL;
+	}
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListCloneRange((PblLinkedList *) list, 0, list->size);
+		return pblLinkedListCloneRange((PblLinkedList*)list, 0, list->size);
 	}
-
-	return pblArrayListCloneRange((PblArrayList *) list, 0, list->size);
+	return pblArrayListCloneRange((PblArrayList*)list, 0, list->size);
 }
 
 /*
@@ -369,8 +364,8 @@ PblList * list /** The list to clone */
  *
  * @return void
  */
-static void pblArrayListClear( /*         */
-PblArrayList * list /** The list to clear */
+static void pblArrayListClear( /*            */
+	PblArrayList* list /** The list to clear */
 )
 {
 	if (list->collection.size > 0 && list->pointerArray)
@@ -389,13 +384,13 @@ PblArrayList * list /** The list to clear */
  *
  * @return void
  */
-static void pblLinkedListClear( /*         */
-PblLinkedList * list /** The list to clear */
+static void pblLinkedListClear( /*            */
+	PblLinkedList* list /** The list to clear */
 )
 {
 	while (list->head)
 	{
-		PblLinkedNode * nodeToFree = list->head;
+		PblLinkedNode* nodeToFree = list->head;
 		PBL_LIST_UNLINK(list->head, list->tail, nodeToFree, next, prev);
 		PBL_FREE(nodeToFree);
 	}
@@ -413,17 +408,16 @@ PblLinkedList * list /** The list to clear */
  *
  * @return void
  */
-void pblListClear( /*                */
-PblList * list /** The list to clear */
+void pblListClear( /*                   */
+	PblList* list /** The list to clear */
 )
 {
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		pblArrayListClear((PblArrayList *) list);
+		pblArrayListClear((PblArrayList*)list);
 		return;
 	}
-
-	pblLinkedListClear((PblLinkedList *) list);
+	pblLinkedListClear((PblLinkedList*)list);
 }
 
 /*
@@ -434,13 +428,13 @@ PblList * list /** The list to clear */
  *
  * @return void
  */
-static void pblArrayListReverse( /*         */
-PblArrayList * list /** The list to reverse */
+static void pblArrayListReverse( /*            */
+	PblArrayList* list /** The list to reverse */
 )
 {
-	unsigned char ** leftPointer = list->pointerArray - 1;
-	unsigned char ** rightPointer = list->pointerArray + list->collection.size;
-	unsigned char * tmp;
+	unsigned char** leftPointer = list->pointerArray - 1;
+	unsigned char** rightPointer = list->pointerArray + list->collection.size;
+	unsigned char* tmp;
 
 	if (list->collection.size < 2)
 	{
@@ -464,13 +458,13 @@ PblArrayList * list /** The list to reverse */
  *
  * @return void
  */
-static void pblLinkedListReverse( /*         */
-PblLinkedList * list /** The list to reverse */
+static void pblLinkedListReverse( /*            */
+	PblLinkedList* list /** The list to reverse */
 )
 {
-	PblLinkedNode * leftNode = list->head;
-	PblLinkedNode * rightNode = list->tail;
-	void * tmp;
+	PblLinkedNode* leftNode = list->head;
+	PblLinkedNode* rightNode = list->tail;
+	void* tmp;
 
 	if (list->collection.size < 2)
 	{
@@ -501,17 +495,16 @@ PblLinkedList * list /** The list to reverse */
  *
  * @return void
  */
-void pblListReverse( /*                */
-PblList * list /** The list to reverse */
+void pblListReverse( /*                   */
+	PblList* list /** The list to reverse */
 )
 {
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		pblArrayListReverse((PblArrayList *) list);
+		pblArrayListReverse((PblArrayList*)list);
 		return;
 	}
-
-	pblLinkedListReverse((PblLinkedList *) list);
+	pblLinkedListReverse((PblLinkedList*)list);
 }
 
 /*
@@ -523,8 +516,8 @@ PblList * list /** The list to reverse */
  *
  * @return void
  */
-static void pblArrayListFree( /*         */
-PblArrayList * list /** The list to free */
+static void pblArrayListFree( /*            */
+	PblArrayList* list /** The list to free */
 )
 {
 	PBL_FREE(list->pointerArray);
@@ -543,17 +536,16 @@ PblArrayList * list /** The list to free */
  *
  * @return void
  */
-void pblListFree( /*                */
-PblList * list /** The list to free */
+void pblListFree( /*                   */
+	PblList* list /** The list to free */
 )
 {
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		pblArrayListFree((PblArrayList *) list);
+		pblArrayListFree((PblArrayList*)list);
 		return;
 	}
-
-	pblLinkedListClear((PblLinkedList *) list);
+	pblLinkedListClear((PblLinkedList*)list);
 	PBL_FREE(list);
 }
 
@@ -569,12 +561,12 @@ PblList * list /** The list to free */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblArrayListEnsureCapacity( /*        */
-PblArrayList * list, /** The list to use         */
-int minCapacity /** The desired minimum capacity */
+static int pblArrayListEnsureCapacity( /*            */
+	PblArrayList* list, /** The list to use          */
+	int minCapacity /** The desired minimum capacity */
 )
 {
-	unsigned char ** pointerArray;
+	unsigned char** pointerArray;
 
 	if (minCapacity <= list->capacity)
 	{
@@ -587,7 +579,7 @@ int minCapacity /** The desired minimum capacity */
 	/*
 	 * Malloc space for minCapacity pointers
 	 */
-	pointerArray = (unsigned char **) pbl_malloc("pblArrayListEnsureCapacity", sizeof(void*) * minCapacity);
+	pointerArray = (unsigned char**)pbl_malloc("pblArrayListEnsureCapacity", sizeof(void*) * minCapacity);
 	if (!pointerArray)
 	{
 		return -1;
@@ -624,7 +616,6 @@ int minCapacity /** The desired minimum capacity */
 	 */
 	list->pointerArray = pointerArray;
 	list->collection.changeCounter++;
-
 	return list->capacity;
 }
 
@@ -649,17 +640,16 @@ int minCapacity /** The desired minimum capacity */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListEnsureCapacity( /*                    */
-PblList * list, /** The list to use              */
-int minCapacity /** The desired minimum capacity */
+int pblListEnsureCapacity( /*                        */
+	PblList* list, /** The list to use               */
+	int minCapacity /** The desired minimum capacity */
 )
 {
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
 		return minCapacity;
 	}
-
-	return pblArrayListEnsureCapacity((PblArrayList *) list, minCapacity);
+	return pblArrayListEnsureCapacity((PblArrayList*)list, minCapacity);
 }
 
 /*
@@ -676,9 +666,9 @@ int minCapacity /** The desired minimum capacity */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblLinkedListSetSize( /*       */
-PblLinkedList * list, /** The list to use */
-int size /** The desired size to set      */
+static int pblLinkedListSetSize( /*          */
+	PblLinkedList* list, /** The list to use */
+	int size /** The desired size to set     */
 )
 {
 	int nAdded = 0;
@@ -708,7 +698,6 @@ int size /** The desired size to set      */
 		}
 		nAdded++;
 	}
-
 	return list->collection.size;
 }
 
@@ -726,9 +715,9 @@ int size /** The desired size to set      */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblArrayListSetSize( /*       */
-PblArrayList * list, /** The list to use */
-int size /** The desired size to set     */
+static int pblArrayListSetSize( /*          */
+	PblArrayList* list, /** The list to use */
+	int size /** The desired size to set    */
 )
 {
 	if (size < 0 || size == list->collection.size)
@@ -796,9 +785,9 @@ int size /** The desired size to set     */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListSetSize( /*               */
-PblList * list, /** The list to use  */
-int size /** The desired size to set */
+int pblListSetSize( /*                   */
+	PblList* list, /** The list to use   */
+	int size /** The desired size to set */
 )
 {
 	if (size < 0 || size == list->size)
@@ -817,10 +806,9 @@ int size /** The desired size to set */
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListSetSize((PblLinkedList *) list, size);
+		return pblLinkedListSetSize((PblLinkedList*)list, size);
 	}
-
-	return pblArrayListSetSize((PblArrayList *) list, size);
+	return pblArrayListSetSize((PblArrayList*)list, size);
 }
 
 /**
@@ -833,17 +821,23 @@ int size /** The desired size to set */
  * This method has a time complexity of O(1).
  *
  * @return int rc: The capacity of this list instance.
+ * 
+ * <BR>PBL_ERROR_PARAM_LIST    - The parameter 'list' is NULL.
  */
-int pblListGetCapacity( /*         */
-PblList * list /** The list to use */
+int pblListGetCapacity( /*            */
+	PblList* list /** The list to use */
 )
 {
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return -1;
+	}
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
 		return list->size;
 	}
-
-	return ((PblArrayList *)list)->capacity;
+	return ((PblArrayList*)list)->capacity;
 }
 
 /**
@@ -853,7 +847,7 @@ PblList * list /** The list to use */
  *
  * @return int rc: The number of elements in this list.
  */
-int pblListSize(PblList * list /** The list to use */
+int pblListSize(PblList* list /** The list to use */
 )
 {
 	return list->size;
@@ -867,8 +861,8 @@ int pblListSize(PblList * list /** The list to use */
  * @return int rc != 0: This list has no elements.
  * @return int rc == 0: This list has elements.
  */
-int pblListIsEmpty( /*              */
-PblList * list /** The list to test */
+int pblListIsEmpty( /*                 */
+	PblList* list /** The list to test */
 )
 {
 	return 0 == list->size;
@@ -882,8 +876,8 @@ PblList * list /** The list to test */
  * @return int rc != 0: This object is a list.
  * @return int rc == 0: This object is not a list.
  */
-int pblListIsList( /*                */
-void * object /** The object to test */
+int pblListIsList( /*                   */
+	void* object /** The object to test */
 )
 {
 	return PBL_LIST_IS_LIST(object);
@@ -897,7 +891,7 @@ void * object /** The object to test */
  * @return int rc != 0: This object is an array list.
  * @return int rc == 0: This object is not an array list.
  */
-int pblListIsArrayList(void * object /** The object to test */
+int pblListIsArrayList(void* object /** The object to test */
 )
 {
 	return PBL_LIST_IS_ARRAY_LIST(object);
@@ -911,8 +905,8 @@ int pblListIsArrayList(void * object /** The object to test */
  * @return int rc != 0: This object is a linked list.
  * @return int rc == 0: This object is not a linked list.
  */
-int pblListIsLinkedList( /*          */
-void * object /** The object to test */
+int pblListIsLinkedList( /*             */
+	void* object /** The object to test */
 )
 {
 	return PBL_LIST_IS_LINKED_LIST(object);
@@ -932,11 +926,11 @@ void * object /** The object to test */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblArrayListTrimToSize( /*   */
-PblArrayList * list /** The list to use */
+static int pblArrayListTrimToSize( /*      */
+	PblArrayList* list /** The list to use */
 )
 {
-	unsigned char ** pointerArray;
+	unsigned char** pointerArray;
 	int nBytes;
 
 	if (list->collection.size == list->capacity)
@@ -956,7 +950,7 @@ PblArrayList * list /** The list to use */
 	/*
 	 * Malloc space for size pointers
 	 */
-	pointerArray = (unsigned char **) pbl_malloc("pblListTrimToSize", nBytes);
+	pointerArray = (unsigned char**)pbl_malloc("pblListTrimToSize", nBytes);
 	if (!pointerArray)
 	{
 		return -1;
@@ -970,7 +964,6 @@ PblArrayList * list /** The list to use */
 	PBL_FREE(list->pointerArray);
 	list->pointerArray = pointerArray;
 	list->capacity = list->collection.size;
-
 	return list->capacity;
 }
 
@@ -990,16 +983,15 @@ PblArrayList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListTrimToSize( /*          */
-PblList * list /** The list to use */
+int pblListTrimToSize( /*             */
+	PblList* list /** The list to use */
 )
 {
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
 		return list->size;
 	}
-
-	return pblArrayListTrimToSize((PblArrayList *) list);
+	return pblArrayListTrimToSize((PblArrayList*)list);
 }
 
 /*
@@ -1011,22 +1003,21 @@ PblList * list /** The list to use */
  * @return void * retptr != NULL: The linked node containing the element.
  * @return void * retptr == NULL: The specified element is not present.
  */
-static PblLinkedNode * pblLinkedListGetNode( /* */
-PblLinkedList * list, /** The list to use       */
-void * element /** Element to look for          */
+static PblLinkedNode* pblLinkedListGetNode( /* */
+	PblLinkedList* list, /** The list to use   */
+	void* element /** Element to look for      */
 )
 {
-	PblLinkedNode * linkedNode = list->head;
+	PblLinkedNode* linkedNode = list->head;
 
 	while (linkedNode)
 	{
-		if (!pblCollectionElementCompare((PblCollection*) list, element, linkedNode->element))
+		if (!pblCollectionElementCompare((PblCollection*)list, element, linkedNode->element))
 		{
 			return linkedNode;
 		}
 		linkedNode = linkedNode->next;
 	}
-
 	return NULL;
 }
 
@@ -1044,12 +1035,12 @@ void * element /** Element to look for          */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size().
  */
-static PblLinkedNode * pblLinkedListGetNodeAt( /* */
-PblLinkedList * list, /** The list to use         */
-int index /** Index of the node to return         */
+static PblLinkedNode* pblLinkedListGetNodeAt( /* */
+	PblLinkedList* list, /** The list to use     */
+	int index /** Index of the node to return    */
 )
 {
-	PblLinkedNode * linkedNode;
+	PblLinkedNode* linkedNode;
 
 	if (index <= list->collection.size / 2)
 	{
@@ -1079,7 +1070,6 @@ int index /** Index of the node to return         */
 			linkedNode = linkedNode->prev;
 		}
 	}
-
 	return linkedNode;
 }
 
@@ -1099,14 +1089,14 @@ int index /** Index of the node to return         */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-static int pblLinkedListAddAt( /*                           */
-PblLinkedList * list, /** The list to use                   */
-int index, /** Index at which the element is to be inserted */
-void * element /** Element to be appended to this list      */
+static int pblLinkedListAddAt( /*                               */
+	PblLinkedList* list, /** The list to use                    */
+	int index, /** Index at which the element is to be inserted */
+	void* element /** Element to be appended to this list       */
 )
 {
-	PblLinkedNode * newNode;
-	PblLinkedNode * otherNode;
+	PblLinkedNode* newNode;
+	PblLinkedNode* otherNode;
 
 	if (index < 0 || index > list->collection.size)
 	{
@@ -1119,7 +1109,7 @@ void * element /** Element to be appended to this list      */
 		return pblLinkedListAdd(list, element);
 	}
 
-	newNode = (PblLinkedNode *) pbl_malloc("pblLinkedListAddAt", sizeof(PblLinkedNode));
+	newNode = (PblLinkedNode*)pbl_malloc("pblLinkedListAddAt", sizeof(PblLinkedNode));
 	if (!newNode)
 	{
 		return -1;
@@ -1143,7 +1133,6 @@ void * element /** Element to be appended to this list      */
 
 	list->collection.size++;
 	list->collection.changeCounter++;
-
 	return list->collection.size;
 }
 
@@ -1163,10 +1152,10 @@ void * element /** Element to be appended to this list      */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-static int pblArrayListAddAt( /*                            */
-PblArrayList * list, /** The list to use                    */
-int index, /** Index at which the element is to be inserted */
-void * element /** Element to be appended to this list      */
+static int pblArrayListAddAt( /*                                */
+	PblArrayList* list, /** The list to use                     */
+	int index, /** Index at which the element is to be inserted */
+	void* element /** Element to be appended to this list       */
 )
 {
 	if (index < 0 || index > list->collection.size)
@@ -1194,17 +1183,16 @@ void * element /** Element to be appended to this list      */
 
 	if (index < list->collection.size)
 	{
-		unsigned char * from = (unsigned char*) &(list->pointerArray[index]);
-		unsigned char * to = from + sizeof(void*);
+		unsigned char* from = (unsigned char*)&(list->pointerArray[index]);
+		unsigned char* to = from + sizeof(void*);
 		int length = sizeof(void*) * (list->collection.size - index);
 
 		memmove(to, from, length);
 	}
 
-	list->pointerArray[index] = (unsigned char *) element;
+	list->pointerArray[index] = (unsigned char*)element;
 	list->collection.size++;
 	list->collection.changeCounter++;
-
 	return list->collection.size;
 }
 
@@ -1228,18 +1216,17 @@ void * element /** Element to be appended to this list      */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-int pblListAddAt( /*                                        */
-PblList * list, /** The list to use                         */
-int index, /** Index at which the element is to be inserted */
-void * element /** Element to be appended to this list      */
+int pblListAddAt( /*                                            */
+	PblList* list, /** The list to use                          */
+	int index, /** Index at which the element is to be inserted */
+	void* element /** Element to be appended to this list       */
 )
 {
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListAddAt((PblLinkedList *) list, index, element);
+		return pblLinkedListAddAt((PblLinkedList*)list, index, element);
 	}
-
-	return pblArrayListAddAt((PblArrayList *) list, index, element);
+	return pblArrayListAddAt((PblArrayList*)list, index, element);
 }
 
 /*
@@ -1252,14 +1239,12 @@ void * element /** Element to be appended to this list      */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblLinkedListAdd( /*                        */
-PblLinkedList * list, /** The list to append to        */
-void * element /** Element to be appended to this list */
+static int pblLinkedListAdd( /*                           */
+	PblLinkedList* list, /** The list to append to        */
+	void* element /** Element to be appended to this list */
 )
 {
-	PblLinkedNode * newNode;
-
-	newNode = (PblLinkedNode *) pbl_malloc("pblLinkedListAdd", sizeof(PblLinkedNode));
+	PblLinkedNode* newNode = (PblLinkedNode*)pbl_malloc("pblLinkedListAdd", sizeof(PblLinkedNode));
 	if (!newNode)
 	{
 		return -1;
@@ -1284,17 +1269,16 @@ void * element /** Element to be appended to this list */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListAdd( /*                                     */
-PblList * list, /** The list to append to              */
-void * element /** Element to be appended to this list */
+int pblListAdd( /*                                        */
+	PblList* list, /** The list to append to              */
+	void* element /** Element to be appended to this list */
 )
 {
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		return pblArrayListAddAt((PblArrayList *) list, list->size, element);
+		return pblArrayListAddAt((PblArrayList*)list, list->size, element);
 	}
-
-	return pblLinkedListAdd((PblLinkedList *) list, element);
+	return pblLinkedListAdd((PblLinkedList*)list, element);
 }
 
 /**
@@ -1307,9 +1291,9 @@ void * element /** Element to be appended to this list */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListPush( /*                                    */
-PblList * list, /** The list to append to              */
-void * element /** Element to be appended to this list */
+int pblListPush( /*                                       */
+	PblList* list, /** The list to append to              */
+	void* element /** Element to be appended to this list */
 )
 {
 	return pblListAdd(list, element);
@@ -1328,9 +1312,9 @@ void * element /** Element to be appended to this list */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListAddFirst( /*                            */
-PblList * list, /** The list to add to             */
-void * element /** Element to be added to the list */
+int pblListAddFirst( /*                               */
+	PblList* list, /** The list to add to             */
+	void* element /** Element to be added to the list */
 )
 {
 	return pblListAddAt(list, 0, element);
@@ -1348,9 +1332,9 @@ void * element /** Element to be added to the list */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListAddLast( /*                             */
-PblList * list, /** The list to add to             */
-void * element /** Element to be added to the list */
+int pblListAddLast( /*                                */
+	PblList* list, /** The list to add to             */
+	void* element /** Element to be added to the list */
 )
 {
 	return pblListAdd(list, element);
@@ -1366,9 +1350,9 @@ void * element /** Element to be added to the list */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListOffer( /*                               */
-PblList * list, /** The list to add to             */
-void * element /** Element to be added to the list */
+int pblListOffer( /*                                  */
+	PblList* list, /** The list to add to             */
+	void* element /** Element to be added to the list */
 )
 {
 	return pblListAdd(list, element);
@@ -1385,14 +1369,14 @@ void * element /** Element to be added to the list */
  * <BR>PBL_ERROR_OUT_OF_BOUNDS           - Index is out of range, (index < 0 || index >= size()).
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The list underlying the iterator was modified concurrently.
  */
-static int pblLinkedListAddAllAt( /*                                                */
-PblLinkedList * list, /** The list to use                                           */
-int index, /** Index at which the elements are to be inserted                       */
-PblIterator * iterator /** The iterator whose elements are to be added to this list */
+static int pblLinkedListAddAllAt( /*                                                   */
+	PblLinkedList* list, /** The list to use                                           */
+	int index, /** Index at which the elements are to be inserted                      */
+	PblIterator* iterator /** The iterator whose elements are to be added to this list */
 )
 {
 	int nAdded = 0;
-	PblLinkedNode * otherNode;
+	PblLinkedNode* otherNode;
 	int hasNext;
 
 	if (index == list->collection.size)
@@ -1401,8 +1385,8 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
 		//
 		while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 		{
-			void * element = pblIteratorNext(iterator);
-			if (element == (void*) -1 || pblLinkedListAdd(list, element) < 0)
+			void* element = pblIteratorNext(iterator);
+			if (element == (void*)-1 || pblLinkedListAdd(list, element) < 0)
 			{
 				// An error, remove the elements added so far
 				//
@@ -1425,7 +1409,6 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
 			}
 			return -1;
 		}
-
 		return list->collection.size;
 	}
 
@@ -1437,9 +1420,9 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		PblLinkedNode * newNode;
+		PblLinkedNode* newNode;
 
-		newNode = (PblLinkedNode *) pbl_malloc("pblLinkedListAddAllAt", sizeof(PblLinkedNode));
+		newNode = (PblLinkedNode*)pbl_malloc("pblLinkedListAddAllAt", sizeof(PblLinkedNode));
 		if (!newNode)
 		{
 			// Out of memory,
@@ -1452,7 +1435,7 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
 			return -1;
 		}
 		newNode->element = pblIteratorNext(iterator);
-		if (newNode->element == (void*) -1)
+		if (newNode->element == (void*)-1)
 		{
 			// Concurrent modification error on the source list,
 			// remove the elements added so far
@@ -1481,7 +1464,6 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
 		}
 		return -1;
 	}
-
 	return list->collection.size;
 }
 
@@ -1514,28 +1496,33 @@ PblIterator * iterator /** The iterator whose elements are to be added to this l
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS           - Index is out of range, (index < 0 || index >= size()).
- * <BR>PBL_ERROR_PARAM_LIST              - Collection cannot be iterated.
+ * <BR>PBL_ERROR_PARAM_LIST              - The parameter 'list' is NULL, Collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - Collection was modified concurrently.
  */
-int pblListAddAllAt( /*                                                          */
-PblList * list, /** The list to use                                              */
-int index, /** Index at which the element are to be inserted                     */
-void * collection /** The collection whose elements are to be added to this list */
+int pblListAddAllAt( /*                                                             */
+	PblList* list, /** The list to use                                              */
+	int index, /** Index at which the element are to be inserted                    */
+	void* collection /** The collection whose elements are to be added to this list */
 )
 {
-	PblArrayList * pblList;
+	PblArrayList* pblList;
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int iteratorSize;
 	int hasNext;
 
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return -1;
+	}
 	if (index < 0 || index > list->size)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
 		return -1;
 	}
 
-	if (pblIteratorInit((PblCollection *) collection, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)collection, iterator) < 0)
 	{
 		return -1;
 	}
@@ -1548,11 +1535,11 @@ void * collection /** The collection whose elements are to be added to this list
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		int rc = pblLinkedListAddAllAt((PblLinkedList *) list, index, iterator);
+		int rc = pblLinkedListAddAllAt((PblLinkedList*)list, index, iterator);
 		return rc;
 	}
 
-	pblList = (PblArrayList *) list;
+	pblList = (PblArrayList*)list;
 
 	if (pblList->collection.size + iteratorSize >= pblList->capacity)
 	{
@@ -1577,8 +1564,8 @@ void * collection /** The collection whose elements are to be added to this list
 
 	if (index < pblList->collection.size)
 	{
-		unsigned char * from = (unsigned char*) &(pblList->pointerArray[index]);
-		unsigned char * to = from + iteratorSize * sizeof(void*);
+		unsigned char* from = (unsigned char*)&(pblList->pointerArray[index]);
+		unsigned char* to = from + iteratorSize * sizeof(void*);
 		int length = sizeof(void*) * (pblList->collection.size - index);
 
 		memmove(to, from, length);
@@ -1588,9 +1575,9 @@ void * collection /** The collection whose elements are to be added to this list
 	//
 	if (PBL_LIST_IS_ARRAY_LIST(collection))
 	{
-		PblArrayList * source = (PblArrayList *) collection;
-		unsigned char * from = (unsigned char*) &(source->pointerArray[0]);
-		unsigned char * to = (unsigned char*) &(pblList->pointerArray[index]);
+		PblArrayList* source = (PblArrayList*)collection;
+		unsigned char* from = (unsigned char*)&(source->pointerArray[0]);
+		unsigned char* to = (unsigned char*)&(pblList->pointerArray[index]);
 		int length = sizeof(void*) * source->collection.size;
 
 		memcpy(to, from, length);
@@ -1599,14 +1586,14 @@ void * collection /** The collection whose elements are to be added to this list
 	{
 		while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 		{
-			void * next = pblIteratorNext(iterator);
-			if (next == (void*) -1)
+			void* next = pblIteratorNext(iterator);
+			if (next == (void*)-1)
 			{
 				// Concurrent modification on the source collection
 				//
 				return -1;
 			}
-			pblList->pointerArray[index++] = (unsigned char *) next;
+			pblList->pointerArray[index++] = (unsigned char*)next;
 		}
 		if (hasNext < 0)
 		{
@@ -1618,7 +1605,6 @@ void * collection /** The collection whose elements are to be added to this list
 
 	pblList->collection.size += iteratorSize;
 	pblList->collection.changeCounter++;
-
 	return pblList->collection.size;
 }
 
@@ -1636,9 +1622,9 @@ void * collection /** The collection whose elements are to be added to this list
  * <BR>PBL_ERROR_PARAM_LIST              - Collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - Collection was modified concurrently.
  */
-int pblListAddAll( /*                                                            */
-PblList * list, /** The list to use                                              */
-void * collection /** The collection whose elements are to be added to this list */
+int pblListAddAll( /*                                                               */
+	PblList* list, /** The list to use                                              */
+	void* collection /** The collection whose elements are to be added to this list */
 )
 {
 	return pblListAddAllAt(list, list->size, collection);
@@ -1652,8 +1638,8 @@ void * collection /** The collection whose elements are to be added to this list
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - This list is empty.
  */
-void * pblListRemove( /*           */
-PblList * list /** The list to use */
+void* pblListRemove( /*               */
+	PblList* list /** The list to use */
 )
 {
 	return pblListRemoveAt(list, 0);
@@ -1669,18 +1655,18 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-static void * pblLinkedListRemoveAt( /*                   */
-PblLinkedList * list, /** The list to use                 */
-int index /** Index at which the element is to be removed */
+static void* pblLinkedListRemoveAt( /*                        */
+	PblLinkedList* list, /** The list to use                  */
+	int index /** Index at which the element is to be removed */
 )
 {
-	PblLinkedNode * nodeToFree;
-	unsigned char * result;
+	PblLinkedNode* nodeToFree;
+	unsigned char* result;
 
 	nodeToFree = pblLinkedListGetNodeAt(list, index);
 	if (!nodeToFree)
 	{
-		return (void*) -1;
+		return (void*)-1;
 	}
 
 	result = nodeToFree->element;
@@ -1690,7 +1676,6 @@ int index /** Index at which the element is to be removed */
 	list->collection.changeCounter++;
 
 	PBL_FREE(nodeToFree);
-
 	return result;
 }
 
@@ -1704,25 +1689,25 @@ int index /** Index at which the element is to be removed */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-void * pblArrayListRemoveAt( /*                           */
-PblArrayList * list, /** The list to use                  */
-int index /** Index at which the element is to be removed */
+void* pblArrayListRemoveAt( /*                                */
+	PblArrayList* list, /** The list to use                   */
+	int index /** Index at which the element is to be removed */
 )
 {
-	unsigned char * result;
+	unsigned char* result;
 
 	if (index < 0 || index >= list->collection.size)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
-		return (void*) -1;
+		return (void*)-1;
 	}
 
 	result = list->pointerArray[index];
 
 	if (index < list->collection.size - 1)
 	{
-		unsigned char * to = (unsigned char*) &(list->pointerArray[index]);
-		unsigned char * from = to + sizeof(void*);
+		unsigned char* to = (unsigned char*)&(list->pointerArray[index]);
+		unsigned char* from = to + sizeof(void*);
 		int length = sizeof(void*) * ((list->collection.size - 1) - index);
 
 		memmove(to, from, length);
@@ -1731,7 +1716,6 @@ int index /** Index at which the element is to be removed */
 	list->pointerArray[list->collection.size - 1] = NULL;
 	list->collection.size--;
 	list->collection.changeCounter++;
-
 	return result;
 }
 
@@ -1753,23 +1737,22 @@ int index /** Index at which the element is to be removed */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-void * pblListRemoveAt( /*                                    */
-PblList * list, /** The list to use                           */
-int index /** The index at which the element is to be removed */
+void* pblListRemoveAt( /*                                         */
+	PblList* list, /** The list to use                            */
+	int index /** The index at which the element is to be removed */
 )
 {
 	if (index < 0 || index >= list->size)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
-		return (void*) -1;
+		return (void*)-1;
 	}
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListRemoveAt((PblLinkedList *) list, index);
+		return pblLinkedListRemoveAt((PblLinkedList*)list, index);
 	}
-
-	return pblArrayListRemoveAt((PblArrayList *) list, index);
+	return pblArrayListRemoveAt((PblArrayList*)list, index);
 }
 
 /*
@@ -1787,15 +1770,15 @@ int index /** The index at which the element is to be removed */
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
  *                               or toIndex is out of range ( toIndex < 0 || toIndex > size())
  */
-static int pblLinkedListRemoveRange( /*                     */
-PblLinkedList * list, /** The list to use                   */
-int fromIndex, /** The index of first element to be removed */
-int toIndex /** The index after last element to be removed  */
+static int pblLinkedListRemoveRange( /*                         */
+	PblLinkedList* list, /** The list to use                    */
+	int fromIndex, /** The index of first element to be removed */
+	int toIndex /** The index after last element to be removed  */
 )
 {
 	int elementsToRemove = toIndex - fromIndex;
 	int distanceToEnd = list->collection.size - toIndex;
-	PblLinkedNode * linkedNode;
+	PblLinkedNode* linkedNode;
 
 	if (fromIndex <= distanceToEnd)
 	{
@@ -1811,7 +1794,7 @@ int toIndex /** The index after last element to be removed  */
 		list->collection.size -= elementsToRemove;
 		while (elementsToRemove-- > 0)
 		{
-			PblLinkedNode * nodeToFree = linkedNode;
+			PblLinkedNode* nodeToFree = linkedNode;
 			linkedNode = linkedNode->next;
 
 			PBL_LIST_UNLINK(list->head, list->tail, nodeToFree, next, prev);
@@ -1832,14 +1815,13 @@ int toIndex /** The index after last element to be removed  */
 		list->collection.size -= elementsToRemove;
 		while (elementsToRemove-- > 0)
 		{
-			PblLinkedNode * nodeToFree = linkedNode;
+			PblLinkedNode* nodeToFree = linkedNode;
 			linkedNode = linkedNode->prev;
 
 			PBL_LIST_UNLINK(list->head, list->tail, nodeToFree, next, prev);
 			PBL_FREE(nodeToFree);
 		}
 	}
-
 	list->collection.changeCounter++;
 	return list->collection.size;
 }
@@ -1866,18 +1848,24 @@ int toIndex /** The index after last element to be removed  */
  * @return int rc >= 0: The size of the list.
  * @return int rc <  0: An error, see pbl_errno:
  *
+ * <BR>PBL_ERROR_PARAM_LIST    - The parameter 'list' is NULL.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
  *                               or toIndex is out of range ( toIndex < 0 || toIndex > size())
  */
-int pblListRemoveRange( /*                                  */
-PblList * list, /** The list to use                 */
-int fromIndex, /** The index of first element to be removed */
-int toIndex /** The index after last element to be removed  */
+int pblListRemoveRange( /*                                      */
+	PblList* list, /** The list to use                          */
+	int fromIndex, /** The index of first element to be removed */
+	int toIndex /** The index after last element to be removed  */
 )
 {
-	PblArrayList * pblList;
+	PblArrayList* pblList;
 	int elementsToRemove;
 
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return -1;
+	}
 	if (fromIndex < 0 || fromIndex >= list->size)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
@@ -1904,15 +1892,15 @@ int toIndex /** The index after last element to be removed  */
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListRemoveRange((PblLinkedList *) list, fromIndex, toIndex);
+		return pblLinkedListRemoveRange((PblLinkedList*)list, fromIndex, toIndex);
 	}
 
-	pblList = (PblArrayList *) list;
+	pblList = (PblArrayList*)list;
 
 	if (toIndex < pblList->collection.size)
 	{
-		unsigned char * to = (unsigned char*) &(pblList->pointerArray[fromIndex]);
-		unsigned char * from = to + elementsToRemove * sizeof(void*);
+		unsigned char* to = (unsigned char*)&(pblList->pointerArray[fromIndex]);
+		unsigned char* from = to + elementsToRemove * sizeof(void*);
 		int length = sizeof(void*) * (pblList->collection.size - toIndex);
 
 		memmove(to, from, length);
@@ -1920,7 +1908,7 @@ int toIndex /** The index after last element to be removed  */
 
 	if (elementsToRemove > 0)
 	{
-		unsigned char * to = (unsigned char*) &(pblList->pointerArray[pblList->collection.size - elementsToRemove]);
+		unsigned char* to = (unsigned char*)&(pblList->pointerArray[pblList->collection.size - elementsToRemove]);
 		int length = sizeof(void*) * elementsToRemove;
 
 		memset(to, 0, length);
@@ -1928,7 +1916,6 @@ int toIndex /** The index after last element to be removed  */
 	}
 
 	pblList->collection.changeCounter++;
-
 	return pblList->collection.size;
 }
 
@@ -1942,8 +1929,8 @@ int toIndex /** The index after last element to be removed  */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListRemoveLast( /*       */
-PblList * list /** The list to use */
+void* pblListRemoveLast( /*           */
+	PblList* list /** The list to use */
 )
 {
 	return pblListRemoveAt(list, list->size - 1);
@@ -1962,7 +1949,7 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListRemoveFirst(PblList * list /** The list to use */
+void* pblListRemoveFirst(PblList* list /** The list to use */
 )
 {
 	return pblListRemoveAt(list, 0);
@@ -1978,8 +1965,8 @@ void * pblListRemoveFirst(PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListGetLast( /*          */
-PblList * list /** The list to use */
+void* pblListGetLast( /*              */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, list->size - 1);
@@ -1995,8 +1982,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListTail( /*             */
-PblList * list /** The list to use */
+void* pblListTail( /*                 */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, list->size - 1);
@@ -2012,8 +1999,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListGetFirst( /*         */
-PblList * list /** The list to use */
+void* pblListGetFirst( /*             */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, 0);
@@ -2033,34 +2020,37 @@ PblList * list /** The list to use */
  * @return void * retptr != (void*)-1: The element at the specified position in this list, may be NULL.
  * @return void * retptr == (void*)-1: An error, see pbl_errno:
  *
+ * <BR>PBL_ERROR_PARAM_LIST    - The parameter 'list' is NULL.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - index is out of range (index < 0 || index >= size()).
  */
-void * pblListGet( /*                        */
-PblList * list, /** The list to use          */
-int index /** Index of the element to return */
+void* pblListGet( /*                             */
+	PblList* list, /** The list to use           */
+	int index /** Index of the element to return */
 )
 {
-	/*
-	 * Check the parameter
-	 */
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return (void*)-1;
+	}
 	if (index < 0 || index >= list->size)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
-		return (void*) -1;
+		return (void*)-1;
 	}
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		PblLinkedNode * linkedNode = pblLinkedListGetNodeAt((PblLinkedList *) list, index);
+		PblLinkedNode* linkedNode = pblLinkedListGetNodeAt((PblLinkedList*)list, index);
 		if (!linkedNode)
 		{
-			return (void*) -1;
+			return (void*)-1;
 		}
 		return linkedNode->element;
 	}
 	else
 	{
-		PblArrayList * pblList = (PblArrayList *) list;
+		PblArrayList* pblList = (PblArrayList*)list;
 		return pblList->pointerArray[index];
 	}
 }
@@ -2075,8 +2065,8 @@ int index /** Index of the element to return */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListPeek( /*             */
-PblList * list /** The list to use */
+void* pblListPeek( /*                 */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, 0);
@@ -2092,8 +2082,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListTop( /*              */
-PblList * list /** The list to use */
+void* pblListTop( /*                  */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, list->size - 1);
@@ -2109,8 +2099,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListPop( /*              */
-PblList * list /** The list to use */
+void* pblListPop( /*                  */
+	PblList* list /** The list to use */
 )
 {
 	return pblListRemoveAt(list, list->size - 1);
@@ -2129,8 +2119,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListPoll( /*             */
-PblList * list /** The list to use */
+void* pblListPoll( /*                 */
+	PblList* list /** The list to use */
 )
 {
 	return pblListRemoveAt(list, 0);
@@ -2146,8 +2136,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListElement( /*          */
-PblList * list /** The list to use */
+void* pblListElement( /*              */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, 0);
@@ -2163,8 +2153,8 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListHead( /*             */
-PblList * list /** The list to use */
+void* pblListHead( /*                 */
+	PblList* list /** The list to use */
 )
 {
 	return pblListGet(list, 0);
@@ -2180,9 +2170,9 @@ PblList * list /** The list to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListSetFirst( /*                                    */
-PblList * list, /** The list to use                           */
-void * element /** Element to be stored at the first position */
+void* pblListSetFirst( /*                                        */
+	PblList* list, /** The list to use                           */
+	void* element /** Element to be stored at the first position */
 )
 {
 	return pblListSet(list, 0, element);
@@ -2198,9 +2188,9 @@ void * element /** Element to be stored at the first position */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this list is empty.
  */
-void * pblListSetLast( /*                                    */
-PblList * list, /** The list to use                          */
-void * element /** Element to be stored at the last position */
+void* pblListSetLast( /*                                        */
+	PblList* list, /** The list to use                          */
+	void* element /** Element to be stored at the last position */
 )
 {
 	return pblListSet(list, list->size - 1, element);
@@ -2220,39 +2210,45 @@ void * element /** Element to be stored at the last position */
  * @return void * retptr != (void*)-1: The element previously at the specified position, may be NULL.
  * @return void * retptr == (void*)-1: An error, see pbl_errno:
  *
+ * <BR>PBL_ERROR_PARAM_LIST    - The parameter 'list' is NULL.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - index is out of range (index < 0 || index >= size()).
  */
-void * pblListSet( /*                                             */
-PblList * list, /** The list to use                               */
-int index, /** Index of element to replace                        */
-void * element /** Element to be stored at the specified position */
+void* pblListSet( /*                                                 */
+	PblList* list, /** The list to use                               */
+	int index, /** Index of element to replace                       */
+	void* element /** Element to be stored at the specified position */
 )
 {
-	unsigned char * result;
+	unsigned char* result;
 
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return (void*)-1;
+	}
 	if (index < 0 || index >= list->size)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
-		return (void*) -1;
+		return (void*)-1;
 	}
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		PblLinkedNode * linkedNode = pblLinkedListGetNodeAt((PblLinkedList *) list, index);
+		PblLinkedNode* linkedNode = pblLinkedListGetNodeAt((PblLinkedList*)list, index);
 		if (!linkedNode)
 		{
-			return (void*) -1;
+			return (void*)-1;
 		}
 
-		result = (unsigned char *) linkedNode->element;
+		result = (unsigned char*)linkedNode->element;
 		linkedNode->element = element;
 		return result;
 	}
 	else
 	{
-		PblArrayList * pblList = (PblArrayList *) list;
+		PblArrayList* pblList = (PblArrayList*)list;
 		result = pblList->pointerArray[index];
-		pblList->pointerArray[index] = (unsigned char *) element;
+		pblList->pointerArray[index] = (unsigned char*)element;
 		return result;
 	}
 }
@@ -2280,17 +2276,16 @@ void * element /** Element to be stored at the specified position */
  *
  * @return * retptr: The compare function used before, may be NULL.
  */
-void * pblListSetCompareFunction( /*                     */
-PblList * list, /** The list to set compare function for */
-int (*compare) /** The compare function to set           */
-(const void* prev, /** The "left" element for compare    */
-const void* next /** The "right" element for compare     */
-))
+void* pblListSetCompareFunction( /*                          */
+	PblList* list, /** The list to set compare function for  */
+	int (*compare) /** The compare function to set           */
+	(const void* prev, /** The "left" element for compare    */
+		const void* next /** The "right" element for compare */
+		))
 {
-	void * retptr = list->compare;
+	void* retptr = list->compare;
 
 	list->compare = compare;
-
 	return retptr;
 }
 
@@ -2302,8 +2297,8 @@ const void* next /** The "right" element for compare     */
  *
  * @return void * retptr: The compare function used, may be NULL.
  */
-void * pblListGetCompareFunction( /*                        */
-PblList * list /** The list to get the compare function for */
+void* pblListGetCompareFunction( /*                            */
+	PblList* list /** The list to get the compare function for */
 )
 {
 	return list->compare;
@@ -2321,20 +2316,20 @@ PblList * list /** The list to get the compare function for */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblArrayListSort( /*                     */
-PblArrayList * list, /** The list to sort           */
-int (*compare) /** Specific compare function to use */
-(const void* prev, /** "left" element for compare   */
-const void* next /** "right" element for compare    */
-))
+static int pblArrayListSort( /*                          */
+	PblArrayList* list, /** The list to sort             */
+	int (*compare) /** Specific compare function to use  */
+	(const void* prev, /** "left" element for compare    */
+		const void* next /** "right" element for compare */
+		))
 {
 	if (list->collection.size < 2)
 	{
 		return 0;
 	}
 
-	qsort(list->pointerArray, (size_t) list->collection.size, (size_t) sizeof(void*),
-			(compare ? compare : list->collection.compare ? list->collection.compare : pblCollectionDefaultCompare));
+	qsort(list->pointerArray, (size_t)list->collection.size, (size_t)sizeof(void*),
+		(compare ? compare : list->collection.compare ? list->collection.compare : pblCollectionDefaultCompare));
 
 	list->collection.changeCounter++;
 	return 0;
@@ -2354,16 +2349,16 @@ const void* next /** "right" element for compare    */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblLinkedListSort( /*                    */
-PblLinkedList * list, /** The list to sort          */
-int (*compare) /** Specific compare function to use */
-(const void* prev, /** "left" element for compare   */
-const void* next /** "right" element for compare    */
-))
+static int pblLinkedListSort( /*                         */
+	PblLinkedList* list, /** The list to sort            */
+	int (*compare) /** Specific compare function to use  */
+	(const void* prev, /** "left" element for compare    */
+		const void* next /** "right" element for compare */
+		))
 {
-	PblLinkedNode * node = list->head;
-	void ** array;
-	void ** arrayPointer;
+	PblLinkedNode* node = list->head;
+	void** array;
+	void** arrayPointer;
 
 	if (list->collection.size < 2)
 	{
@@ -2379,8 +2374,8 @@ const void* next /** "right" element for compare    */
 	}
 
 	arrayPointer = array;
-	qsort(array, (size_t) list->collection.size, (size_t) sizeof(void*),
-			(compare ? compare : list->collection.compare ? list->collection.compare : pblCollectionDefaultCompare));
+	qsort(array, (size_t)list->collection.size, (size_t)sizeof(void*),
+		(compare ? compare : list->collection.compare ? list->collection.compare : pblCollectionDefaultCompare));
 
 	while (node)
 	{
@@ -2419,19 +2414,18 @@ const void* next /** "right" element for compare    */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblListSort( /*                                 */
-PblList * list, /** The list to sort                */
-int (*compare) /** Specific compare function to use */
-(const void* prev, /** "left" element for compare   */
-const void* next /** "right" element for compare    */
-))
+int pblListSort( /*                                      */
+	PblList* list, /** The list to sort                  */
+	int (*compare) /** Specific compare function to use  */
+	(const void* prev, /** "left" element for compare    */
+		const void* next /** "right" element for compare */
+		))
 {
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		return pblArrayListSort((PblArrayList*) list, compare);
+		return pblArrayListSort((PblArrayList*)list, compare);
 	}
-
-	return pblLinkedListSort((PblLinkedList*) list, compare);
+	return pblLinkedListSort((PblLinkedList*)list, compare);
 }
 
 /*
@@ -2443,24 +2437,23 @@ const void* next /** "right" element for compare    */
  * @return int rc >= 0: The index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-static int pblLinkedListIndexOf( /*       */
-PblLinkedList * list, /** The list to use */
-void * element /** Element to look for    */
+static int pblLinkedListIndexOf( /*          */
+	PblLinkedList* list, /** The list to use */
+	void* element /** Element to look for    */
 )
 {
 	int index = 0;
-	PblLinkedNode * linkedNode = list->head;
+	PblLinkedNode* linkedNode = list->head;
 
 	while (linkedNode)
 	{
-		if (!pblCollectionElementCompare((PblCollection*) list, element, linkedNode->element))
+		if (!pblCollectionElementCompare((PblCollection*)list, element, linkedNode->element))
 		{
 			return index;
 		}
 		linkedNode = linkedNode->next;
 		index++;
 	}
-
 	return -1;
 }
 
@@ -2473,21 +2466,20 @@ void * element /** Element to look for    */
  * @return int rc >= 0: The index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-static int pblArrayListIndexOf( /*       */
-PblArrayList * list, /** The list to use */
-void * element /** Element to look for   */
+static int pblArrayListIndexOf( /*          */
+	PblArrayList* list, /** The list to use */
+	void* element /** Element to look for   */
 )
 {
 	int index;
 
 	for (index = 0; index < list->collection.size; index++)
 	{
-		if (!pblCollectionElementCompare((PblCollection*) list, element, list->pointerArray[index]))
+		if (!pblCollectionElementCompare((PblCollection*)list, element, list->pointerArray[index]))
 		{
 			return index;
 		}
 	}
-
 	return -1;
 }
 
@@ -2500,17 +2492,16 @@ void * element /** Element to look for   */
  * @return int rc >= 0: The index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-int pblListIndexOf( /*                 */
-PblList * list, /** The list to use    */
-void * element /** Element to look for */
+int pblListIndexOf( /*                    */
+	PblList* list, /** The list to use    */
+	void* element /** Element to look for */
 )
 {
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListIndexOf((PblLinkedList*) list, element);
+		return pblLinkedListIndexOf((PblLinkedList*)list, element);
 	}
-
-	return pblArrayListIndexOf((PblArrayList*) list, element);
+	return pblArrayListIndexOf((PblArrayList*)list, element);
 }
 
 /*
@@ -2522,24 +2513,23 @@ void * element /** Element to look for */
  * @return int rc >= 0: The last index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-static int pblLinkedListLastIndexOf( /*   */
-PblLinkedList * list, /** The list to use */
-void * element /** Element to look for    */
+static int pblLinkedListLastIndexOf( /*      */
+	PblLinkedList* list, /** The list to use */
+	void* element /** Element to look for    */
 )
 {
 	int index = list->collection.size - 1;
-	PblLinkedNode * linkedNode = list->tail;
+	PblLinkedNode* linkedNode = list->tail;
 
 	while (linkedNode)
 	{
-		if (!pblCollectionElementCompare((PblCollection*) list, element, linkedNode->element))
+		if (!pblCollectionElementCompare((PblCollection*)list, element, linkedNode->element))
 		{
 			return index;
 		}
 		linkedNode = linkedNode->prev;
 		index--;
 	}
-
 	return -1;
 }
 
@@ -2552,21 +2542,20 @@ void * element /** Element to look for    */
  * @return int rc >= 0: The last index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-static int pblArrayListLastIndexOf( /*   */
-PblArrayList * list, /** The list to use */
-void * element /** Element to look for   */
+static int pblArrayListLastIndexOf( /*      */
+	PblArrayList* list, /** The list to use */
+	void* element /** Element to look for   */
 )
 {
 	int index;
 
 	for (index = list->collection.size - 1; index >= 0; index--)
 	{
-		if (!pblCollectionElementCompare((PblCollection*) list, element, list->pointerArray[index]))
+		if (!pblCollectionElementCompare((PblCollection*)list, element, list->pointerArray[index]))
 		{
 			return index;
 		}
 	}
-
 	return -1;
 }
 
@@ -2579,17 +2568,16 @@ void * element /** Element to look for   */
  * @return int rc >= 0: The last index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-int pblListLastIndexOf( /*             */
-PblList * list, /** The list to use    */
-void * element /** Element to look for */
+int pblListLastIndexOf( /*                */
+	PblList* list, /** The list to use    */
+	void* element /** Element to look for */
 )
 {
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListLastIndexOf((PblLinkedList*) list, element);
+		return pblLinkedListLastIndexOf((PblLinkedList*)list, element);
 	}
-
-	return pblArrayListLastIndexOf((PblArrayList*) list, element);
+	return pblArrayListLastIndexOf((PblArrayList*)list, element);
 }
 
 /**
@@ -2602,8 +2590,8 @@ void * element /** Element to look for */
  * @return int rc == 0: The specified element is not present.
  */
 int pblListContains( /*                */
-PblList * list, /** The list to use    */
-void * element /** Element to look for */
+	PblList* list, /** The list to use    */
+	void* element /** Element to look for */
 )
 {
 	return pblListIndexOf(list, element) >= 0;
@@ -2628,13 +2616,13 @@ void * element /** Element to look for */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
  */
-int pblListContainsAll( /*                                                      */
-PblList * list, /** The list to use                                             */
-void * collection /** The collection to be checked for containment in this list */
+int pblListContainsAll( /*                                                         */
+	PblList* list, /** The list to use                                             */
+	void* collection /** The collection to be checked for containment in this list */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int iteratorSize;
 	int hasNext;
 
@@ -2651,8 +2639,8 @@ void * collection /** The collection to be checked for containment in this list 
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -2669,7 +2657,6 @@ void * collection /** The collection to be checked for containment in this list 
 		//
 		return -1;
 	}
-
 	return 1;
 }
 
@@ -2683,15 +2670,15 @@ void * collection /** The collection to be checked for containment in this list 
  *
  * <BR>PBL_ERROR_PARAM_LIST - The list cannot be iterated.
  */
-static int pblArrayListRemoveRetainAll( /*            */
-PblArrayList * list, /** The list to use              */
-PblCollection * collection, /** The collection to use */
-int doRemove /** Flag: do a remove or a retain        */
+static int pblArrayListRemoveRetainAll( /*               */
+	PblArrayList* list, /** The list to use              */
+	PblCollection* collection, /** The collection to use */
+	int doRemove /** Flag: do a remove or a retain       */
 )
 {
 	int index = 0;
 	int newIndex = 0;
-	void * element;
+	void* element;
 	int isContained;
 
 	for (index = 0; index < list->collection.size; index++)
@@ -2720,7 +2707,6 @@ int doRemove /** Flag: do a remove or a retain        */
 		}
 		return 1;
 	}
-
 	return 0;
 }
 
@@ -2735,23 +2721,23 @@ int doRemove /** Flag: do a remove or a retain        */
  * <BR>PBL_ERROR_PARAM_LIST              - The list cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The list was modified concurrently.
  */
-static int pblLinkedListRemoveRetainAll( /*           */
-PblLinkedList * list, /** The list to use             */
-PblCollection * collection, /** The collection to use */
-int doRemove /** Flag: do a remove or a retain        */
+static int pblLinkedListRemoveRetainAll( /*              */
+	PblLinkedList* list, /** The list to use             */
+	PblCollection* collection, /** The collection to use */
+	int doRemove /** Flag: do a remove or a retain       */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int rc = 0;
 	int hasNext;
-	void * element;
+	void* element;
 	int isContained;
 
 	/*
 	 * Get the iterator for this list
 	 */
-	if (pblIteratorInit((PblCollection *) list, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)list, iterator) < 0)
 	{
 		pbl_errno = PBL_ERROR_PARAM_LIST;
 		return -1;
@@ -2760,7 +2746,7 @@ int doRemove /** Flag: do a remove or a retain        */
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
 		element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		if (element == (void*)-1)
 		{
 			// Concurrent modification
 			//
@@ -2788,7 +2774,6 @@ int doRemove /** Flag: do a remove or a retain        */
 		//
 		return -1;
 	}
-
 	return rc;
 }
 
@@ -2817,13 +2802,13 @@ int doRemove /** Flag: do a remove or a retain        */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The list was modified concurrently.
  */
-int pblListRemoveAll( /*                                                             */
-PblList * list, /** The list to use                                                  */
-void * collection /** The collection whose elements are to be removed from this list */
+int pblListRemoveAll( /*                                                                */
+	PblList* list, /** The list to use                                                  */
+	void* collection /** The collection whose elements are to be removed from this list */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int iteratorSize;
 
 	if (list->size < 1)
@@ -2834,7 +2819,7 @@ void * collection /** The collection whose elements are to be removed from this 
 	/*
 	 * Get the iterator for the collection
 	 */
-	if (pblIteratorInit((PblCollection *) collection, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)collection, iterator) < 0)
 	{
 		return -1;
 	}
@@ -2847,10 +2832,9 @@ void * collection /** The collection whose elements are to be removed from this 
 
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		return pblArrayListRemoveRetainAll((PblArrayList*) list, (PblCollection *) collection, 1);
+		return pblArrayListRemoveRetainAll((PblArrayList*)list, (PblCollection*)collection, 1);
 	}
-
-	return pblLinkedListRemoveRetainAll((PblLinkedList*) list, (PblCollection *) collection, 1);
+	return pblLinkedListRemoveRetainAll((PblLinkedList*)list, (PblCollection*)collection, 1);
 }
 
 /**
@@ -2881,13 +2865,13 @@ void * collection /** The collection whose elements are to be removed from this 
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The list was modified concurrently.
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  */
-int pblListRetainAll( /*                                       */
-PblList * list, /** The list to use                            */
-void * collection /** The elements to be retained in this list */
+int pblListRetainAll( /*                                          */
+	PblList* list, /** The list to use                            */
+	void* collection /** The elements to be retained in this list */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int iteratorSize;
 
 	if (list->size < 1)
@@ -2898,7 +2882,7 @@ void * collection /** The elements to be retained in this list */
 	/*
 	 * Get the iterator for the collection
 	 */
-	if (pblIteratorInit((PblCollection *) collection, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)collection, iterator) < 0)
 	{
 		return -1;
 	}
@@ -2933,10 +2917,9 @@ void * collection /** The elements to be retained in this list */
 
 	if (PBL_LIST_IS_ARRAY_LIST(list))
 	{
-		return pblArrayListRemoveRetainAll((PblArrayList*) list, (PblCollection *) collection, 0);
+		return pblArrayListRemoveRetainAll((PblArrayList*)list, (PblCollection*)collection, 0);
 	}
-
-	return pblLinkedListRemoveRetainAll((PblLinkedList*) list, (PblCollection *) collection, 0);
+	return pblLinkedListRemoveRetainAll((PblLinkedList*)list, (PblCollection*)collection, 0);
 }
 
 /*
@@ -2949,12 +2932,12 @@ void * collection /** The elements to be retained in this list */
  * @return int rc != 0: The list contained the specified element.
  * @return int rc == 0: The specified element is not present.
  */
-static int pblLinkedListRemoveElement( /* */
-PblLinkedList * list, /** The list to use */
-void * element /** Element to remove      */
+static int pblLinkedListRemoveElement( /*    */
+	PblLinkedList* list, /** The list to use */
+	void* element /** Element to remove      */
 )
 {
-	PblLinkedNode * nodeToFree = pblLinkedListGetNode(list, element);
+	PblLinkedNode* nodeToFree = pblLinkedListGetNode(list, element);
 	if (!nodeToFree)
 	{
 		return 0;
@@ -2965,7 +2948,6 @@ void * element /** Element to remove      */
 	list->collection.changeCounter++;
 
 	PBL_FREE(nodeToFree);
-
 	return 1;
 }
 
@@ -2986,22 +2968,22 @@ void * element /** Element to remove      */
  * @return int rc != 0: The list contained the specified element.
  * @return int rc == 0: The specified element is not present.
  */
-int pblListRemoveElement( /*             */
-PblList * list, /** The list to use      */
-void * element /** The element to remove */
+int pblListRemoveElement( /*                */
+	PblList* list, /** The list to use      */
+	void* element /** The element to remove */
 )
 {
 	int index;
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListRemoveElement((PblLinkedList*) list, element);
+		return pblLinkedListRemoveElement((PblLinkedList*)list, element);
 	}
 
 	index = pblListIndexOf(list, element);
 	if (index >= 0)
 	{
-		pblArrayListRemoveAt((PblArrayList*) list, index);
+		pblArrayListRemoveAt((PblArrayList*)list, index);
 		return 1;
 	}
 	return 0;
@@ -3019,15 +3001,15 @@ void * element /** The element to remove */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - The list is empty.
  */
-static void ** pblLinkedListToArray( /*  */
-PblLinkedList * list /** The list to use */
+static void** pblLinkedListToArray( /*      */
+	PblLinkedList* list /** The list to use */
 )
 {
-	PblLinkedNode * linkedNode = list->head;
-	void ** arrayPointer;
-	void ** resultArray;
+	PblLinkedNode* linkedNode = list->head;
+	void** arrayPointer;
+	void** resultArray;
 
-	resultArray = (void **) pbl_malloc("pblLinkedListToArray", sizeof(void*) * list->collection.size);
+	resultArray = (void**)pbl_malloc("pblLinkedListToArray", sizeof(void*) * list->collection.size);
 	if (!resultArray)
 	{
 		return NULL;
@@ -3039,7 +3021,6 @@ PblLinkedList * list /** The list to use */
 		*arrayPointer++ = linkedNode->element;
 		linkedNode = linkedNode->next;
 	}
-
 	return resultArray;
 }
 
@@ -3058,13 +3039,19 @@ PblLinkedList * list /** The list to use */
  * @return void * retptr != NULL: The array containing the elements of the list.
  * @return void * retptr == NULL: An error, see pbl_errno:
  *
+ * <BR>PBL_ERROR_PARAM_LIST    - The parameter 'list' is NULL.
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - The list is empty.
  */
-void ** pblListToArray( /*         */
-PblList * list /** The list to use */
+void** pblListToArray( /*             */
+	PblList* list /** The list to use */
 )
 {
+	if (!list)
+	{
+		pbl_errno = PBL_ERROR_PARAM_LIST;
+		return NULL;
+	}
 	if (list->size == 0)
 	{
 		pbl_errno = PBL_ERROR_OUT_OF_BOUNDS;
@@ -3073,13 +3060,13 @@ PblList * list /** The list to use */
 
 	if (PBL_LIST_IS_LINKED_LIST(list))
 	{
-		return pblLinkedListToArray((PblLinkedList*) list);
+		return pblLinkedListToArray((PblLinkedList*)list);
 	}
 	else
 	{
-		PblArrayList * pblList = (PblArrayList *) list;
+		PblArrayList* pblList = (PblArrayList*)list;
 
-		return (void **) pbl_memdup("pblListToArray", pblList->pointerArray, sizeof(void*) * pblList->collection.size);
+		return (void**)pbl_memdup("pblListToArray", pblList->pointerArray, sizeof(void*) * pblList->collection.size);
 	}
 }
 
@@ -3113,21 +3100,21 @@ PblList * list /** The list to use */
  * <BR>PBL_ERROR_PARAM_LIST              - The list or collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The list or collection was modified concurrently.
  */
-int pblListEquals( /*                                                           */
-PblList * list, /** The list to compare with.                                   */
-void * collection /** The collection to be compared for equality with this list */
+int pblListEquals( /*                                                              */
+	PblList* list, /** The list to compare with.                                   */
+	void* collection /** The collection to be compared for equality with this list */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 
 	PblIterator thisIteratorBuffer;
-	PblIterator * thisIterator = &thisIteratorBuffer;
+	PblIterator* thisIterator = &thisIteratorBuffer;
 
 	int hasNext;
 	int thisHasNext = 0;
-	void * next;
-	void * thisNext;
+	void* next;
+	void* thisNext;
 
 	if (list == collection)
 	{
@@ -3166,18 +3153,18 @@ void * collection /** The collection to be compared for equality with this list 
 		}
 
 		next = pblIteratorNext(iterator);
-		if (next == (void*) -1)
+		if (next == (void*)-1)
 		{
 			return -1;
 		}
 
 		thisNext = pblIteratorNext(thisIterator);
-		if (thisNext == (void*) -1)
+		if (thisNext == (void*)-1)
 		{
 			return -1;
 		}
 
-		if (pblCollectionElementCompare((PblCollection*) list, thisNext, next))
+		if (pblCollectionElementCompare((PblCollection*)list, thisNext, next))
 		{
 			return 0;
 		}
@@ -3195,7 +3182,6 @@ void * collection /** The collection to be compared for equality with this list 
 	{
 		return -1;
 	}
-
 	return 1;
 }
 
@@ -3225,8 +3211,8 @@ void * collection /** The collection to be compared for equality with this list 
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_PARAM_LIST    - The list cannot be iterated.
  */
-PblIterator * pblListIterator( /*                      */
-PblList * list /** The list to create the iterator for */
+PblIterator* pblListIterator( /*                          */
+	PblList* list /** The list to create the iterator for */
 )
 {
 	if (!PBL_LIST_IS_LIST(list))
@@ -3234,7 +3220,6 @@ PblList * list /** The list to create the iterator for */
 		pbl_errno = PBL_ERROR_PARAM_LIST;
 		return NULL;
 	}
-
 	return pblIteratorNew(list);
 }
 
@@ -3264,8 +3249,8 @@ PblList * list /** The list to create the iterator for */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_PARAM_LIST    - The list cannot be iterated.
  */
-PblIterator * pblListReverseIterator( /*               */
-PblList * list /** The list to create the iterator for */
+PblIterator* pblListReverseIterator( /*                   */
+	PblList* list /** The list to create the iterator for */
 )
 {
 	if (!PBL_LIST_IS_LIST(list))
@@ -3273,7 +3258,6 @@ PblList * list /** The list to create the iterator for */
 		pbl_errno = PBL_ERROR_PARAM_LIST;
 		return NULL;
 	}
-
 	return pblIteratorReverseNew(list);
 }
 
