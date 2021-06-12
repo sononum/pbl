@@ -25,22 +25,19 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblSet.c,v $
- Revision 1.39  2021/06/12 11:18:27  peter
- Synchronizing with github version
+ Revision 1.40  2021/06/12 22:15:36  peter
+ Reformatting with visual studio.
 
-
- Revision 1.38  2017/01/05 21:51:45  peter
- Simplified hash set trim
 
  */
 
-/*
- * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
- */
-char* pblSet_c_id = "$Id: pblSet.c,v 1.39 2021/06/12 11:18:27 peter Exp $";
+ /*
+  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
+  */
+char* pblSet_c_id = "$Id: pblSet.c,v 1.40 2021/06/12 22:15:36 peter Exp $";
 
-char * PblHashSetMagic = "PblHashSetMagic";
-char * PblTreeSetMagic = "PblTreeSetMagic";
+char* PblHashSetMagic = "PblHashSetMagic";
+char* PblTreeSetMagic = "PblTreeSetMagic";
 
 #include <stdio.h>
 #include <memory.h>
@@ -58,14 +55,14 @@ char * PblTreeSetMagic = "PblTreeSetMagic";
 /*****************************************************************************/
 
 /*
- * Linear probing is used for resolving hash collisions, the
- * default step size used for small sets
+ * Linear probing is used for resolving hash collisions,
+ * the default step size used for small sets
  */
 #define _PBL_STEP_SIZE   3
 
-/*
- * Macros for setting node pointers and maintaining the parent pointer
- */
+ /*
+  * Macros for setting node pointers and maintaining the parent pointer
+  */
 #define PBL_AVL_TREE_SET_PREV( node, referenceNode )\
 {\
 	if( node->prev != referenceNode )\
@@ -78,14 +75,10 @@ char * PblTreeSetMagic = "PblTreeSetMagic";
 	if(( node->next = referenceNode )){ node->next->parent = node; }\
 }
 
-/*****************************************************************************/
-/* Globals                                                                   */
-/*****************************************************************************/
-
-/*
- * Step sizes used for the different capacities, the smallest prime numbers
- * that are bigger than the powers of two.
- */
+  /*
+   * Step sizes used for the different capacities, the smallest prime numbers
+   * that are bigger than the powers of two.
+   */
 static int pblPrimeStepSize[] = { 5, 11, 17, 37, 67, 131, 257, 521, 1031, 2053, 4099, 8209, 16411, 32771, 65537, 131101,
 		262147, 524309, 1048583, 2097169, 4194319, 8388617, 16777259, 33554467, 67108879, 134217757 };
 
@@ -99,23 +92,23 @@ static int pblCapacities[] = { 0x8, 0x10, 0x20, 0x40, 0x80, 0x100, 0x200, 0x400,
 /*****************************************************************************/
 /* Function declarations                                                     */
 /*****************************************************************************/
-static int pblHashSetAdd( /*                          */
-PblHashSet * set, /** The set to use                  */
-void * element /** Element to be appended to this set */
+static int pblHashSetAdd( /*                             */
+	PblHashSet* set, /** The set to use                  */
+	void* element /** Element to be appended to this set */
 );
 
-static int pblHashSetRemoveElement( /* */
-PblHashSet * set, /** The set to use   */
-void * element /** Element to remove   */
+static int pblHashSetRemoveElement( /*    */
+	PblHashSet* set, /** The set to use   */
+	void* element /** Element to remove   */
 );
 
-static int pblTreeSetRemoveElement( /* */
-PblTreeSet * set, /** The set to use   */
-void * element /** Element to remove   */
+static int pblTreeSetRemoveElement( /*    */
+	PblTreeSet* set, /** The set to use   */
+	void* element /** Element to remove   */
 );
 
-static void pblTreeNodeFree( /*         */
-PblTreeNode * node /** The node to free */
+static void pblTreeNodeFree( /*            */
+	PblTreeNode* node /** The node to free */
 );
 
 /*****************************************************************************/
@@ -152,25 +145,24 @@ PblTreeNode * node /** The node to free */
  *
  * <BR>PBL_ERROR_PARAM_SET - The set is not empty.
  */
-void * pblSetSetCompareFunction( /*                   */
-PblSet * set, /** The set to set compare function for */
-int (*compare) /** compare function to set            */
-( /*                                                  */
-const void* prev, /** "left" element for compare      */
-const void* next /** "right" element for compare      */
-) /*                                                  */
+void* pblSetSetCompareFunction( /*                       */
+	PblSet* set, /** The set to set compare function for */
+	int (*compare) /** compare function to set           */
+	( /*                                                 */
+		const void* prev, /** "left" element for compare */
+		const void* next /** "right" element for compare */
+		) /*                                             */
 )
 {
-	void * retptr = (void*) set->compare;
+	void* retptr = (void*)set->compare;
 
 	if (set->size > 0)
 	{
 		pbl_errno = PBL_ERROR_PARAM_SET;
-		return (void*) -1;
+		return (void*)-1;
 	}
 
 	set->compare = compare;
-
 	return retptr;
 }
 
@@ -182,11 +174,11 @@ const void* next /** "right" element for compare      */
  *
  * @return void * retptr: The compare function used, may be NULL.
  */
-void * pblSetGetCompareFunction( /*                      */
-PblSet * set /** The set to get the compare function for */
+void* pblSetGetCompareFunction( /*                          */
+	PblSet* set /** The set to get the compare function for */
 )
 {
-	return (void*) set->compare;
+	return (void*)set->compare;
 }
 
 /**
@@ -198,11 +190,11 @@ PblSet * set /** The set to get the compare function for */
  *
  * @return int rc: The hash value of the pointer that was passed.
  */
-int pblSetDefaultHashValue( /*                              */
-const void *element /** Element to calculate hash value for */
+int pblSetDefaultHashValue( /*                                  */
+	const void* element /** Element to calculate hash value for */
 )
 {
-	return pblHtHashValue((unsigned char *) &element, sizeof(void*));
+	return pblHtHashValue((unsigned char*)&element, sizeof(void*));
 }
 
 /**
@@ -210,12 +202,12 @@ const void *element /** Element to calculate hash value for */
  *
  * @return int rc: The hash value of the buffer that was passed.
  */
-int pblSetByteBufferHashValue( /*                                       */
-const void *buffer, /** The byte buffer to calculate the hash value for */
-const size_t length /** The length of the byte buffer to hash           */
+int pblSetByteBufferHashValue( /*                                           */
+	const void* buffer, /** The byte buffer to calculate the hash value for */
+	const size_t length /** The length of the byte buffer to hash           */
 )
 {
-	return pblHtHashValue((unsigned char *) buffer, length);
+	return pblHtHashValue((unsigned char*)buffer, length);
 }
 
 /**
@@ -226,11 +218,11 @@ const size_t length /** The length of the byte buffer to hash           */
  *
  * @return int rc: The hash value of string that was passed.
  */
-int pblSetStringHashValue( /*                                                     */
-const void *string /** The '\0' terminated string to calculate the hash value for */
+int pblSetStringHashValue( /*                                                         */
+	const void* string /** The '\0' terminated string to calculate the hash value for */
 )
 {
-	return pblHtHashValueOfString((unsigned char *) string);
+	return pblHtHashValueOfString((unsigned char*)string);
 }
 
 /**
@@ -254,15 +246,15 @@ const void *string /** The '\0' terminated string to calculate the hash value fo
  *
  * <BR>PBL_ERROR_PARAM_SET - The set is not empty.
  */
-void * pblSetSetHashValueFunction( /*                         */
-PblSet * set, /** The set to set hash value function for      */
-int (*hashValue) /** The hash value function to set           */
-( /*                                                          */
-const void* element /** The element to get the hash value for */
-) /*                                                          */
+void* pblSetSetHashValueFunction( /*                                  */
+	PblSet* set, /** The set to set hash value function for           */
+	int (*hashValue) /** The hash value function to set               */
+	( /*                                                              */
+		const void* element /** The element to get the hash value for */
+		) /*                                                          */
 )
 {
-	void * retptr;
+	void* retptr;
 
 	if (!PBL_SET_IS_HASH_SET(set))
 	{
@@ -272,12 +264,11 @@ const void* element /** The element to get the hash value for */
 	if (set->size > 0)
 	{
 		pbl_errno = PBL_ERROR_PARAM_SET;
-		return (void*) -1;
+		return (void*)-1;
 	}
 
-	retptr = (void*) ((PblHashSet*) set)->hashValue;
-	((PblHashSet*) set)->hashValue = hashValue;
-
+	retptr = (void*)((PblHashSet*)set)->hashValue;
+	((PblHashSet*)set)->hashValue = hashValue;
 	return retptr;
 }
 
@@ -292,25 +283,22 @@ const void* element /** The element to get the hash value for */
  *
  * @return double factor: The load factor used before.
  */
-double pblSetSetLoadFactor( /*                           */
-PblSet * set, /** The set to set hash value function for */
-double loadFactor /** The load factor to set             */
+double pblSetSetLoadFactor( /*                              */
+	PblSet* set, /** The set to set hash value function for */
+	double loadFactor /** The load factor to set            */
 )
 {
-	double factor;
-
 	if (!PBL_SET_IS_HASH_SET(set))
 	{
 		return 0.0;
 	}
 
-	factor = ((PblHashSet*) set)->loadFactor;
+	double factor = ((PblHashSet*)set)->loadFactor;
 
 	if (loadFactor >= 0.1 && loadFactor <= 0.9)
 	{
-		((PblHashSet*) set)->loadFactor = loadFactor;
+		((PblHashSet*)set)->loadFactor = loadFactor;
 	}
-
 	return factor;
 }
 
@@ -322,16 +310,15 @@ double loadFactor /** The load factor to set             */
  *
  * @return void * retptr: The hash value function used, may be NULL.
  */
-void * pblSetGetHashValueFunction( /*                       */
-PblSet * set /** The set to get the hash value function for */
+void* pblSetGetHashValueFunction( /*                           */
+	PblSet* set /** The set to get the hash value function for */
 )
 {
 	if (!PBL_SET_IS_HASH_SET(set))
 	{
 		return NULL;
 	}
-
-	return (void*) ((PblHashSet*) set)->hashValue;
+	return (void*)((PblHashSet*)set)->hashValue;
 }
 
 /**
@@ -344,17 +331,16 @@ PblSet * set /** The set to get the hash value function for */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-PblSet * pblSetNewTreeSet(void)
+PblSet* pblSetNewTreeSet(void)
 {
-	PblTreeSet * pblSet = (PblTreeSet *) pbl_malloc0("pblSetNewTreeSet", sizeof(PblTreeSet));
+	PblTreeSet* pblSet = (PblTreeSet*)pbl_malloc0("pblSetNewTreeSet", sizeof(PblTreeSet));
 	if (!pblSet)
 	{
 		return NULL;
 	}
 
 	pblSet->collection.magic = PblTreeSetMagic;
-
-	return (PblSet *) pblSet;
+	return (PblSet*)pblSet;
 }
 
 /**
@@ -367,9 +353,9 @@ PblSet * pblSetNewTreeSet(void)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-PblSet * pblSetNewHashSet(void)
+PblSet* pblSetNewHashSet(void)
 {
-	PblHashSet * pblSet = (PblHashSet *) pbl_malloc0("pblSetNewHashSet", sizeof(PblHashSet));
+	PblHashSet* pblSet = (PblHashSet*)pbl_malloc0("pblSetNewHashSet", sizeof(PblHashSet));
 	if (!pblSet)
 	{
 		return NULL;
@@ -379,8 +365,7 @@ PblSet * pblSetNewHashSet(void)
 	pblSet->hashValue = pblSetDefaultHashValue;
 	pblSet->loadFactor = 0.75;
 	pblSet->stepSize = _PBL_STEP_SIZE;
-
-	return (PblSet *) pblSet;
+	return (PblSet*)pblSet;
 }
 
 /*
@@ -392,9 +377,9 @@ PblSet * pblSetNewHashSet(void)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static PblTreeNode * pblTreeNodeClone(PblTreeNode * node)
+static PblTreeNode* pblTreeNodeClone(PblTreeNode* node)
 {
-	PblTreeNode * newNode = (PblTreeNode *) pbl_malloc0("pblTreeNodeClone", sizeof(PblTreeNode));
+	PblTreeNode* newNode = (PblTreeNode*)pbl_malloc0("pblTreeNodeClone", sizeof(PblTreeNode));
 	if (!newNode)
 	{
 		return newNode;
@@ -405,7 +390,7 @@ static PblTreeNode * pblTreeNodeClone(PblTreeNode * node)
 
 	if (node->prev)
 	{
-		PblTreeNode * clone = pblTreeNodeClone(node->prev);
+		PblTreeNode* clone = pblTreeNodeClone(node->prev);
 		if (!clone)
 		{
 			pblTreeNodeFree(newNode);
@@ -416,7 +401,7 @@ static PblTreeNode * pblTreeNodeClone(PblTreeNode * node)
 
 	if (node->next)
 	{
-		PblTreeNode * clone = pblTreeNodeClone(node->next);
+		PblTreeNode* clone = pblTreeNodeClone(node->next);
 		if (!clone)
 		{
 			pblTreeNodeFree(newNode);
@@ -424,7 +409,6 @@ static PblTreeNode * pblTreeNodeClone(PblTreeNode * node)
 		}
 		PBL_AVL_TREE_SET_NEXT(newNode, clone);
 	}
-
 	return newNode;
 }
 
@@ -438,9 +422,9 @@ static PblTreeNode * pblTreeNodeClone(PblTreeNode * node)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY  - Out of memory.
  */
-static PblSet * pblHashSetClone(PblHashSet * set)
+static PblSet* pblHashSetClone(PblHashSet* set)
 {
-	PblHashSet * newSet = (PblHashSet *) pblSetNewHashSet();
+	PblHashSet* newSet = (PblHashSet*)pblSetNewHashSet();
 	if (!newSet)
 	{
 		return NULL;
@@ -452,14 +436,14 @@ static PblSet * pblHashSetClone(PblHashSet * set)
 
 	if (set->collection.size < 1)
 	{
-		return (PblSet*) newSet;
+		return (PblSet*)newSet;
 	}
 
 	/*
 	 * Low level copy of references
 	 */
 	newSet->pointerArray = pbl_memdup("pblHashSetClone pointer buffer", &(set->pointerArray[0]),
-			sizeof(void*) * set->capacity);
+		sizeof(void*) * set->capacity);
 	if (!newSet->pointerArray)
 	{
 		PBL_FREE(newSet);
@@ -469,8 +453,7 @@ static PblSet * pblHashSetClone(PblHashSet * set)
 	newSet->capacity = set->capacity;
 	newSet->stepSize = set->stepSize;
 	newSet->collection.size = set->collection.size;
-
-	return (PblSet*) newSet;
+	return (PblSet*)newSet;
 }
 
 /*
@@ -478,8 +461,8 @@ static PblSet * pblHashSetClone(PblHashSet * set)
  *
  * @return PblTreeNode * node: The first node in the sub tree.
  */
-PblTreeNode * pblTreeNodeFirst( /*     */
-PblTreeNode * node /** The node to use */
+PblTreeNode* pblTreeNodeFirst( /*         */
+	PblTreeNode* node /** The node to use */
 )
 {
 	while (node->prev)
@@ -494,28 +477,24 @@ PblTreeNode * node /** The node to use */
  *
  * @return PblTreeNode * node: The next node, may be NULL.
  */
-PblTreeNode * pblTreeNodeNext( /*      */
-PblTreeNode * node /** The node to use */
+PblTreeNode* pblTreeNodeNext( /*          */
+	PblTreeNode* node /** The node to use */
 )
 {
 	if (node->next)
 	{
 		return pblTreeNodeFirst(node->next);
 	}
-	else
+	PblTreeNode* child = node;
+
+	while ((node = node->parent))
 	{
-		PblTreeNode * child = node;
-
-		while ((node = node->parent))
+		if (child == node->prev)
 		{
-			if (child == node->prev)
-			{
-				return node;
-			}
-			child = node;
+			return node;
 		}
+		child = node;
 	}
-
 	return NULL;
 }
 
@@ -524,8 +503,8 @@ PblTreeNode * node /** The node to use */
  *
  * @return PblTreeNode * node: The last node in the sub tree.
  */
-PblTreeNode * pblTreeNodeLast( /*      */
-PblTreeNode * node /** The node to use */
+PblTreeNode* pblTreeNodeLast( /*          */
+	PblTreeNode* node /** The node to use */
 )
 {
 	while (node->next)
@@ -540,8 +519,8 @@ PblTreeNode * node /** The node to use */
  *
  * @return PblTreeNode * node: The previous node, may be NULL.
  */
-PblTreeNode * pblTreeNodePrevious( /*  */
-PblTreeNode * node /** The node to use */
+PblTreeNode* pblTreeNodePrevious( /*      */
+	PblTreeNode* node /** The node to use */
 )
 {
 	if (node->prev)
@@ -550,7 +529,7 @@ PblTreeNode * node /** The node to use */
 	}
 	else
 	{
-		PblTreeNode * child = node;
+		PblTreeNode* child = node;
 
 		while ((node = node->parent))
 		{
@@ -561,7 +540,6 @@ PblTreeNode * node /** The node to use */
 			child = node;
 		}
 	}
-
 	return NULL;
 }
 
@@ -573,20 +551,18 @@ PblTreeNode * node /** The node to use */
  *
  * @return void
  */
-static void pblTreeNodeFree( /*         */
-PblTreeNode * node /** The node to free */
+static void pblTreeNodeFree( /*            */
+	PblTreeNode* node /** The node to free */
 )
 {
 	if (node->prev)
 	{
 		pblTreeNodeFree(node->prev);
 	}
-
 	if (node->next)
 	{
 		pblTreeNodeFree(node->next);
 	}
-
 	PBL_FREE(node);
 }
 
@@ -599,15 +575,14 @@ PblTreeNode * node /** The node to free */
  *
  * @return void
  */
-static void pblTreeSetFree( /*       */
-PblTreeSet * set /** The set to free */
+static void pblTreeSetFree( /*          */
+	PblTreeSet* set /** The set to free */
 )
 {
 	if (set->rootNode)
 	{
 		pblTreeNodeFree(set->rootNode);
 	}
-
 	PBL_FREE(set);
 }
 
@@ -621,9 +596,9 @@ PblTreeSet * set /** The set to free */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY  - Out of memory.
  */
-static PblSet * pblTreeSetClone(PblTreeSet * set)
+static PblSet* pblTreeSetClone(PblTreeSet* set)
 {
-	PblTreeSet * newSet = (PblTreeSet *) pblSetNewTreeSet();
+	PblTreeSet* newSet = (PblTreeSet*)pblSetNewTreeSet();
 	if (!newSet)
 	{
 		return NULL;
@@ -633,7 +608,7 @@ static PblSet * pblTreeSetClone(PblTreeSet * set)
 
 	if (set->rootNode)
 	{
-		PblTreeNode * clone = pblTreeNodeClone(set->rootNode);
+		PblTreeNode* clone = pblTreeNodeClone(set->rootNode);
 		if (!clone)
 		{
 			pblTreeSetFree(newSet);
@@ -643,8 +618,7 @@ static PblSet * pblTreeSetClone(PblTreeSet * set)
 	}
 
 	newSet->collection.size = set->collection.size;
-
-	return (PblSet*) newSet;
+	return (PblSet*)newSet;
 }
 
 /**
@@ -660,16 +634,15 @@ static PblSet * pblTreeSetClone(PblTreeSet * set)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY  - Out of memory.
  */
-PblSet * pblSetClone( /*          */
-PblSet * set /** The set to clone */
+PblSet* pblSetClone( /*              */
+	PblSet* set /** The set to clone */
 )
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
-		return pblTreeSetClone((PblTreeSet *) set);
+		return pblTreeSetClone((PblTreeSet*)set);
 	}
-
-	return pblHashSetClone((PblHashSet *) set);
+	return pblHashSetClone((PblHashSet*)set);
 }
 
 /**
@@ -693,22 +666,29 @@ PblSet * set /** The set to clone */
  * @return PblSet * retPtr != NULL: A pointer to the new set.
  * @return PblSet * retPtr == NULL: An error, see pbl_errno:
  *
- * <BR>PBL_ERROR_OUT_OF_MEMORY  - Out of memory.
- * <BR>PBL_ERROR_OUT_OF_BOUNDS  - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
- *                          or toIndex is out of range ( toIndex < 0 || toIndex > size()) or range is negative.
+ * <BR>PBL_ERROR_PARAM_SET     - The parameter 'set' is NULL.
+ * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
+ * <BR>PBL_ERROR_OUT_OF_BOUNDS - fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
+ *                               or toIndex is out of range ( toIndex < 0 || toIndex > size()) or range is negative.
  */
-PblSet * pblSetCloneRange( /*                              */
-PblSet * set, /** The set to use                           */
-int fromIndex, /** The index of first element to be cloned */
-int toIndex /** The index after last element to be cloned  */
+PblSet* pblSetCloneRange( /*                                   */
+	PblSet* set, /** The set to use                            */
+	int fromIndex, /** The index of first element to be cloned */
+	int toIndex /** The index after last element to be cloned  */
 )
 {
 	int elementsToClone;
 	int distanceToEnd;
 	int hasMore;
-	PblSet * newSet;
+	PblSet* newSet;
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
+
+	if (!set)
+	{
+		pbl_errno = PBL_ERROR_PARAM_SET;
+		return NULL;
+	}
 
 	if (fromIndex < 0 || fromIndex > set->size)
 	{
@@ -752,15 +732,15 @@ int toIndex /** The index after last element to be cloned  */
 		{
 			return NULL;
 		}
-		((PblHashSet*) newSet)->hashValue = ((PblHashSet*) set)->hashValue;
-		((PblHashSet*) newSet)->loadFactor = ((PblHashSet*) set)->loadFactor;
+		((PblHashSet*)newSet)->hashValue = ((PblHashSet*)set)->hashValue;
+		((PblHashSet*)newSet)->loadFactor = ((PblHashSet*)set)->loadFactor;
 	}
 
 	newSet->compare = set->compare;
 
 	if (elementsToClone < 1)
 	{
-		return (PblSet *) newSet;
+		return (PblSet*)newSet;
 	}
 
 	distanceToEnd = set->size - toIndex;
@@ -774,8 +754,8 @@ int toIndex /** The index after last element to be cloned  */
 
 		while ((hasMore = pblIteratorHasNext(iterator)) > 0)
 		{
-			void * element = pblIteratorNext(iterator);
-			if (element == (void*) -1)
+			void* element = pblIteratorNext(iterator);
+			if (element == (void*)-1)
 			{
 				pblSetFree(newSet);
 				return NULL;
@@ -815,8 +795,8 @@ int toIndex /** The index after last element to be cloned  */
 
 		while ((hasMore = pblIteratorHasPrevious(iterator)) > 0)
 		{
-			void * element = pblIteratorPrevious(iterator);
-			if (element == (void*) -1)
+			void* element = pblIteratorPrevious(iterator);
+			if (element == (void*)-1)
 			{
 				pblSetFree(newSet);
 				return NULL;
@@ -854,8 +834,7 @@ int toIndex /** The index after last element to be cloned  */
 		pblSetFree(newSet);
 		return NULL;
 	}
-
-	return (PblSet *) newSet;
+	return (PblSet*)newSet;
 }
 
 /**
@@ -872,13 +851,13 @@ int toIndex /** The index after last element to be cloned  */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - A set cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - A set was modified concurrently.
  */
-PblSet * pblSetUnion( /*                  */
-PblSet * setA, /** The first set to unite */
-PblSet * setB /** The second set to unite */
+PblSet* pblSetUnion( /*                      */
+	PblSet* setA, /** The first set to unite */
+	PblSet* setB /** The second set to unite */
 )
 {
-	PblSet * unionSet;
-	PblSet * smallerSet;
+	PblSet* unionSet;
+	PblSet* smallerSet;
 
 	if (pblSetSize(setA) >= pblSetSize(setB))
 	{
@@ -901,7 +880,6 @@ PblSet * setB /** The second set to unite */
 		pblSetFree(unionSet);
 		return NULL;
 	}
-
 	return unionSet;
 }
 
@@ -921,16 +899,16 @@ PblSet * setB /** The second set to unite */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - A set cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - A set was modified concurrently.
  */
-PblSet * pblSetIntersection( /*               */
-PblSet * setA, /** The first set to intersect */
-PblSet * setB /** The second set to intersect */
+PblSet* pblSetIntersection( /*                   */
+	PblSet* setA, /** The first set to intersect */
+	PblSet* setB /** The second set to intersect */
 )
 {
-	PblSet * intersectionSet;
-	PblSet * smallerSet;
-	PblSet * largerSet;
+	PblSet* intersectionSet;
+	PblSet* smallerSet;
+	PblSet* largerSet;
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasNext;
 
 	if (pblSetSize(setA) <= pblSetSize(setB))
@@ -958,8 +936,8 @@ PblSet * setB /** The second set to intersect */
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -983,7 +961,6 @@ PblSet * setB /** The second set to intersect */
 		pblSetFree(intersectionSet);
 		return NULL;
 	}
-
 	return intersectionSet;
 }
 
@@ -1004,14 +981,14 @@ PblSet * setB /** The second set to intersect */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - A set cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - A set was modified concurrently.
  */
-PblSet * pblSetDifference( /*                                 */
-PblSet * setA, /** The first set to build the difference from */
-PblSet * setB /** The second set to build the difference from */
+PblSet* pblSetDifference( /*                                     */
+	PblSet* setA, /** The first set to build the difference from */
+	PblSet* setB /** The second set to build the difference from */
 )
 {
-	PblSet * clone;
+	PblSet* clone;
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasNext;
 
 	clone = pblSetCloneRange(setA, 0, 0);
@@ -1028,8 +1005,8 @@ PblSet * setB /** The second set to build the difference from */
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -1053,7 +1030,6 @@ PblSet * setB /** The second set to build the difference from */
 		pblSetFree(clone);
 		return NULL;
 	}
-
 	return clone;
 }
 
@@ -1076,14 +1052,14 @@ PblSet * setB /** The second set to build the difference from */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - A set cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - A set was modified concurrently.
  */
-PblSet * pblSetSymmectricDifference( /* */
-PblSet * setA, /** The first set to use */
-PblSet * setB /** The second set to use */
+PblSet* pblSetSymmectricDifference( /*     */
+	PblSet* setA, /** The first set to use */
+	PblSet* setB /** The second set to use */
 )
 {
-	PblSet * clone;
+	PblSet* clone;
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasNext;
 
 	clone = pblSetCloneRange(setA, 0, 0);
@@ -1100,8 +1076,8 @@ PblSet * setB /** The second set to use */
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -1134,8 +1110,8 @@ PblSet * setB /** The second set to use */
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -1159,7 +1135,6 @@ PblSet * setB /** The second set to use */
 		pblSetFree(clone);
 		return NULL;
 	}
-
 	return clone;
 }
 
@@ -1186,13 +1161,13 @@ PblSet * setB /** The second set to use */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
  */
-int pblSetIsSubset( /*               */
-PblSet * setA, /** Superset to check */
-PblSet * setB /** Subset to check    */
+int pblSetIsSubset( /*                  */
+	PblSet* setA, /** Superset to check */
+	PblSet* setB /** Subset to check    */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasNext;
 
 	if (setA == setB)
@@ -1217,8 +1192,8 @@ PblSet * setB /** Subset to check    */
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -1235,7 +1210,6 @@ PblSet * setB /** Subset to check    */
 		//
 		return -1;
 	}
-
 	return 1;
 }
 
@@ -1249,8 +1223,8 @@ PblSet * setB /** Subset to check    */
  *
  * @return void
  */
-static void pblTreeSetClear( /*       */
-PblTreeSet * set /** The set to clear */
+static void pblTreeSetClear( /*          */
+	PblTreeSet* set /** The set to clear */
 )
 {
 	if (set->rootNode)
@@ -1271,8 +1245,8 @@ PblTreeSet * set /** The set to clear */
  *
  * @return void
  */
-static void pblHashSetClear( /*       */
-PblHashSet * set /** The set to clear */
+static void pblHashSetClear( /*          */
+	PblHashSet* set /** The set to clear */
 )
 {
 	if (set->capacity > 0 && set->pointerArray)
@@ -1293,17 +1267,16 @@ PblHashSet * set /** The set to clear */
  *
  * @return void
  */
-void pblSetClear( /*              */
-PblSet * set /** The set to clear */
+void pblSetClear( /*                 */
+	PblSet* set /** The set to clear */
 )
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
-		pblTreeSetClear((PblTreeSet *) set);
+		pblTreeSetClear((PblTreeSet*)set);
 		return;
 	}
-
-	pblHashSetClear((PblHashSet *) set);
+	pblHashSetClear((PblHashSet*)set);
 }
 
 /*
@@ -1315,8 +1288,8 @@ PblSet * set /** The set to clear */
  *
  * @return void
  */
-static void pblHashSetFree( /*       */
-PblHashSet * set /** The set to free */
+static void pblHashSetFree( /*          */
+	PblHashSet* set /** The set to free */
 )
 {
 	PBL_FREE(set->pointerArray);
@@ -1333,27 +1306,26 @@ PblHashSet * set /** The set to free */
  *
  * @return void
  */
-void pblSetFree( /*              */
-PblSet * set /** The set to free */
+void pblSetFree( /*                 */
+	PblSet* set /** The set to free */
 )
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
-		pblTreeSetFree((PblTreeSet *) set);
+		pblTreeSetFree((PblTreeSet*)set);
 		return;
 	}
-
-	pblHashSetFree((PblHashSet *) set);
+	pblHashSetFree((PblHashSet*)set);
 }
 
-static int pblHashSetSetCapacity( /*     */
-PblHashSet * set, /** The set to use  */
-int capacity, /** The capacity to set */
-int stepSize /** The step size to set */
+static int pblHashSetSetCapacity( /*      */
+	PblHashSet* set, /** The set to use   */
+	int capacity, /** The capacity to set */
+	int stepSize /** The step size to set */
 )
 {
 	int i;
-	PblHashSet * newSet = (PblHashSet*) pblSetNewHashSet();
+	PblHashSet* newSet = (PblHashSet*)pblSetNewHashSet();
 	if (!newSet)
 	{
 		return -1;
@@ -1366,10 +1338,10 @@ int stepSize /** The step size to set */
 	/*
 	 * Malloc space for 'capacity' pointers
 	 */
-	newSet->pointerArray = (unsigned char **) pbl_malloc0("pblHashSetSetCapacity", sizeof(void*) * capacity);
+	newSet->pointerArray = (unsigned char**)pbl_malloc0("pblHashSetSetCapacity", sizeof(void*) * capacity);
 	if (!newSet->pointerArray)
 	{
-		pblSetFree((PblSet*) newSet);
+		pblSetFree((PblSet*)newSet);
 		return -1;
 	}
 	newSet->capacity = capacity;
@@ -1380,17 +1352,17 @@ int stepSize /** The step size to set */
 	 */
 	if (set->collection.size > 0)
 	{
-		unsigned char ** pointer = set->pointerArray;
+		unsigned char** pointer = set->pointerArray;
 		for (i = 0; i < set->capacity; i++)
 		{
-			void * element = *pointer++;
+			void* element = *pointer++;
 			if (!element)
 			{
 				continue;
 			}
 			if (pblHashSetAdd(newSet, element) < 0)
 			{
-				pblSetFree((PblSet*) newSet);
+				pblSetFree((PblSet*)newSet);
 				return -1;
 			}
 		}
@@ -1419,7 +1391,7 @@ int stepSize /** The step size to set */
 	 * Release the new set, but not its pointer buffer
 	 */
 	newSet->pointerArray = NULL;
-	pblSetFree((PblSet*) newSet);
+	pblSetFree((PblSet*)newSet);
 
 	set->collection.changeCounter++;
 	return set->capacity;
@@ -1434,16 +1406,16 @@ int stepSize /** The step size to set */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - The needed capacity is bigger than maximum allowed value.
  */
-static int pblHashSetTrimToSize( /* */
-PblHashSet * set /** The set to use */
+static int pblHashSetTrimToSize( /*    */
+	PblHashSet* set /** The set to use */
 )
 {
-	int neededCapacity = (int) (((double) ((PblSet*) set)->size) / set->loadFactor) + 1;
+	int neededCapacity = (int)(((double)((PblSet*)set)->size) / set->loadFactor) + 1;
 	int targetCapacity = 0;
 	int stepSize = _PBL_STEP_SIZE;
 	int i;
 
-	if (((PblSet*) set)->size == 0)
+	if (((PblSet*)set)->size == 0)
 	{
 		PBL_FREE(set->pointerArray);
 		set->capacity = 0;
@@ -1480,7 +1452,6 @@ PblHashSet * set /** The set to use */
 		 */
 		return set->capacity;
 	}
-
 	return pblHashSetSetCapacity(set, targetCapacity, stepSize);
 }
 
@@ -1501,16 +1472,15 @@ PblHashSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblSetTrimToSize( /*        */
-PblSet * set /** The set to use */
+int pblSetTrimToSize( /*           */
+	PblSet* set /** The set to use */
 )
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
 		return set->size;
 	}
-
-	return pblHashSetTrimToSize((PblHashSet *) set);
+	return pblHashSetTrimToSize((PblHashSet*)set);
 }
 
 /*
@@ -1526,12 +1496,12 @@ PblSet * set /** The set to use */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - minCapacity is bigger than maximum allowed value.
  */
-static int pblHashSetEnsureCapacity( /*          */
-PblHashSet * set, /** The set to use             */
-int minCapacity /** The desired minimum capacity */
+static int pblHashSetEnsureCapacity( /*              */
+	PblHashSet* set, /** The set to use              */
+	int minCapacity /** The desired minimum capacity */
 )
 {
-	int neededCapacity = (int) (((double) minCapacity) / set->loadFactor) + 1;
+	int neededCapacity = (int)(((double)minCapacity) / set->loadFactor) + 1;
 	int targetCapacity = 0;
 	int stepSize = _PBL_STEP_SIZE;
 	int i;
@@ -1565,7 +1535,6 @@ int minCapacity /** The desired minimum capacity */
 		 */
 		return set->capacity;
 	}
-
 	return pblHashSetSetCapacity(set, targetCapacity, stepSize);
 }
 
@@ -1590,17 +1559,16 @@ int minCapacity /** The desired minimum capacity */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-int pblSetEnsureCapacity( /*                     */
-PblSet * set, /** The set to use                 */
-int minCapacity /** The desired minimum capacity */
+int pblSetEnsureCapacity( /*                         */
+	PblSet* set, /** The set to use                  */
+	int minCapacity /** The desired minimum capacity */
 )
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
 		return minCapacity;
 	}
-
-	return pblHashSetEnsureCapacity((PblHashSet *) set, minCapacity);
+	return pblHashSetEnsureCapacity((PblHashSet*)set, minCapacity);
 }
 
 /*
@@ -1618,17 +1586,17 @@ int minCapacity /** The desired minimum capacity */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Maximum capacity of the hash set exceeded.
  */
-static int pblHashSetAdd( /*                          */
-PblHashSet * set, /** The set to use                  */
-void * element /** Element to be appended to this set */
+static int pblHashSetAdd( /*                             */
+	PblHashSet* set, /** The set to use                  */
+	void* element /** Element to be appended to this set */
 )
 {
 	int mask = set->capacity - 1;
 	int minCapacity = set->collection.size + 1;
-	int neededCapacity = (int) (((double) minCapacity) / set->loadFactor);
+	int neededCapacity = (int)(((double)minCapacity) / set->loadFactor);
 	int elementIndex;
 	int index;
-	unsigned char ** elementPtr;
+	unsigned char** elementPtr;
 
 	if (!element)
 	{
@@ -1657,7 +1625,7 @@ void * element /** Element to be appended to this set */
 				/*
 				 * Store the element in the table
 				 */
-				*elementPtr = (unsigned char *) element;
+				*elementPtr = (unsigned char*)element;
 
 				/*
 				 * The element was stored in the hash table
@@ -1668,7 +1636,7 @@ void * element /** Element to be appended to this set */
 				return 1;
 			}
 
-			if (!pblCollectionElementCompare((PblCollection*) set, *elementPtr, element))
+			if (!pblCollectionElementCompare((PblCollection*)set, *elementPtr, element))
 			{
 				/*
 				 * Element already in hash table
@@ -1691,7 +1659,7 @@ void * element /** Element to be appended to this set */
 		 * More space is needed in the hash table
 		 */
 		minCapacity = set->capacity + 1;
-		neededCapacity = (int) (((double) minCapacity) / set->loadFactor);
+		neededCapacity = (int)(((double)minCapacity) / set->loadFactor);
 	}
 	return -1;
 }
@@ -1702,7 +1670,7 @@ void * element /** Element to be appended to this set */
  * @return void ** node == NULL: The hash set is empty.
  * @return void ** node != NULL: Address of first pointer to an element in the hash.
  */
-void ** pblHashElementFirst(PblHashSet * set)
+void** pblHashElementFirst(PblHashSet* set)
 {
 	int i;
 
@@ -1715,10 +1683,9 @@ void ** pblHashElementFirst(PblHashSet * set)
 	{
 		if (set->pointerArray[i])
 		{
-			return (void**) &set->pointerArray[i];
+			return (void**)&set->pointerArray[i];
 		}
 	}
-
 	return NULL;
 }
 
@@ -1728,16 +1695,16 @@ void ** pblHashElementFirst(PblHashSet * set)
  * @return void ** node == NULL: The last element has been reached.
  * @return void ** node != NULL: Address of next pointer to an element in the hash.
  */
-void ** pblHashElementNext(PblHashSet * set, void ** pointer)
+void** pblHashElementNext(PblHashSet* set, void** pointer)
 {
-	void ** endPointer;
+	void** endPointer;
 
 	if (set->collection.size == 0)
 	{
 		return NULL;
 	}
 
-	endPointer = (void**) set->pointerArray + set->capacity;
+	endPointer = (void**)set->pointerArray + set->capacity;
 
 	for (pointer++; pointer < endPointer; pointer++)
 	{
@@ -1755,7 +1722,7 @@ void ** pblHashElementNext(PblHashSet * set, void ** pointer)
  * @return void ** node == NULL: The hash set is empty
  * @return void ** node != NULL: Address of last pointer to an element in the hash.
  */
-void ** pblHashElementLast(PblHashSet * set)
+void** pblHashElementLast(PblHashSet* set)
 {
 	int i;
 
@@ -1768,10 +1735,9 @@ void ** pblHashElementLast(PblHashSet * set)
 	{
 		if (set->pointerArray[i])
 		{
-			return (void**) &set->pointerArray[i];
+			return (void**)&set->pointerArray[i];
 		}
 	}
-
 	return NULL;
 }
 
@@ -1781,17 +1747,15 @@ void ** pblHashElementLast(PblHashSet * set)
  * @return void ** node == NULL: The first element has been reached.
  * @return void ** node != NULL: Address of previous pointer to an element in the hash.
  */
-void ** pblHashElementPrevious(PblHashSet * set, void ** pointer)
+void** pblHashElementPrevious(PblHashSet* set, void** pointer)
 {
-	void ** endPointer;
+	void** endPointer;
 
 	if (set->collection.size == 0)
 	{
 		return NULL;
 	}
-
-	endPointer = (void**) set->pointerArray - 1;
-
+	endPointer = (void**)set->pointerArray - 1;
 	for (pointer--; pointer > endPointer; pointer--)
 	{
 		if (*pointer)
@@ -1810,19 +1774,16 @@ void ** pblHashElementPrevious(PblHashSet * set, void ** pointer)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static PblTreeNode * pblTreeNodeCreate(PblTreeSet * set, void * element)
+static PblTreeNode* pblTreeNodeCreate(PblTreeSet* set, void* element)
 {
-	PblTreeNode * newNode = (PblTreeNode *) pbl_malloc0("pblTreeNodeCreate", sizeof(PblTreeNode));
+	PblTreeNode* newNode = (PblTreeNode*)pbl_malloc0("pblTreeNodeCreate", sizeof(PblTreeNode));
 	if (!newNode)
 	{
 		return newNode;
 	}
-
 	newNode->element = element;
-
 	set->collection.size++;
 	set->collection.changeCounter++;
-
 	return newNode;
 }
 
@@ -1834,15 +1795,15 @@ static PblTreeNode * pblTreeNodeCreate(PblTreeSet * set, void * element)
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static PblTreeNode * pblTreeNodeInsert( /*                 */
-PblTreeSet * set, /** The AVL tree to insert into          */
-PblTreeNode * parentNode, /** The parent node to insert to */
-void * element, /** The element to insert                  */
-int * heightChanged /** Set if the tree height changed     */
+static PblTreeNode* pblTreeNodeInsert( /*                     */
+	PblTreeSet* set, /** The AVL tree to insert into          */
+	PblTreeNode* parentNode, /** The parent node to insert to */
+	void* element, /** The element to insert                  */
+	int* heightChanged /** Set if the tree height changed     */
 )
 {
-	PblTreeNode * p1;
-	PblTreeNode * p2;
+	PblTreeNode* p1;
+	PblTreeNode* p2;
 	int compareResult;
 
 	*heightChanged = 0;
@@ -1856,7 +1817,7 @@ int * heightChanged /** Set if the tree height changed     */
 		return pblTreeNodeCreate(set, element);
 	}
 
-	compareResult = pblCollectionElementCompare((PblCollection*) set, element, parentNode->element);
+	compareResult = pblCollectionElementCompare((PblCollection*)set, element, parentNode->element);
 	if (!compareResult)
 	{
 		/*
@@ -1997,7 +1958,6 @@ int * heightChanged /** Set if the tree height changed     */
 		 * Simple RR rotation
 		 */
 		PBL_AVL_TREE_SET_NEXT(parentNode, p1->prev);
-
 		PBL_AVL_TREE_SET_PREV(p1, parentNode);
 		parentNode->balance = 0;
 
@@ -2013,11 +1973,8 @@ int * heightChanged /** Set if the tree height changed     */
 	p2 = p1->prev;
 
 	PBL_AVL_TREE_SET_PREV(p1, p2->next);
-
 	PBL_AVL_TREE_SET_NEXT(p2, p1);
-
 	PBL_AVL_TREE_SET_NEXT(parentNode, p2->prev);
-
 	PBL_AVL_TREE_SET_PREV(p2, parentNode);
 
 	if (p2->balance == 1)
@@ -2056,14 +2013,14 @@ int * heightChanged /** Set if the tree height changed     */
  *
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  */
-static int pblTreeSetAdd( /*                          */
-PblTreeSet * set, /** The set to use                  */
-void * element /** Element to be appended to this set */
+static int pblTreeSetAdd( /*                             */
+	PblTreeSet* set, /** The set to use                  */
+	void* element /** Element to be appended to this set */
 )
 {
 	int size = set->collection.size;
 	int h = 0;
-	PblTreeNode * insertResult;
+	PblTreeNode* insertResult;
 
 	if (!element)
 	{
@@ -2086,7 +2043,6 @@ void * element /** Element to be appended to this set */
 	{
 		return 0;
 	}
-
 	return 1;
 }
 
@@ -2104,9 +2060,9 @@ void * element /** Element to be appended to this set */
  * <BR>PBL_ERROR_PARAM_ELEMENT - The element passed is NULL.
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Maximum capacity of the hash set exceeded.
  */
-int pblSetAdd( /*                                  */
-PblSet * set, /** The set to add to                */
-void * element /** Element to be added to this set */
+int pblSetAdd( /*                                     */
+	PblSet* set, /** The set to add to                */
+	void* element /** Element to be added to this set */
 )
 {
 	if (!element)
@@ -2117,9 +2073,9 @@ void * element /** Element to be added to this set */
 
 	if (PBL_SET_IS_TREE_SET(set))
 	{
-		return pblTreeSetAdd((PblTreeSet *) set, element);
+		return pblTreeSetAdd((PblTreeSet*)set, element);
 	}
-	return pblHashSetAdd((PblHashSet *) set, element);
+	return pblHashSetAdd((PblHashSet*)set, element);
 }
 
 /*
@@ -2131,9 +2087,9 @@ void * element /** Element to be added to this set */
  * <BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection underlying the iterator was modified concurrently.
  */
-static int pblHashSetAddAll( /*                                                    */
-PblHashSet * set, /** The set to use                                               */
-PblIterator * iterator /** The iterator whose elements are to be added to this set */
+static int pblHashSetAddAll( /*                                                       */
+	PblHashSet* set, /** The set to use                                               */
+	PblIterator* iterator /** The iterator whose elements are to be added to this set */
 )
 {
 	int hasNext;
@@ -2143,8 +2099,8 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
 	//
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			return -1;
 		}
@@ -2154,8 +2110,8 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
 			//
 			while ((hasPrev = pblIteratorHasPrevious(iterator)) > 0)
 			{
-				void * element = pblIteratorPrevious(iterator);
-				if (element == (void*) -1 || pblHashSetRemoveElement(set, element) < 0)
+				void* element = pblIteratorPrevious(iterator);
+				if (element == (void*)-1 || pblHashSetRemoveElement(set, element) < 0)
 				{
 					return -1;
 				}
@@ -2169,7 +2125,6 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
 		//
 		return -1;
 	}
-
 	return set->collection.size;
 }
 
@@ -2182,9 +2137,9 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
  * <BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection underlying the iterator was modified concurrently.
  */
-static int pblTreeSetAddAll( /*                                                    */
-PblTreeSet * set, /** The set to use                                               */
-PblIterator * iterator /** The iterator whose elements are to be added to this set */
+static int pblTreeSetAddAll( /*                                                       */
+	PblTreeSet* set, /** The set to use                                               */
+	PblIterator* iterator /** The iterator whose elements are to be added to this set */
 )
 {
 	int hasNext;
@@ -2194,8 +2149,8 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
 	//
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			return -1;
 		}
@@ -2205,8 +2160,8 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
 			//
 			while ((hasPrev = pblIteratorHasPrevious(iterator)) > 0)
 			{
-				void * element = pblIteratorPrevious(iterator);
-				if (element == (void*) -1 || pblTreeSetRemoveElement(set, element) < 0)
+				void* element = pblIteratorPrevious(iterator);
+				if (element == (void*)-1 || pblTreeSetRemoveElement(set, element) < 0)
 				{
 					return -1;
 				}
@@ -2220,7 +2175,6 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
 		//
 		return -1;
 	}
-
 	return set->collection.size;
 }
 
@@ -2242,31 +2196,28 @@ PblIterator * iterator /** The iterator whose elements are to be added to this s
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The parameter collection is not of type (PblCollection *).
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
  */
-int pblSetAddAll( /*                                                            */
-PblSet * set, /** The set to use                                                */
-void * collection /** The collection whose elements are to be added to this set */
+int pblSetAddAll( /*                                                               */
+	PblSet* set, /** The set to use                                                */
+	void* collection /** The collection whose elements are to be added to this set */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 
 	if (pblIteratorInit(collection, iterator) < 0)
 	{
 		return -1;
 	}
-
 	if (pblIteratorSize(iterator) < 1)
 	{
 		return set->size;
 	}
-
 	if (PBL_SET_IS_HASH_SET(set))
 	{
-		int rc = pblHashSetAddAll((PblHashSet *) set, iterator);
+		int rc = pblHashSetAddAll((PblHashSet*)set, iterator);
 		return rc;
 	}
-
-	return pblTreeSetAddAll((PblTreeSet *) set, iterator);
+	return pblTreeSetAddAll((PblTreeSet*)set, iterator);
 }
 
 /*
@@ -2277,13 +2228,13 @@ void * collection /** The collection whose elements are to be added to this set 
  * @return PblTreeNode * retPtr: The subtree p after the balance.
  *
  */
-static PblTreeNode * pblTreeNodeBalanceLeft( /*        */
-PblTreeNode * node, /** The node to balance            */
-int * heightChanged /** Set if the tree height changed */
+static PblTreeNode* pblTreeNodeBalanceLeft( /*            */
+	PblTreeNode* node, /** The node to balance            */
+	int* heightChanged /** Set if the tree height changed */
 )
 {
-	PblTreeNode * p1;
-	PblTreeNode * p2;
+	PblTreeNode* p1;
+	PblTreeNode* p2;
 	int b1;
 	int b2;
 
@@ -2314,7 +2265,6 @@ int * heightChanged /** Set if the tree height changed */
 		 * Simple RR rotation
 		 */
 		PBL_AVL_TREE_SET_NEXT(node, p1->prev);
-
 		PBL_AVL_TREE_SET_PREV(p1, node);
 
 		if (b1 == 0)
@@ -2338,11 +2288,8 @@ int * heightChanged /** Set if the tree height changed */
 	b2 = p2->balance;
 
 	PBL_AVL_TREE_SET_PREV(p1, p2->next);
-
 	PBL_AVL_TREE_SET_NEXT(p2, p1);
-
 	PBL_AVL_TREE_SET_NEXT(node, p2->prev);
-
 	PBL_AVL_TREE_SET_PREV(p2, node);
 
 	if (b2 == 1)
@@ -2375,13 +2322,13 @@ int * heightChanged /** Set if the tree height changed */
  * @return PblTreeNode * retPtr: The subtree p after the balance.
  *
  */
-static PblTreeNode * pblTreeNodeBalanceRight( /*       */
-PblTreeNode * node, /** The node to balance            */
-int * heightChanged /** Set if the tree height changed */
+static PblTreeNode* pblTreeNodeBalanceRight( /*           */
+	PblTreeNode* node, /** The node to balance            */
+	int* heightChanged /** Set if the tree height changed */
 )
 {
-	PblTreeNode * p1;
-	PblTreeNode * p2;
+	PblTreeNode* p1;
+	PblTreeNode* p2;
 	int b1;
 	int b2;
 
@@ -2412,7 +2359,6 @@ int * heightChanged /** Set if the tree height changed */
 		 * Simple LL rotation
 		 */
 		PBL_AVL_TREE_SET_PREV(node, p1->next);
-
 		PBL_AVL_TREE_SET_NEXT(p1, node);
 
 		if (b1 == 0)
@@ -2436,11 +2382,8 @@ int * heightChanged /** Set if the tree height changed */
 	b2 = p2->balance;
 
 	PBL_AVL_TREE_SET_NEXT(p1, p2->prev);
-
 	PBL_AVL_TREE_SET_PREV(p2, p1);
-
 	PBL_AVL_TREE_SET_PREV(node, p2->next);
-
 	PBL_AVL_TREE_SET_NEXT(p2, node);
 
 	if (b2 == -1)
@@ -2470,9 +2413,9 @@ int * heightChanged /** Set if the tree height changed */
  *
  * @return PblTreeNode * retPtr: The subtree p after the remove.
  */
-static PblTreeNode * pblTreeNodeRemove2(PblTreeSet * set, PblTreeNode * r, PblTreeNode * q, int * heightChanged)
+static PblTreeNode* pblTreeNodeRemove2(PblTreeSet* set, PblTreeNode* r, PblTreeNode* q, int* heightChanged)
 {
-	PblTreeNode * p;
+	PblTreeNode* p;
 
 	*heightChanged = 0;
 
@@ -2494,7 +2437,6 @@ static PblTreeNode * pblTreeNodeRemove2(PblTreeSet * set, PblTreeNode * r, PblTr
 	PBL_FREE(r);
 	set->collection.size--;
 	set->collection.changeCounter++;
-
 	return p;
 }
 
@@ -2503,15 +2445,15 @@ static PblTreeNode * pblTreeNodeRemove2(PblTreeSet * set, PblTreeNode * r, PblTr
  *
  * @return PblTreeNode * retPtr: The subtree p after the remove.
  */
-static PblTreeNode * pblTreeNodeRemove( /*             */
-PblTreeSet * set, /** The AVL tree to remove from      */
-PblTreeNode * p, /** The node to remove from           */
-void * element, /** The element to remove              */
-int * heightChanged /** Set if the tree height changed */
+static PblTreeNode* pblTreeNodeRemove( /*                 */
+	PblTreeSet* set, /** The AVL tree to remove from      */
+	PblTreeNode* p, /** The node to remove from           */
+	void* element, /** The element to remove              */
+	int* heightChanged /** Set if the tree height changed */
 )
 {
-	PblTreeNode * q;
-	PblTreeNode * p1;
+	PblTreeNode* q;
+	PblTreeNode* p1;
 	int compareResult;
 
 	*heightChanged = 0;
@@ -2524,7 +2466,7 @@ int * heightChanged /** Set if the tree height changed */
 		return p;
 	}
 
-	compareResult = pblCollectionElementCompare((PblCollection*) set, element, p->element);
+	compareResult = pblCollectionElementCompare((PblCollection*)set, element, p->element);
 
 	if (compareResult < 0)
 	{
@@ -2586,7 +2528,6 @@ int * heightChanged /** Set if the tree height changed */
 			p = pblTreeNodeBalanceLeft(p, heightChanged);
 		}
 	}
-
 	return p;
 }
 
@@ -2596,9 +2537,9 @@ int * heightChanged /** Set if the tree height changed */
  * @return int rc != 0: The set contained the specified element.
  * @return int rc == 0: The specified element is not present.
  */
-static int pblTreeSetRemoveElement( /* */
-PblTreeSet * set, /** The set to use   */
-void * element /** Element to remove   */
+static int pblTreeSetRemoveElement( /*    */
+	PblTreeSet* set, /** The set to use   */
+	void* element /** Element to remove   */
 )
 {
 	int h = 0;
@@ -2618,7 +2559,6 @@ void * element /** Element to remove   */
 	{
 		return 0;
 	}
-
 	return 1;
 }
 
@@ -2628,15 +2568,15 @@ void * element /** Element to remove   */
  * @return int rc != 0: The set contained the specified element.
  * @return int rc == 0: The specified element is not present.
  */
-static int pblHashSetRemoveElement( /* */
-PblHashSet * set, /** The set to use   */
-void * element /** Element to remove   */
+static int pblHashSetRemoveElement( /*    */
+	PblHashSet* set, /** The set to use   */
+	void* element /** Element to remove   */
 )
 {
 	int mask = set->capacity - 1;
 	int elementIndex;
 	int indexToRemove;
-	unsigned char ** elementPtr;
+	unsigned char** elementPtr;
 	int nextIndex;
 	int hashValue;
 
@@ -2661,7 +2601,7 @@ void * element /** Element to remove   */
 			return 0;
 		}
 
-		if (!pblCollectionElementCompare((PblCollection*) set, *elementPtr, element))
+		if (!pblCollectionElementCompare((PblCollection*)set, *elementPtr, element))
 		{
 			/*
 			 * Element is in hash table
@@ -2685,7 +2625,7 @@ void * element /** Element to remove   */
 		 * Go forward through the collision chain
 		 */
 		for (nextIndex = (indexToRemove + set->stepSize) & mask; nextIndex >= 0;
-				nextIndex = (nextIndex + set->stepSize) & mask)
+			nextIndex = (nextIndex + set->stepSize) & mask)
 		{
 			elementPtr = &(set->pointerArray[nextIndex]);
 
@@ -2730,7 +2670,7 @@ void * element /** Element to remove   */
 				int index;
 
 				for (index = (indexToRemove + set->stepSize) & mask; index != nextIndex;
-						index = (index + set->stepSize) & mask)
+					index = (index + set->stepSize) & mask)
 				{
 					if (hashValue == index)
 					{
@@ -2776,16 +2716,16 @@ void * element /** Element to remove   */
  * @return int rc != 0: The set contained the specified element.
  * @return int rc == 0: The specified element is not present.
  */
-int pblSetRemoveElement( /*          */
-PblSet * set, /** The set to use     */
-void * element /** Element to remove */
+int pblSetRemoveElement( /*             */
+	PblSet* set, /** The set to use     */
+	void* element /** Element to remove */
 )
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
-		return pblTreeSetRemoveElement((PblTreeSet *) set, element);
+		return pblTreeSetRemoveElement((PblTreeSet*)set, element);
 	}
-	return pblHashSetRemoveElement((PblHashSet *) set, element);
+	return pblHashSetRemoveElement((PblHashSet*)set, element);
 }
 
 /*
@@ -2802,12 +2742,12 @@ void * element /** Element to remove */
  * @return void * retptr == NULL: There is no matching element.
  *
  */
-static void * pblTreeSetReplaceElement( /* */
-PblTreeSet * set, /** The set to use       */
-void * element /** Element to look for     */
+static void* pblTreeSetReplaceElement( /*     */
+	PblTreeSet* set, /** The set to use       */
+	void* element /** Element to look for     */
 )
 {
-	PblTreeNode * node = set->rootNode;
+	PblTreeNode* node = set->rootNode;
 	int compareResult;
 
 	if (set->collection.size == 0)
@@ -2817,10 +2757,10 @@ void * element /** Element to look for     */
 
 	while (node)
 	{
-		compareResult = pblCollectionElementCompare((PblCollection*) set, element, node->element);
+		compareResult = pblCollectionElementCompare((PblCollection*)set, element, node->element);
 		if (!compareResult)
 		{
-			void * returnValue = node->element;
+			void* returnValue = node->element;
 			node->element = element;
 			return returnValue;
 		}
@@ -2849,14 +2789,14 @@ void * element /** Element to look for     */
  * @return void * retptr != NULL: The element that was replaced.
  * @return void * retptr == NULL: There is no matching element.
  */
-static void * pblHashSetReplaceElement( /* */
-PblHashSet * set, /** The set to use       */
-void * element /** Element to look for     */
+static void* pblHashSetReplaceElement( /*     */
+	PblHashSet* set, /** The set to use       */
+	void* element /** Element to look for     */
 )
 {
 	int mask = set->capacity - 1;
 	int index;
-	void * pointer;
+	void* pointer;
 
 	if (set->collection.size == 0 || set->capacity < 1)
 	{
@@ -2872,12 +2812,12 @@ void * element /** Element to look for     */
 			break;
 		}
 
-		if (!pblCollectionElementCompare((PblCollection*) set, pointer, element))
+		if (!pblCollectionElementCompare((PblCollection*)set, pointer, element))
 		{
 			/*
 			 * Element in hash table
 			 */
-			void * returnValue = pointer;
+			void* returnValue = pointer;
 			set->pointerArray[index] = element;
 			return returnValue;
 		}
@@ -2902,17 +2842,16 @@ void * element /** Element to look for     */
  * @return void * retptr != NULL: The element that was replaced.
  * @return void * retptr == NULL: There is no matching element.
  */
-void * pblSetReplaceElement( /*        */
-PblSet * set, /** The set to use       */
-void * element /** Element to look for */
+void* pblSetReplaceElement( /*            */
+	PblSet* set, /** The set to use       */
+	void* element /** Element to look for */
 )
 {
 	if (PBL_SET_IS_HASH_SET(set))
 	{
-		return pblHashSetReplaceElement((PblHashSet *) set, element);
+		return pblHashSetReplaceElement((PblHashSet*)set, element);
 	}
-
-	return pblTreeSetReplaceElement((PblTreeSet *) set, element);
+	return pblTreeSetReplaceElement((PblTreeSet*)set, element);
 }
 
 /*
@@ -2924,12 +2863,12 @@ void * element /** Element to look for */
  * @return void * retptr != NULL: The element that matches.
  * @return void * retptr == NULL: There is no matching element.
  */
-static void * pblTreeSetGetElement( /* */
-PblTreeSet * set, /** The set to use   */
-void * element /** Element to look for */
+static void* pblTreeSetGetElement( /*     */
+	PblTreeSet* set, /** The set to use   */
+	void* element /** Element to look for */
 )
 {
-	PblTreeNode * node = set->rootNode;
+	PblTreeNode* node = set->rootNode;
 	int compareResult;
 
 	if (set->collection.size == 0)
@@ -2939,7 +2878,7 @@ void * element /** Element to look for */
 
 	while (node)
 	{
-		compareResult = pblCollectionElementCompare((PblCollection*) set, element, node->element);
+		compareResult = pblCollectionElementCompare((PblCollection*)set, element, node->element);
 		if (!compareResult)
 		{
 			return node->element;
@@ -2965,14 +2904,14 @@ void * element /** Element to look for */
  * @return void * retptr != NULL: The element that matches.
  * @return void * retptr == NULL: There is no matching element.
  */
-static void * pblHashSetGetElement( /* */
-PblHashSet * set, /** The set to use   */
-void * element /** Element to look for */
+static void* pblHashSetGetElement( /*     */
+	PblHashSet* set, /** The set to use   */
+	void* element /** Element to look for */
 )
 {
 	int mask = set->capacity - 1;
 	int index;
-	void * pointer;
+	void* pointer;
 
 	if (set->collection.size == 0 || set->capacity < 1)
 	{
@@ -2988,7 +2927,7 @@ void * element /** Element to look for */
 			break;
 		}
 
-		if (!pblCollectionElementCompare((PblCollection*) set, pointer, element))
+		if (!pblCollectionElementCompare((PblCollection*)set, pointer, element))
 		{
 			/*
 			 * Element in hash table
@@ -3012,17 +2951,16 @@ void * element /** Element to look for */
  * @return void * retptr != NULL: The element that matches.
  * @return void * retptr == NULL: There is no matching element.
  */
-void * pblSetGetElement( /*            */
-PblSet * set, /** The set to use       */
-void * element /** Element to look for */
+void* pblSetGetElement( /*                */
+	PblSet* set, /** The set to use       */
+	void* element /** Element to look for */
 )
 {
 	if (PBL_SET_IS_HASH_SET(set))
 	{
-		return pblHashSetGetElement((PblHashSet *) set, element);
+		return pblHashSetGetElement((PblHashSet*)set, element);
 	}
-
-	return pblTreeSetGetElement((PblTreeSet *) set, element);
+	return pblTreeSetGetElement((PblTreeSet*)set, element);
 }
 
 /*
@@ -3034,12 +2972,12 @@ void * element /** Element to look for */
  * @return int rc != 0: The specified element is present.
  * @return int rc == 0: The specified element is not present.
  */
-static int pblTreeSetContains( /*      */
-PblTreeSet * set, /** The set to use   */
-void * element /** Element to look for */
+static int pblTreeSetContains( /*         */
+	PblTreeSet* set, /** The set to use   */
+	void* element /** Element to look for */
 )
 {
-	PblTreeNode * node = set->rootNode;
+	PblTreeNode* node = set->rootNode;
 	int compareResult;
 
 	if (set->collection.size == 0)
@@ -3049,7 +2987,7 @@ void * element /** Element to look for */
 
 	while (node)
 	{
-		compareResult = pblCollectionElementCompare((PblCollection*) set, element, node->element);
+		compareResult = pblCollectionElementCompare((PblCollection*)set, element, node->element);
 		if (!compareResult)
 		{
 			return 1;
@@ -3075,14 +3013,14 @@ void * element /** Element to look for */
  * @return int rc != 0: The specified element is present.
  * @return int rc == 0: The specified element is not present.
  */
-static int pblHashSetContains( /*      */
-PblHashSet * set, /** The set to use   */
-void * element /** Element to look for */
+static int pblHashSetContains( /*         */
+	PblHashSet* set, /** The set to use   */
+	void* element /** Element to look for */
 )
 {
 	int mask = set->capacity - 1;
 	int index;
-	void * pointer;
+	void* pointer;
 
 	if (set->collection.size == 0 || set->capacity < 1)
 	{
@@ -3098,7 +3036,7 @@ void * element /** Element to look for */
 			break;
 		}
 
-		if (!pblCollectionElementCompare((PblCollection*) set, pointer, element))
+		if (!pblCollectionElementCompare((PblCollection*)set, pointer, element))
 		{
 			/*
 			 * Element in hash table
@@ -3122,17 +3060,16 @@ void * element /** Element to look for */
  * @return int rc != 0: The specified element is present.
  * @return int rc == 0: The specified element is not present.
  */
-int pblSetContains( /*                 */
-PblSet * set, /** The set to use       */
-void * element /** Element to look for */
+int pblSetContains( /*                    */
+	PblSet* set, /** The set to use       */
+	void* element /** Element to look for */
 )
 {
 	if (PBL_SET_IS_HASH_SET(set))
 	{
-		return pblHashSetContains((PblHashSet *) set, element);
+		return pblHashSetContains((PblHashSet*)set, element);
 	}
-
-	return pblTreeSetContains((PblTreeSet *) set, element);
+	return pblTreeSetContains((PblTreeSet*)set, element);
 }
 
 /**
@@ -3155,13 +3092,13 @@ void * element /** Element to look for */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
  */
-int pblSetContainsAll( /*                                                      */
-PblSet * set, /** The set to use                                               */
-void * collection /** The collection to be checked for containment in this set */
+int pblSetContainsAll( /*                                                         */
+	PblSet* set, /** The set to use                                               */
+	void* collection /** The collection to be checked for containment in this set */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasNext;
 
 	if (pblIteratorInit(collection, iterator) < 0)
@@ -3171,8 +3108,8 @@ void * collection /** The collection to be checked for containment in this set *
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -3189,7 +3126,6 @@ void * collection /** The collection to be checked for containment in this set *
 		//
 		return -1;
 	}
-
 	return 1;
 }
 
@@ -3207,8 +3143,8 @@ void * collection /** The collection to be checked for containment in this set *
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - This set is empty.
  */
-void * pblSetRemoveLast( /*     */
-PblSet * set /** The set to use */
+void* pblSetRemoveLast( /*         */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetRemoveAt(set, set->size - 1);
@@ -3228,8 +3164,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - This set is empty.
  */
-void * pblSetRemoveFirst( /*    */
-PblSet * set /** The set to use */
+void* pblSetRemoveFirst( /*        */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetRemoveAt(set, 0);
@@ -3246,21 +3182,21 @@ PblSet * set /** The set to use */
  * <BR>PBL_ERROR_PARAM_SET               - The set cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The set was modified concurrently.
  */
-static int pblTreeSetRetainAll( /*                   */
-PblTreeSet * set, /** The set to use                 */
-PblCollection * collection /** The collection to use */
+static int pblTreeSetRetainAll( /*                      */
+	PblTreeSet* set, /** The set to use                 */
+	PblCollection* collection /** The collection to use */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int rc = 0;
 	int hasNext;
-	void * element;
+	void* element;
 
 	/*
 	 * Get the iterator for this set
 	 */
-	if (pblIteratorInit((PblCollection *) set, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)set, iterator) < 0)
 	{
 		pbl_errno = PBL_ERROR_PARAM_SET;
 		return -1;
@@ -3269,7 +3205,7 @@ PblCollection * collection /** The collection to use */
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
 		element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		if (element == (void*)-1)
 		{
 			// Concurrent modification
 			//
@@ -3295,7 +3231,6 @@ PblCollection * collection /** The collection to use */
 		//
 		return -1;
 	}
-
 	return rc;
 }
 
@@ -3311,18 +3246,18 @@ PblCollection * collection /** The collection to use */
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The set was modified concurrently.
  * <BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
  */
-static int pblHashSetRetainAll( /*                   */
-PblHashSet * set, /** The set to use                 */
-PblCollection * collection /** The collection to use */
+static int pblHashSetRetainAll( /*                      */
+	PblHashSet* set, /** The set to use                 */
+	PblCollection* collection /** The collection to use */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int rc = 0;
 	int hasNext;
-	void * element;
+	void* element;
 
-	PblList * elementsToBeRemoved = pblListNewArrayList();
+	PblList* elementsToBeRemoved = pblListNewArrayList();
 	if (!elementsToBeRemoved)
 	{
 		return -1;
@@ -3331,7 +3266,7 @@ PblCollection * collection /** The collection to use */
 	/*
 	 * Get the iterator for this set
 	 */
-	if (pblIteratorInit((PblCollection *) set, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)set, iterator) < 0)
 	{
 		pbl_errno = PBL_ERROR_PARAM_SET;
 		pblListFree(elementsToBeRemoved);
@@ -3341,7 +3276,7 @@ PblCollection * collection /** The collection to use */
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
 		element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		if (element == (void*)-1)
 		{
 			// Concurrent modification
 			//
@@ -3382,7 +3317,7 @@ PblCollection * collection /** The collection to use */
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
 		element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		if (element == (void*)-1)
 		{
 			// Concurrent modification
 			//
@@ -3434,13 +3369,13 @@ PblCollection * collection /** The collection to use */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_OUT_OF_MEMORY           - Out of memory.
  */
-int pblSetRetainAll( /*                                       */
-PblSet * set, /** The set to use                              */
-void * collection /** The elements to be retained in this set */
+int pblSetRetainAll( /*                                          */
+	PblSet* set, /** The set to use                              */
+	void* collection /** The elements to be retained in this set */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int iteratorSize;
 
 	if (set->size < 1)
@@ -3451,7 +3386,7 @@ void * collection /** The elements to be retained in this set */
 	/*
 	 * Get the iterator for the collection
 	 */
-	if (pblIteratorInit((PblCollection *) collection, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)collection, iterator) < 0)
 	{
 		return -1;
 	}
@@ -3486,10 +3421,9 @@ void * collection /** The elements to be retained in this set */
 
 	if (PBL_SET_IS_HASH_SET(set))
 	{
-		return pblHashSetRetainAll((PblHashSet*) set, (PblCollection *) collection);
+		return pblHashSetRetainAll((PblHashSet*)set, (PblCollection*)collection);
 	}
-
-	return pblTreeSetRetainAll((PblTreeSet*) set, (PblCollection *) collection);
+	return pblTreeSetRetainAll((PblTreeSet*)set, (PblCollection*)collection);
 }
 
 /**
@@ -3506,8 +3440,8 @@ void * collection /** The elements to be retained in this set */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - This set is empty.
  */
-void * pblSetGetLast( /*        */
-PblSet * set /** The set to use */
+void* pblSetGetLast( /*            */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetGet(set, set->size - 1);
@@ -3527,8 +3461,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - This set is empty.
  */
-void * pblSetTail( /*           */
-PblSet * set /** The set to use */
+void* pblSetTail( /*               */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetGet(set, set->size - 1);
@@ -3548,8 +3482,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - This set is empty.
  */
-void * pblSetGetFirst( /*       */
-PblSet * set /** The set to use */
+void* pblSetGetFirst( /*           */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetGet(set, 0);
@@ -3572,15 +3506,15 @@ PblSet * set /** The set to use */
  * <BR>PBL_ERROR_OUT_OF_BOUNDS      - Index is out of range (index < 0 || index >= size()).
  * <BR>PBL_ERROR_PARAM_COLLECTION   - The set cannot be iterated.
  */
-void * pblSetGet( /*                         */
-PblSet * set, /** The set to use             */
-int index /** Index of the element to return */
+void* pblSetGet( /*                              */
+	PblSet* set, /** The set to use              */
+	int index /** Index of the element to return */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasMore = 0;
-	void * element = NULL;
+	void* element = NULL;
 
 	/*
 	 * Check the parameter
@@ -3601,7 +3535,7 @@ int index /** Index of the element to return */
 		while (index-- >= 0 && (hasMore = pblIteratorHasNext(iterator)) > 0)
 		{
 			element = pblIteratorNext(iterator);
-			if (element == (void*) -1)
+			if (element == (void*)-1)
 			{
 				// Concurrent modification
 				//
@@ -3625,7 +3559,7 @@ int index /** Index of the element to return */
 		while (index-- >= 0 && (hasMore = pblIteratorHasPrevious(iterator)) > 0)
 		{
 			element = pblIteratorPrevious(iterator);
-			if (element == (void*) -1)
+			if (element == (void*)-1)
 			{
 				// Concurrent modification
 				//
@@ -3650,17 +3584,23 @@ int index /** Index of the element to return */
  * This method has a time complexity of O(1).
  *
  * @return int rc: The capacity of this set instance.
+ *
+ * <BR>PBL_ERROR_PARAM_SET     - The parameter 'set' is NULL.
  */
-int pblSetGetCapacity( /*       */
-PblSet * set /** The set to use */
+int pblSetGetCapacity( /*          */
+	PblSet* set /** The set to use */
 )
 {
+	if (!set)
+	{
+		pbl_errno = PBL_ERROR_PARAM_SET;
+		return -1;
+	}
 	if (PBL_SET_IS_TREE_SET(set))
 	{
 		return set->size;
 	}
-
-	return ((PblHashSet *) set)->capacity;
+	return ((PblHashSet*)set)->capacity;
 }
 
 /**
@@ -3677,8 +3617,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetElement( /*         */
-PblSet * set /** The set to use  */
+void* pblSetElement( /*             */
+	PblSet* set /** The set to use  */
 )
 {
 	return pblSetGet(set, 0);
@@ -3698,8 +3638,8 @@ PblSet * set /** The set to use  */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetHead( /*            */
-PblSet * set /** The set to use  */
+void* pblSetHead( /*               */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetGet(set, 0);
@@ -3719,8 +3659,8 @@ PblSet * set /** The set to use  */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetPeek( /*           */
-PblSet * set /** The set to use */
+void* pblSetPeek( /*               */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetGet(set, 0);
@@ -3740,8 +3680,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetTop( /*            */
-PblSet * set /** The set to use */
+void* pblSetTop( /*                */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetGet(set, set->size - 1);
@@ -3760,8 +3700,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetPop( /*            */
-PblSet * set /** The set to use */
+void* pblSetPop( /*                */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetRemoveAt(set, set->size - 1);
@@ -3781,8 +3721,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetPoll( /*           */
-PblSet * set /** The set to use */
+void* pblSetPoll( /*               */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetRemoveAt(set, 0);
@@ -3802,8 +3742,8 @@ PblSet * set /** The set to use */
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - this set is empty.
  */
-void * pblSetRemove( /*         */
-PblSet * set /** The set to use */
+void* pblSetRemove( /*             */
+	PblSet* set /** The set to use */
 )
 {
 	return pblSetRemoveAt(set, 0);
@@ -3827,13 +3767,13 @@ PblSet * set /** The set to use */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
  */
-int pblSetRemoveAll( /*                                                             */
-PblSet * set, /** The set to use                                                    */
-void * collection /** The collection whose elements are to be removed from this set */
+int pblSetRemoveAll( /*                                                                */
+	PblSet* set, /** The set to use                                                    */
+	void* collection /** The collection whose elements are to be removed from this set */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int hasNext;
 	int rc = 0;
 
@@ -3849,8 +3789,8 @@ void * collection /** The collection whose elements are to be removed from this 
 
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
-		void * element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		void* element = pblIteratorNext(iterator);
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -3871,7 +3811,6 @@ void * collection /** The collection whose elements are to be removed from this 
 		//
 		return -1;
 	}
-
 	return rc;
 }
 
@@ -3890,17 +3829,16 @@ void * collection /** The collection whose elements are to be removed from this 
  *
  * <BR>PBL_ERROR_OUT_OF_BOUNDS - Index is out of range (index < 0 || index >= size()).
  */
-void * pblSetRemoveAt( /*                                     */
-PblSet * set, /** The set to use                              */
-int index /** The index at which the element is to be removed */
+void* pblSetRemoveAt( /*                                          */
+	PblSet* set, /** The set to use                               */
+	int index /** The index at which the element is to be removed */
 )
 {
-	void * element = pblSetGet(set, index);
-	if ( NULL == element)
+	void* element = pblSetGet(set, index);
+	if (NULL == element)
 	{
 		return NULL;
 	}
-
 	if (!pblSetRemoveElement(set, element))
 	{
 		return NULL;
@@ -3916,8 +3854,8 @@ int index /** The index at which the element is to be removed */
  * @return int rc != 0: This object is a set.
  * @return int rc == 0: This object is not a set.
  */
-int pblSetIsSet( /*                  */
-void * object /** The object to test */
+int pblSetIsSet( /*                     */
+	void* object /** The object to test */
 )
 {
 	return PBL_SET_IS_SET(object);
@@ -3931,8 +3869,8 @@ void * object /** The object to test */
  * @return int rc != 0: This object is a hash set.
  * @return int rc == 0: This object is not a hash set.
  */
-int pblSetIsHashSet( /*              */
-void * object /** The object to test */
+int pblSetIsHashSet( /*                 */
+	void* object /** The object to test */
 )
 {
 	return PBL_SET_IS_HASH_SET(object);
@@ -3946,8 +3884,8 @@ void * object /** The object to test */
  * @return int rc != 0: This object is a tree set.
  * @return int rc == 0: This object is not a tree set.
  */
-int pblSetIsTreeSet( /*              */
-void * object /** The object to test */
+int pblSetIsTreeSet( /*                 */
+	void* object /** The object to test */
 )
 {
 	return PBL_SET_IS_TREE_SET(object);
@@ -3960,8 +3898,8 @@ void * object /** The object to test */
  *
  * @return int rc: The number of elements in this set.
  */
-int pblSetSize( /*              */
-PblSet * set /** The set to use */
+int pblSetSize( /*                 */
+	PblSet* set /** The set to use */
 )
 {
 	return set->size;
@@ -3976,15 +3914,15 @@ PblSet * set /** The set to use */
  * @return int rc >= 0: The index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-int pblSetIndexOf( /*                  */
-PblSet * set, /** The set to use       */
-void * element /** Element to look for */
+int pblSetIndexOf( /*                     */
+	PblSet* set, /** The set to use       */
+	void* element /** Element to look for */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int index;
-	void * setElement;
+	void* setElement;
 
 	/*
 	 * See whether the element is in the set at all, before looking at the index
@@ -4002,18 +3940,17 @@ void * element /** Element to look for */
 	for (index = 0; pblIteratorHasNext(iterator) > 0; index++)
 	{
 		setElement = pblIteratorNext(iterator);
-		if (setElement == (void*) -1)
+		if (setElement == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
 			return -1;
 		}
-		if (!pblCollectionElementCompare((PblCollection*) set, element, setElement))
+		if (!pblCollectionElementCompare((PblCollection*)set, element, setElement))
 		{
 			return index;
 		}
 	}
-
 	return -1;
 }
 
@@ -4026,9 +3963,9 @@ void * element /** Element to look for */
  * @return int rc >= 0: The index of the specified element.
  * @return int rc <  0: The specified element is not present.
  */
-int pblSetLastIndexOf( /*              */
-PblSet * set, /** The set to use       */
-void * element /** Element to look for */
+int pblSetLastIndexOf( /*                 */
+	PblSet* set, /** The set to use       */
+	void* element /** Element to look for */
 )
 {
 	return pblSetIndexOf(set, element);
@@ -4042,8 +3979,8 @@ void * element /** Element to look for */
  * @return int rc != 0: This set has no elements.
  * @return int rc == 0: This set has elements.
  */
-int pblSetIsEmpty( /*            */
-PblSet * set /** The set to test */
+int pblSetIsEmpty( /*               */
+	PblSet* set /** The set to test */
 )
 {
 	return 0 == set->size;
@@ -4071,16 +4008,16 @@ PblSet * set /** The set to test */
  * <BR>PBL_ERROR_PARAM_COLLECTION        - The collection cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The collection was modified concurrently.
  */
-int pblSetEquals( /*                                                           */
-PblSet * set, /** The set to compare with.                                     */
-void * collection /** The collection to be compared for equality with this set */
+int pblSetEquals( /*                                                              */
+	PblSet* set, /** The set to compare with.                                     */
+	void* collection /** The collection to be compared for equality with this set */
 )
 {
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 
 	int hasNext;
-	void * element;
+	void* element;
 
 	if (set == collection)
 	{
@@ -4093,7 +4030,7 @@ void * collection /** The collection to be compared for equality with this set *
 		return -1;
 	}
 
-	if (pblIteratorInit((PblCollection *) collection, iterator) < 0)
+	if (pblIteratorInit((PblCollection*)collection, iterator) < 0)
 	{
 		return -1;
 	}
@@ -4106,7 +4043,7 @@ void * collection /** The collection to be compared for equality with this set *
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
 		element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		if (element == (void*)-1)
 		{
 			return -1;
 		}
@@ -4120,7 +4057,6 @@ void * collection /** The collection to be compared for equality with this set *
 	{
 		return -1;
 	}
-
 	return 1;
 }
 
@@ -4129,7 +4065,7 @@ void * collection /** The collection to be compared for equality with this set *
  *
  * Assumes the 'element' can be printed as a string with %s.
  */
-void pblTreeNodePrint(FILE * outfile, int level, PblTreeNode * node)
+void pblTreeNodePrint(FILE* outfile, int level, PblTreeNode* node)
 {
 	int i;
 
@@ -4155,14 +4091,13 @@ void pblTreeNodePrint(FILE * outfile, int level, PblTreeNode * node)
 	{
 		fprintf(outfile, " ");
 	}
-	fprintf(outfile, "- %d, %s\n", level, (char*) node->element);
+	fprintf(outfile, "- %d, %s\n", level, (char*)node->element);
 	fflush(outfile);
 
 	if (node->next)
 	{
 		pblTreeNodePrint(outfile, level + 1, node->next);
 	}
-
 }
 
 /*
@@ -4170,7 +4105,7 @@ void pblTreeNodePrint(FILE * outfile, int level, PblTreeNode * node)
  *
  * Assumes the 'element' can be printed as a string with %s.
  */
-static void pblTreeSetPrint(FILE * outfile, PblTreeSet * set)
+static void pblTreeSetPrint(FILE* outfile, PblTreeSet* set)
 {
 	pblTreeNodePrint(outfile, 0, set->rootNode);
 }
@@ -4180,7 +4115,7 @@ static void pblTreeSetPrint(FILE * outfile, PblTreeSet * set)
  *
  * Assumes the 'element' can be printed as a string with %s.
  */
-void pblHashSetPrint(FILE * outfile, PblHashSet * set)
+void pblHashSetPrint(FILE* outfile, PblHashSet* set)
 {
 	int i;
 
@@ -4190,7 +4125,7 @@ void pblHashSetPrint(FILE * outfile, PblHashSet * set)
 
 	for (i = 0; i < set->capacity; i++)
 	{
-		unsigned char * ptr = set->pointerArray[i];
+		unsigned char* ptr = set->pointerArray[i];
 		if (!ptr)
 		{
 			continue;
@@ -4204,16 +4139,16 @@ void pblHashSetPrint(FILE * outfile, PblHashSet * set)
  *
  * Assumes the 'element' can be printed as a string with %s.
  */
-void pblSetPrint(FILE * outfile, PblSet * set)
+void pblSetPrint(FILE* outfile, PblSet* set)
 {
 	if (PBL_SET_IS_TREE_SET(set))
 	{
-		pblTreeSetPrint(outfile, (PblTreeSet *) set);
+		pblTreeSetPrint(outfile, (PblTreeSet*)set);
 	}
 
 	if (PBL_SET_IS_HASH_SET(set))
 	{
-		pblHashSetPrint(outfile, (PblHashSet *) set);
+		pblHashSetPrint(outfile, (PblHashSet*)set);
 	}
 }
 
@@ -4244,8 +4179,8 @@ void pblSetPrint(FILE * outfile, PblSet * set)
  * <BR>PBL_ERROR_PARAM_SET        - The parameter set is not a set.
  * <BR>PBL_ERROR_PARAM_COLLECTION - The parameter set is not of type (PblCollection *).
  */
-PblIterator * pblSetIterator( /*                    */
-PblSet * set /** The set to create the iterator for */
+PblIterator* pblSetIterator( /*                        */
+	PblSet* set /** The set to create the iterator for */
 )
 {
 	if (!PBL_SET_IS_SET(set))
@@ -4253,7 +4188,6 @@ PblSet * set /** The set to create the iterator for */
 		pbl_errno = PBL_ERROR_PARAM_SET;
 		return NULL;
 	}
-
 	return pblIteratorNew(set);
 }
 
@@ -4283,7 +4217,8 @@ PblSet * set /** The set to create the iterator for */
  * <BR>PBL_ERROR_OUT_OF_MEMORY - Out of memory.
  * <BR>PBL_ERROR_PARAM_SET     - The set cannot be iterated.
  */
-PblIterator * pblSetReverseIterator(PblSet * set /** The set to create the iterator for */
+PblIterator* pblSetReverseIterator( /*                 */
+	PblSet* set /** The set to create the iterator for */
 )
 {
 	if (!PBL_SET_IS_SET(set))
@@ -4291,7 +4226,6 @@ PblIterator * pblSetReverseIterator(PblSet * set /** The set to create the itera
 		pbl_errno = PBL_ERROR_PARAM_SET;
 		return NULL;
 	}
-
 	return pblIteratorReverseNew(set);
 }
 
@@ -4315,15 +4249,15 @@ PblIterator * pblSetReverseIterator(PblSet * set /** The set to create the itera
  * <BR>PBL_ERROR_PARAM_COLLECTION - The set cannot be iterated.
  * <BR>PBL_ERROR_CONCURRENT_MODIFICATION - The set was modified concurrently.
  */
-void ** pblSetToArray( /*       */
-PblSet * set /** The set to use */
+void** pblSetToArray( /*           */
+	PblSet* set /** The set to use */
 )
 {
-	void ** resultArray;
+	void** resultArray;
 	PblIterator iteratorBuffer;
-	PblIterator * iterator = &iteratorBuffer;
+	PblIterator* iterator = &iteratorBuffer;
 	int index = 0;
-	void * element;
+	void* element;
 	int hasNext;
 
 	if (set->size == 0)
@@ -4337,7 +4271,7 @@ PblSet * set /** The set to use */
 		return NULL;
 	}
 
-	resultArray = (void **) pbl_malloc("pblSetToArray", sizeof(void*) * set->size);
+	resultArray = (void**)pbl_malloc("pblSetToArray", sizeof(void*) * set->size);
 	if (!resultArray)
 	{
 		return NULL;
@@ -4346,7 +4280,7 @@ PblSet * set /** The set to use */
 	while ((hasNext = pblIteratorHasNext(iterator)) > 0)
 	{
 		element = pblIteratorNext(iterator);
-		if (element == (void*) -1)
+		if (element == (void*)-1)
 		{
 			// concurrent modification on the collection
 			//
@@ -4360,6 +4294,5 @@ PblSet * set /** The set to use */
 		PBL_FREE(resultArray);
 		return NULL;
 	}
-
 	return resultArray;
 }
