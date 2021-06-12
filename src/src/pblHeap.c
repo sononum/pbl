@@ -24,8 +24,8 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblHeap.c,v $
- Revision 1.11  2017/01/04 19:04:21  peter
- Code formatting
+ Revision 1.12  2021/06/12 11:18:26  peter
+ Synchronizing with github version
 
 
  Revision 1.5  2010/08/31 21:06:20  peter
@@ -36,7 +36,7 @@
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblHeap_c_id = "$Id: pblHeap.c,v 1.11 2017/01/04 19:04:21 peter Exp $";
+char* pblHeap_c_id = "$Id: pblHeap.c,v 1.12 2021/06/12 11:18:26 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>

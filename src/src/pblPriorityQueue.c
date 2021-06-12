@@ -24,20 +24,19 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblPriorityQueue.c,v $
- Revision 1.15  2017/01/04 20:55:35  peter
- Code formatting
+ Revision 1.16  2021/06/12 11:18:27  peter
+ Synchronizing with github version
 
 
  Revision 1.10  2010/08/20 20:10:25  peter
  Implemented the priority queue functions.
-
 
  */
 
 /*
  * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
  */
-char* pblPriorityQueue_c_id = "$Id: pblPriorityQueue.c,v 1.15 2017/01/04 20:55:35 peter Exp $";
+char* pblPriorityQueue_c_id = "$Id: pblPriorityQueue.c,v 1.16 2021/06/12 11:18:27 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
