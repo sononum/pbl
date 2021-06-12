@@ -24,6 +24,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCgi.c,v $
+ Revision 1.53  2021/06/12 22:52:29  peter
+ Reformatting with visual studio.
+
  Revision 1.52  2021/06/12 11:18:27  peter
  Synchronizing with github version
 
@@ -31,7 +34,7 @@
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblCgi_c_id = "$Id: pblCgi.c,v 1.52 2021/06/12 11:18:27 peter Exp $";
+char* pblCgi_c_id = "$Id: pblCgi.c,v 1.53 2021/06/12 22:52:29 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -45,16 +48,9 @@ char* pblCgi_c_id = "$Id: pblCgi.c,v 1.52 2021/06/12 11:18:27 peter Exp $";
 #include "pbl.h"
 #include "pblCgi.h"
 
-/*****************************************************************************/
-/* #defines                                                                  */
-/*****************************************************************************/
 #define PBL_CGI_MAX_SIZE_OF_BUFFER_ON_STACK		(15 * 1024)
 #define PBL_CGI_MAX_QUERY_PARAMETERS_COUNT		128
 #define PBL_CGI_MAX_POST_INPUT_LEN				(32 * 1024 * 1024)
-
-/*****************************************************************************/
-/* Variables                                                                 */
-/*****************************************************************************/
 
 PblMap* pblCgiConfigMap = NULL;
 
@@ -68,6 +64,11 @@ int pblCgiContentLength = -1;
 char* pblCgiCookieKey = PBL_CGI_COOKIE;
 char* pblCgiCookieTag = PBL_CGI_COOKIE "=";
 
+/**
+  * Replacement for malloc().
+  *
+  * @return  void * retptr != NULL: pointer to buffer allocated
+  */
 char* pblCgiMalloc(char* tag, size_t size)
 {
 	char* result = pbl_malloc(tag, size);
@@ -605,12 +606,12 @@ int pblCgiStrEquals(char* s1, char* s2)
  */
 int pblCgiStrCmp(char* s1, char* s2)
 {
+	if (s1 == s2)
+	{
+		return 0;
+	}
 	if (!s1)
 	{
-		if (!s2)
-		{
-			return 0;
-		}
 		return -1;
 	}
 	if (!s2)
@@ -1037,7 +1038,7 @@ void pblCgiParseQuery(int argc, char* argv[])
 		}
 		pblCgiQueryString = argv[1];
 	}
-	else if (!strcmp(ptr, "GET"))
+	else if (!pblCgiStrCmp(ptr, "GET"))
 	{
 		ptr = pblCgiGetEnv("QUERY_STRING");
 		if (ptr && *ptr)
@@ -1045,7 +1046,7 @@ void pblCgiParseQuery(int argc, char* argv[])
 			pblCgiQueryString = ptr;
 		}
 	}
-	else if (!strcmp(ptr, "POST"))
+	else if (!pblCgiStrCmp(ptr, "POST"))
 	{
 		ptr = pblCgiGetEnv("QUERY_STRING");
 		if (!ptr || !*ptr)
@@ -1377,7 +1378,7 @@ static char* pblCgiSkip(char* string, char* skipKey, FILE* outStream, int iterat
 		if (ptr2)
 		{
 			char* key = pblCgiStrRangeDup(ptr, ptr2);
-			if (!strcmp(skipKey, key))
+			if (!pblCgiStrCmp(skipKey, key))
 			{
 				PBL_FREE(skipKey);
 				PBL_FREE(key);
@@ -1502,7 +1503,7 @@ static char* pblCgiHandleFor(PblList* list, char* line, char* forKey)
 		if (ptr2)
 		{
 			char* key = pblCgiStrRangeDup(ptr, ptr2);
-			if (!strcmp(forKey, key))
+			if (!pblCgiStrCmp(forKey, key))
 			{
 				PBL_FREE(key);
 				return NULL;
@@ -1750,6 +1751,7 @@ PblMap* pblCgiValueMap()
 	}
 	return valueMap;
 }
+
 /**
 * Set a value for the given key.
 */
@@ -1900,11 +1902,10 @@ static char* pblCgiDurationKey = PBL_CGI_KEY_DURATION;
 */
 char* pblCgiValueForIteration(char* key, int iteration)
 {
-	if (*key && *key == *pblCgiDurationKey && !strcmp(pblCgiDurationKey, key))
+	if (*key && *key == *pblCgiDurationKey && !pblCgiStrCmp(pblCgiDurationKey, key))
 	{
 		return pblCgiValueFromMap(key, iteration, valueMap);
 	}
-
 	if (!valueMap)
 	{
 		return NULL;
@@ -1919,7 +1920,7 @@ char* pblCgiValueFromMap(char* key, int iteration, PblMap* map)
 {
 	static char* tag = "pblCgiValueFromMap";
 
-	if (*key && *key == *pblCgiDurationKey && !strcmp(pblCgiDurationKey, key))
+	if (*key && *key == *pblCgiDurationKey && !pblCgiStrCmp(pblCgiDurationKey, key))
 	{
 		struct timeval now;
 		gettimeofday(&now, NULL);

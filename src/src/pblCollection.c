@@ -25,6 +25,9 @@
  please see: http://www.mission-base.com/.
 
  $Log: pblCollection.c,v $
+ Revision 1.20  2021/06/12 22:53:22  peter
+ More cleanup
+
  Revision 1.19  2021/06/12 11:18:27  peter
  Synchronizing with github version
 
@@ -38,7 +41,7 @@
  /*
   * Make sure "strings <exe> | grep Id | sort -u" shows the source file versions
   */
-char* pblCollection_c_id = "$Id: pblCollection.c,v 1.19 2021/06/12 11:18:27 peter Exp $";
+char* pblCollection_c_id = "$Id: pblCollection.c,v 1.20 2021/06/12 22:53:22 peter Exp $";
 
 #include <stdio.h>
 #include <memory.h>
@@ -68,7 +71,6 @@ int pblCollectionElementCompare( /*                                           */
 	{
 		return 0;
 	}
-
 	if (!left)
 	{
 		return -1;
@@ -77,7 +79,6 @@ int pblCollectionElementCompare( /*                                           */
 	{
 		return 1;
 	}
-
 	if (collection->compare)
 	{
 		/*
@@ -85,7 +86,6 @@ int pblCollectionElementCompare( /*                                           */
 		 */
 		return (*(collection->compare))(&left, &right);
 	}
-
 	/*
 	 * Use the pointers of the objects to compare as default
 	 */
@@ -123,16 +123,14 @@ int pblCollectionDefaultCompare( /*                     */
 	/*
 	 * Use the pointers of the objects to compare
 	 */
-	if (leftPointer < rightPointer)
-	{
-		return -1;
-	}
-
 	if (leftPointer == rightPointer)
 	{
 		return 0;
 	}
-
+	if (leftPointer < rightPointer)
+	{
+		return -1;
+	}
 	return 1;
 }
 
@@ -166,13 +164,13 @@ int pblCollectionStringCompareFunction( /*              */
 	char* leftPointer = *(char**)left;
 	char* rightPointer = *(char**)right;
 
+	if (leftPointer == rightPointer)
+	{
+		return 0;
+	}
 	if (!leftPointer)
 	{
-		if (rightPointer)
-		{
-			return -1;
-		}
-		return 0;
+		return -1;
 	}
 	if (!rightPointer)
 	{
