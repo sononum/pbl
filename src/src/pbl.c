@@ -74,7 +74,7 @@ void* pbl_malloc(
 	void* ptr = malloc(size);
 	if (!ptr)
 	{
-#ifdef PBL_MS_VS_2012
+#ifdef _WIN32
 #pragma warning(disable: 4996)
 #endif
 		snprintf(pbl_errstr, PBL_ERRSTR_LEN,
@@ -103,7 +103,7 @@ void* pbl_malloc0(
 	void* ptr = calloc((size_t)1, size);
 	if (!ptr)
 	{
-#ifdef PBL_MS_VS_2012
+#ifdef _WIN32
 #pragma warning(disable: 4996)
 #endif
 		snprintf(pbl_errstr, PBL_ERRSTR_LEN,

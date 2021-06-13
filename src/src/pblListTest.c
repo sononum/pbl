@@ -86,7 +86,7 @@ static int diffFiles( FILE * file1, char * logFileName )
 	int lineNumber1 = 1;
 	int lineNumber2 = 1;
 
-#ifdef PBL_MS_VS_2012
+#ifdef _WIN32
 #pragma warning(disable: 4996)
 #endif
     FILE * file2 = fopen( logFileName, "r" );
@@ -238,7 +238,7 @@ int pblList_TestFrame( int argc, char * argv[] )
     infile = stdin;
     if( argc > 1 )
     {
-#ifdef PBL_MS_VS_2012
+#ifdef _WIN32
 #pragma warning(disable: 4996)
 #endif
         infile = fopen( argv[ 1 ], "r" );

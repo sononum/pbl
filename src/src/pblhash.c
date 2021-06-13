@@ -306,7 +306,7 @@ void                    * dataptr /** Dataptr to insert                   */
     {
         if(( item->keylen == keylen ) && !memcmp( item->key, key, keylen ))
         {
-#ifdef PBL_MS_VS_2012
+#ifdef _WIN32
 #pragma warning(disable: 4996)
 #endif
             snprintf( pbl_errstr, PBL_ERRSTR_LEN,
